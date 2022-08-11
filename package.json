@@ -1,0 +1,35 @@
+{
+  "name": "@ueberbit/uebertool",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@7.6.0",
+  "author": {
+    "name": "UEBERBIT GmbH",
+    "url": "https://ueberbit.de"
+  },
+  "contributors": [
+    {
+      "name": "Willi Woldt",
+      "email": "willi.woldt@ueberbit.de"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/uebertool/tree/main/stylelint-config",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7.6.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "release": "bumpp package.json packages/*/package.json --commit --push --tag"
+  },
+  "devDependencies": {
+    "@ueberbit/eslint-config": "workspace:*",
+    "@ueberbit/stylelint-config": "workspace:*",
+    "bumpp": "^8.2.1",
+    "eslint": "^8.21.0",
+    "eslint-plugin-antfu": "^0.25.2",
+    "stylelint": "^14.9.1",
+    "typescript": "^4.7.4"
+  }
+}

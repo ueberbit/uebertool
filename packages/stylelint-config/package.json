@@ -1,0 +1,30 @@
+{
+  "name": "@ueberbit/stylelint-config",
+  "version": "0.0.0",
+  "description": "UEBERBIT StyleLint config",
+  "author": {
+    "name": "UEBERBIT GmbH",
+    "url": "https://ueberbit.de"
+  },
+  "contributors": [
+    {
+      "name": "Willi Woldt",
+      "email": "willi.woldt@ueberbit.de"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/uebertool/tree/main/stylelint-config",
+  "keywords": [
+    "stylelint-config"
+  ],
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "stylelint": "^14.9.1",
+    "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-standard": "^26.0.0",
+    "stylelint-order": "^5.0.0"
+  }
+}

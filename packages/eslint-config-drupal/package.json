@@ -1,0 +1,25 @@
+{
+  "name": "@ueberbit/eslint-config-drupal",
+  "version": "0.0.0",
+  "description": "UEBERBIT ESLint config for Drupal",
+  "author": {
+    "name": "UEBERBIT GmbH",
+    "url": "https://ueberbit.de"
+  },
+  "contributors": [
+    {
+      "name": "Willi Woldt",
+      "email": "willi.woldt@ueberbit.de"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/uebertool/tree/main/eslint-config-drupal",
+  "keywords": [
+    "eslint-config",
+    "drupal"
+  ],
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ]
+}
