@@ -24,6 +24,7 @@
   "dependencies": {
     "@antfu/eslint-config": "^0.25.2",
     "@ueberbit/eslint-config-drupal": "workspace:*",
+    "eslint": "^8.21.0",
     "eslint-gitignore": "^0.1.0"
   }
 }
