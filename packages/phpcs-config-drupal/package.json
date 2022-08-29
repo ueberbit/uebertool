@@ -1,7 +1,7 @@
 {
-  "name": "@ueberbit/eslint-config-drupal",
+  "name": "@ueberbit/phpcs-config-drupal",
   "version": "0.0.1-beta.1",
-  "description": "UEBERBIT ESLint config for Drupal",
+  "description": "UEBERBIT phpcs config for drupal",
   "author": {
     "name": "UEBERBIT GmbH",
     "url": "https://ueberbit.de"
@@ -13,14 +13,12 @@
     }
   ],
   "license": "MIT",
-  "homepage": "https://github.com/uebertool/tree/main/eslint-config-drupal",
+  "homepage": "https://github.com/uebertool/tree/main/phpcs-config-drupal",
   "keywords": [
-    "eslint-config",
-    "drupal"
+    "phpcs-config"
   ],
-  "main": "index.js",
   "files": [
-    "index.js",
+    "ruleset.xml",
     "dist",
     "bin"
   ],

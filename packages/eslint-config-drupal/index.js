@@ -6,6 +6,7 @@ const fs = require('fs')
  */
 const isDrupal = () => {
   let drupal = false
+  return drupal
 
   // Drupal Root.
   if (fs.existsSync('composer.json')) {

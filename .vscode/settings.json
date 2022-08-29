@@ -1,30 +1,32 @@
 {
-  // CSS Settings.
-  "css.validate": false, // Use stylelint instead.
+  "css.validate": false,
   "emmet.includeLanguages": {
-    "tailwindcss": "postcss" // Use tailwindcss in postcss files.
+    "tailwindcss": "postcss"
   },
   "files.associations": {
-    "*.css": "tailwindcss" // Associate *.css files with tailwindcss.
+    "*.css": "tailwindcss"
   },
   "stylelint.snippet": [
     "tailwindcss"
   ],
   "stylelint.validate": [
-    "tailwindcss" // Use stylelint for tailwindcss files.
+    "tailwindcss",
+    "vue"
   ],
-
-  // Linting
+  "prettier.printWidth": 200,
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "phpsab.snifferMode": "onType",
   "editor.codeActionsOnSave": {
     "source.fixAll": false,
-    "source.fixAll.eslint": true, // this allows ESLint to auto fix on save
+    "source.fixAll.eslint": true,
     "source.organizeImports": false
   },
   "eslint.codeAction.showDocumentation": {
-    "enable": true
+    "enable": false
   },
   "eslint.quiet": true,
-  "eslint.validate": [ // Also validate other file types.
+  "eslint.validate": [
     "javascript",
     "typescript",
     "javascriptreact",
@@ -36,12 +38,15 @@
     "jsonc",
     "json5"
   ],
-
-  // Prettier
-  "prettier.printWidth": 200,
-  "prettier.semi": false,
-  "prettier.singleQuote": true,
-
-  // Vue
-  "volar.completion.preferredTagNameCase": "pascal" // PascalCase so you don't confuse vue with custom elements.
+  "phpsab.fixerEnable": true,
+  "phpsab.snifferEnable": true,
+  "phpsab.executablePathCS": "./vendor/bin/phpcs",
+  "phpsab.executablePathCBF": "./vendor/bin/phpcbf",
+  "phpsab.standard": "./node_modules/@ueberbit/phpcs-config-drupal/ruleset.xml",
+  "phpsab.debug": true,
+  "eslint.alwaysShowStatus": false,
+  "eslint.format.enable": true,
+  "eslint.packageManager": "pnpm",
+  "eslint.run": "onSave",
+  "eslint.runtime": "/usr/local/opt/node@18/bin/node"
 }

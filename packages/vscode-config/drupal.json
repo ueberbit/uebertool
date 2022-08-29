@@ -1,0 +1,30 @@
+{
+  /* Exclude files from search. */
+  "search.exclude": {
+    "**/vendor": true,
+    "**/web/libraries": true,
+    "**/sites/*/files": true
+  },
+
+  /* File associations */
+  "files.associations": {
+    "*.inc": "php",
+    "*.module": "php",
+    "*.install": "php",
+    "*.theme": "php",
+    "*.tpl.php": "php",
+    "*.test": "php",
+    "*.php": "php",
+    "*.info": "ini",
+    "*.html": "twig"
+  },
+
+  /* PHPCBF */
+  "phpsab.fixerEnable": true,
+  "phpsab.snifferEnable": true,
+  "phpsab.executablePathCS": "./vendor/bin/phpcs",
+  "phpsab.executablePathCBF": "./vendor/bin/phpcbf",
+  "phpsab.standard": "./.vscode/ruleset.xml",
+  "phpsab.snifferMode": "onType",
+  "phpsab.debug": true
+}

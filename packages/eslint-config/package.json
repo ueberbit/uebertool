@@ -19,11 +19,18 @@
   ],
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "dist",
+    "bin"
   ],
+  "scripts": {
+    "build": "unbuild",
+    "postinstall": "./bin/postInstall.mjs"
+  },
   "dependencies": {
     "@antfu/eslint-config": "^0.25.2",
     "@ueberbit/eslint-config-drupal": "workspace:*",
+    "@ueberbit/utils": "workspace:*",
     "eslint": "^8.21.0",
     "eslint-gitignore": "^0.1.0"
   }

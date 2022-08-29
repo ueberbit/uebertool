@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="drupal">
+  <description>UEBERBIT PHPCS Config</description>
+  <arg name="extensions" value="php,module,inc,install,test,profile,theme,info"/>
+
+  <!-- Include drupal coder standard -->
+  <rule ref="../../vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml"/>
+
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="130"/>
+      <property name="absoluteLineLimit" value="130"/>
+    </properties>
+  </rule>
+</ruleset>

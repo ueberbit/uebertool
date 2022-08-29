@@ -1,0 +1,13 @@
+{
+  /* General Editor Settings */
+  "editor.autoIndent": "advanced",
+  "editor.insertSpaces": true,
+  "editor.renderWhitespace": "boundary",
+  "editor.wordWrapColumn": 130,
+  "editor.wordWrap": "off",
+  "editor.tabSize": 2,
+  "editor.rulers": [130],
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "css.validate": false
+}

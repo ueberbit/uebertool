@@ -1,0 +1,10 @@
+{
+  "extra": {
+    "drupal-scaffold": {
+      "file-mapping": {
+        "[web-root]/.eslintrc.json": false,
+        "[web-root]/.csslintrc": false
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "@ueberbit/utils",
+  "version": "0.0.1-beta.1",
+  "description": "UEBERBIT UEBERTOOL utils",
+  "author": {
+    "name": "UEBERBIT GmbH",
+    "url": "https://ueberbit.de"
+  },
+  "contributors": [
+    {
+      "name": "Willi Woldt",
+      "email": "willi.woldt@ueberbit.de"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/uebertool/tree/main/utils",
+  "keywords": [
+    "utils"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "prepublishOnly": "pnpm run build",
+    "test": "vitest"
+  },
+  "unbuild": {
+    "declaration": true
+  }
+}
