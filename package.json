@@ -14,7 +14,7 @@
     }
   ],
   "license": "MIT",
-  "homepage": "https://github.com/uebertool/tree/main/stylelint-config",
+  "homepage": "https://github.com/ueberbit/uebertool",
   "engines": {
     "node": ">=18",
     "pnpm": ">=7.6.0"

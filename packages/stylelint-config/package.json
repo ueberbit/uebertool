@@ -13,7 +13,7 @@
     }
   ],
   "license": "MIT",
-  "homepage": "https://github.com/uebertool/tree/main/stylelint-config",
+  "homepage": "https://github.com/ueberbit/uebertool/tree/main/packages/stylelint-config",
   "keywords": [
     "stylelint-config"
   ],
