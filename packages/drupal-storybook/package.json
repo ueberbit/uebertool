@@ -1,0 +1,64 @@
+{
+  "name": "@ueberbit/drupal-storybook",
+  "version": "1.0.0",
+  "description": "",
+  "author": {
+    "name": "UEBERBIT GmbH",
+    "url": "https://ueberbit.de"
+  },
+  "license": "MIT",
+  "keywords": [
+    "Storybook for Drupal"
+  ],
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7.6.0"
+  },
+  "contributors": [
+    {
+      "name": "Willi Woldt",
+      "email": "willi.woldt@ueberbit.de"
+    }
+  ],
+  "scripts": {
+    "postinstall": "esno scripts/postInstall.ts"
+  },
+  "dependencies": {
+    "@babel/core": "^7.16.5",
+    "@storybook/addon-a11y": "^6.5.10",
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-docs": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/addons": "^6.5.10",
+    "@storybook/builder-vite": "^0.2.2",
+    "@storybook/builder-webpack5": "^6.5.10",
+    "@storybook/manager-webpack5": "^6.5.10",
+    "@storybook/react": "^6.5.10",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@wingsuit-designsystem/core": "^1.2.7",
+    "@wingsuit-designsystem/pattern": "^1.2.7",
+    "@wingsuit-designsystem/pattern-react": "^1.2.7",
+    "@wingsuit-designsystem/storybook": "^1.2.7",
+    "esno": "^0.16.3",
+    "fs-extra": "^10.1.0",
+    "path": "^0.12.7",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "storybook-addon-designs": "^6.3.1",
+    "storybook-addon-themes": "^6.1.0",
+    "storybook-dark-mode": "^1.1.0",
+    "tailwindcss": "^3.1.8",
+    "webpack": "^5.74.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@wingsuit-designsystem/pattern@1.2.7": "patches/@wingsuit-designsystem__pattern@1.2.7.patch"
+    }
+  }
+}

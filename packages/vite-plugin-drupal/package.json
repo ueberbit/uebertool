@@ -1,0 +1,50 @@
+{
+  "name": "@ueberbit/vite-plugin-drupal",
+  "private": true,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7.6.0"
+  },
+  "scripts": {
+    "build": "unbuild"
+  },
+  "dependencies": {
+    "@iconify/json": "^2.1.115",
+    "@tailwindcss/forms": "^0.5.3",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "@vue/runtime-core": "^3.2.38",
+    "@vue/shared": "^3.2.38",
+    "autoprefixer": "^10.4.8",
+    "container-query-polyfill": "^0.2.3",
+    "css-has-pseudo": "^4.0.1",
+    "postcss": "^8.4.16",
+    "postcss-import": "^14.1.0",
+    "tailwindcss": "^3.1.8",
+    "unplugin-icons": "^0.14.11",
+    "vite": "^3.0.7",
+    "vue": "^3.2.38",
+    "vue-tsc": "^0.40.6"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.14",
+    "defu": "^6.1.0",
+    "fast-glob": "^3.2.11",
+    "livereload": "^0.9.3",
+    "magic-string": "^0.26.2",
+    "rollup": "^2.78.1",
+    "yaml": "^2.1.1"
+  }
+}
