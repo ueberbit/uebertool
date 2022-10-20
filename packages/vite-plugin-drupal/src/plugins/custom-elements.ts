@@ -15,9 +15,9 @@ export default (ctx: Context): Plugin => {
     lazy: lazyLoader,
   }
 
-  function cacheStringFunction(fn) {
+  function cacheStringFunction(fn: Function) {
     const cache = Object.create(null)
-    return (str) => {
+    return (str: string) => {
       const hit = cache[str]
       return hit || (cache[str] = fn(str))
     }

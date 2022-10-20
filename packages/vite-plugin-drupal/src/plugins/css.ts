@@ -5,7 +5,7 @@ import type { Context } from './context'
 const fileRegex = /tailwind\.css/
 
 export default (ctx: Context): Plugin[] => {
-  return ctx.options.css.cascadeLayers
+  return ctx.options.css?.cascadeLayers
     ? [
         {
           name: 'vite-plugin-drupal-tailwind-cascade-layers-transform-pre',

@@ -14,6 +14,10 @@
     "tailwindcss" // Use stylelint for tailwindcss files.
   ],
 
+  "explorer.fileNesting.patterns": {
+    "*.html.twig": "${capture}.ts, ${capture}.js, ${capture}.css, ${capture}.stories.jsx, ${capture}.yml, ${capture}.ce.vue, ${capture}.vue"
+  },
+
   // Linting
   "editor.codeActionsOnSave": {
     "source.fixAll": false,

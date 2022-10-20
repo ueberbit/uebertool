@@ -3,6 +3,8 @@ import { defineBuildConfig } from 'unbuild'
 export default defineBuildConfig({
   entries: [
     'src/index',
+    'src/composables',
+    'src/ce/ApiCustomElements',
   ],
   clean: true,
   declaration: true,

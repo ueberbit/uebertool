@@ -35,7 +35,7 @@ const generateBreakpoints = async () => {
   try {
     const tailwindConfigFile = await import(`${process.cwd()}/tailwind.config.js`)
     const tailwindConfig = resolveConfig(tailwindConfigFile)
-    const breakpoints = tailwindConfig.theme?.screens ?? {}
+    const breakpoints = tailwindConfig.theme?.screens ?? {} as any
     const theme = 'UEBERBIT'
     const group = 'Tailwind'
 

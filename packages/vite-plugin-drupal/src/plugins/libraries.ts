@@ -1,26 +1,26 @@
 import Path from 'path'
 import fs from 'fs/promises'
 import { constants } from 'fs'
-import type { Plugin } from 'vite'
+import type { Plugin, ResolvedConfig } from 'vite'
 import YAML from 'yaml'
 import type { Context } from './context'
 
 // @TODO extract common code into separate function.
 export default function drupalLibraries(ctx: Context): Plugin {
-  let config
-  let files
+  let config: ResolvedConfig
+  let files: string[]
 
   return {
     name: 'vite-plugin-drupal-libraries',
     configResolved(resolvedConfig) {
       config = resolvedConfig
-      files = resolvedConfig.build?.rollupOptions?.input ?? []
+      files = resolvedConfig.build?.rollupOptions?.input as string[] ?? []
     },
     generateBundle(_, bundle, isWrite) {
       if (!isWrite || !ctx.isProduction)
         return
 
-      const library = {}
+      const library: Record<string, any> = {}
 
       Object.values(bundle)
         .filter(
@@ -91,7 +91,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
     async buildStart() {
       if (ctx.isProduction)
         return
-      const library = {
+      const library: Record<string, any> = {
         vite: {
           js: {
             'http://localhost:5173/@vite/client': {

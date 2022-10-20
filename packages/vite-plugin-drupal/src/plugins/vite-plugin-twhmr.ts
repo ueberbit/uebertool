@@ -15,7 +15,7 @@ export default (): Plugin => {
           const index = last ? code.indexOf(last) + last.length : code.indexOf(setupMatch[0]) + setupMatch[0].length
 
           s.appendLeft(index, `
-            import { useHMR } from '../../../vite/ce/useHMR'
+            import { useHMR } from '@ueberbit/vite-plugin-drupal/composables'
             useHMR()
           `)
 

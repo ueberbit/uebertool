@@ -1,5 +1,5 @@
 declare global {
-  const __DEV__
+  const __DEV__: boolean
   interface CSSStyleSheet {
     replaceSync(text: string): void
     __hmrId: string

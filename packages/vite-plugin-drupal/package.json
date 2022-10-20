@@ -1,11 +1,22 @@
 {
   "name": "@ueberbit/vite-plugin-drupal",
+  "version": "0.0.1-beta.2",
   "private": true,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
+    },
+    "./composables": {
+      "types": "./dist/composables.d.ts",
+      "require": "./dist/composables.cjs",
+      "import": "./dist/composables.mjs"
+    },
+    "./ApiCustomElements": {
+      "types": "./dist/ApiCustomElements.d.ts",
+      "require": "./dist/ApiCustomElements.cjs",
+      "import": "./dist/ApiCustomElements.mjs"
     }
   },
   "main": "dist/index.cjs",

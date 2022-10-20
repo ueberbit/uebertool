@@ -1,7 +1,7 @@
 /**
  * Common functionality for all loaders.
  */
-export const common = config => `
+export const common = (config: Record<string, any>) => `
 
 const cacheStringFunction = (fn) => {
   const cache = Object.create(null)
@@ -27,7 +27,7 @@ const getTagName = (path) => {
  * Intersection Observer based loader for loading components when entering
  * the viewport.
  */
-export const visibleLoader = modules => `
+export const visibleLoader = (modules: Record<string, any>) => `
 class CustomElementLoader {
   #options
   #modules
@@ -68,7 +68,7 @@ class CustomElementLoader {
       if (entry.isIntersecting && tagname in this.#modules) {
         if (this.#modules[tagname].path.match(/vue$/)) {
           this.#modules[tagname].mod().then(async(mod) => {
-            const { defineCustomElement } = await import('~/vite/ce/ApiCustomElements')
+            const { defineCustomElement } = await import('@ueberbit/vite-plugin-drupal/ApiCustomElements')
             customElements.define(tagname, defineCustomElement(mod.default))
           })
         } else {
@@ -102,7 +102,7 @@ Drupal.behaviors.customElementLoader = {
  * Lazy load components when the browser is idle.
  * Requires polyfill for Safari.
  */
-export const idleLoader = modules => `
+export const idleLoader = (modules: Record<string, any>) => `
 const idleLoader = async () => {
   const idleCE = ${modules}
 
@@ -110,7 +110,7 @@ const idleLoader = async () => {
     const tagname = getTagName(path)
     if (!tagname) continue
     if (path.match(/vue$/)) {
-      const { defineCustomElement } = await import('~/vite/ce/ApiCustomElements')
+      const { defineCustomElement } = await import('@ueberbit/vite-plugin-drupal/ApiCustomElements')
       customElements.define(tagname, defineCustomElement((await idleCE[path]()).default))
     } else {
       const ce = await idleCE[path]()
@@ -137,9 +137,9 @@ if ('requestIdleCallback' in window) {
 /**
  * Eagerly loads components.
  */
-export const eagerLoader = (imports, modules) => `
+export const eagerLoader = (imports: string, modules: Record<string, any>) => `
 ${imports}
-import { defineCustomElement } from '~/vite/ce/ApiCustomElements'
+import { defineCustomElement } from '@ueberbit/vite-plugin-drupal/ApiCustomElements'
 
 const eagerCE = ${modules}
 
@@ -155,7 +155,7 @@ Object.keys(eagerCE).forEach(ce => {
 /**
  * Lazy loads components.
  */
-export const lazyLoader = modules => `
+export const lazyLoader = (modules: Record<string, any>) => `
 ;(async () => {
   const lazyCe = ${modules}
 
@@ -164,7 +164,7 @@ export const lazyLoader = modules => `
     if (!tagname) continue
 
     if (path.match(/vue$/)) {
-      const { defineCustomElement } = await import('~/vite/ce/ApiCustomElements')
+      const { defineCustomElement } = await import('@ueberbit/vite-plugin-drupal/ApiCustomElements')
       customElements.define(tagname, defineCustomElement((await lazyCe[path]()).default))
     } else {
       const ce = await lazyCe[path]()

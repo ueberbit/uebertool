@@ -1,11 +1,11 @@
 import fs from 'node:fs/promises'
 import { constants } from 'node:fs'
-import type { Plugin } from 'vite'
+import type { Plugin, ResolvedConfig } from 'vite'
 import YAML from 'yaml'
 import type { Context } from './context'
 
 export default (ctx: Context): Plugin => {
-  let config
+  let config: ResolvedConfig
 
   const themeInfoDefault = {
     'name': `${ctx.themeName} dist`,
