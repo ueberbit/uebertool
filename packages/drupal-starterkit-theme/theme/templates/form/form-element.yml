@@ -1,0 +1,172 @@
+form-element:
+  use: "@ueberbit/form/form-element.html.twig"
+  namespace: "Form"
+  label: Form Element
+  description: Form Element
+  fields:
+    children:
+      type: pattern
+      label: Children
+      description: The child elements of the form.
+      preview:
+        - id: placeholder
+          fields:
+            children: This is a Form Element
+    errors:
+      type: text
+      label: Errors
+      description: (optional) Any errors for this form element, may not be set.
+    prefix:
+      type: text
+      label: Prefix
+      description: (optional) The form element prefix, may not be set.
+    suffix:
+      type: text
+      label: Suffix
+      description: (optional) The form element suffix, may not be set.
+    label:
+      type: pattern
+      label: Label
+      description: A rendered label element.
+      preview:
+        - id: form-element-label
+          fields:
+            title: Form Label
+    description_content:
+      type: text
+      label: Description Content
+
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: HTML attributes for the containing element.
+    description_attributes:
+      type: attributes
+      label: Description Attributs
+    required:
+      type: boolean
+      label: Required
+      description: The required marker, or empty if the associated form element is not required.
+    type:
+      type: select
+      label: Type
+      description: The type of the element.
+      options:
+        text: text
+        password: password
+        select: select
+    label_display:
+      type: select
+      label: Label Display
+      description: |
+        Label display setting. It can have these values:
+        - before: The label is output before the element. This is the default.
+          The label includes the #title and the required marker, if #required.
+        - after: The label is output after the element. For example, this is used
+          for radio and checkbox #type elements. If the #title is empty but the
+          field is #required, the label will contain only the required marker.
+        - invisible: Labels are critical for screen readers to enable them to
+          properly navigate through forms but can be visually distracting. This
+          property hides the label for everyone except screen readers.
+        - attribute: Set the title attribute on the element to create a tooltip but
+          output no label element. This is supported only for checkboxes and radios
+          in \Drupal\Core\Render\Element\CompositeFormElementTrait::preRenderCompositeFormElement().
+          It is used where a visual label is not needed, such as a table of
+          checkboxes where the row and column provide the context. The tooltip will
+          include the title and required marker.
+      options:
+        before: before
+        after: after
+        invisible: invisible
+        attribute: attribute
+      preview: after
+    description_display:
+      type: select
+      label: Desciption Display
+      description: |
+        Description display setting. It can have these values:
+        - before: The description is output before the element.
+        - after: The description is output after the element. This is the default
+          value.
+        - invisible: The description is output after the element, hidden visually
+          but available to screen readers.
+      options:
+        before: before
+        after: after
+        invisible: invisible
+      preview: before
+    disabled:
+      type: boolean
+      label: Disabled
+      description: True if the element is disabled.
+    title_display:
+      type: select
+      label: Title display
+      description: Title display setting.
+      options:
+        before: before
+        after: after
+        invisible: invisible
+      preview: after
+
+  variants:
+    __default:
+      label: Default
+    select:
+      label: Select
+      fields:
+        children:
+          - id: select
+            settings:
+              attributes: type="select" class="form-select" id="select"
+        label:
+          - id: form-element-label
+            settings:
+              attributes: for="select"
+    select_multiple:
+      label: Select Multiple
+      fields:
+        children:
+          - id: select
+            variant: multiple
+            settings:
+              attributes: type="select" class="form-multiselect" id="multiselect"
+        label:
+          - id: form-element-label
+            settings:
+              attributes: for="multiselect"
+    radio:
+      label: Radio
+      fields:
+        children:
+          - id: input_radio
+            settings:
+              attributes: type="radio" class="form-radio" id="radio"
+        label:
+          - id: form-element-label
+            settings:
+              attributes: for="radio"
+    toggle:
+      label: Toggle
+      fields:
+        children:
+          - id: input_toggle
+            settings:
+              attributes: type="checkbox" class="form-toggle" id="toggle"
+        label:
+          - id: form-element-label
+            settings:
+              attributes: for="toggle"
+
+    checkbox:
+      label: Checkbox
+      fields:
+        children:
+          - id: input_checkbox
+            settings:
+              attributes: type="checkbox" class="form-checkbox" id="checkbox"
+        label:
+          - id: form-element-label
+            settings:
+              attributes: for="checkbox"

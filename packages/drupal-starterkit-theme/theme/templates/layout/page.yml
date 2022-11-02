@@ -1,0 +1,106 @@
+page:
+  use: "@ueberbit/layout/page.html.twig"
+  namespace: "Layout"
+  label: Page
+  description: Page
+  fields:
+    page:
+      type: pattern
+      label: Page
+      description: The Page
+      multi_value_type: items
+      preview:
+        header:
+          id: button
+        content:
+          id: region
+          fields:
+            content:
+              id: block
+              variant: 'inline'
+              fields:
+                content:
+                  id: placeholder
+                  fields:
+                    children: This is some awesome content.
+
+        footer:
+          id: button
+  variants:
+    default:
+      label: Default Page
+      fields:
+        page:
+          header:
+            id: placeholder
+            fields:
+              children: header
+          content:
+            id: region
+            fields:
+              content:
+                id: block
+                variant: 'inline'
+                fields:
+                  content:
+                    id: button
+                    fields:
+                      text: This is some awesome content.
+          footer:
+            id: placeholder
+            fields:
+              children: footer
+
+    contact:
+      label: Contact Page
+      fields:
+        page:
+          header:
+            id: placeholder
+            fields:
+              children: header
+          footer:
+            id: placeholder
+            fields:
+              children: footer
+          content:
+            id: region
+            fields:
+              content:
+                id: block
+                variant: 'inline'
+                fields:
+                  content:
+                    id: form
+                    fields:
+                      children:
+                        - id: form-element
+                          fields:
+                            children:
+                              id: placeholder
+                              fields:
+                                children: <input type="text" />
+                            label:
+                              id: form-element-label
+                              fields:
+                                title: Your name
+                        - id: form-element
+                          fields:
+                            children:
+                              id: placeholder
+                              fields:
+                                children: <input type="text" />
+                            label:
+                              id: form-element-label
+                              fields:
+                                title: Your email address
+                        - id: form-element
+                          fields:
+                            children:
+                              id: placeholder
+                              fields:
+                                children: <input type="text" />
+                            label:
+                              id: form-element-label
+                              fields:
+                                title: Subject

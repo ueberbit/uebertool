@@ -1,0 +1,423 @@
+input:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Hidden"
+  label: Inputs
+  description: The input HTML element.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="text" class="form-input"
+
+input_button:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Button"
+  label: Button
+  description: |
+    &lt;input&gt; elements of type button are rendered as simple push buttons, which can be programmed to control custom functionality anywhere on a webpage as required when assigned an event handler function (typically for the click event).
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="button" role="button" value="button"
+
+input_radio:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs"
+  label: Radio
+  description: |
+    &lt;input&gt; elements of type radio are generally used in radio groups—collections of radio buttons describing a set of related options.
+    Only one radio button in a given group can be selected at the same time. Radio buttons are typically rendered as small circles, which are filled or highlighted when selected.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="radio"  class="form-radio"
+
+input_toggle:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Checkbox"
+  label: Toggle
+  description: |
+    &lt;input&gt; elements of type checkbox that do not appear in groups are commonly rendered as a toggle instead of a checkbox.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="checkbox" class="form-toggle"
+
+input_checkbox:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Checkbox"
+  label: Checkbox
+  description: |
+    &lt;input&gt; elements of type checkbox are rendered by default as boxes that are checked (ticked) when activated, like you might see in an official government paper form. The exact appearance depends upon the operating system configuration under which the browser is running. Generally this is a square but it may have rounded corners. A checkbox allows you to select single values for submission in a form (or not).
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="checkbox" class="form-checkbox"
+
+input_color:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs"
+  label: Color
+  description: |
+    &lt;input&gt; elements of type color provide a user interface element that lets a user specify a color, either by using a visual color picker interface or by entering the color into a text field in #rrggbb hexadecimal format.
+
+    Only simple colors (without alpha channel) are allowed though CSS colors has more formats, e.g. color names, functional notations and a hexadecimal format with an alpha channel.
+
+    The element's presentation may vary substantially from one browser and/or platform to another—it might be a simple textual input that automatically validates to ensure that the color information is entered in the proper format, or a platform-standard color picker, or some kind of custom color picker window.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="color" value="#fbfe7b"
+
+input_date:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Time"
+  label: Date
+  description: |
+    &lt;input&gt; elements of type="date" create input fields that let the user enter a date, either with a textbox that validates the input or a special date picker interface.
+    The resulting value includes the year, month, and day, but not the time. The time and datetime-local input types support time and date+time input.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="date" class="form-input"
+
+input_datetime_local:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Time"
+  label: Date Time Local
+  description: |
+    &lt;input&gt; elements of type datetime-local create input controls that let the user easily enter both a date and a time, including the year, month, and day as well as the time in hours and minutes.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="datetime-local" class="form-input"
+
+input_email:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Text"
+  label: Email
+  description: |
+    &lt;input&gt; elements of type email are used to let the user enter and edit an e-mail address, or, if the multiple attribute is specified, a list of e-mail addresses.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="email" placeholder="foobar@ueberbit.de" class="form-input"
+
+input_file:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs"
+  label: File
+  description: |
+    &lt;input&gt; elements with type="file" let the user choose one or more files from their device storage. Once chosen, the files can be uploaded to a server using form submission, or manipulated using JavaScript code and the File API.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="file"
+
+input_image:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Button"
+  label: Image
+  description: |
+    &lt;input&gt; elements of type image are used to create graphical submit buttons, i.e. submit buttons that take the form of an image rather than text.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="image" src="https://github.com/drupal/drupal/blob/9.5.x/core/misc/druplicon.png?raw=true"
+
+input_month:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Time"
+  label: Month
+  description: |
+    &lt;input&gt; elements of type month create input fields that let the user enter a month and year allowing a month and year to be easily entered. The value is a string whose value is in the format "YYYY-MM", where YYYY is the four-digit year and MM is the month number.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="month" class="form-input"
+
+input_number:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs"
+  label: Number
+  description: |
+    &lt;input&gt; elements of type number are used to let the user enter a number. They include built-in validation to reject non-numerical entries.
+    The browser may opt to provide stepper arrows to let the user increase and decrease the value using their mouse or by tapping with a fingertip.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="number" placeholder="42" class="form-input"
+
+input_password:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Text"
+  label: Password
+  description: |
+    &lt;input&gt; elements of type password provide a way for the user to securely enter a password.
+    The element is presented as a one-line plain text editor control in which the text is obscured so that it cannot be read, usually by replacing each character with a symbol such as the asterisk ("*") or a dot ("•"). This character will vary depending on the user agent and operating system.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="password" class="form-input"
+
+input_reset:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Button"
+  label: Reset
+  description: |
+    &lt;input&gt; elements of type reset are rendered as buttons, with a default click event handler that resets all of the inputs in the form to their initial values.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="reset"
+
+input_search:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Text"
+  label: Search
+  description: |
+    &lt;input&gt; elements of type search are text fields designed for the user to enter search queries into. These are functionally identical to text inputs, but may be styled differently by the user agent.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="search" placeholder="Searching stuff is fun!" class="form-input"
+
+input_submit:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Button"
+  label: Submit
+  description: |
+    &lt;input&gt; elements of type submit are rendered as buttons. When the click event occurs (typically because the user clicked the button), the user agent attempts to submit the form to the server.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="submit"
+
+input_tel:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Text"
+  label: Telephone
+  description: |
+    &lt;input&gt; elements of type tel are used to let the user enter and edit a telephone number. Unlike &lt;input type="email"&gt; and &lt;input type="url"&gt;, the input value is not automatically validated to a particular format before the form can be submitted, because formats for telephone numbers vary so much around the world.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="tel" placeholder="+49 123 456789" class="form-input"
+
+input_text:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Text"
+  label: Text
+  description: |
+    &lt;input&gt; elements of type text create basic single-line text fields.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="text" placeholder="placeholder" class="form-input"
+
+input_time:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Time"
+  label: Time
+  description: |
+    &lt;input&gt; elements of type time create input fields designed to let the user easily enter a time (hours and minutes, and optionally seconds).
+
+    The control's user interface varies from browser to browser; see Browser compatibility for further details. In unsupported browsers, the control degrades gracefully to &lt;input type="text"&gt;.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="time" class="form-input"
+
+input_url:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Text"
+  label: URL
+  description: |
+    &lt;input&gt; elements of type url are used to let the user enter and edit a URL.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="url" placeholder="https://" class="form-input"
+
+input_week:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs/Time"
+  label: Week
+  description: |
+    &lt;input&gt; elements of type week create input fields allowing easy entry of a year plus the ISO 8601 week number during that year (i.e., week 1 to 52 or 53).
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="week" class="form-input"
+
+input_range:
+  use: "@ueberbit/form/input.html.twig"
+  namespace: "Form/Inputs"
+  label: Range
+  description: |
+    &lt;input&gt; elements of type range let the user specify a numeric value which must be no less than a given value, and no more than another given value. The precise value, however, is not considered important. This is typically represented using a slider or dial control rather than a text entry box like the number input type.
+    Because this kind of widget is imprecise, it should only be used if the control's exact value isn't important.
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the checkboxes wrapper.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: type="range"

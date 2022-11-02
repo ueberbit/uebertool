@@ -1,0 +1,19 @@
+form:
+  use: "@ueberbit/form/form.html.twig"
+  namespace: "Form"
+  label: Form
+  description: Form
+  fields:
+    children:
+      type: pattern
+      label: Children
+      description: The child elements of the form.
+      preview:
+        - id: placeholder
+          fields:
+            children: This is a Form
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.

@@ -1,0 +1,24 @@
+region:
+  use: "@ueberbit/layout/region.html.twig"
+  namespace: "Layout"
+  label: Region
+  description: Region
+  fields:
+    content:
+      type: pattern
+      label: Content
+      description: The content for this region, typically blocks.
+      preview:
+        - id: placeholder
+          fields:
+            children: This is a Region
+    region:
+      type: text
+      label: Region
+      description: The name of the region variable as defined in the theme's .info.yml file.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: HTML attributes for the region <div>.
+

@@ -1,0 +1,29 @@
+{
+  "name": "@ueberbit/drupal-test",
+  "version": "0.0.1-beta.2",
+  "private": true,
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7.6.0"
+  },
+  "scripts": {
+    "dev": "vite ",
+    "build": "tsc && vite build",
+    "dev:storybook": "start-storybook -p 5174 --config-dir .storybook --ci",
+    "build:storybook": "build-storybook --config-dir .storybook"
+  },
+  "dependencies": {
+    "container-query-polyfill": "^0.2.3",
+    "css-has-pseudo": "^4.0.1"
+  },
+  "devDependencies": {
+    "@ueberbit/drupal-storybook": "workspace:*",
+    "@ueberbit/vite-plugin-drupal": "workspace:*",
+    "typescript": "^4.6.4"
+  },
+  "_pnpm": {
+    "patchedDependencies": {
+      "@wingsuit-designsystem/pattern@1.2.7": "./patches/@wingsuit-designsystem__pattern@1.2.7.patch"
+    }
+  }
+}

@@ -1,0 +1,161 @@
+@layer drupal {
+  :where(:root) {
+    --i-feather-info: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgcm9sZT0iaW1nIiBjbGFzcz0iaWNvbmlmeSBpY29uaWZ5LS1mZWF0aGVyIiB3aWR0aD0iMWVtIiBoZWlnaHQ9IjFlbSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDI0IDI0Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIj48L2NpcmNsZT48cGF0aCBkPSJNMTIgMTZ2LTRtMC00aC4wMSI+PC9wYXRoPjwvZz48L3N2Zz4=');
+    --i-feather-alert-triangle: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgcm9sZT0iaW1nIiBjbGFzcz0iaWNvbmlmeSBpY29uaWZ5LS1mZWF0aGVyIiB3aWR0aD0iMWVtIiBoZWlnaHQ9IjFlbSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDI0IDI0Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xMC4yOSAzLjg2TDEuODIgMThhMiAyIDAgMCAwIDEuNzEgM2gxNi45NGEyIDIgMCAwIDAgMS43MS0zTDEzLjcxIDMuODZhMiAyIDAgMCAwLTMuNDIgMHoiPjwvcGF0aD48cGF0aCBkPSJNMTIgOXY0Ij48L3BhdGg+PHBhdGggZD0iTTEyIDE3aC4wMSI+PC9wYXRoPjwvZz48L3N2Zz4=');
+    --i-feather-alert-octagon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgcm9sZT0iaW1nIiBjbGFzcz0iaWNvbmlmeSBpY29uaWZ5LS1mZWF0aGVyIiB3aWR0aD0iMWVtIiBoZWlnaHQ9IjFlbSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDI0IDI0Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik03Ljg2IDJoOC4yOEwyMiA3Ljg2djguMjhMMTYuMTQgMjJINy44NkwyIDE2LjE0VjcuODZMNy44NiAyeiI+PC9wYXRoPjxwYXRoIGQ9Ik0xMiA4djQiPjwvcGF0aD48cGF0aCBkPSJNMTIgMTZoLjAxIj48L3BhdGg+PC9nPjwvc3ZnPg==');
+    --i-feather-close: url('data:image/svg+xml;utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"%3E%3Cpath d="M10.657 12.071L5 6.414L6.414 5l5.657 5.657L17.728 5l1.414 1.414l-5.657 5.657l5.657 5.657l-1.414 1.414l-5.657-5.657l-5.657 5.657L5 17.728z" fill="currentColor" fill-rule="evenodd"/%3E%3C/svg%3E');
+  }
+
+  :where([data-drupal-messages]) {
+    --duration: 6000ms;
+    --animation-leave: status-messages forwards 750ms ease var(--duration) paused;
+    --animation-shake: headShake 1000ms both ease-in-out;
+    --icon-info: var(--i-feather-info);
+    --icon-warning: var(--i-feather-alert-triangle);
+    --icon-error: var(--i-feather-alert-octagon);
+    --radius: 0.5rem;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    width: 28rem;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    padding: 1rem;
+
+    & > :where(div) {
+      position: relative;
+      padding: 1rem 1rem 1rem 3.25rem;
+      margin-block-end: 1rem;
+      background-color: var(--bg);
+      color: var(--color);
+      border-radius: var(--radius);
+      overflow: hidden;
+      animation: var(--animation-shake), var(--animation-leave);
+      transform: scale(1);
+
+      &:where([data-type='status']) {
+        --icon: var(--icon-info);
+        --color: hsl(var(--inc, 221 83% 53%));
+        --bg: hsl(var(--in, 204 94% 94%));
+        animation-play-state: paused, running;
+      }
+      &:where([data-type='warning']) {
+        --icon: var(--icon-warning);
+        --color: hsl(var(--wac, 32 95% 44%));
+        --bg: hsl(var(--wa, 48 96% 89%));
+        animation-play-state: paused, running;
+      }
+      &:where([data-type='error']) {
+        --icon: var(--icon-error);
+        --color: hsl(var(--erc, 0 72% 51%));
+        --bg: hsl(var(--er, 0 93% 94%));
+      }
+
+      &:where([data-type='status']),
+      &:where([data-type='warning']) {
+        &:hover, &:hover::after {
+          animation-play-state: paused;
+        }
+        &::after {
+          animation: status-messages-progreess forwards var(--duration) linear;
+        }
+      }
+
+      &::selection,
+      & a::selection {
+        color: var(--bg);
+        background: var(--color);
+      }
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 1em;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1.25em;
+        height: 1.25em;
+        mask: var(--icon) no-repeat left center / contain;
+        mask-size: 100% 100%;
+        background-color: var(--color);
+      }
+
+      &::after {
+        content: "";
+        background-color: var(--color);
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        right: 0;
+        height: 5px;
+        transform-origin: left;
+      }
+    }
+
+    & :where(a) {
+      color: var(--color);
+      font-weight: bold;
+    }
+  }
+
+  @media(prefers-reduced-motion: reduce) {
+    :where([data-drupal-messages] > div) {
+      animation: none;
+    }
+  }
+
+  @keyframes status-messages-progreess {
+    0% {
+      transform: scaleX(1);
+    }
+    100% {
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes status-messages {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    25% {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    100% {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+    }
+  }
+
+  @keyframes headShake {
+    0% {
+      transform: translateX(0);
+    }
+
+    6.5% {
+      transform: translateX(-6px) rotateY(-9deg);
+    }
+
+    18.5% {
+      transform: translateX(5px) rotateY(7deg);
+    }
+
+    31.5% {
+      transform: translateX(-3px) rotateY(-5deg);
+    }
+
+    43.5% {
+      transform: translateX(2px) rotateY(3deg);
+    }
+
+    50% {
+      transform: translateX(0);
+    }
+  }
+}

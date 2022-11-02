@@ -1,0 +1,122 @@
+node:
+  use: "@ueberbit/node/node.html.twig"
+  namespace: "Node"
+  label: Node
+  description: Regular or outline buttons with different colors.
+  fields:
+    node:
+      type: object
+      label: node
+      description: |
+        The node entity with limited access to object properties and methods.
+        Only method names starting with "get", "has", or "is" and a few common
+        methods such as "id", "label", and "bundle" are available. For example:
+        - node.getCreatedTime() will return the node creation timestamp.
+        - node.hasField('field_example') returns TRUE if the node bundle includes
+        field_example. (This does not indicate the presence of a value in this
+        field.)
+        - node.isPublished() will return whether the node is published or not.
+          Calling other methods, such as node.delete(), will result in an exception.
+          See \Drupal\node\Entity\Node for a full list of public properties and
+          methods for the node object.
+    label:
+      type: text
+      label: label
+      description: The title of the node.
+      preview: This is the node label
+    content:
+      type: text
+      label: content
+      description: |
+        All node items. Use {{ content }} to print them all,
+        or print a subset such as {{ content.field_example }}. Use
+        {{ content|without('field_example') }} to temporarily suppress the printing
+        of a given child element.
+      preview: Content
+    author_picture:
+      type: text
+      label: author_picture
+      description: The node author user entity, rendered using the "compact" view mode.
+    metadata:
+      type: object
+      label: metadata
+      description: Metadata for this node.
+    date:
+      type: text
+      label: date
+      description: Themed creation date field.
+      preview: Wed, 08/24/2022 - 13:17
+    author_name:
+      type: text
+      label: author_name
+      description: Themed author name field.
+      preview: |
+        <span rel="schema:author" class="field field--name-uid field--type-entity-reference field--label-hidden">
+          <a title="View user profile." href="/user/1" lang="" about="/user/1" typeof="schema:Person" property="schema:name" datatype="" class="username">admin</a>
+        </span>
+    url:
+      type: text
+      label: url
+      description: Direct URL of the current node.
+      preview: '#'
+    title_prefix:
+      type: text
+      label: title_prefix
+      description: |
+        Additional output populated by modules, intended to be
+        displayed in front of the main title tag that appears in the template.
+    title_suffix:
+      type: text
+      label: title_suffix
+      description: |
+        Additional output populated by modules, intended to be
+        displayed after the main title tag that appears in the template.
+
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: HTML attributes for the containing element.
+      default_value: data-history-node-id="1" role="article" class="contextual-region" about="/node/1" typeof="schema:WebPage"
+    title_attributes:
+      type: attributes
+      label: Title Attributes
+      description: Same as attributes, except applied to the main title tag that appears in the template.
+    content_attributes:
+      type: attributes
+      label: Content Attributes
+      description: Same as attributes, except applied to the main content tag that appears in the template.
+    author_attributes:
+      type: attributes
+      label: Author Attributes
+      description: Same as attributes, except applied to the author of the node tag that appears in the template.
+    display_submitted:
+      type: boolean
+      label: display_submitted
+      default_value: false
+      description: Whether submission information should be displayed.
+    teaser:
+      type: boolean
+      label: teaser
+      default_value: false
+      description: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+    page:
+      type: boolean
+      label: page
+      default_value: false
+      description: Flag for the full page state. Will be true if view_mode is 'full'.
+    readmore:
+      type: boolean
+      label: readmore
+      default_value: false
+      description: Flag for more state. Will be true if the teaser content of the node cannot hold the main body content.
+    logged_in:
+      type: boolean
+      label: logged_in
+      default_value: false
+      description: Flag for authenticated user status. Will be true when the current user is a logged-in member.
+    is_admin:
+      type: boolean
+      label: is_admin
+      default_value: false
+      description: Flag for admin user status. Will be true when the current user is an administrator.

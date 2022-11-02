@@ -1,0 +1,29 @@
+name: UEBERBIT
+type: theme
+base theme: ueberbit_dist
+description: A flexible theme with a responsive, mobile-first layout.
+package: UEBERBIT
+core: 8.x
+core_version_requirement: ^8 || ^9
+libraries:
+  - ueberbit/global
+  - ueberbit_dist/templates/components/button/button
+  - ueberbit_dist/css/tailwind
+  - ueberbit_dist/css/gin-custom
+regions:
+  tabs: 'Tabs'
+  header: 'Header'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  breadcrumb: 'Breadcrumb'
+  content: 'Content'
+  footer: 'Footer'
+  messages: 'Messages'
+module-dependencies:
+  - drupal:admin_toolbar
+  - drupal:admin_toolbar_tools
+  - drupal:coffee
+  - drupal:gin
+  - drupal:gin_toolbar
+  - drupal:twig_field_value
+  - drupal:twig_tweak

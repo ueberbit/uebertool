@@ -1,0 +1,103 @@
+@layer drupal {
+  :root {
+    --gin-icon-view: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E %3Cpath d='M3.667 23h16.666C21.444 23 22 22.436 22 21.308V2.692C22 1.758 21.254 1 20.333 1H3.667C2.747 1 2 1.758 2 2.692v18.616C2 22.242 2.746 23 3.667 23ZM7 17h5m-5-5h10M7 7h10' fill='none' stroke='currentColor' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' /%3E %3C/svg%3E");
+    --gin-icon-edit: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E %3Cpath fill='none' stroke='currentColor' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' d='M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z' /%3E %3C/svg%3E");
+    --gin-icon-trash: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E %3Cpath fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' d='M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m-6 5v6m4-6v6' /%3E %3C/svg%3E");
+    --gin-icon-structure: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E %3Cpath fill='none' d='M12.928 1.486a2 2 0 0 0-1.856 0L1.5 6.5l9.572 5.014a2 2 0 0 0 1.856 0L22.5 6.5l-9.572-5.014ZM1.5 12l9.572 5.014a2 2 0 0 0 1.856 0L22.5 12m-21 5.5 9.572 5.014a2 2 0 0 0 1.856 0L22.5 17.5' stroke='%23000' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' /%3E %3C/svg%3E");
+  }
+
+  .visually-hidden {
+    @apply sr-only;
+  }
+
+  :where(body) {
+    margin: 0;
+  }
+
+  :where(.local-tasks) {
+    position: sticky;
+    top: var(--ginToolbarSecondaryHeight);
+    z-index: 500;
+    display: flex;
+    transform: scale(-1,1);
+    background: var(--colorGinLayerBackground);
+  }
+
+  :where(.local-tasks > ul) {
+    display: flex;
+    height: 3rem;
+    margin: 0 calc(min(5vw, 48px) - 1rem);
+    transform: scale(-1,1);
+    overflow: auto hidden;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: var(--ginFont);
+    list-style: none;
+    box-shadow: -1px 0px 0px var(--colorGinLayerBackground);
+  }
+
+  :where(.local-tasks > ul a) {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--ginBorderDefault);
+    color: var(--colorGinTextLight);
+    font-size: var(--ginFontSizeSmall);
+    text-decoration: none;
+  }
+
+  :where(.local-tasks > ul a)::before {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: var(--colorGinIcons);
+    mask-repeat: no-repeat;
+    mask-size: var(--iconGinSecondaryToolbar) var(--iconGinSecondaryToolbar);
+    mask-position: center center;
+  }
+
+  :where(.local-tasks > ul > li:first-child a)::before {
+    content: '';
+    mask-image: var(--gin-icon-view);
+  }
+
+  :where(.local-tasks > ul a[href$="/edit"])::before {
+    content: '';
+    mask-image: var(--gin-icon-edit);
+  }
+
+  :where(.local-tasks > ul a[href$="/delete"])::before {
+    content: '';
+    mask-image: var(--gin-icon-trash);
+  }
+
+  :where(.local-tasks > ul a[href$="/revisions"])::before {
+    content: '';
+    mask-image: var(--gin-icon-structure);
+  }
+
+  :where(.local-tasks > ul a:focus), :where(.local-tasks > ul a:hover) {
+    color: var(--colorGinPrimary);
+    background: var(--colorGinPrimaryLight);
+
+    &::before {
+      background: var(--colorGinPrimary);
+    }
+  }
+
+  :where(.local-tasks > ul a.is-active) {
+    background: var(--colorGinPrimaryLight);
+    color: var(--colorGinPrimary);
+  }
+
+  :where(.gin-secondary-toolbar--frontend) {
+    box-shadow: -1px -1px 0px var(--colorGinLayerBackground);
+    backdrop-filter: unset !important;
+    opacity: 1 !important;
+    background: var(--colorGinLayerBackground) !important;
+  }
+
+  :where(.dark) {
+    color-scheme: dark;
+  }
+}

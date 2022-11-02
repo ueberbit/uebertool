@@ -1,0 +1,43 @@
+import { Meta, Canvas } from '@storybook/addon-docs';
+
+<Meta title="Developer/Icons"
+  parameters={{ viewMode: 'docs', previewTabs: { canvas: { hidden: true }}}}
+/>
+
+# Icons
+
+[unplugin-icons](https://github.com/antfu/unplugin-icons) is included in the starter. The configuration can be overriden with:
+
+```ts
+import { defineConfig } from "vite"
+import uebertool from '@ueberbit/vite-plugin-drupal'
+
+export default defineConfig(async () => {
+  return {
+    plugins: [
+      uebertool({
+        icons: {
+          customCollections: {
+            'my-icons': {
+              account: '<svg><!-- ... --></svg>',
+            },
+          },
+        }
+      }),
+    ],
+  }
+})
+```
+
+Icons placed in `/assets/icons` can be imported with `import '~icons/{theme_name}/{filename}'`.
+
+Icons placed within a subdirectory can be imported with `import '~icons/{subdirectory}/{filename}'`.
+
+Icons from iconify can be importet with `~icons/{collection}/{icon}`
+
+By default the icons are compiled to webcomponents. They can be used in templates like this:
+
+```html
+<!-- <icon-{collection}-{icon}> -->
+<icon-fa-solid-envelope></icon-fa-solid-envelope>
+```

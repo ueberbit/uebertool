@@ -1,0 +1,48 @@
+status-messages:
+  use: "@ueberbit/misc/status-messages.html.twig"
+  namespace: "Misc"
+  label: Status Messages
+  description: Status Messages
+  fields:
+    message_list:
+      type: object
+      label: Message List
+      description: The child elements of the form.
+    status_headings:
+      type: pattern
+      multi_value_type: items
+      preview:
+        status:
+          id: placeholder
+          fields:
+            children: "Status message"
+        error:
+          id: placeholder
+          fields:
+            children: "Error message"
+        warning:
+          id: placeholder
+          fields:
+            children: "Warning message"
+
+  variants:
+    status:
+      label: Status
+      fields:
+        message_list:
+          status:
+            - Basic page <em class="placeholder"><a href="/node/1" hreflang="en">Tailwind Typografy</a></em> has been updated.
+
+    warning:
+      label: Warning
+      fields:
+        message_list:
+          warning:
+            - Basic page <em class="placeholder"><a href="/node/1" hreflang="en">Tailwind Typografy</a></em> has been updated.
+
+    error:
+      label: Error
+      fields:
+        message_list:
+          error:
+            - Basic page <em class="placeholder"><a href="/node/1" hreflang="en">Tailwind Typografy</a></em> has been updated.

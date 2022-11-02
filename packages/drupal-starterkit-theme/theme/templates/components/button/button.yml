@@ -1,0 +1,10 @@
+button:
+  use: "@ueberbit/components/button/button.html.twig"
+  namespace: "Components"
+  label: Button
+  description: Just a Button
+  fields:
+    text:
+      type: text
+      label: Text
+      preview: Click me
