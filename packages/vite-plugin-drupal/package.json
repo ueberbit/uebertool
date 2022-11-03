@@ -30,7 +30,8 @@
     "pnpm": ">=7.6.0"
   },
   "scripts": {
-    "build": "unbuild"
+    "build": "unbuild",
+    "prepack": "pnpm run build"
   },
   "dependencies": {
     "@iconify/json": "^2.1.115",
