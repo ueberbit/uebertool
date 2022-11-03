@@ -1,7 +1,6 @@
 {
   "name": "@ueberbit/vite-plugin-drupal",
   "version": "0.0.1",
-  "private": true,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
