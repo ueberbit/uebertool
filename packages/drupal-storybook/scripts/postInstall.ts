@@ -37,6 +37,6 @@ const prepareJSON = async () => {
 }
 
 ;(async () => {
-  // await prepareJSON()
-  // await copyLibs()
+  await prepareJSON()
+  await copyLibs()
 })()

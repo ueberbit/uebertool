@@ -1,6 +1,6 @@
 {
   "name": "@ueberbit/drupal-storybook",
-  "version": "1.0.0",
+  "version": "0.0.1-beta.2",
   "description": "",
   "author": {
     "name": "UEBERBIT GmbH",
@@ -21,7 +21,7 @@
     }
   ],
   "scripts": {
-    "postinstall": "esno scripts/postInstall.ts"
+    "_postinstall": "esno scripts/postInstall.ts"
   },
   "dependencies": {
     "@babel/core": "^7.16.5",
