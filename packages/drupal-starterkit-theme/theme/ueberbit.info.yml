@@ -7,9 +7,6 @@ core: 8.x
 core_version_requirement: ^8 || ^9
 libraries:
   - ueberbit/global
-  - ueberbit_dist/templates/components/button/button
-  - ueberbit_dist/css/tailwind
-  - ueberbit_dist/css/gin-custom
 regions:
   tabs: 'Tabs'
   header: 'Header'

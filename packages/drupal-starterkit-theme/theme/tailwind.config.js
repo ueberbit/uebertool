@@ -21,14 +21,7 @@ module.exports = {
   ],
   plugins: [
     require('@tailwindcss/forms')({
-      /**
-       * @TODO change this to class strategy.
-       * reason: keep form base styles unstyled. Good for forms which differ from global
-       * styling.
-       * tasks:
-       * - add classes to drupal templaets
-       */
-      strategy: 'class'
+      strategy: 'class',
     }),
-  ]
+  ],
 }

@@ -16,9 +16,8 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "paths": {
-      "~/*": ["./*"],
-      // "@ueberbit/vite-plugin-drupal/*": ["../../../../../packages/vite-plugin-drupal/*"]
+      "~/*": ["./*"]
     }
   },
-  "include": ["templates", "js"]
+  "include": ["templates", "js", "build.mjs"]
 }
