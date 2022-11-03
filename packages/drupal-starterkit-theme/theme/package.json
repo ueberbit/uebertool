@@ -10,7 +10,7 @@
     "dev": "vite ",
     "build": "tsc && vite build",
     "dev:storybook": "start-storybook -p 5174 --config-dir .storybook --ci",
-    "build:storybook": "build-storybook --config-dir .storybook"
+    "build:storybook": "node ./.storybook/build.mjs"
   },
   "dependencies": {
     "container-query-polyfill": "^0.2.3",

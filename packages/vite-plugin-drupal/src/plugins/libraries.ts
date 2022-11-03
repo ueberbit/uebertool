@@ -87,6 +87,13 @@ export default function drupalLibraries(ctx: Context): Plugin {
         fileName: `${ctx.distThemeName}.libraries.yml`,
         source: YAML.stringify(library),
       })
+
+      this.emitFile({
+        type: 'asset',
+        name: `${ctx.distThemeName}.libraries.json`,
+        fileName: `${ctx.distThemeName}.libraries.json`,
+        source: JSON.stringify(library),
+      })
     },
     async buildStart() {
       if (ctx.isProduction)
@@ -166,6 +173,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
       }
       finally {
         await fs.writeFile(`${config.build.outDir}/${ctx.distThemeName}.libraries.yml`, YAML.stringify(library))
+        await fs.writeFile(`${config.build.outDir}/${ctx.distThemeName}.libraries.json`, JSON.stringify(library))
       }
     },
   }

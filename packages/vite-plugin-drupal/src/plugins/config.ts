@@ -30,7 +30,7 @@ export default (ctx: Context): Plugin => {
             },
           },
         }),
-        base: `/themes/custom/${ctx.themeName}/dist/`,
+        base: './',
         resolve: {
           alias: {
             '~/': `${resolve(process.cwd())}/`,

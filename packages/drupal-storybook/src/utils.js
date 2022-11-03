@@ -49,3 +49,42 @@ exports.getBreakpoints = function (tailwind, devices = false) {
     ...(devices && deviceList),
   }
 }
+
+/**
+ * Attaches all libraries.
+ * @param {string} url
+ */
+exports.attachLibraries = function (url, CONFIG_TYPE) {
+  fetch(url)
+    .then(response => response.json())
+    .then((data) => {
+      Object.values(data).forEach((library) => {
+        Object.entries(library).forEach(([type, value]) => {
+          if (type === 'css') {
+            Object.values(value).forEach((value) => {
+              const key = Object.keys(value || {})
+
+              const link = document.createElement('link')
+              link.setAttribute('rel', 'stylesheet')
+              link.setAttribute('media', 'all')
+
+              Object.entries(value[key[0]].attributes || {}).forEach(([key, value]) => {
+                link.setAttribute(key, typeof value === 'string' ? value : '')
+              })
+              link.href = CONFIG_TYPE === 'PRODUCTION' ? key[0].replace(/.*\/dist\//, '') : key[0]
+              document.body.appendChild(link)
+            })
+          }
+          if (type === 'js') {
+            const key = Object.keys(value)
+            const script = document.createElement('script')
+            Object.entries(value[key[0]].attributes || {}).forEach(([key, value]) => {
+              script.setAttribute(key, typeof value === 'string' ? value : '')
+            })
+            script.src = CONFIG_TYPE === 'PRODUCTION' ? key[0].replace(/.*\/dist\//, '') : key[0]
+            document.body.appendChild(script)
+          }
+        })
+      })
+    })
+}
