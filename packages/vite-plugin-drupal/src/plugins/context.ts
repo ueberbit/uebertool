@@ -30,6 +30,9 @@ export interface UserOptions {
 export interface DefaultOptions extends UserOptions {
   config?: UserConfig
   root?: string
+  ce: {
+    prefix: string
+  }
 }
 
 export interface Context {
