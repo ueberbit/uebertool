@@ -137,8 +137,10 @@ if ('requestIdleCallback' in window) {
 /**
  * Eagerly loads components.
  */
-export const eagerLoader = (imports: string, modules: Record<string, any>) => `
+export const eagerLoader = (imports: string, modules: string) => `
 ${imports}
+${modules.length > 2
+? `
 import { defineCustomElement } from '@ueberbit/vite-plugin-drupal/ApiCustomElements'
 
 const eagerCE = ${modules}
@@ -149,7 +151,8 @@ Object.keys(eagerCE).forEach(ce => {
   } else {
     customElements.define(ce, eagerCE[ce].name)
   }
-})
+})`
+: ''}
 `
 
 /**

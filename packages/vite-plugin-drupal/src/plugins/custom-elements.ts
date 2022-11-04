@@ -8,7 +8,7 @@ const virtualModuleId = 'virtual:vue-ce-loader'
 const resolvedVirtualModuleId = `\0${virtualModuleId}`
 
 export default (ctx: Context): Plugin => {
-  const loaders = {
+  const loaders: Record<string, any> = {
     visible: visibleLoader,
     idle: idleLoader,
     eager: eagerLoader,
@@ -23,19 +23,19 @@ export default (ctx: Context): Plugin => {
     }
   }
 
-  const glob2modules = glob => `{\n${glob.reduce((a, c) => {
+  const glob2modules = (glob: string[]) => `{\n${glob.reduce((a, c) => {
     return `${a}'/${c}': () => import('/${c}'),\n`
   }, '')}}`
 
-  const getTagName = (path) => {
+  const getTagName = (path: string): string => {
     const filename = path.split('/').at(-1)
     return filename ? `${ctx.options.ce.prefix}-${hyphenate(filename.replace(/\.(idle|visible|eager|lazy)\.ce\.(vue|tsx|jsx|ts|js)$/, ''))}` : ''
   }
 
-  const glob2eager = (glob) => {
-    const ce = {}
+  const glob2eager = (glob: string[]) => {
+    const ce: Record<string, any> = {}
     const imports = glob.reduce((a, c) => {
-      const filename = c.split('/').at(-1)
+      const filename = c.split('/').at(-1) ?? ''
       const name = camelize(filename.replace(/\.eager\.ce\.(vue|tsx|jsx|ts|js)$/, ''))
       const tagname = getTagName(filename)
       ce[tagname] = {
@@ -52,11 +52,12 @@ export default (ctx: Context): Plugin => {
     ]
   }
 
-  const addLoader = cacheStringFunction(async (str) => {
+  const addLoader = cacheStringFunction(async (str: string) => {
     const files = await fg([str], {
       onlyFiles: true,
     })
-    const type = str.match(/\.(\w+)\.ce/)[1] ?? 'idle'
+    const match = str.match(/\.(\w+)\.ce/) || []
+    const type = match[1] ?? 'idle'
 
     if (type === 'eager') {
       const [imports, modules] = glob2eager(files)
