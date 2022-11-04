@@ -7,6 +7,7 @@ module.exports = {
   ignoreFiles: [
     '*.min.*',
     'dist',
+    '**/dist',
     'output',
     'public',
     'temp',
@@ -17,6 +18,12 @@ module.exports = {
     'web/sites/**/files',
   ],
   rules: {
+    'max-line-length': [
+      120,
+      {
+        ignorePattern: '/^\\s*(@import|@apply)/',
+      },
+    ],
     'order/order': [
       'dollar-variables',
       'custom-properties',
