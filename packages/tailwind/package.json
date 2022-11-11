@@ -1,0 +1,25 @@
+{
+  "name": "@ueberbit/tailwind",
+  "version": "0.0.3",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7.6.0"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "prepack": "pnpm run build"
+  }
+}
