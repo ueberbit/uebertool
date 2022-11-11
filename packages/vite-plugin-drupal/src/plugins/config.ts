@@ -25,6 +25,7 @@ export default (ctx: Context): Plugin => {
                 require('postcss-import')(),
                 require('tailwindcss/nesting')(),
                 require('tailwindcss')(),
+                require('@ueberbit/postcss/stripcolor')(),
                 require('autoprefixer')(),
               ],
             },

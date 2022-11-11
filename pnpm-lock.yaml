@@ -105,6 +105,9 @@ importers:
   packages/eslint-config-drupal:
     specifiers: {}
 
+  packages/postcss:
+    specifiers: {}
+
   packages/stylelint-config:
     specifiers:
       stylelint: ^14.9.1
@@ -117,11 +120,15 @@ importers:
       stylelint-config-standard: 26.0.0_stylelint@14.9.1
       stylelint-order: 5.0.0_stylelint@14.9.1
 
+  packages/tailwind:
+    specifiers: {}
+
   packages/vite-plugin-drupal:
     specifiers:
       '@iconify/json': ^2.1.115
       '@tailwindcss/forms': ^0.5.3
       '@types/node': ^18.7.14
+      '@ueberbit/postcss': workspace:*
       '@vitejs/plugin-vue': ^3.0.3
       '@vue/runtime-core': ^3.2.38
       '@vue/shared': ^3.2.38
@@ -145,6 +152,7 @@ importers:
     dependencies:
       '@iconify/json': 2.1.120
       '@tailwindcss/forms': 0.5.3_tailwindcss@3.1.8
+      '@ueberbit/postcss': link:../postcss
       '@vitejs/plugin-vue': 3.1.2_vite@3.1.7+vue@3.2.40
       '@vue/runtime-core': 3.2.40
       '@vue/shared': 3.2.40
@@ -16321,13 +16329,12 @@ packages:
       postcss-value-parser: 4.2.0
     dev: false
 
-  /postcss-import/14.1.0_postcss@8.4.14:
+  /postcss-import/14.1.0:
     resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
-      postcss: 8.4.14
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.1
@@ -16360,14 +16367,13 @@ packages:
       postcss: 6.0.23
     dev: false
 
-  /postcss-js/4.0.0_postcss@8.4.14:
+  /postcss-js/4.0.0:
     resolution: {integrity: sha512-77QESFBwgX4irogGVPgQ5s07vLvFqWr228qZY+w6lW599cRlK/HmnlivnnVUxkjHnCu4J16PDMHcH+e+2HbvTQ==}
     engines: {node: ^12 || ^14 || >= 16}
     peerDependencies:
       postcss: ^8.3.3
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.4.14
     dev: false
 
   /postcss-js/4.0.0_postcss@8.4.17:
@@ -16411,7 +16417,7 @@ packages:
       postcss: 7.0.39
     dev: false
 
-  /postcss-load-config/3.1.4_postcss@8.4.14:
+  /postcss-load-config/3.1.4:
     resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
     engines: {node: '>= 10'}
     peerDependencies:
@@ -16424,7 +16430,6 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.0.6
-      postcss: 8.4.14
       yaml: 1.10.2
     dev: false
 
@@ -16643,13 +16648,12 @@ packages:
       postcss-selector-parser: 6.0.10
     dev: false
 
-  /postcss-nested/5.0.6_postcss@8.4.14:
+  /postcss-nested/5.0.6:
     resolution: {integrity: sha512-rKqm2Fk0KbA8Vt3AdGN0FB9OBOMDVajMG6ZCf/GoHgdxUJ4sBFp0A/uMIRm+MJUdo33YXEtjqIz8u7DAp8B7DA==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
-      postcss: 8.4.14
       postcss-selector-parser: 6.0.10
     dev: false
 
@@ -19671,6 +19675,8 @@ packages:
     resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3
@@ -19686,10 +19692,10 @@ packages:
       object-hash: 3.0.0
       picocolors: 1.0.0
       postcss: 8.4.14
-      postcss-import: 14.1.0_postcss@8.4.14
-      postcss-js: 4.0.0_postcss@8.4.14
-      postcss-load-config: 3.1.4_postcss@8.4.14
-      postcss-nested: 5.0.6_postcss@8.4.14
+      postcss-import: 14.1.0
+      postcss-js: 4.0.0
+      postcss-load-config: 3.1.4
+      postcss-nested: 5.0.6
       postcss-selector-parser: 6.0.10
       postcss-value-parser: 4.2.0
       quick-lru: 5.1.1
@@ -20457,6 +20463,7 @@ packages:
   /unified/9.2.0:
     resolution: {integrity: sha512-vx2Z0vY+a3YoTj8+pttM3tiJHCwY5UFbYdiWrwBEbHmK8pvsPj2rtAX2BFfgXen8T39CJWblWRDT4L5WGXtDdg==}
     dependencies:
+      '@types/unist': 2.0.6
       bail: 1.0.5
       extend: 3.0.2
       is-buffer: 2.0.5
