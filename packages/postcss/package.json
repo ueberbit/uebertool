@@ -1,0 +1,22 @@
+{
+  "name": "@ueberbit/postcss",
+  "version": "0.0.3",
+  "exports": {
+    "stripcolor": {
+      "types": "./dist/stripcolor.d.ts",
+      "require": "./dist/stripcolor.cjs",
+      "import": "./dist/stripcolor.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7.6.0"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "prepack": "pnpm run build"
+  }
+}
