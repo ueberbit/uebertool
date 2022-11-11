@@ -2,7 +2,7 @@
   "name": "@ueberbit/postcss",
   "version": "0.0.3",
   "exports": {
-    "stripcolor": {
+    "./stripcolor": {
       "types": "./dist/stripcolor.d.ts",
       "require": "./dist/stripcolor.cjs",
       "import": "./dist/stripcolor.mjs"
