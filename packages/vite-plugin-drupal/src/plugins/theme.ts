@@ -36,14 +36,14 @@ export default (ctx: Context): Plugin => {
           await fs.mkdir(config.build.outDir, { recursive: true })
         }
         finally {
-          await fs.writeFile(`${config.build.outDir}/ueberbit_dist.info.yml`, YAML.stringify(content))
+          await fs.writeFile(`${config.build.outDir}/${ctx.distThemeName}.info.yml`, YAML.stringify(content))
         }
       }
       else {
         this.emitFile({
           type: 'asset',
-          name: 'ueberbit_dist.info.yml',
-          fileName: 'ueberbit_dist.info.yml',
+          name: `${ctx.distThemeName}.info.yml`,
+          fileName: `${ctx.distThemeName}.info.yml`,
           source: YAML.stringify(content),
         })
       }
