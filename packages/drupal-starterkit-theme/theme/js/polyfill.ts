@@ -44,6 +44,6 @@ function requestIdleCallbackShim(callback: IdleRequestCallback, options?: IdleRe
 }
 
 new Polyfill('Container Query', 'container' in document.documentElement.style, () => import('container-query-polyfill'))
-new Polyfill('has pseudo', CSS.supports('selector(p:has(p))'), () => import('css-has-pseudo'))
+// new Polyfill('has pseudo', CSS.supports('selector(p:has(p))'), () => import('css-has-pseudo'))
 new Polyfill('requestIdleCallback', 'requestIdleCallback' in window, () => (window as any).requestIdleCallback = requestIdleCallbackShim)
 
