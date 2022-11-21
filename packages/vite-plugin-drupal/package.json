@@ -1,6 +1,6 @@
 {
   "name": "@ueberbit/vite-plugin-drupal",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -33,31 +33,31 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@iconify/json": "^2.1.115",
+    "@iconify/json": "^2.1.141",
     "@tailwindcss/forms": "^0.5.3",
     "@ueberbit/postcss": "workspace:*",
-    "@vitejs/plugin-vue": "^3.0.3",
-    "@vue/runtime-core": "^3.2.38",
-    "@vue/shared": "^3.2.38",
-    "autoprefixer": "^10.4.8",
-    "container-query-polyfill": "^0.2.3",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "@vue/runtime-core": "^3.2.45",
+    "@vue/shared": "^3.2.45",
+    "autoprefixer": "^10.4.13",
+    "container-query-polyfill": "^1.0.2",
     "css-has-pseudo": "^4.0.1",
-    "postcss": "^8.4.16",
-    "postcss-import": "^14.1.0",
-    "tailwindcss": "^3.1.8",
-    "unplugin-icons": "^0.14.11",
-    "vite": "^3.0.7",
-    "vue": "^3.2.38",
-    "vue-tsc": "^0.40.6"
+    "postcss": "^8.4.19",
+    "postcss-import": "^15.0.0",
+    "tailwindcss": "^3.2.4",
+    "unplugin-icons": "^0.14.13",
+    "vite": "^3.2.4",
+    "vue": "^3.2.45",
+    "vue-tsc": "^1.0.9"
   },
   "devDependencies": {
-    "@types/node": "^18.7.14",
-    "defu": "^6.1.0",
-    "fast-glob": "^3.2.11",
+    "@types/node": "^18.11.9",
+    "defu": "^6.1.1",
+    "fast-glob": "^3.2.12",
     "fs-extra": "^10.1.0",
     "livereload": "^0.9.3",
     "magic-string": "^0.26.2",
-    "rollup": "^2.78.1",
-    "yaml": "^2.1.1"
+    "rollup": "^3.3.0",
+    "yaml": "^2.1.3"
   }
 }

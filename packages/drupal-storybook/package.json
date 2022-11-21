@@ -1,6 +1,6 @@
 {
   "name": "@ueberbit/drupal-storybook",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "author": {
     "name": "UEBERBIT GmbH",
@@ -24,19 +24,19 @@
     "_postinstall": "esno scripts/postInstall.ts"
   },
   "dependencies": {
-    "@babel/core": "^7.16.5",
-    "@storybook/addon-a11y": "^6.5.10",
-    "@storybook/addon-actions": "^6.5.10",
-    "@storybook/addon-docs": "^6.5.10",
-    "@storybook/addon-essentials": "^6.5.10",
-    "@storybook/addon-interactions": "^6.5.10",
-    "@storybook/addon-links": "^6.5.10",
-    "@storybook/addons": "^6.5.10",
-    "@storybook/builder-vite": "^0.2.2",
-    "@storybook/builder-webpack4": "^6.5.10",
-    "@storybook/builder-webpack5": "^6.5.10",
-    "@storybook/manager-webpack5": "^6.5.10",
-    "@storybook/react": "^6.5.10",
+    "@babel/core": "^7.20.2",
+    "@storybook/addon-a11y": "^6.5.13",
+    "@storybook/addon-actions": "^6.5.13",
+    "@storybook/addon-docs": "^6.5.13",
+    "@storybook/addon-essentials": "^6.5.13",
+    "@storybook/addon-interactions": "^6.5.13",
+    "@storybook/addon-links": "^6.5.13",
+    "@storybook/addons": "^6.5.13",
+    "@storybook/builder-vite": "^0.2.5",
+    "@storybook/builder-webpack4": "^6.5.13",
+    "@storybook/builder-webpack5": "^6.5.13",
+    "@storybook/manager-webpack5": "^6.5.13",
+    "@storybook/react": "^6.5.13",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@wingsuit-designsystem/core": "^1.2.7",
@@ -50,8 +50,8 @@
     "storybook-addon-designs": "^6.3.1",
     "storybook-addon-themes": "^6.1.0",
     "storybook-dark-mode": "^1.1.0",
-    "tailwindcss": "^3.1.8",
-    "webpack": "^5.74.0"
+    "tailwindcss": "^3.2.4",
+    "webpack": "^5.75.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13"

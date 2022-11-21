@@ -1,6 +1,6 @@
 {
   "name": "@ueberbit/stylelint-config",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "UEBERBIT StyleLint config",
   "author": {
     "name": "UEBERBIT GmbH",
@@ -22,9 +22,9 @@
     "index.js"
   ],
   "dependencies": {
-    "stylelint": "^14.9.1",
+    "stylelint": "^14.15.0",
     "stylelint-config-recess-order": "^3.0.0",
-    "stylelint-config-standard": "^26.0.0",
+    "stylelint-config-standard": "^29.0.0",
     "stylelint-order": "^5.0.0"
   }
 }

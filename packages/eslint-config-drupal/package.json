@@ -1,6 +1,6 @@
 {
   "name": "@ueberbit/eslint-config-drupal",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "UEBERBIT ESLint config for Drupal",
   "author": {
     "name": "UEBERBIT GmbH",
