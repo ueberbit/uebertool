@@ -61,24 +61,20 @@ export default function drupalLibraries(ctx: Context): Plugin {
           }
 
           if (ext.match(/(js|ts(x)?|vue)/)) {
-            library[lib] = {
-              js: {
-                [`/themes/custom/${ctx.themeName}/dist/${assetOrChunk.fileName}`]: {
-                  type: 'external',
-                  minified: true,
-                  attributes: {
-                    crossorigin: {},
-                    type: 'module',
-                  },
+            if (lib.match(/main/)) {
+              library[lib].dependencies = [
+                `${ctx.distThemeName}/js/main`,
+              ]
+            }
+            library[lib].js = {
+              [`/themes/custom/${ctx.themeName}/dist/${assetOrChunk.fileName}`]: {
+                type: 'external',
+                minified: true,
+                attributes: {
+                  crossorigin: {},
+                  type: 'module',
                 },
               },
-              ...(assetOrChunk.fileName.match(/main\.(ts|js)/)
-                ? {}
-                : {
-                    dependencies: [
-                      `${ctx.distThemeName}/js/main`,
-                    ],
-                  }),
             }
           }
         })
@@ -149,22 +145,19 @@ export default function drupalLibraries(ctx: Context): Plugin {
         }
 
         if (ext.match(/(js|ts(x)?|vue)/)) {
-          library[lib] = {
-            js: {
-              [proxy]: {
-                attributes: {
-                  crossorigin: {},
-                  type: 'module',
-                },
+          if (lib.match(/main/)) {
+            library[lib].dependencies = [
+              `${ctx.distThemeName}/js/main`,
+            ]
+          }
+
+          library[lib].js = {
+            [proxy]: {
+              attributes: {
+                crossorigin: {},
+                type: 'module',
               },
             },
-            ...(lib.match(/main/)
-              ? {}
-              : {
-                  dependencies: [
-                    `${ctx.distThemeName}/js/main`,
-                  ],
-                }),
           }
         }
       })
