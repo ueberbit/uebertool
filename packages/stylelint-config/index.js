@@ -28,16 +28,12 @@ module.exports = {
       'dollar-variables',
       'custom-properties',
       'declarations',
-      'at-rules',
       {
         type: 'at-rule',
-        name: 'supports',
-      },
-      {
-        type: 'at-rule',
-        name: 'media',
+        name: 'apply',
       },
       'rules',
+      'at-rules',
     ],
     'at-rule-no-unknown': [
       true,
@@ -63,5 +59,6 @@ module.exports = {
     ],
     'declaration-block-trailing-semicolon': null,
     'no-descending-specificity': null,
+    'selector-class-pattern': '^([a-z][a-z0-9]*)(-[a-z0-9]+)*((__([a-z][a-z0-9]*)(-[a-z0-9]+)*)?(--([a-z][a-z0-9]*)(-[a-z0-9]+)*)?)$',
   },
 }
