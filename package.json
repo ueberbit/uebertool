@@ -27,11 +27,11 @@
     "@ueberbit/eslint-config": "workspace:*",
     "@ueberbit/stylelint-config": "workspace:*",
     "bumpp": "^8.2.1",
-    "eslint": "^8.28.0",
-    "eslint-plugin-antfu": "^0.31.0",
-    "stylelint": "^14.15.0",
-    "typescript": "^4.9.3",
-    "unbuild": "^1.0.1"
+    "eslint": "^8.31.0",
+    "eslint-plugin-antfu": "^0.34.1",
+    "stylelint": "^14.16.1",
+    "typescript": "^4.9.4",
+    "unbuild": "^1.0.2"
   },
   "pnpm": {
     "patchedDependencies": {
