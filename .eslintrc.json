@@ -1,3 +1,7 @@
 {
-  "extends": "@ueberbit"
+  "extends": "@ueberbit",
+  "ignorePatterns": [
+    "**/drupal/**",
+    "**/packages/drupal-starterkit-theme/**"
+  ]
 }
