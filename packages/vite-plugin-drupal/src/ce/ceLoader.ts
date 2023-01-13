@@ -137,20 +137,24 @@ if ('requestIdleCallback' in window) {
 /**
  * Eagerly loads components.
  */
-export const eagerLoader = (imports: string, modules: string) => `
+export const eagerLoader = (imports: string, modules: string, hasVue: boolean) => `
 ${imports}
 ${modules.length > 2
 ? `
-import { defineCustomElement } from '@ueberbit/vite-plugin-drupal/ApiCustomElements'
+${hasVue && 'import { defineCustomElement } from \'@ueberbit/vite-plugin-drupal/ApiCustomElements\''}
 
 const eagerCE = ${modules}
 
 Object.keys(eagerCE).forEach(ce => {
-  if(eagerCE[ce].type === 'vue') {
-    customElements.define(ce, defineCustomElement(eagerCE[ce].name))
-  } else {
-    customElements.define(ce, eagerCE[ce].name)
-  }
+  ${hasVue
+    ? `
+    if(eagerCE[ce].type === 'vue') {
+      customElements.define(ce, defineCustomElement(eagerCE[ce].name))
+    } else {
+      customElements.define(ce, eagerCE[ce].name)
+    }
+    `
+    : 'customElements.define(ce, eagerCE[ce].name)'}
 })`
 : ''}
 `

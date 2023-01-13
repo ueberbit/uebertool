@@ -44,11 +44,13 @@ export default (ctx: Context): Plugin => {
       }
       return `${a}import ${name} from '~/${c}'\n`
     }, '')
+    const hasVue = Object.keys(ce).some(key => ce[key].type === 'vue')
     const modules = JSON.stringify(ce).replace(/("name":)"(\w+)"/g, (_, g1, g2) => `${g1}${g2}`)
 
     return [
       imports,
       modules,
+      hasVue,
     ]
   }
 
