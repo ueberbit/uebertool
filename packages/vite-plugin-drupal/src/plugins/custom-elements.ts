@@ -62,8 +62,8 @@ export default (ctx: Context): Plugin => {
     const type = match[1] ?? 'idle'
 
     if (type === 'eager') {
-      const [imports, modules] = glob2eager(files)
-      return loaders.eager(imports, modules)
+      const [imports, modules, hasVue] = glob2eager(files)
+      return loaders.eager(imports, modules, hasVue)
     }
 
     return files.length ? loaders[type](glob2modules(files)) : ''
