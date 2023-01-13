@@ -67,14 +67,12 @@ export default (ctx: Context): Plugin => {
       if (!isWrite || !ctx.isProduction || !screens)
         return
 
-      if (ctx.isProduction && ctx.config.build?.outDir) {
-        this.emitFile({
-          type: 'asset',
-          name: `${ctx.distThemeName}.breakpoints.yml`,
-          fileName: `${ctx.distThemeName}.breakpoints.yml`,
-          source: YAML.stringify(screens),
-        })
-      }
+      this.emitFile({
+        type: 'asset',
+        name: `${ctx.distThemeName}.breakpoints.yml`,
+        fileName: `${ctx.distThemeName}.breakpoints.yml`,
+        source: YAML.stringify(screens),
+      })
     },
     async buildStart() {
       const screens = await generateBreakpoints(ctx.themeName)
