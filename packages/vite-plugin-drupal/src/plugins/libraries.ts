@@ -66,6 +66,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
 
           if (ext.match(/(js|ts(x)?|vue)/)) {
             if (!assetOrChunk.fileName.match(/main\..*\.(ts|js)/)) {
+              library[lib].header = true
               library[lib].dependencies = [
                 `${ctx.distThemeName}/js/main`,
               ]
