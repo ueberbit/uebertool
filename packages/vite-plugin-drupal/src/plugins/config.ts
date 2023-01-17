@@ -55,8 +55,10 @@ export default (ctx: Context): Plugin => {
                 'vue.runtime.esm-browser.prod': ['vue'],
               },
               assetFileNames: (assetInfo: any) => {
-                const base = dirname(assetInfo.name)
-                return `${base}/[name].[hash].[ext]`
+                const base = dirname(assetInfo.name).replace(/^\./, '').trim()
+                if (base)
+                  return `${base}/[name].[hash].[ext]`
+                return '[name].[hash].[ext]'
               },
               entryFileNames: (assetInfo) => {
                 if (assetInfo.facadeModuleId?.match(/.(ts|js|tsx|jsx|vue)$/)) {
