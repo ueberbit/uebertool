@@ -3,6 +3,7 @@ import fs from 'fs/promises'
 import { constants } from 'fs'
 import type { Plugin, ResolvedConfig } from 'vite'
 import YAML from 'yaml'
+import { defu } from 'defu'
 import type { Context } from './context'
 
 // @TODO extract common code into separate function.
@@ -34,6 +35,9 @@ export default function drupalLibraries(ctx: Context): Plugin {
           const basePath = Path.dirname(assetOrChunk.fileName)
           const lib = `${basePath}/${base}`
 
+          if (basePath === 'assets' || basePath === '.')
+            return
+
           if (base === ctx.distThemeName)
             return
 
@@ -49,7 +53,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
             if (lib.match(/\/components\//))
               key = 'component'
 
-            library[lib].css = {
+            library[lib].css = defu(library[lib].css, {
               [key]: {
                 [`/themes/custom/${ctx.themeName}/dist/${assetOrChunk.fileName}`]: {
                   type: 'external',
@@ -57,7 +61,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
                   preprocess: false,
                 },
               },
-            }
+            })
           }
 
           if (ext.match(/(js|ts(x)?|vue)/)) {
@@ -66,7 +70,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
                 `${ctx.distThemeName}/js/main`,
               ]
             }
-            library[lib].js = {
+            library[lib].js = defu(library[lib].js, {
               [`/themes/custom/${ctx.themeName}/dist/${assetOrChunk.fileName}`]: {
                 type: 'external',
                 minified: true,
@@ -75,7 +79,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
                   type: 'module',
                 },
               },
-            }
+            })
           }
         })
 
@@ -129,7 +133,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
           if (lib.match(/\/components\//))
             key = 'component'
 
-          library[lib].css = {
+          library[lib].css = defu(library[lib].css, {
             [key]: {
               [proxy]: {
                 attributes: {
@@ -141,7 +145,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
                 },
               },
             },
-          }
+          })
         }
 
         if (ext.match(/(js|ts(x)?|vue)/)) {
@@ -151,14 +155,14 @@ export default function drupalLibraries(ctx: Context): Plugin {
             ]
           }
 
-          library[lib].js = {
+          library[lib].js = defu(library[lib].js, {
             [proxy]: {
               attributes: {
                 crossorigin: {},
                 type: 'module',
               },
             },
-          }
+          })
         }
       })
 

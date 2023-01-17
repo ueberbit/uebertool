@@ -27,6 +27,23 @@ importers:
       typescript: 4.9.4
       unbuild: 1.0.2
 
+  drupal/web/themes/custom/ueberbit:
+    specifiers:
+      '@ueberbit/drupal-storybook': workspace:*
+      '@ueberbit/vite-plugin-drupal': workspace:*
+      container-query-polyfill: ^0.2.3
+      css-has-pseudo: ^4.0.1
+      swiper: ^8.4.5
+      typescript: ^4.6.4
+    dependencies:
+      container-query-polyfill: 0.2.4
+      css-has-pseudo: 4.0.2
+      swiper: 8.4.5
+    devDependencies:
+      '@ueberbit/drupal-storybook': link:../../../../../packages/drupal-storybook
+      '@ueberbit/vite-plugin-drupal': link:../../../../../packages/vite-plugin-drupal
+      typescript: 4.9.4
+
   packages/drupal-storybook:
     specifiers:
       '@babel/core': ^7.20.12
@@ -1963,6 +1980,16 @@ packages:
       postcss: ^8.2
     dependencies:
       postcss: 7.0.39
+    dev: false
+
+  /@csstools/selector-specificity/2.0.2_laljekdltgzr3kfi7r4exvsr5a:
+    resolution: {integrity: sha512-IkpVW/ehM1hWKln4fCA3NzJU8KwD+kIOvPZA4cqxoJHtE21CCzjyp+Kxbu0i5I4tBNOlXPL9mjwnWlL0VEG4Fg==}
+    engines: {node: ^12 || ^14 || >=16}
+    peerDependencies:
+      postcss: ^8.2
+      postcss-selector-parser: ^6.0.10
+    dependencies:
+      postcss-selector-parser: 6.0.11
     dev: false
 
   /@csstools/selector-specificity/2.0.2_llr3rn7umwditovcyzrgyivn5q:
@@ -8696,6 +8723,10 @@ packages:
     resolution: {integrity: sha512-xFxOwqIzR/e1k1gLiWEophSCMqXcwVHIH7akf7b/vxcUeGunlj3hvZaaqxwHsTgn+IndtkQJgSztIDWeumWJDQ==}
     dev: false
 
+  /container-query-polyfill/0.2.4:
+    resolution: {integrity: sha512-SJ/xgsikR21RA/CwWFeHWuwqsyPKfFYlYCDW8Q0EjF1bg/pKfzCWIeZ4pTJHQDScdS+OylsTJyt5jS27g3FxbQ==}
+    dev: false
+
   /container-query-polyfill/1.0.2:
     resolution: {integrity: sha512-YjbsYHidpX0vgHRjTXfWV5Sai4EbocVuXuhL/lcVzRKcwlvVhU92yUqZwO6rRjMQMk08unLLBkQhu60u31LCIQ==}
     dev: false
@@ -8996,6 +9027,17 @@ packages:
     dependencies:
       postcss: 7.0.39
       postcss-selector-parser: 6.0.11
+    dev: false
+
+  /css-has-pseudo/4.0.2:
+    resolution: {integrity: sha512-bhAVH1oI51Jc99i7gPXCURWOQbeaoWp37Z/ZL7kkd/gkZjxE2VZLc85B8BhaxHGEtXGIEmQMAPQc2cqSqcgAeA==}
+    engines: {node: ^12 || ^14 || >=16}
+    peerDependencies:
+      postcss: ^8.2
+    dependencies:
+      '@csstools/selector-specificity': 2.0.2_laljekdltgzr3kfi7r4exvsr5a
+      postcss-selector-parser: 6.0.11
+      postcss-value-parser: 4.2.0
     dev: false
 
   /css-has-pseudo/4.0.2_postcss@8.4.21:
@@ -9663,6 +9705,12 @@ packages:
 
   /dom-walk/0.1.2:
     resolution: {integrity: sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w==}
+    dev: false
+
+  /dom7/4.0.4:
+    resolution: {integrity: sha512-DSSgBzQ4rJWQp1u6o+3FVwMNnT5bzQbMb+o31TjYYeRi05uAcpF8koxdfzeoe5ElzPmua7W7N28YJhF7iEKqIw==}
+    dependencies:
+      ssr-window: 4.0.2
     dev: false
 
   /domain-browser/1.2.0:
@@ -19954,6 +20002,10 @@ packages:
       tweetnacl: 0.14.5
     dev: false
 
+  /ssr-window/4.0.2:
+    resolution: {integrity: sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ==}
+    dev: false
+
   /ssri/6.0.2:
     resolution: {integrity: sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==}
     dependencies:
@@ -20729,6 +20781,15 @@ packages:
       stable: 0.1.8
       unquote: 1.1.1
       util.promisify: 1.0.1
+    dev: false
+
+  /swiper/8.4.5:
+    resolution: {integrity: sha512-zveyEFBBv4q1sVkbJHnuH4xCtarKieavJ4SxP0QEHvdpPLJRuD7j/Xg38IVVLbp7Db6qrPsLUePvxohYx39Agw==}
+    engines: {node: '>= 4.7.0'}
+    requiresBuild: true
+    dependencies:
+      dom7: 4.0.4
+      ssr-window: 4.0.2
     dev: false
 
   /symbol-tree/3.2.4:
