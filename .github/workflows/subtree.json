@@ -1,0 +1,9 @@
+{
+  "subtree-splits": [
+    {
+      "name": "uebertool-companion",
+      "directory": "packages/uebertool-companion",
+      "target": "git@github.com:ueberbit/subtree-uebertool-companion.git"
+    }
+  ]
+}

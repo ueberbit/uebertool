@@ -1,0 +1,5 @@
+name: UEbertool Companion
+type: module
+description: Companion Tool for the UEbertool.
+package: UEbertool
+core_version_requirement: ^9 || ^10

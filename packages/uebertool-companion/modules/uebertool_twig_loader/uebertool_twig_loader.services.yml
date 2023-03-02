@@ -1,0 +1,9 @@
+services:
+  uebertool_twig_loader.twig.loader.filesystem:
+    class: Drupal\uebertool_twig_loader\Template\Loader\UEberToolFilesystemLoader
+    arguments:
+      - '@theme.manager'
+      - '@library.discovery'
+    tags:
+      - { name: twig.loader, priority: 300 }
+
