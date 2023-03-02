@@ -1,7 +1,10 @@
 import fse from 'fs-extra'
 import type { Plugin, ResolvedConfig } from 'vite'
 import YAML from 'yaml'
-import resolveConfig from 'tailwindcss/resolveConfig'
+// @ts-expect-error Missing types.
+import resolveConfig from 'tailwindcss/lib/util/resolveConfig'
+// @ts-expect-error Missing types.
+import defaultConfig from 'tailwindcss/stubs/defaultConfig.stub'
 
 import type { Context } from './context'
 
@@ -33,8 +36,11 @@ const generateBreakpoints = async (theme: string) => {
   let screens = {}
   try {
     const tailwindConfigFile = await import(`${process.cwd()}/tailwind.config.js`)
-    const tailwindConfig = resolveConfig(tailwindConfigFile)
-    const breakpoints = tailwindConfig.theme?.screens ?? {} as any
+
+    const tailwindConfig = resolveConfig([tailwindConfigFile.default, defaultConfig])
+    const breakpoints = {
+      ...tailwindConfig.theme?.screens ?? {},
+    }
     const group = 'Tailwind'
 
     screens = {
@@ -75,9 +81,12 @@ export default (ctx: Context): Plugin => {
       })
     },
     async buildStart() {
+      if (ctx.isProduction)
+        return
+
       const screens = await generateBreakpoints(ctx.themeName)
 
-      if (!screens || ctx.isProduction)
+      if (!screens)
         return
 
       await fse.outputFile(`${config.build.outDir}/${ctx.distThemeName}.breakpoints.yml`, YAML.stringify(screens))
