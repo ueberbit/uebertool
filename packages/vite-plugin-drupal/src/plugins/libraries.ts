@@ -33,12 +33,16 @@ export default function drupalLibraries(ctx: Context): Plugin {
           const base = filename.split('.')[0]
           const ext = Path.parse(assetOrChunk.fileName).ext.replace('.', '')
           const basePath = Path.dirname(assetOrChunk.fileName)
-          const lib = `${basePath}/${base}`
+          const lib = `${basePath.match(/^(js|css)$/) ? `${basePath}/` : ''}${base}`
+          // const lib = base
 
           if (basePath === 'assets' || basePath === '.')
             return
 
           if (base === ctx.distThemeName)
+            return
+
+          if (assetOrChunk.fileName.match(/\.ce\./))
             return
 
           if (!(lib in library))
@@ -93,8 +97,8 @@ export default function drupalLibraries(ctx: Context): Plugin {
 
       this.emitFile({
         type: 'asset',
-        name: `${ctx.distThemeName}.libraries.json`,
-        fileName: `${ctx.distThemeName}.libraries.json`,
+        name: `${ctx.distThemeName}.json`,
+        fileName: `${ctx.distThemeName}.json`,
         source: JSON.stringify(library),
       })
     },
@@ -117,13 +121,18 @@ export default function drupalLibraries(ctx: Context): Plugin {
         const ext = Path.parse(file).ext.replace('.', '')
         const proxy = `http://localhost:5173/${file}`
         const basePath = Path.dirname(file)
-        const lib = `${basePath}/${filename}`
+        // const lib = `${basePath}/${filename}`
+        const lib = `${basePath.match(/^(js|css)$/) ? `${basePath}/` : ''}${filename}`
+        // const lib = filename
 
         if (!(lib in library)) {
           library[lib] = {
             type: 'external',
           }
         }
+
+        if (file.match(/\.ce\./))
+          return
 
         if (ext === 'css') {
           let key = 'theme'
@@ -175,7 +184,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
       }
       finally {
         await fs.writeFile(`${config.build.outDir}/${ctx.distThemeName}.libraries.yml`, YAML.stringify(library))
-        await fs.writeFile(`${config.build.outDir}/${ctx.distThemeName}.libraries.json`, JSON.stringify(library))
+        await fs.writeFile(`${config.build.outDir}/${ctx.distThemeName}.json`, JSON.stringify(library))
       }
     },
   }
