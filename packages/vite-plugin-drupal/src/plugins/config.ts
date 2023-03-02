@@ -48,7 +48,7 @@ export default (ctx: Context): Plugin => {
               '(js|css|templates)/**/*.(js|jsx|css|ts|tsx)',
             ], {
               onlyFiles: true,
-              ignore: ['**/*.stories.*', '**/_*', '**/*.d.ts'],
+              ignore: ['**/*.stories.*', '**/*.ce.*', '**/_*', '**/*.d.ts'],
             }),
             output: {
               manualChunks: {
