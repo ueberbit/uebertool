@@ -21,7 +21,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "release": "bumpp package.json packages/*/package.json --commit --push --tag"
+    "release": "bumpp package.json packages/*/package.json packages/*/composer.json --commit --push --tag"
   },
   "devDependencies": {
     "@ueberbit/eslint-config": "workspace:*",
