@@ -6,6 +6,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+env:
+  GITHUB_EVENT_NAME: 'push'
+
 jobs:
   sync_commits:
     runs-on: ubuntu-latest
