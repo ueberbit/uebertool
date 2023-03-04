@@ -6,9 +6,6 @@ on:
       - 'v*'
   workflow_dispatch:
 
-env:
-  GITHUB_EVENT_NAME: 'push'
-
 jobs:
   sync_commits:
     runs-on: ubuntu-latest
@@ -32,6 +29,8 @@ jobs:
           path: './splitsh'
           key: '${{ runner.os }}-splitsh-v101'
 
+      - run: echo "GITHUB_EVENT_NAME=push" >> $GITHUB_ENV
+ 
       # Sync commits and tags for the configured subtree splits
       - name: subtree split
         uses: acrobat/subtree-splitter@v1.1.3
