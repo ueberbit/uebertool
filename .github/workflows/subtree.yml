@@ -2,8 +2,8 @@ name: Subtree Split for composer packages
 
 on:
   push:
-    tags:
-      - 'v*'
+    # tags:
+    #   - 'v*'
   workflow_dispatch:
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
           path: './splitsh'
           key: '${{ runner.os }}-splitsh-v101'
 
-      - run: echo "GITHUB_EVENT_NAME=push" >> $GITHUB_ENV
+      # - run: echo "GITHUB_EVENT_NAME=push" >> $GITHUB_ENV
  
       # Sync commits and tags for the configured subtree splits
       - name: subtree split
