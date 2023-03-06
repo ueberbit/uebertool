@@ -20,7 +20,7 @@ jobs:
       # Add a personal access token to the repository secrets. This will allow the splitter action to push the new commits
       - uses: frankdejonge/use-github-token@1.0.2
         with:
-          authentication: 'username:${{ secrets.GITHUB_TOKEN }}'
+          authentication: 'username:${{ secrets.PTA }}'
 
       # Cache the splitsh executable to speedup future runs
       - name: Cache splitsh-lite
