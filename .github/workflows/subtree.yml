@@ -2,9 +2,8 @@ name: Subtree Split for composer packages
 
 on:
   push:
-    # tags:
-    #   - 'v*'
-  workflow_dispatch:
+    tags:
+      - 'v*'
 
 jobs:
   sync_commits:
