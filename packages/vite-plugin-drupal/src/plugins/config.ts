@@ -4,7 +4,6 @@ import fs from 'fs'
 import type { Plugin, UserConfigExport } from 'vite'
 import { mergeConfig } from 'vite'
 import fg from 'fast-glob'
-
 import type { Context } from './context'
 
 const postCssConfig = () => {
@@ -39,6 +38,7 @@ export default (ctx: Context): Plugin => {
         },
         define: {
           __DEV__: !ctx.isProduction ? 'true' : 'false',
+          __VUE_OPTIONS_API__: false,
         },
         build: {
           target: 'esnext',
@@ -53,6 +53,7 @@ export default (ctx: Context): Plugin => {
             output: {
               manualChunks: {
                 'vue.runtime.esm-browser.prod': ['vue'],
+                'alpine.runtime': ['alpinejs'],
               },
               assetFileNames: (assetInfo: any) => {
                 const base = dirname(assetInfo.name).replace(/^\./, '').trim()

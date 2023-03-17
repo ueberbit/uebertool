@@ -3,9 +3,17 @@ import type { Plugin, UserConfig } from 'vite'
 import { defu } from 'defu'
 import type { Options as VueOptions } from '@vitejs/plugin-vue'
 import type { Options as IconsOptions } from 'unplugin-icons'
+import type Unimport from 'unimport/unplugin'
+import type { Options as ComponentOptions } from 'unplugin-vue-components'
+import {
+  HeadlessUiResolver,
+  VueUseComponentsResolver,
+  VueUseDirectiveResolver,
+} from 'unplugin-vue-components/resolvers'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import fg from 'fast-glob'
 import { getDistThemeName, getThemeName } from '../utils'
+import LocalComponentResolve from '../importResolver'
 
 export default (ctx: Context): Plugin => ({
   name: 'vite-plugin-drupal-context',
@@ -18,6 +26,8 @@ export default (ctx: Context): Plugin => ({
 export interface UserOptions {
   vue?: VueOptions
   icons?: IconsOptions
+  unimport?: Partial<Parameters<typeof Unimport.vite>>[0]
+  components?: ComponentOptions
   themePackage?: string
   css?: {
     cascadeLayers?: boolean
@@ -74,6 +84,30 @@ const defaults: DefaultOptions = {
         }
       }, {}),
     },
+  },
+  unimport: {
+    dts: './@types/unimport.d.ts',
+    dirs: [
+      './js/**/*',
+    ],
+    presets: [
+      'pinia',
+      'vue',
+      '@vueuse/core',
+    ],
+    imports: [
+      { name: 'default', as: 'once', from: '@drupal/once' },
+      { name: 'default', as: 'Alpine', from: 'alpinejs' },
+    ],
+  },
+  components: {
+    dts: './@types/components.d.ts',
+    resolvers: [
+      HeadlessUiResolver(),
+      VueUseComponentsResolver(),
+      VueUseDirectiveResolver(),
+      LocalComponentResolve(),
+    ],
   },
   ce: {
     prefix: getThemeName() || 'ce',
