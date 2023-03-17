@@ -3,19 +3,18 @@ import type { Plugin } from 'vite'
 
 export default (): Plugin => {
   return {
-    name: 'vite-plugin-drupal-tailwind-hmr',
-    apply: 'serve',
+    name: 'vite-plugin-vue-custom-element-styles',
     transform(code: string, id: string) {
       if (/ce\.vue$/.test(id)) {
         const setupMatch = code.match(/<script.*setup[^>]*>/g)
         const s = new MagicString(code)
 
-        !setupMatch && s.appendLeft(s.length(), '\n<script setup >import { useHMR } from \'@ueberbit/vite-plugin-drupal/composables\';useHMR();</script>\n')
+        !setupMatch && s.appendLeft(s.length(), '\n<script setup >import { useStyles } from \'@ueberbit/vite-plugin-drupal/composables\';useStyles();</script>\n')
 
         if (setupMatch) {
           const index = code.indexOf(setupMatch[0]) + setupMatch[0].length
 
-          s.appendLeft(index, 'import { useHMR } from \'@ueberbit/vite-plugin-drupal/composables\';useHMR();')
+          s.appendLeft(index, 'import { useStyles } from \'@ueberbit/vite-plugin-drupal/composables\';useStyles();')
         }
 
         return {

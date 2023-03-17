@@ -1,4 +1,4 @@
-import { getCurrentInstance, onMounted, ref } from 'vue'
+import { getCurrentInstance, onMounted } from 'vue'
 import { adoptStyles } from './styles'
 
 /**
@@ -6,15 +6,18 @@ import { adoptStyles } from './styles'
  * To fix this the styles are applied to the renderRoot.
  */
 export const useStyles = () => {
-  const renderRoot = ref<ShadowRoot | Document>()
-
   onMounted(() => {
     const instance = getCurrentInstance()
+
     if (!instance)
       return
 
-    renderRoot.value = instance.vnode?.el?.getRootNode()
-    if (!renderRoot.value)
+    // @ts-expect-error custom api
+    if (instance.host)
+      return
+
+    const renderRoot = instance.vnode?.el?.getRootNode()
+    if (!renderRoot)
       return
 
     // @ts-expect-error custom api
@@ -32,7 +35,7 @@ export const useStyles = () => {
      * If the rootNode of the element is a shadowRoot, attach the styles.
      * Otherwise vue will handle it normally.
      */
-    if (renderRoot.value instanceof ShadowRoot)
-      adoptStyles(renderRoot.value as ShadowRoot, [styles], __hmrId)
+    if (renderRoot instanceof ShadowRoot)
+      adoptStyles(renderRoot as ShadowRoot, [styles], __hmrId)
   })
 }
