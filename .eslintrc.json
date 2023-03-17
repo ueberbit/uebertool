@@ -1,5 +1,6 @@
 {
   "extends": "@ueberbit",
+  "root": true,
   "ignorePatterns": [
     "**/drupal/**",
     "**/packages/drupal-starterkit-theme/**"
