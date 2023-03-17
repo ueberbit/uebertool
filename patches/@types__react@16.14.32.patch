@@ -1,0 +1,13 @@
+diff --git a/index.d.ts b/index.d.ts
+index 0ca08b252630be2c0775c081ec8284772625413d..2c3e249f231285493f1449bb54b8f22a1dd60642 100755
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -3074,7 +3074,7 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
+             ? Defaultize<P, D>
+             : P;
+ 
+-declare global {
++declare namespace ReactGlobal {
+     namespace JSX {
+         // tslint:disable-next-line:no-empty-interface
+         interface Element extends React.ReactElement<any, any> { }
