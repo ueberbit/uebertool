@@ -97,8 +97,8 @@ export default function drupalLibraries(ctx: Context): Plugin {
 
       this.emitFile({
         type: 'asset',
-        name: `${ctx.distThemeName}.json`,
-        fileName: `${ctx.distThemeName}.json`,
+        name: 'libraries.json',
+        fileName: 'libraries.json',
         source: JSON.stringify(library),
       })
     },
@@ -184,7 +184,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
       }
       finally {
         await fs.writeFile(`${config.build.outDir}/${ctx.distThemeName}.libraries.yml`, YAML.stringify(library))
-        await fs.writeFile(`${config.build.outDir}/${ctx.distThemeName}.json`, JSON.stringify(library))
+        await fs.writeFile(`${config.build.outDir}/libraries.json`, JSON.stringify(library))
       }
     },
   }
