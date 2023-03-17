@@ -29,25 +29,33 @@ import { camelize, extend, hyphenate, isArray, toNumber } from '@vue/shared'
 import { hydrate, render } from 'vue'
 import { adoptStyles, baseStyles, supportsAdoptingStyleSheets } from './styles'
 
-Object.assign(window, {
-  'tw':  new Proxy({}, {
-    get(_, prop) {
-      if (prop === 'css') {
-        const tailwind = Array.from((document.querySelectorAll('link[href*="tailwind"]')[0] as HTMLStyleElement).sheet?.cssRules || []).reduce((acc, curr: any) => acc + curr.cssText, '')
+const cache = new Map()
 
-        if (supportsAdoptingStyleSheets) {
-          const sheet = new CSSStyleSheet()
-          // @ts-ignore
-          if (__DEV__) sheet.__hmrId = 'tailwind'
-          // @ts-ignore
-          sheet.replaceSync(tailwind)
-          return sheet
-        }
-        return [tailwind]
+const tw = new Proxy({}, {
+  get(_, prop) {
+    if (prop === 'css') {
+      if (supportsAdoptingStyleSheets && cache.has('sheet'))
+        return cache.get('sheet')
+
+      if (cache.has('css'))
+        return cache.get('css')
+
+      const tailwind = Array.from((document.querySelectorAll('link[href*="tailwind"]')[0] as HTMLStyleElement).sheet?.cssRules || []).reduce((acc, curr: any) => acc + curr.cssText, '')
+
+      if (supportsAdoptingStyleSheets) {
+        const sheet = new CSSStyleSheet()
+        // @ts-ignore
+        if (__DEV__) sheet.__hmrId = 'tailwind'
+        // @ts-ignore
+        sheet.replaceSync(tailwind)
+        cache.set('sheet', sheet)
+        return sheet
       }
-      return {}
+      cache.set('css', [tailwind])
+      return [tailwind]
     }
-  })
+    return {}
+  }
 })
 
 export interface CustomComponentInternalInstance extends ComponentInternalInstance {
@@ -197,6 +205,7 @@ export class VueElement extends BaseClass {
    * @internal
    */
   _instance: ComponentInternalInstance | null = null
+  _renderRoot: HTMLElement | ShadowRoot = this
 
   private _connected = false
   private _resolved = false
@@ -218,7 +227,7 @@ export class VueElement extends BaseClass {
             `defined as hydratable. Use \`defineSSRCustomElement\`.`
         )
       }
-      this.attachShadow({ mode: 'open' })
+      this._renderRoot = this.attachShadow({ mode: 'open' })
       if (!(this._def as ComponentOptions).__asyncLoader) {
         // for sync component defs we can immediately resolve props
         this._resolveProps(this._def)
@@ -385,7 +394,7 @@ export class VueElement extends BaseClass {
         this._instance = instance
         Object.assign(instance, {
           host: this,
-          renderRoot: this.shadowRoot,
+          renderRoot: this._renderRoot,
           isCE: true,
           _setAttr: this._setAttr,
           _setProp: this._setProp,
