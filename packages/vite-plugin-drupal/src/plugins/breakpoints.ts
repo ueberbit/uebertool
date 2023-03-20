@@ -1,10 +1,8 @@
 import fse from 'fs-extra'
 import type { Plugin, ResolvedConfig } from 'vite'
 import YAML from 'yaml'
-// @ts-expect-error Missing types.
-import resolveConfig from 'tailwindcss/lib/util/resolveConfig'
-// @ts-expect-error Missing types.
-import defaultConfig from 'tailwindcss/stubs/defaultConfig.stub'
+
+import resolveConfig from 'tailwindcss/resolveConfig'
 
 import type { Context } from './context'
 
@@ -37,7 +35,7 @@ const generateBreakpoints = async (theme: string) => {
   try {
     const tailwindConfigFile = await import(`${process.cwd()}/tailwind.config.js`)
 
-    const tailwindConfig = resolveConfig([tailwindConfigFile.default, defaultConfig])
+    const tailwindConfig = resolveConfig(tailwindConfigFile.default)
     const breakpoints = {
       ...tailwindConfig.theme?.screens ?? {},
     }
