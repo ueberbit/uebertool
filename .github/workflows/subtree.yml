@@ -2,6 +2,18 @@ name: Subtree Split for composer packages
 
 on:
   push:
+    # Only trigger for specific branches or changes in specific paths.
+    branches:
+      - '*'
+    paths:
+      - src/**
+    # Tag push events should be ignored, they will be handled with the create event below.
+    tags-ignore:
+      - '*'
+  create:
+    tags:
+      - 'v*'
+  delete:
     tags:
       - 'v*'
 
@@ -23,7 +35,7 @@ jobs:
 
       # Cache the splitsh executable to speedup future runs
       - name: Cache splitsh-lite
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: './splitsh'
           key: '${{ runner.os }}-splitsh-v101'
