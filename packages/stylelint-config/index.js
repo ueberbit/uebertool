@@ -18,6 +18,7 @@ module.exports = {
     'web/sites/**/files',
   ],
   rules: {
+    // 'selector-anb-no-unmatchable': null,
     'max-line-length': [
       120,
       {
