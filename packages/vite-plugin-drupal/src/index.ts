@@ -17,6 +17,10 @@ import vueCustomElement from './plugins/vue-custom-element'
 export default (options: UserOptions = {}): Plugin[] => {
   const ctx = createContext(options)
 
+  const UnimportPlugin = 'default' in Unimport
+    ? Unimport.default as typeof Unimport
+    : Unimport
+
   return [
     context(ctx),
     config(ctx),
@@ -29,7 +33,7 @@ export default (options: UserOptions = {}): Plugin[] => {
     vue(ctx.options.vue),
     vuePlugin(ctx),
     Icons(ctx.options.icons || {}),
-    Unimport.vite(ctx.options.unimport || {}),
+    UnimportPlugin.vite(ctx.options.unimport || {}),
     Components(ctx.options.components),
   ].flat()
 }
