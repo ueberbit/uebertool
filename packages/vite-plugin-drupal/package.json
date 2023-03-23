@@ -33,7 +33,6 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@drupal/once": "^1.0.1",
     "@iconify/json": "^2.2.36",
     "@tailwindcss/forms": "^0.5.3",
     "@types/alpinejs": "^3.7.1",

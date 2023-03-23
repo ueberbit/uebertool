@@ -89,6 +89,7 @@ const defaults: DefaultOptions = {
     dts: './@types/unimport.d.ts',
     dirs: [
       './js/**/*',
+      './templates/**/*',
     ],
     presets: [
       'pinia',
@@ -96,7 +97,6 @@ const defaults: DefaultOptions = {
       '@vueuse/core',
     ],
     imports: [
-      { name: 'default', as: 'once', from: '@drupal/once' },
       { name: 'default', as: 'Alpine', from: 'alpinejs' },
     ],
   },

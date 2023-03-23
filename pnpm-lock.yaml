@@ -126,7 +126,6 @@ importers:
 
   packages/vite-plugin-drupal:
     specifiers:
-      '@drupal/once': ^1.0.1
       '@iconify/json': ^2.2.36
       '@tailwindcss/forms': ^0.5.3
       '@types/alpinejs': ^3.7.1
@@ -157,7 +156,6 @@ importers:
       vue-tsc: ^1.2.0
       yaml: ^2.2.1
     dependencies:
-      '@drupal/once': 1.0.1
       '@iconify/json': 2.2.36
       '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.7
       '@types/alpinejs': 3.7.1
@@ -2053,10 +2051,6 @@ packages:
   /@discoveryjs/json-ext/0.5.7:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
     engines: {node: '>=10.0.0'}
-    dev: false
-
-  /@drupal/once/1.0.1:
-    resolution: {integrity: sha512-O8tQmNDBgSm3ADuFZ5OZlGxsrdsc+pEqd1NBoMpSzWwiOnWwC91tqDwnlX+mDh7sBJoJ+4vVwFh0NLUV4LPFvg==}
     dev: false
 
   /@emotion/babel-plugin/11.10.2_@babel+core@7.21.3:
