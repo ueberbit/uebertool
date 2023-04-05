@@ -91,6 +91,11 @@ const defaults: DefaultOptions = {
       './js/**/*',
       './templates/**/*',
     ],
+    dirsScanOptions: {
+      fileFilter(file) {
+        return !file.includes('.stories.')
+      },
+    },
     presets: [
       'pinia',
       'vue',
