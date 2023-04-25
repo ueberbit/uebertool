@@ -13,8 +13,7 @@ export default (ctx: Context): Plugin => {
     'base theme': 'stable9',
     'description': `${ctx.themeName.toUpperCase()} Theme for compiled assets.`,
     'package': `${ctx.options.themePackage || ctx.themeName}`,
-    'core': '8.x',
-    'core_version_requirement': '^8 || ^9',
+    'core_version_requirement': '^9 || ^10',
     'hidden': true,
   }
 
