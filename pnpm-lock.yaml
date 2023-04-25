@@ -4,6 +4,9 @@ patchedDependencies:
   '@types/react@16.14.32':
     hash: ypshaly2y23ydowsq2tcilu5hu
     path: patches/@types__react@16.14.32.patch
+  '@wingsuit-designsystem/pattern-react@1.2.7':
+    hash: di2kospjyyw7alnptxev4eiuby
+    path: patches/@wingsuit-designsystem__pattern-react@1.2.7.patch
   '@wingsuit-designsystem/pattern@1.2.7':
     hash: dnx4ox7h5ubk6phxzjyiyqtmcm
     path: ./patches/@wingsuit-designsystem__pattern@1.2.7.patch
@@ -86,7 +89,7 @@ importers:
         version: 1.2.7(patch_hash=dnx4ox7h5ubk6phxzjyiyqtmcm)
       '@wingsuit-designsystem/pattern-react':
         specifier: ^1.2.7
-        version: 1.2.7
+        version: 1.2.7(patch_hash=di2kospjyyw7alnptxev4eiuby)
       '@wingsuit-designsystem/storybook':
         specifier: ^1.2.7
         version: 1.2.7(@babel/core@7.21.3)(@storybook/builder-webpack4@6.5.16)(@storybook/builder-webpack5@6.5.16)(@storybook/manager-webpack5@6.5.16)(@types/webpack@4.41.32)(eslint@8.36.0)(require-from-string@2.0.2)(typescript@3.9.10)(webpack-cli@3.3.12)(webpack@4.46.0)
@@ -5975,7 +5978,7 @@ packages:
       - webpack-plugin-serve
     dev: false
 
-  /@wingsuit-designsystem/pattern-react@1.2.7:
+  /@wingsuit-designsystem/pattern-react@1.2.7(patch_hash=di2kospjyyw7alnptxev4eiuby):
     resolution: {integrity: sha512-0Ey2SjKdwvXei4J0zP0t+T6QLGfdYi6bEvJkp8KYLsz/BngdKYIKsGz8Cd+OGxpdHSnkhEAux6r9twz2ZGnx9w==}
     dependencies:
       '@types/react': 16.14.32(patch_hash=ypshaly2y23ydowsq2tcilu5hu)
@@ -5985,6 +5988,7 @@ packages:
       prop-types: 15.8.1
       react: 16.14.0
     dev: false
+    patched: true
 
   /@wingsuit-designsystem/pattern@1.2.7(patch_hash=dnx4ox7h5ubk6phxzjyiyqtmcm):
     resolution: {integrity: sha512-PdhgVXVPHyvSiT/V/Eb8nNOPagh5BY8Kd/9egcXrMk7xSbdKa3jJtBxm7/nt+J18Dl8kC8g+vy9H05H0aRKJsw==}
@@ -6011,7 +6015,7 @@ packages:
       '@types/react': 16.14.32(patch_hash=ypshaly2y23ydowsq2tcilu5hu)
       '@types/react-dom': 16.9.16
       '@wingsuit-designsystem/pattern': 1.2.7(patch_hash=dnx4ox7h5ubk6phxzjyiyqtmcm)
-      '@wingsuit-designsystem/pattern-react': 1.2.7
+      '@wingsuit-designsystem/pattern-react': 1.2.7(patch_hash=di2kospjyyw7alnptxev4eiuby)
       polished: 4.2.2
       prop-types: 15.8.1
       react: 16.14.0

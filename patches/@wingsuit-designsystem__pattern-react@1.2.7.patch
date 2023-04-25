@@ -1,0 +1,26 @@
+diff --git a/dist/client/PatternPreview.js b/dist/client/PatternPreview.js
+index 94db9d1a780d8e7c4199966f0cfb393936fb6774..804924bf755ad2430041b8441db881f02d473e04 100644
+--- a/dist/client/PatternPreview.js
++++ b/dist/client/PatternPreview.js
+@@ -102,7 +102,7 @@ var PatternPreview = function PatternPreview(_ref) {
+     if (!rendered) return;
+     (0, _behaviors.attachBehaviors)(global.window.document, {});
+   }, [rendered]);
+-  return /*#__PURE__*/_react["default"].createElement("div", {
++  return /*#__PURE__*/_react["default"].createElement("story", {
+     dangerouslySetInnerHTML: {
+       __html: rendered
+     }
+diff --git a/dist/client/RenderTwig.js b/dist/client/RenderTwig.js
+index c42beaa2e392d844589a87588e57bfa8d345feab..fca4cee5ee72da4896d7d5f648796fe5279f5ac0 100644
+--- a/dist/client/RenderTwig.js
++++ b/dist/client/RenderTwig.js
+@@ -97,7 +97,7 @@ var RenderTwig = function RenderTwig(_ref) {
+     if (!rendered) return;
+     (0, _behaviors.attachBehaviors)(global.window.document, {});
+   }, [rendered]);
+-  return /*#__PURE__*/_react["default"].createElement("div", {
++  return /*#__PURE__*/_react["default"].createElement("story", {
+     dangerouslySetInnerHTML: {
+       __html: rendered
+     }
