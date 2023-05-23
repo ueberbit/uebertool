@@ -14,14 +14,14 @@ import type { Context } from './context'
  * @param size Breakpoint size.
  * @returns Drupal Breakpoint entry.
  */
-const getScreen = (theme: string, group: string, name: string, size?: number) => {
+const getScreen = (theme: string, group: string, name: string, multipliers: string[], size?: number) => {
   return {
     [[theme, group, name].join('.')]: {
       label: name,
       mediaQuery: size ? `all and (min-width: ${size})` : '',
       weight: 0,
       multipliers: [
-        '1x',
+        ...multipliers,
       ],
       ...(group && {
         group: `${theme} ${group}`,
@@ -30,7 +30,7 @@ const getScreen = (theme: string, group: string, name: string, size?: number) =>
   }
 }
 
-const generateBreakpoints = async (theme: string) => {
+const generateBreakpoints = async (theme: string, multipliers: string[]) => {
   let screens = {}
   try {
     const tailwindConfigFile = await import(`${process.cwd()}/tailwind.config.js`)
@@ -42,13 +42,13 @@ const generateBreakpoints = async (theme: string) => {
     const group = 'Tailwind'
 
     screens = {
-      ...getScreen(theme, group, 'xs'),
+      ...getScreen(theme, group, 'xs', multipliers),
     }
 
     Object.keys(breakpoints).forEach((screen) => {
       screens = {
         ...screens,
-        ...getScreen(theme, group, screen, breakpoints[screen]),
+        ...getScreen(theme, group, screen, multipliers, breakpoints[screen]),
       }
     })
   }
@@ -67,7 +67,7 @@ export default (ctx: Context): Plugin => {
       config = resolvedConfig
     },
     async generateBundle(_, bundle, isWrite) {
-      const screens = await generateBreakpoints(ctx.themeName)
+      const screens = await generateBreakpoints(ctx.themeName, ctx.options.breakpoints.multipliers)
       if (!isWrite || !ctx.isProduction || !screens)
         return
 
@@ -82,7 +82,7 @@ export default (ctx: Context): Plugin => {
       if (ctx.isProduction)
         return
 
-      const screens = await generateBreakpoints(ctx.themeName)
+      const screens = await generateBreakpoints(ctx.themeName, ctx.options.breakpoints.multipliers)
 
       if (!screens)
         return

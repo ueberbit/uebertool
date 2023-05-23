@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { dirname, relative, resolve } from 'path'
-import fs from 'fs'
+import { dirname, relative, resolve } from 'node:path'
+import fs from 'node:fs'
 import type { Plugin, UserConfigExport } from 'vite'
 import { mergeConfig } from 'vite'
 import fg from 'fast-glob'

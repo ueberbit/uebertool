@@ -35,6 +35,9 @@ export interface UserOptions {
   ce?: {
     prefix?: string
   }
+  breakpoints?: {
+    multipliers?: string[]
+  }
 }
 
 export interface DefaultOptions extends UserOptions {
@@ -42,6 +45,9 @@ export interface DefaultOptions extends UserOptions {
   root?: string
   ce: {
     prefix: string
+  }
+  breakpoints: {
+    multipliers: string[]
   }
 }
 
@@ -119,6 +125,12 @@ const defaults: DefaultOptions = {
   },
   css: {
     cascadeLayers: true,
+  },
+  breakpoints: {
+    multipliers: [
+      '1x',
+      '2x',
+    ],
   },
 }
 
