@@ -1,6 +1,6 @@
-import Path from 'path'
-import fs from 'fs/promises'
-import { constants } from 'fs'
+import path from 'node:path'
+import fs from 'node:fs/promises'
+import { constants } from 'node:fs'
 import type { Plugin, ResolvedConfig } from 'vite'
 import YAML from 'yaml'
 import { defu } from 'defu'
@@ -29,10 +29,10 @@ export default function drupalLibraries(ctx: Context): Plugin {
             assetOrChunk.type === 'asset' || (assetOrChunk.type === 'chunk' && assetOrChunk.code !== '\n' && assetOrChunk.isDynamicEntry === false),
         )
         .forEach((assetOrChunk) => {
-          const filename = Path.parse(assetOrChunk.fileName).name
+          const filename = path.parse(assetOrChunk.fileName).name
           const base = filename.split('.')[0]
-          const ext = Path.parse(assetOrChunk.fileName).ext.replace('.', '')
-          const basePath = Path.dirname(assetOrChunk.fileName)
+          const ext = path.parse(assetOrChunk.fileName).ext.replace('.', '')
+          const basePath = path.dirname(assetOrChunk.fileName)
           const lib = `${basePath.match(/^(js|css)$/) ? `${basePath}/` : ''}${base}`
           // const lib = base
 
@@ -62,7 +62,7 @@ export default function drupalLibraries(ctx: Context): Plugin {
                 [`/themes/custom/${ctx.themeName}/dist/${assetOrChunk.fileName}`]: {
                   type: 'external',
                   minified: true,
-                  preprocess: false,
+                  preprocessed: true,
                 },
               },
             })
@@ -77,8 +77,9 @@ export default function drupalLibraries(ctx: Context): Plugin {
             }
             library[lib].js = defu(library[lib].js, {
               [`/themes/custom/${ctx.themeName}/dist/${assetOrChunk.fileName}`]: {
-                type: 'external',
+                type: 'file',
                 minified: true,
+                preprocessed: true,
                 attributes: {
                   crossorigin: {},
                   type: 'module',
@@ -117,10 +118,10 @@ export default function drupalLibraries(ctx: Context): Plugin {
       }
 
       files.forEach(async (file) => {
-        const filename = Path.parse(file).name
-        const ext = Path.parse(file).ext.replace('.', '')
+        const filename = path.parse(file).name
+        const ext = path.parse(file).ext.replace('.', '')
         const proxy = `http://localhost:5173/${file}`
-        const basePath = Path.dirname(file)
+        const basePath = path.dirname(file)
         // const lib = `${basePath}/${filename}`
         const lib = `${basePath.match(/^(js|css)$/) ? `${basePath}/` : ''}${filename}`
         // const lib = filename

@@ -175,6 +175,9 @@ importers:
       '@types/alpinejs':
         specifier: ^3.7.1
         version: 3.7.1
+      '@types/js-cookie':
+        specifier: ^3.0.3
+        version: 3.0.3
       '@ueberbit/postcss':
         specifier: workspace:*
         version: link:../postcss
@@ -5082,6 +5085,10 @@ packages:
     dependencies:
       jest-diff: 25.5.0
       pretty-format: 25.5.0
+    dev: false
+
+  /@types/js-cookie@3.0.3:
+    resolution: {integrity: sha512-Xe7IImK09HP1sv2M/aI+48a20VX+TdRJucfq4vfRVy6nWN8PYPOEnlMRSgxJAgYQIXJVL8dZ4/ilAM7dWNaOww==}
     dev: false
 
   /@types/json-schema@7.0.11:
