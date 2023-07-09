@@ -1,6 +1,5 @@
 import path from 'node:path'
-import type { Plugin, UserConfig } from 'vite'
-import { defu } from 'defu'
+import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
 import type { Options as VueOptions } from '@vitejs/plugin-vue'
 import type { Options as IconsOptions } from 'unplugin-icons'
 import type Unimport from 'unimport/unplugin'
@@ -12,55 +11,48 @@ import {
 } from 'unplugin-vue-components/resolvers'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import fg from 'fast-glob'
+import { defu } from 'defu'
 import { getDistThemeName, getThemeName } from '../utils'
-import LocalComponentResolve from '../importResolver'
+import LocalComponentResolver from '../importResolver'
 
-export default (ctx: Context): Plugin => ({
-  name: 'vite-plugin-drupal-context',
-  enforce: 'pre',
-  config(config) {
-    ctx.config = config
-  },
-})
-
-export interface UserOptions {
-  vue?: VueOptions
-  icons?: IconsOptions
-  unimport?: Partial<Parameters<typeof Unimport.vite>>[0]
-  components?: ComponentOptions
+export interface Options {
+  url: string
+  vue: VueOptions
+  icons: IconsOptions
+  unimport: Partial<Parameters<typeof Unimport.vite>>[0]
+  components: ComponentOptions
   themePackage?: string
-  css?: {
-    cascadeLayers?: boolean
+  css: {
+    cascadeLayers: boolean
   }
-  ce?: {
-    prefix?: string
-  }
-  breakpoints?: {
-    multipliers?: string[]
-  }
-}
-
-export interface DefaultOptions extends UserOptions {
-  config?: UserConfig
-  root?: string
   ce: {
     prefix: string
   }
   breakpoints: {
     multipliers: string[]
   }
+  experimental: {
+    twighmr: boolean
+  }
 }
 
+export type UserOptions = Partial<Options>
+
 export interface Context {
-  isProduction: boolean
+  dev: boolean
+  prod: boolean
+  port: number
+  url: string
   root: string
-  options: DefaultOptions
+  options: Options
   config: UserConfig
+  resoledConfig: ResolvedConfig
   themeName: string
   distThemeName: string
 }
 
-const defaults: DefaultOptions = {
+const defaults: Options = {
+  url: 'http://localhost',
   vue: {
     template: {
       compilerOptions: {
@@ -92,10 +84,10 @@ const defaults: DefaultOptions = {
     },
   },
   unimport: {
-    dts: './@types/unimport.d.ts',
+    dts: './.uebertool/unimport.d.ts',
     dirs: [
       './js/**/*',
-      './templates/**/*',
+      './templates/**/*.{js|ts}',
     ],
     dirsScanOptions: {
       fileFilter(file) {
@@ -112,12 +104,12 @@ const defaults: DefaultOptions = {
     ],
   },
   components: {
-    dts: './@types/components.d.ts',
+    dts: './.uebertool/components.d.ts',
     resolvers: [
       HeadlessUiResolver(),
       VueUseComponentsResolver(),
       VueUseDirectiveResolver(),
-      LocalComponentResolve(),
+      LocalComponentResolver(),
     ],
   },
   ce: {
@@ -132,13 +124,29 @@ const defaults: DefaultOptions = {
       '2x',
     ],
   },
+  experimental: {
+    twighmr: false,
+  },
 }
 
-export const createContext = (options: UserOptions, root = process.cwd()): Context => ({
-  isProduction: process.env.NODE_ENV === 'production',
-  options: defu(options, defaults) as DefaultOptions,
-  root,
-  config: {},
-  themeName: getThemeName(),
-  distThemeName: getDistThemeName(),
-})
+export default (ctx: Context, options: UserOptions): Plugin => {
+  ctx.options = defu<Options, [Options]>(options, defaults)
+  ctx.port = 5173
+  ctx.url = `http://localhost:${ctx.port}`
+  ctx.root = process.cwd()
+  ctx.themeName = getThemeName()
+  ctx.distThemeName = getDistThemeName()
+
+  return {
+    name: 'vite-plugin-uebertool-context',
+    enforce: 'pre',
+    config(config) {
+      ctx.config = config
+    },
+    configResolved(config) {
+      ctx.dev = config.mode === 'development'
+      ctx.prod = !ctx.dev
+      ctx.resoledConfig = config
+    },
+  }
+}

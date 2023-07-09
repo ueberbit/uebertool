@@ -16,7 +16,7 @@
 ### Install
 
 ```bash
-pnpm add -D eslint @ueberbit/eslint-config
+pnpm add -D @ueberbit/eslint-config
 ```
 
 ### Config `.eslintrc`

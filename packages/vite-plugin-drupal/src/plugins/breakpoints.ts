@@ -1,9 +1,7 @@
 import fse from 'fs-extra'
 import type { Plugin, ResolvedConfig } from 'vite'
 import YAML from 'yaml'
-
 import resolveConfig from 'tailwindcss/resolveConfig'
-
 import type { Context } from './context'
 
 /**
@@ -62,13 +60,13 @@ export default (ctx: Context): Plugin => {
   let config: ResolvedConfig
 
   return {
-    name: 'vite-plugin-drupal-breakpoints',
+    name: 'vite-plugin-uebertool-breakpoints',
     configResolved(resolvedConfig) {
       config = resolvedConfig
     },
     async generateBundle(_, bundle, isWrite) {
       const screens = await generateBreakpoints(ctx.themeName, ctx.options.breakpoints.multipliers)
-      if (!isWrite || !ctx.isProduction || !screens)
+      if (!isWrite || ctx.dev || !screens)
         return
 
       this.emitFile({
@@ -79,7 +77,7 @@ export default (ctx: Context): Plugin => {
       })
     },
     async buildStart() {
-      if (ctx.isProduction)
+      if (ctx.prod)
         return
 
       const screens = await generateBreakpoints(ctx.themeName, ctx.options.breakpoints.multipliers)

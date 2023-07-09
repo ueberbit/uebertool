@@ -70,13 +70,13 @@ export default (ctx: Context): Plugin => {
   })
 
   return {
-    name: 'vite-plugin-custom-elements-loader',
+    name: 'vite-plugin-uebertool-custom-elements-loader',
     enforce: 'pre',
-    async resolveId(id) {
+    async resolveId(id: string) {
       if (id === virtualModuleId)
         return resolvedVirtualModuleId
     },
-    async load(id) {
+    async load(id: string) {
       if (id === resolvedVirtualModuleId) {
         let code = [
           await addLoader('*/**/*.eager.ce.(vue|tsx|jsx)'),

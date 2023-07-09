@@ -8,7 +8,7 @@ export default (ctx: Context): Plugin[] => {
   return ctx.options.css?.cascadeLayers
     ? [
         {
-          name: 'vite-plugin-drupal-tailwind-cascade-layers-transform-pre',
+          name: 'vite-plugin-uebertool-tailwind-cascade-layers-transform-pre',
           enforce: 'pre',
           transform(src, id) {
             if (fileRegex.test(id)) {
@@ -23,7 +23,7 @@ export default (ctx: Context): Plugin[] => {
           },
         },
         {
-          name: 'vite-plugin-drupal-tailwind-cascade-layers-transform-post',
+          name: 'vite-plugin-uebertool-tailwind-cascade-layers-transform-post',
           transform(src, id) {
             if (fileRegex.test(id)) {
               const s = new MagicString(src)

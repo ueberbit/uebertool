@@ -3,7 +3,7 @@ import type { Plugin } from 'vite'
 
 export default (): Plugin => {
   return {
-    name: 'vite-plugin-drupal-tailwind-hmr',
+    name: 'vite-plugin-uebertool-tailwind-hmr',
     apply: 'serve',
     transform(code: string, id: string) {
       if (/ce\.vue$/.test(id)) {

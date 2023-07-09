@@ -15,10 +15,16 @@ export default (ctx: Context): Plugin => {
     'package': `${ctx.options.themePackage || ctx.themeName}`,
     'core_version_requirement': '^9 || ^10',
     'hidden': true,
+    'libraries': [
+      'ueberbit_dist/css/tailwind',
+      'ueberbit_dist/js/main',
+      'ueberbit_dist/css/gin-custom',
+    ],
+
   }
 
   return {
-    name: 'vite-plugin-drupal-theme',
+    name: 'vite-plugin-uebertool-drupal-theme',
     configResolved(resolvedConfig) {
       config = resolvedConfig
     },

@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('node:fs')
 
 /**
  * Check if project is Drupal.
@@ -50,6 +50,7 @@ const config = isDrupal()
         '**/contrib',
         '**/files',
         '**/vendor',
+        'composer.json',
       ],
     }
   : {}

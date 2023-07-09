@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { dirname, relative, resolve } from 'node:path'
+import { basename, dirname, relative, resolve } from 'node:path'
 import fs from 'node:fs'
-import type { Plugin, UserConfigExport } from 'vite'
+import type { Plugin } from 'vite'
 import { mergeConfig } from 'vite'
 import fg from 'fast-glob'
 import type { Context } from './context'
@@ -13,8 +13,10 @@ const postCssConfig = () => {
 }
 
 export default (ctx: Context): Plugin => {
+  const assetMap = new Map<string, string>()
+
   return {
-    name: 'vite-plugin-drupal-config',
+    name: 'vite-plugin-uebertool-config',
     async config(config) {
       return mergeConfig(config, {
         ...(!(await postCssConfig()) && {
@@ -37,7 +39,7 @@ export default (ctx: Context): Plugin => {
           },
         },
         define: {
-          __DEV__: !ctx.isProduction ? 'true' : 'false',
+          __DEV__: ctx.dev ? 'true' : 'false',
           __VUE_OPTIONS_API__: false,
         },
         build: {
@@ -48,7 +50,15 @@ export default (ctx: Context): Plugin => {
               '(js|css|templates)/**/*.(js|jsx|css|ts|tsx)',
             ], {
               onlyFiles: true,
-              ignore: ['**/*.stories.*', '**/*.ce.*', '**/_*', '**/*.d.ts'],
+              ignore: [
+                '**/*.stories.*',
+                '**/*.ce.*',
+                '**/_*',
+                '**/*.d.ts',
+                './js/composables/**',
+                './js/stores/**',
+                './js/utils/**',
+              ],
             }),
             output: {
               manualChunks: {
@@ -56,12 +66,18 @@ export default (ctx: Context): Plugin => {
                 'alpine.runtime': ['alpinejs'],
               },
               assetFileNames: (assetInfo: any) => {
-                const base = dirname(assetInfo.name).replace(/^\./, '').trim()
-                if (base)
-                  return `${base}/[name].[hash].[ext]`
+                const base = basename(assetInfo.name)
+                let dir = dirname(assetInfo.name)
+
+                if (assetMap.has(base))
+                  return assetMap.get(base)
+
+                dir = dir.startsWith('.') ? '' : `${dir}/`
+                assetMap.set(base, `${dir}[name].[hash].[ext]`)
+
                 return '[name].[hash].[ext]'
               },
-              entryFileNames: (assetInfo) => {
+              entryFileNames: (assetInfo: any) => {
                 if (assetInfo.facadeModuleId?.match(/.(ts|js|tsx|jsx|vue)$/)) {
                   const base = dirname(relative('./', assetInfo.facadeModuleId))
                   return `${base}/[name].[hash].js`
@@ -82,7 +98,7 @@ export default (ctx: Context): Plugin => {
             ],
           },
         },
-      } as UserConfigExport)
+      })
     },
   }
 }

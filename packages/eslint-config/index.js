@@ -9,6 +9,7 @@ module.exports = {
    * Ignore common dist paths by default.
    */
   ignorePatterns: [
+    'tsconfig.json',
     ...readGitignoreFiles(),
   ],
 }

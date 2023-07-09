@@ -38,7 +38,7 @@ export const adoptStyles = (
 
   if (supportsAdoptingStyleSheets) {
     const sheets = renderRoot.adoptedStyleSheets || []
-    const oldSheet = __DEV__ && __hmrId ? sheets.find(sheet => sheet.__hmrId === __hmrId) : false
+    const oldSheet = __DEV__ && (__hmrId ? sheets.find(sheet => sheet.__hmrId === __hmrId) : false)
 
     // Check if this StyleSheet exists already. Replace content if it does. Otherwise construct a new CSSStyleSheet.
     if (oldSheet) {
@@ -56,9 +56,9 @@ export const adoptStyles = (
   else {
     const existingStyleElements = renderRoot.querySelectorAll('style')
     const oldStyleElement
-      = __DEV__ && __hmrId
+      = __DEV__ && (__hmrId
         ? Array.from(existingStyleElements).find(sheet => sheet.title === __hmrId)
-        : false
+        : false)
 
     // Check if this Style Element exists already. Replace content if it does. Otherwise construct a new HTMLStyleElement.
     if (oldStyleElement) {

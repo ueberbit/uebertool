@@ -12,7 +12,7 @@
 ### Install
 
 ```bash
-pnpm add -D eslint @ueberbit/stylelint-config
+pnpm add -D @ueberbit/stylelint-config
 ```
 
 ### Config `.stylelintrc`
