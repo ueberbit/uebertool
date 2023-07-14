@@ -46,7 +46,7 @@ export const cssGroups = ['base', 'layout', 'component', 'state', 'theme'] as co
 export type CSSGroup = typeof cssGroups[number]
 
 const deps = [
-  [/once\(/, 'core/once'],
+  [/once(\(|\.)/, 'core/once'],
   [/Drupal\./, 'core/drupal'],
   [/drupalSettings\./, 'core/drupalSettings'],
   [/Drupal\.announce/, 'core/drupal.announce'],
