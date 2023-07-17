@@ -12,6 +12,10 @@ declare global {
 
   interface ShadowRoot extends RenderRoot {}
   interface Document extends RenderRoot {}
+
+  interface Window {
+    Drupal: Drupal
+  }
 }
 
 export {}

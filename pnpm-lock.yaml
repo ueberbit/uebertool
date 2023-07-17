@@ -4,17 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  '@types/react@16.14.32':
-    hash: ypshaly2y23ydowsq2tcilu5hu
-    path: patches/@types__react@16.14.32.patch
-  '@wingsuit-designsystem/pattern-react@1.2.7':
-    hash: di2kospjyyw7alnptxev4eiuby
-    path: patches/@wingsuit-designsystem__pattern-react@1.2.7.patch
-  '@wingsuit-designsystem/pattern@1.2.7':
-    hash: dnx4ox7h5ubk6phxzjyiyqtmcm
-    path: ./patches/@wingsuit-designsystem__pattern@1.2.7.patch
-
 importers:
 
   .:
@@ -44,14 +33,30 @@ importers:
         specifier: ^1.2.1
         version: 1.2.1
 
-  packages/create-uebertool:
+  drupal/web/themes/custom/ueberbit:
     dependencies:
-      '@types/prompts':
-        specifier: ^2.4.4
-        version: 2.4.4
-      prompts:
-        specifier: ^2.4.2
-        version: 2.4.2
+      container-query-polyfill:
+        specifier: ^0.2.4
+        version: 0.2.4
+      css-has-pseudo:
+        specifier: ^4.0.2
+        version: 4.0.2(postcss@8.4.25)
+      morphdom:
+        specifier: ^2.7.0
+        version: 2.7.0
+      swiper:
+        specifier: ^8.4.7
+        version: 8.4.7
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+    devDependencies:
+      '@ueberbit/drupal-storybook':
+        specifier: workspace:*
+        version: link:../../../../../packages/drupal-storybook
+      '@ueberbit/vite-plugin-drupal':
+        specifier: workspace:*
+        version: link:../../../../../packages/vite-plugin-drupal
 
   packages/drupal-storybook:
     dependencies:
@@ -2259,6 +2264,17 @@ packages:
       postcss-selector-parser: ^6.0.10
     dependencies:
       postcss: 7.0.39
+      postcss-selector-parser: 6.0.13
+    dev: false
+
+  /@csstools/selector-specificity@2.1.1(postcss-selector-parser@6.0.13)(postcss@8.4.25):
+    resolution: {integrity: sha512-jwx+WCqszn53YHOfvFMJJRd/B2GqkCBt+1MJSG6o5/s8+ytHMvDZXsJgUEWLk12UnLd7HYKac4BYU5i/Ron1Cw==}
+    engines: {node: ^14 || ^16 || >=18}
+    peerDependencies:
+      postcss: ^8.4
+      postcss-selector-parser: ^6.0.10
+    dependencies:
+      postcss: 8.4.25
       postcss-selector-parser: 6.0.13
     dev: false
 
@@ -5956,13 +5972,6 @@ packages:
     resolution: {integrity: sha512-VjID5MJb1eGKthz2qUerWT8+R4b9N+CHvGCzg9fn4kWZgaF9AhdYikQio3R7wV8YY1NsQKPaCwKz1Yff+aHNUQ==}
     dev: false
 
-  /@types/prompts@2.4.4:
-    resolution: {integrity: sha512-p5N9uoTH76lLvSAaYSZtBCdEXzpOOufsRjnhjVSrZGXikVGHX9+cc9ERtHRV4hvBKHyZb1bg4K+56Bd2TqUn4A==}
-    dependencies:
-      '@types/node': 18.16.19
-      kleur: 3.0.3
-    dev: false
-
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
 
@@ -8950,6 +8959,10 @@ packages:
     resolution: {integrity: sha512-xFxOwqIzR/e1k1gLiWEophSCMqXcwVHIH7akf7b/vxcUeGunlj3hvZaaqxwHsTgn+IndtkQJgSztIDWeumWJDQ==}
     dev: false
 
+  /container-query-polyfill@0.2.4:
+    resolution: {integrity: sha512-SJ/xgsikR21RA/CwWFeHWuwqsyPKfFYlYCDW8Q0EjF1bg/pKfzCWIeZ4pTJHQDScdS+OylsTJyt5jS27g3FxbQ==}
+    dev: false
+
   /container-query-polyfill@1.0.2:
     resolution: {integrity: sha512-YjbsYHidpX0vgHRjTXfWV5Sai4EbocVuXuhL/lcVzRKcwlvVhU92yUqZwO6rRjMQMk08unLLBkQhu60u31LCIQ==}
     dev: false
@@ -9260,6 +9273,18 @@ packages:
     dependencies:
       postcss: 7.0.39
       postcss-selector-parser: 6.0.13
+    dev: false
+
+  /css-has-pseudo@4.0.2(postcss@8.4.25):
+    resolution: {integrity: sha512-bhAVH1oI51Jc99i7gPXCURWOQbeaoWp37Z/ZL7kkd/gkZjxE2VZLc85B8BhaxHGEtXGIEmQMAPQc2cqSqcgAeA==}
+    engines: {node: ^12 || ^14 || >=16}
+    peerDependencies:
+      postcss: ^8.2
+    dependencies:
+      '@csstools/selector-specificity': 2.1.1(postcss-selector-parser@6.0.13)(postcss@8.4.25)
+      postcss: 8.4.25
+      postcss-selector-parser: 6.0.13
+      postcss-value-parser: 4.2.0
     dev: false
 
   /css-has-pseudo@5.0.2(postcss@8.4.25):
@@ -9913,6 +9938,12 @@ packages:
 
   /dom-walk@0.1.2:
     resolution: {integrity: sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w==}
+    dev: false
+
+  /dom7@4.0.6:
+    resolution: {integrity: sha512-emjdpPLhpNubapLFdjNL9tP06Sr+GZkrIHEXLWvOGsytACUrkbeIdjO5g77m00BrHTznnlcNqgmn7pCN192TBA==}
+    dependencies:
+      ssr-window: 4.0.2
     dev: false
 
   /domain-browser@1.2.0:
@@ -15837,6 +15868,10 @@ packages:
       pkg-types: 1.0.3
       ufo: 1.1.2
 
+  /morphdom@2.7.0:
+    resolution: {integrity: sha512-8L8DwbdjjWwM/aNqj7BSoSn4G7SQLNiDcxCnMWbf506jojR6lNQ5YOmQqXEIE8u3C492UlkN4d0hQwz97+M1oQ==}
+    dev: false
+
   /move-concurrently@1.0.1:
     resolution: {integrity: sha512-hdrFxZOycD/g6A6SoI2bB5NA/5NEqD0569+S47WZhPvm46sD50ZHdYaFmnua5lndde9rCHGjmfK7Z8BuCt/PcQ==}
     dependencies:
@@ -19728,6 +19763,10 @@ packages:
       tweetnacl: 0.14.5
     dev: false
 
+  /ssr-window@4.0.2:
+    resolution: {integrity: sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ==}
+    dev: false
+
   /ssri@6.0.2:
     resolution: {integrity: sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==}
     dependencies:
@@ -20581,6 +20620,15 @@ packages:
       stable: 0.1.8
       unquote: 1.1.1
       util.promisify: 1.0.1
+    dev: false
+
+  /swiper@8.4.7:
+    resolution: {integrity: sha512-VwO/KU3i9IV2Sf+W2NqyzwWob4yX9Qdedq6vBtS0rFqJ6Fa5iLUJwxQkuD4I38w0WDJwmFl8ojkdcRFPHWD+2g==}
+    engines: {node: '>= 4.7.0'}
+    requiresBuild: true
+    dependencies:
+      dom7: 4.0.6
+      ssr-window: 4.0.2
     dev: false
 
   /symbol-tree@3.2.4:

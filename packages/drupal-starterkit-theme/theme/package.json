@@ -18,8 +18,7 @@
   },
   "devDependencies": {
     "@ueberbit/drupal-storybook": "workspace:*",
-    "@ueberbit/vite-plugin-drupal": "workspace:*",
-    "typescript": "^4.9.5"
+    "@ueberbit/vite-plugin-drupal": "workspace:*"
   },
   "_pnpm": {
     "patchedDependencies": {
