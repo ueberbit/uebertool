@@ -16,9 +16,9 @@ export default (ctx: Context): Plugin => {
     'core_version_requirement': '^9 || ^10',
     'hidden': true,
     'libraries': [
-      'ueberbit_dist/css/tailwind',
-      'ueberbit_dist/js/main',
-      'ueberbit_dist/css/gin-custom',
+      `${ctx.distThemeName}/css/tailwind`,
+      `${ctx.distThemeName}/js/main`,
+      `${ctx.distThemeName}/css/gin-custom`,
     ],
 
   }
