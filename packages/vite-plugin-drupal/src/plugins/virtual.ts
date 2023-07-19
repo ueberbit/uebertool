@@ -4,7 +4,7 @@ import type { Context } from './context'
 
 const virtualModuleId = 'virtual:uebertool'
 const resolvedVirtualModuleId = `\0${virtualModuleId}`
-const fileRegex = /main\.t|js/
+const fileRegex = /main\.(t|j)s$/
 const banner = 'Build with UEBERTOOL'
 
 const konami = `
@@ -41,11 +41,10 @@ export default (ctx: Context): Plugin => {
     async load(id: string) {
       if (id === resolvedVirtualModuleId) {
         const code = `
+import 'virtual:vue-ce-loader'
 console.log('${banner}')
 ${konami}
-import 'virtual:vue-ce-loader'
 ${ctx.dev && ctx.options.experimental.twighmr && 'import \'virtual:twig-hmr\''}`.trim()
-
         return code
       }
     },

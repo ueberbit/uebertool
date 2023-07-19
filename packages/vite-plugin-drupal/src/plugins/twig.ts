@@ -17,10 +17,10 @@ if (import.meta.hot) {
         tailwind.href = tailwind.href
       }
       morphdom(document.body, newDoc.body)
-      Drupal.attachBehaviors(document.body, {})
+      Drupal.attachBehaviors(document.body, drupalSettings || {})
     })
   })
-}        
+}\n
 `
 
 export default (ctx: Context): Plugin => {
