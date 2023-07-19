@@ -36,6 +36,11 @@ export default (ctx: Context): Plugin => {
         resolve: {
           alias: {
             '~/': `${resolve(process.cwd())}/`,
+            '@/': `${resolve(process.cwd())}/`,
+            '~~/': `${resolve(process.cwd())}/`,
+            '@@/': `${resolve(process.cwd())}/`,
+            'assets/': `${resolve(process.cwd(), 'assets')}/`,
+            'public': `${resolve(process.cwd(), 'public')}/`,
           },
         },
         define: {

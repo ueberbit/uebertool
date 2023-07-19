@@ -48,8 +48,44 @@ function generateTsConfig() {
       noUnusedParameters: true,
       noImplicitReturns: true,
       skipLibCheck: true,
+      baseUrl: '..',
       paths: {
-        '~/*': ['./*'],
+        '~': [
+          '.',
+        ],
+        '~/*': [
+          './*',
+        ],
+        '@': [
+          '.',
+        ],
+        '@/*': [
+          './*',
+        ],
+        '~~': [
+          '.',
+        ],
+        '~~/*': [
+          './*',
+        ],
+        '@@': [
+          '.',
+        ],
+        '@@/*': [
+          './*',
+        ],
+        'assets': [
+          'assets',
+        ],
+        'assets/*': [
+          'assets/*',
+        ],
+        'public': [
+          'public',
+        ],
+        'public/*': [
+          'public/*',
+        ],
       },
     },
     include: [
