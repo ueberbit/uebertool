@@ -1,13 +1,14 @@
 /// <reference types="@types/js-cookie" />
 
-const Drupal: Drupal
-const drupalSettings: Drupal.DrupalSettings
+declare const Drupal: Drupal
+declare const drupalSettings: Drupal.DrupalSettings
 
-const Cookies: Cookies.CookiesStatic & {
+declare const Cookies: Cookies.CookiesStatic & {
   noConflict?(): Cookies.CookiesStatic;
 }
 
 interface Drupal {
+  [key: string]: any;
   Ajax: new (
     base: string,
     element: HTMLElement,
@@ -294,6 +295,7 @@ declare namespace Drupal {
     trigger: string
   ) => void
   interface Behavior {
+    [key: string]: any;
     attach?: BehaviorAttach
     detach?: BehaviorDetach
   }

@@ -25,6 +25,7 @@ module.exports = {
         ignorePattern: '/^\\s*(@import|@apply)/',
       },
     ],
+    'import-notation': 'string',
     'order/order': [
       'dollar-variables',
       'custom-properties',

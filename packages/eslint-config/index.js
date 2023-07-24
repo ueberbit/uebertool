@@ -10,6 +10,7 @@ module.exports = {
    */
   ignorePatterns: [
     'tsconfig.json',
+    '.vscode/**/*',
     ...readGitignoreFiles(),
   ],
 }
