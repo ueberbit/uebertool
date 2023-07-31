@@ -79,10 +79,10 @@ export default (ctx: Context): Plugin => {
     async load(id: string) {
       if (id === resolvedVirtualModuleId) {
         let code = [
-          await addLoader('*/**/*.eager.ce.(vue|tsx|jsx)'),
-          await addLoader('*/**/*.idle.ce.(vue|tsx|jsx)'),
-          await addLoader('*/**/*.lazy.ce.(vue|tsx|jsx)'),
-          await addLoader('*/**/*.visible.ce.(vue|tsx|jsx)'),
+          await addLoader('*/**/*.eager.ce.(vue|tsx|ts|js|jsx)'),
+          await addLoader('*/**/*.idle.ce.(vue|tsx|ts|js|jsx)'),
+          await addLoader('*/**/*.lazy.ce.(vue|tsx|ts|js|jsx)'),
+          await addLoader('*/**/*.visible.ce.(vue|tsx|ts|js|jsx)'),
         ].join('')
 
         return code = code ? common(ctx.options.ce) + code : code
