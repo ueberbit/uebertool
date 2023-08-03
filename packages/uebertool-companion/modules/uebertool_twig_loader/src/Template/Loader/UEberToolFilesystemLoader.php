@@ -65,7 +65,8 @@ class UEberToolFilesystemLoader extends FilesystemLoader {
     $this->addPath('.', '__main__');
     $this->addPath($this->activeTheme->getPath() . '/templates', $this->activeThemeName);
     foreach ($this->activeTheme->getBaseThemeExtensions() as $baseTheme) {
-      $this->addPath($baseTheme->getPath() . '/templates', $baseTheme->getName());
+      $path = $baseTheme->getPath() . '/templates';
+      file_exists($path) && $this->addPath($path, $baseTheme->getName());
     }
   }
 
