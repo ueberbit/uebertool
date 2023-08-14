@@ -1,5 +1,7 @@
 import type { Plugin } from 'vite'
+import fse from 'fs-extra'
 import fg from 'fast-glob'
+import { analyzeText, transformAnalyzerResult } from 'web-component-analyzer'
 import { camelize, hyphenate } from '@vue/shared'
 import { common, eagerLoader, idleLoader, lazyLoader, visibleLoader } from '../ce/ceLoader'
 import type { Context } from './context'
@@ -8,6 +10,8 @@ const virtualModuleId = 'virtual:vue-ce-loader'
 const resolvedVirtualModuleId = `\0${virtualModuleId}`
 
 export default (ctx: Context): Plugin => {
+  const tagNameMap = new Set<string>()
+
   const loaders: Record<string, any> = {
     visible: visibleLoader,
     idle: idleLoader,
@@ -29,7 +33,7 @@ export default (ctx: Context): Plugin => {
 
   const getTagName = (path: string): string => {
     const filename = path.split('/').at(-1)
-    return filename ? `${ctx.options.ce.prefix}-${hyphenate(filename.replace(/\.(idle|visible|eager|lazy)\.ce\.(vue|tsx|jsx|ts|js)$/, ''))}` : ''
+    return filename ? `${ctx.options.ce.prefix}-${hyphenate(filename.replace(/\.?(idle|visible|eager|lazy)?\.ce\.(vue|tsx|jsx|ts|js)$/, ''))}` : ''
   }
 
   const glob2eager = (glob: string[]) => {
@@ -69,6 +73,61 @@ export default (ctx: Context): Plugin => {
     return files.length ? loaders[type](glob2modules(files)) : ''
   })
 
+  function extractVueDocs(fileName: string, fileContent: string) {
+    const docsBlock = fileContent.match(/<docs.*>([\s\S]*?)<\/docs>/g)
+    const tagName = getTagName(fileName)
+
+    tagNameMap.add(tagName)
+
+    if (docsBlock?.length) {
+      const code = docsBlock[0].split('\n')
+      code.pop()
+      code.shift()
+      code.push(`class ${camelize(tagName)} extends HTMLElement {}`)
+      code.push(`
+      declare global {
+        interface HTMLElementTagNameMap {
+            "${tagName}": ${camelize(tagName)};
+        }
+      }
+      `)
+      const text = code.join('\n')
+      return text
+    }
+
+    return ''
+  }
+
+  async function generateVSCodeCustomHTMLData() {
+    const files = await fg([
+      '(js|templates)/**/*.ce.{vue,ts,tsx}',
+    ], {
+      onlyFiles: true,
+    })
+
+    const contents = (await Promise.all(files.flatMap(async (fileName) => {
+      const fileContent = await fse.readFile(fileName, 'utf-8')
+
+      if (fileName.endsWith('.vue'))
+        return extractVueDocs(fileName, fileContent)
+
+      return fileContent
+    }))).filter(text => text !== '')
+
+    const { results, program } = analyzeText(contents)
+    const vscode = transformAnalyzerResult('vscode', results, program)
+
+    await fse.writeFile('./.uebertool/vscode.html-custom-data.json', vscode)
+
+    const tagNames = `${Array.from(tagNameMap).reduce((a, c) => `${a}
+  "${c}": HTMLElement`, `export {}
+
+declare global {
+interface HTMLElementTagNameMap {`)}\n  }\n}`
+
+    await fse.writeFile('./.uebertool/custom-elements.d.ts', tagNames)
+  }
+
   return {
     name: 'vite-plugin-uebertool-custom-elements-loader',
     enforce: 'pre',
@@ -87,6 +146,13 @@ export default (ctx: Context): Plugin => {
 
         return code = code ? common(ctx.options.ce) + code : code
       }
+    },
+    async buildStart() {
+      generateVSCodeCustomHTMLData()
+    },
+    async handleHotUpdate({ file }) {
+      if (file.match(/\.ce\./))
+        generateVSCodeCustomHTMLData()
     },
   }
 }

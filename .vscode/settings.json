@@ -47,5 +47,13 @@
   "prettier.singleQuote": true,
 
   // Vue
-  "volar.completion.preferredTagNameCase": "pascal" // PascalCase so you don't confuse vue with custom elements.
+  "volar.completion.preferredTagNameCase": "pascal", // PascalCase so you don't confuse vue with custom elements.
+
+  "emmet.includeLanguages": {
+    "twig": "html"
+  },
+
+  "html.customData": [
+    "drupal/web/themes/custom/ueberbit/.uebertool/vscode.html-custom-data.json"
+  ]
 }

@@ -5,6 +5,8 @@ export default (): Plugin => {
   return {
     name: 'vite-plugin-uebertool-custom-element-styles',
     transform(code: string, id: string) {
+      if (/vue&type=docs/.test(id))
+        return 'export default {}'
       if (/ce\.vue$/.test(id)) {
         const setupMatch = code.match(/<script.*setup[^>]*>/g)
         const s = new MagicString(code)

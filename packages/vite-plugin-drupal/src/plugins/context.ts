@@ -99,6 +99,9 @@ const defaults: Options = {
       'vue',
       '@vueuse/core',
     ],
+    addons: {
+      vueTemplate: true,
+    },
     imports: [
       { name: 'default', as: 'Alpine', from: 'alpinejs' },
     ],

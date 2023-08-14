@@ -34,7 +34,7 @@ function generateTsConfig() {
   fse.outputJSON('./.uebertool/tsconfig.json', {
     compilerOptions: {
       target: 'ESNext',
-      useDefineForClassFields: true,
+      useDefineForClassFields: false,
       module: 'ESNext',
       lib: ['ESNext', 'DOM', 'DOM.Iterable'],
       moduleResolution: 'Node',
@@ -48,6 +48,7 @@ function generateTsConfig() {
       noUnusedParameters: true,
       noImplicitReturns: true,
       skipLibCheck: true,
+      experimentalDecorators: true,
       baseUrl: '..',
       paths: {
         '~': [
