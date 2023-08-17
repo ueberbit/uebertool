@@ -1,0 +1,5 @@
+services:
+  uebertool_twig.twig.extension:
+    class: Drupal\uebertool_twig\Twig\Extension\TwigExtrasExtension
+    tags:
+      - { name: twig.extension }

@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * @file
+ * Provides Photoswipe settings.
+ */
+
+use Drupal\Core\Field\FormatterInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_theme().
+ */
+function uebertool_pswp_theme(): array {
+  return [
+    'field__pswp' => [
+      'base hook' => 'field',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_field_formatter_third_party_settings_form().
+ */
+function uebertool_pswp_field_formatter_third_party_settings_form(FormatterInterface $plugin): array {
+  if (!in_array($plugin->getPluginId(), [
+    'image',
+    'image_sizes_extras_formatter',
+  ])) {
+    return [];
+  }
+
+  $imageStyles = image_style_options(FALSE);
+  $settings['uebertool_pswp'] = [];
+
+  $settings['uebertool_pswp']['pswp'] = [
+    '#title' => t('Enable Photoswipe'),
+    '#description' => t('Photoswipe opens a Lightbox when clicking on an image.'),
+    '#type' => 'checkbox',
+    '#default_value' => $plugin->getThirdPartySetting('uebertool_pswp', 'pswp'),
+  ];
+
+  $settings['uebertool_pswp']['pswp_style'] = [
+    '#title' => t('PhotoSwipe Image style'),
+    '#type' => 'select',
+    '#default_value' => $plugin->getThirdPartySetting('uebertool_pswp', 'pswp_style'),
+    '#empty_option' => t('None (original image)'),
+    '#options' => $imageStyles,
+    '#description' => t('Select Image Style used for Photoswipe.'),
+  ];
+
+  return $settings['uebertool_pswp'];
+}
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function uebertool_pswp_preprocess_field(array &$vars): void {
+  $config = $vars['element']['#third_party_settings']['uebertool_pswp'] ?? [];
+
+  if (!$config || !$config['pswp']) {
+    return;
+  }
+
+  /** @var \Drupal\image\Entity\ImageStyle $imageStyle */
+  $imageStyle = ImageStyle::load($config['pswp_style']);
+
+  foreach ($vars['items'] as &$item) {
+    /** @var \Drupal\file\Entity\File $file */
+    $file = $item['content']['#item']->entity ?? $item['content']['#entity'] ?? NULL;
+
+    if (!$file) {
+      continue;
+    }
+
+    $uri = $file->getFileUri();
+
+    // If there is an imagestyle get image dimensions from it.
+    if ($imageStyle) {
+      $url = $imageStyle->buildUrl($uri);
+      foreach ($imageStyle->getEffects()->getInstanceIds() as $effect_id) {
+        $configuration = $imageStyle->getEffect($effect_id)->getConfiguration();
+        $width ??= $configuration['data']['width'];
+        $height ??= $configuration['data']['height'];
+        if ($width && $height) {
+          break;
+        }
+      }
+    }
+
+    /* If there is no imagestyle or imagestyle didn't have dimensions get image
+     * dimensions from original image. */
+    if (!$imageStyle || !$width || !$height) {
+      $url = \Drupal::service('file_url_generator')->generateAbsoluteString($uri);
+      $image = \Drupal::service('image.factory')->get($uri);
+      $width ??= $image->getWidth();
+      $height ??= $image->getHeight();
+    }
+
+    $item['attributes'] = new Attribute([
+      'data-pswp-width' => $width,
+      'data-pswp-height' => $height,
+      'href' => $url,
+      'target' => '_blank',
+    ]);
+  }
+
+  $vars['#attached']['library'] = [
+    'baag_dist/js/photoswipe',
+    'baag_dist/css/photoswipe',
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function uebertool_pswp_theme_suggestions_field_alter(array &$suggestions, array $variables): void {
+  $enabled = $variables['element']['#third_party_settings']['uebertool_pswp']['pswp'] ?? FALSE;
+  $enabled && $suggestions = ['field__pswp'];
+}

@@ -1,0 +1,7 @@
+name: UEberTool Twig
+type: module
+description: Twig Helpers.
+package: UEbertool
+core_version_requirement: ^9 || ^10
+dependencies:
+  - uebertool_companion:uebertool_companion

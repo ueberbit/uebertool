@@ -1,0 +1,78 @@
+{
+	// Place your / workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+  "button()": {
+    "scope": "twig",
+    "prefix": ["button($field, $variant)"],
+    "body": ["button($0)"],
+    "description": "Render a link Field as a single Button"
+  },
+  "buttons()": {
+    "scope": "twig",
+    "prefix": ["button($field, [$variants])"],
+    "body": ["buttons($0)"],
+    "description": "Render every Item in in Link Field as Buttons"
+  },
+  "languages()": {
+    "scope": "twig",
+    "prefix": ["languages()", "languages('en')", "languages('current')"],
+    "body": ["languages($0)"],
+    "description": "Return all languages a specific language or the current language"
+  },
+  "|link_url": {
+    "scope": "twig",
+    "prefix": ["|link_url"],
+    "body": ["|link_url"],
+    "description": "Get the URL of a Link Field"
+  },
+  "|link_text": {
+    "scope": "twig",
+    "prefix": ["|link_text"],
+    "body": ["|link_text"],
+    "description": "Get the Text of a Link Field"
+  },
+  "|link_attrs": {
+    "scope": "twig",
+    "prefix": ["|link_attrs"],
+    "body": ["|link_attrs"],
+    "description": "Get the URL of a Link Field"
+  },
+  "|field_empty": {
+    "scope": "twig",
+    "prefix": ["|field_empty"],
+    "body": ["|field_empty"],
+    "description": "Check if a Field is empty"
+  },
+  "|field_isset": {
+    "scope": "twig",
+    "prefix": ["|field_isset"],
+    "body": ["|field_isset"],
+    "description": "Check if a Field is not empty"
+  },
+  "|file_size": {
+    "scope": "twig",
+    "prefix": ["|file_size"],
+    "body": ["|file_size"],
+    "description": "Get File Size of a file field"
+  },
+  "|file_mime": {
+    "scope": "twig",
+    "prefix": ["|file_mime"],
+    "body": ["|file_mime"],
+    "description": "Get MIME Type of a file field"
+  },
+}

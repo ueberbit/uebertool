@@ -1,0 +1,26 @@
+uebertool_ckeditor5_button_decorator:
+  ckeditor5:
+    plugins: []
+    config:
+      link:
+        decorators:
+          - mode: manual
+            label: Open in new tab
+            attributes:
+              target: _blank
+              rel: noopener noreferrer
+          - mode: manual
+            label: Button
+            classes:
+              - button
+          - mode: manual
+            label: Button Primary
+            classes:
+              - button--primary
+  drupal:
+    label: Link Decorator
+    elements:
+      - <a target="_blank" rel="noopener noreferrer" class>
+    conditions:
+      plugins:
+        - ckeditor5_link
