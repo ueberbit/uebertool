@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\twig_extras\Twig\Extension;
+namespace Drupal\uebertool_twig\Twig\Extension;
 
 use Drupal\Core\Render\Element;
 use Drupal\Core\StringTranslation\TranslatableMarkup;

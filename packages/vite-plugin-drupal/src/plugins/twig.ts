@@ -14,7 +14,9 @@ if (import.meta.hot) {
     import('morphdom').then(({ default: morphdom }) => {
       const tailwind = document.querySelector('link[href*="tailwind"]')
       if (tailwind && tailwind instanceof HTMLLinkElement) {
-        tailwind.href = tailwind.href
+        const url = new URL(tailwind.href)
+        url.search = '?t=' + Date.now()
+        tailwind.href = url.toString()
       }
       morphdom(document.body, newDoc.body)
       Drupal.attachBehaviors(document.body, drupalSettings || {})
