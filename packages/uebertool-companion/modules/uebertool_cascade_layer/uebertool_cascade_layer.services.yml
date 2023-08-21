@@ -1,0 +1,5 @@
+services:
+  uebertool_cascade_layer.css.optimizer:
+    class: Drupal\uebertool_cascade_layer\CascadeLayerDecorator
+    decorates: asset.css.optimizer
+    arguments: ['@file_url_generator']
