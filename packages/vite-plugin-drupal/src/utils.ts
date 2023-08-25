@@ -14,6 +14,10 @@ export const getThemeName = (): string => {
   return name
 }
 
+export const getThemeBasePath = (): string => {
+  return process.cwd().split('/web').at(-1) || `/themes/custom/${getThemeName}`
+}
+
 export const getDistThemeName = (): string => {
   return `${getThemeName()}_dist`
 }

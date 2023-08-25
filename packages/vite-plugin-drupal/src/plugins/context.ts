@@ -12,7 +12,7 @@ import {
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import fg from 'fast-glob'
 import { defu } from 'defu'
-import { getDistThemeName, getThemeName } from '../utils'
+import { getDistThemeName, getThemeBasePath, getThemeName } from '../utils'
 import LocalComponentResolver from '../importResolver'
 
 export interface Options {
@@ -49,6 +49,7 @@ export interface Context {
   resoledConfig: ResolvedConfig
   themeName: string
   distThemeName: string
+  themeBasePath: string
 }
 
 const defaults: Options = {
@@ -139,6 +140,7 @@ export default (ctx: Context, options: UserOptions): Plugin => {
   ctx.root = process.cwd()
   ctx.themeName = getThemeName()
   ctx.distThemeName = getDistThemeName()
+  ctx.themeBasePath = getThemeBasePath()
 
   return {
     name: 'vite-plugin-uebertool-context',
