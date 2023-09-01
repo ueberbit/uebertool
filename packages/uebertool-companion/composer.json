@@ -1,7 +1,7 @@
 {
   "name": "ueberbit/uebertool_companion",
   "description": "Companion Module for the UEbertool",
-  "version": "0.1.0-beta.11",
+  "version": "0.1.0-beta.12",
   "type": "drupal-module",
   "keywords": [
     "Drupal",
