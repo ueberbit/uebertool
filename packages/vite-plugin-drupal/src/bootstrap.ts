@@ -1,19 +1,6 @@
 import fse from 'fs-extra'
-import type { Plugin } from 'vite'
-import type { Context } from './context'
 
-export default (ctx: Context): Plugin => {
-  return {
-    name: 'vite-plugin-uebertool-bootstrap',
-    enforce: 'pre',
-    buildStart() {
-      generateViteEnv()
-      generateTsConfig()
-    },
-  }
-}
-
-function generateViteEnv() {
+export function generateViteEnv() {
   fse.outputFileSync('./.uebertool/vite-env.d.ts', `
 /// <reference types="vite/client" />
 /// <reference types="@ueberbit/vite-plugin-drupal/types/dom" />
@@ -30,7 +17,7 @@ declare module '*.vue' {
 declare module 'container-query-polyfill'`)
 }
 
-function generateTsConfig() {
+export function generateTsConfig() {
   fse.outputJSON('./.uebertool/tsconfig.json', {
     compilerOptions: {
       target: 'ESNext',
@@ -120,3 +107,8 @@ function generateTsConfig() {
     spaces: 2,
   })
 }
+
+// eslint-disable-next-line no-console
+console.log('Initializing Uebertool...')
+generateViteEnv()
+generateTsConfig()

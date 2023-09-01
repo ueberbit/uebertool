@@ -14,7 +14,6 @@ import virtual from './plugins/virtual'
 import vuePlugin from './plugins/custom-elements'
 import breakpoints from './plugins/breakpoints'
 import tailwindHMR from './plugins/tailwind-hmr'
-import bootstrap from './plugins/bootstrap'
 import vueCustomElement from './plugins/vue-custom-element'
 
 export default (options: UserOptions = {}): Plugin[] => {
@@ -26,7 +25,6 @@ export default (options: UserOptions = {}): Plugin[] => {
 
   return [
     context(ctx, options),
-    bootstrap(ctx),
     config(ctx),
     css(ctx),
     libraries(ctx),

@@ -5,6 +5,7 @@ export default defineBuildConfig({
     'src/index',
     'src/composables',
     'src/ce/ApiCustomElements',
+    'src/bootstrap',
   ],
   clean: true,
   declaration: true,
