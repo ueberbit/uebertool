@@ -3,7 +3,7 @@
     {
       "name": "uebertool-companion",
       "directory": "packages/uebertool-companion",
-      "target": "git@github.com:ueberbit/subtree-uebertool-companion.git"
+      "target": "git@github.com:ueberbit/subtree-uebertool-companion2.git"
     }
   ]
 }
