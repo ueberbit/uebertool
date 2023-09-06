@@ -2,12 +2,10 @@ name: Subtree Split for composer packages
 
 on:
   push:
-    # Only trigger for specific branches or changes in specific paths.
     branches:
       - 'main'
-    # Tag push events should be ignored, they will be handled with the create event below.
-    tags-ignore:
-      - '*'
+    tags:
+      - 'v*'
   create:
     tags:
       - 'v*'
