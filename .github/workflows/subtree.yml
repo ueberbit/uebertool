@@ -4,9 +4,7 @@ on:
   push:
     # Only trigger for specific branches or changes in specific paths.
     branches:
-      - '*'
-    paths:
-      - src/**
+      - 'main'
     # Tag push events should be ignored, they will be handled with the create event below.
     tags-ignore:
       - '*'
@@ -28,19 +26,9 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
-      - uses: webfactory/ssh-agent@v0.8.0
+      - uses: nxtlvlsoftware/git-subtree-action@1.1
         with:
-          ssh-private-key: ${{ secrets.SUBTREE_SPLIT_PRIVATE_KEY }}
-
-      # Cache the splitsh executable to speedup future runs
-      - name: Cache splitsh-lite
-        uses: actions/cache@v3
-        with:
-          path: './splitsh'
-          key: '${{ runner.os }}-splitsh-v101'
-
-      # Sync commits and tags for the configured subtree splits
-      - name: subtree split
-        uses: acrobat/subtree-splitter@v1.1.4
-        with:
-          config-path: .github/subtree.json # Reference the location where you saved your config file
+          repo: 'ueberbit/subtree-uebertool-companion'
+          path: 'packages/uebertool-companion'
+          deploy_key: ${{ secrets.SUBTREE_SPLIT_PRIVATE_KEY }}
+          force: true
