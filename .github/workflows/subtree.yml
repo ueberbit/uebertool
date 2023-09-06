@@ -28,10 +28,9 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
-      # Add a personal access token to the repository secrets. This will allow the splitter action to push the new commits
-      - uses: frankdejonge/use-github-token@1.0.2
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
-          authentication: 'username:${{ secrets.PTA }}'
+          ssh-private-key: ${{ secrets.SUBTREE_SPLIT_PRIVATE_KEY }}
 
       # Cache the splitsh executable to speedup future runs
       - name: Cache splitsh-lite
@@ -40,10 +39,8 @@ jobs:
           path: './splitsh'
           key: '${{ runner.os }}-splitsh-v101'
 
-      # - run: echo "GITHUB_EVENT_NAME=push" >> $GITHUB_ENV
- 
       # Sync commits and tags for the configured subtree splits
       - name: subtree split
-        uses: acrobat/subtree-splitter@v1
+        uses: acrobat/subtree-splitter@v1.1.4
         with:
           config-path: .github/subtree.json # Reference the location where you saved your config file
