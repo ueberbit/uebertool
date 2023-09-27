@@ -3,9 +3,9 @@
   "version": "0.1.1",
   "exports": {
     "./stripcolor": {
-      "types": "./dist/stripcolor.d.ts",
-      "require": "./dist/stripcolor.cjs",
-      "import": "./dist/stripcolor.mjs"
+      "types": "./dist/plugins/stripcolor.d.ts",
+      "require": "./dist/plugins/stripcolor.cjs",
+      "import": "./dist/plugins/stripcolor.mjs"
     }
   },
   "files": [
