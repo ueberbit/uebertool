@@ -70,7 +70,7 @@ class UEberToolFilesystemLoader extends FilesystemLoader {
     }
   }
 
-  public function getSourceContext($name) {
+  public function getSourceContext(string $name): Source {
     if (\Drupal::service('router.admin_context')->isAdminRoute()) {
       throw new LoaderError('Skipping admin route');
     }
