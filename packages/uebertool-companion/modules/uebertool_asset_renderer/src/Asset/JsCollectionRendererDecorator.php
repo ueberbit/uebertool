@@ -15,7 +15,7 @@ class JsCollectionRendererDecorator implements AssetCollectionRendererInterface 
    * {@inheritdoc}
    */
   public function render(array $js_assets) {
-    foreach ($js_assets as $js_asset) {
+    foreach ($js_assets as &$js_asset) {
       if (isset($js_asset['noquery'])) {
         // Setting preprocessed to TRUE will prevent Drupal from prepending the querystring.
         $js_asset['preprocessed'] = TRUE;

@@ -15,7 +15,7 @@ class CssCollectionRendererDecorator implements AssetCollectionRendererInterface
    * {@inheritdoc}
    */
   public function render(array $css_assets) {
-    foreach ($css_assets as $css_asset) {
+    foreach ($css_assets as &$css_asset) {
       if (isset($css_asset['noquery'])) {
         // Setting preprocessed to TRUE will prevent Drupal from prepending the querystring.
         $css_asset['preprocessed'] = TRUE;
