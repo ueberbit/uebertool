@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { basename, dirname, relative, resolve } from 'node:path'
 import fs from 'node:fs'
+import process from 'node:process'
 import type { Plugin } from 'vite'
 import { mergeConfig } from 'vite'
 import fg from 'fast-glob'
 import type { Context } from './context'
 
-const postCssConfig = () => {
+function postCssConfig() {
   return fs.promises.access('postcss.config.js', fs.constants.F_OK)
     .then(() => true)
     .catch(() => false)

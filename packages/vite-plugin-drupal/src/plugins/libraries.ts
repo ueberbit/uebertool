@@ -27,6 +27,7 @@ export interface JSPart {
       [key: string]: any
     }
     preprocess?: boolean
+    noquery?: boolean
   }
 }
 
@@ -38,6 +39,7 @@ export interface CSSPart {
     media?: string
     preprocess?: boolean
     preprocessed?: boolean
+    noquery?: boolean
     attributes?: Record<string, any>
   }
 }
@@ -152,7 +154,8 @@ function getCssPart(file: string, ctx: Context): DrupalLibrary {
       [group]: {
         [assetPath]: {
           type: 'external',
-          preprocessed: true,
+          preprocess: false,
+          noquery: true,
           attributes: {
             ...(file.match(/tailwind/)
               ? {
@@ -182,7 +185,8 @@ function getJsPart(file: string, ctx: Context): DrupalLibrary {
     js: {
       [assetPath]: {
         type: ctx.dev ? 'external' : 'file',
-        preprocessed: true,
+        preprocess: false,
+        noquery: true,
         minified: true,
         attributes: { type: 'module', crossorigin: {} },
       },

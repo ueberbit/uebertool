@@ -1,3 +1,4 @@
+import process from 'node:process'
 import fse from 'fs-extra'
 import type { Plugin, ResolvedConfig } from 'vite'
 import YAML from 'yaml'
@@ -12,7 +13,7 @@ import type { Context } from './context'
  * @param size Breakpoint size.
  * @returns Drupal Breakpoint entry.
  */
-const getScreen = (theme: string, group: string, name: string, multipliers: string[], size?: number) => {
+function getScreen(theme: string, group: string, name: string, multipliers: string[], size?: number) {
   return {
     [[theme, group, name].join('.')]: {
       label: name,
@@ -28,7 +29,7 @@ const getScreen = (theme: string, group: string, name: string, multipliers: stri
   }
 }
 
-const generateBreakpoints = async (theme: string, multipliers: string[]) => {
+async function generateBreakpoints(theme: string, multipliers: string[]) {
   let screens = {}
   try {
     const tailwindConfigFile = await import(`${process.cwd()}/tailwind.config.js`)

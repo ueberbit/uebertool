@@ -1,7 +1,8 @@
 /**
  * Common functionality for all loaders.
  */
-export const common = (config: Record<string, any>) => `
+export function common(config: Record<string, any>) {
+  return `
 
 const cacheStringFunction = (fn) => {
   const cache = Object.create(null)
@@ -22,12 +23,14 @@ const getTagName = (path) => {
   return filename ? \`${config.prefix}-\${hyphenate(filename.replace(/\.(idle|visible|eager|lazy)\.ce\.(vue|tsx|jsx|ts|js)$/, ''))}\` : ''
 }
 `
+}
 
 /**
  * Intersection Observer based loader for loading components when entering
  * the viewport.
  */
-export const visibleLoader = (modules: Record<string, any>) => `
+export function visibleLoader(modules: Record<string, any>) {
+  return `
 class CustomElementLoader {
   #options
   #modules
@@ -68,16 +71,16 @@ class CustomElementLoader {
       if (entry.isIntersecting && tagname in this.#modules) {
         if (this.#modules[tagname].path.match(/vue$/)) {
           this.#modules[tagname].mod().then(async(mod) => {
-            const { defineCustomElement } = await import('@ueberbit/vite-plugin-drupal/ApiCustomElements')
-            customElements.define(tagname, defineCustomElement(mod.default))
+            try {
+              const { defineCustomElement } = await import('@ueberbit/vite-plugin-drupal/ApiCustomElements')
+              customElements.define(tagname, defineCustomElement(mod.default))
+            } catch(e) { console.log(e) }
           })
         } else {
           this.#modules[tagname].mod().then(async(mod) => {
             try {
               customElements.define(tagname, mod[Object.keys(mod)[0]])
-            } catch(e) {
-              console.error(e)
-            }
+            } catch(e) { console.log(e) }
           })
         }
         observer.disconnect()
@@ -97,12 +100,14 @@ Drupal.behaviors.customElementLoader = {
   },
 }
 `
+}
 
 /**
  * Lazy load components when the browser is idle.
  * Requires polyfill for Safari.
  */
-export const idleLoader = (modules: Record<string, any>) => `
+export function idleLoader(modules: Record<string, any>) {
+  return `
 const idleLoader = async () => {
   const idleCE = ${modules}
 
@@ -116,9 +121,7 @@ const idleLoader = async () => {
       const ce = await idleCE[path]()
       try {
         customElements.define(tagname, ce[Object.keys(ce)[0]])
-      } catch(e) {
-        console.error(e)
-      }
+      } catch(e) { console.log(e) }
     }
   }
 }
@@ -133,11 +136,13 @@ if ('requestIdleCallback' in window) {
   idleLoader()
 }
 `
+}
 
 /**
  * Eagerly loads components.
  */
-export const eagerLoader = (imports: string, modules: string, hasVue: boolean) => `
+export function eagerLoader(imports: string, modules: string, hasVue: boolean) {
+  return `
 ${imports}
 ${modules.length > 2
 ? `
@@ -146,23 +151,27 @@ ${hasVue && 'import { defineCustomElement } from \'@ueberbit/vite-plugin-drupal/
 const eagerCE = ${modules}
 
 Object.keys(eagerCE).forEach(ce => {
-  ${hasVue
-    ? `
-    if(eagerCE[ce].type === 'vue') {
-      customElements.define(ce, defineCustomElement(eagerCE[ce].name))
-    } else {
-      customElements.define(ce, eagerCE[ce].name)
-    }
-    `
-    : 'customElements.define(ce, eagerCE[ce].name)'}
+  try {
+    ${hasVue
+      ? `
+      if(eagerCE[ce].type === 'vue') {
+        customElements.define(ce, defineCustomElement(eagerCE[ce].name))
+      } else {
+        customElements.define(ce, eagerCE[ce].name)
+      }
+      `
+      : 'customElements.define(ce, eagerCE[ce].name)'}
+  } catch(e) { console.log(e) }
 })`
 : ''}
 `
+}
 
 /**
  * Lazy loads components.
  */
-export const lazyLoader = (modules: Record<string, any>) => `
+export function lazyLoader(modules: Record<string, any>) {
+  return `
 ;(async () => {
   const lazyCe = ${modules}
 
@@ -177,10 +186,9 @@ export const lazyLoader = (modules: Record<string, any>) => `
       const ce = await lazyCe[path]()
       try {
         customElements.define(tagname, ce[Object.keys(ce)[0]])
-      } catch(e) {
-        console.error(e)
-      }
+      } catch(e) { console.log(e) }
     }
   }
 })()
 `
+}
