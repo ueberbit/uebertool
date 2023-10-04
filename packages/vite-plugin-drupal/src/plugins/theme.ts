@@ -10,7 +10,7 @@ export default (ctx: Context): Plugin => {
   const themeInfoDefault = {
     'name': `${ctx.themeName} dist`,
     'type': 'theme',
-    'base theme': 'stable9',
+    'base theme': ctx.options.baseTheme,
     'description': `${ctx.themeName.toUpperCase()} Theme for compiled assets.`,
     'package': `${ctx.options.themePackage || ctx.themeName}`,
     'core_version_requirement': '^9 || ^10',

@@ -1,4 +1,5 @@
 import path from 'node:path'
+import process from 'node:process'
 import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
 import type { Options as VueOptions } from '@vitejs/plugin-vue'
 import type { Options as IconsOptions } from 'unplugin-icons'
@@ -34,6 +35,7 @@ export interface Options {
   experimental: {
     twighmr: boolean
   }
+  baseTheme: string
 }
 
 export type UserOptions = Partial<Options>
@@ -131,6 +133,7 @@ const defaults: Options = {
   experimental: {
     twighmr: false,
   },
+  baseTheme: 'stable9',
 }
 
 export default (ctx: Context, options: UserOptions): Plugin => {
