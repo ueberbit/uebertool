@@ -51,6 +51,17 @@ Any of these files is auto imported and registered as `<themename>-filename`.
 | lazy    | dynamic import                                            |
 | visible | dynamic import when element is close to the viewport      |
 
+### Custom Element Data
+
+Custom Element Data is exported into .uebertool  
+You can add it to vscode with:
+
+```json
+"html.customData": [
+  ".uebertool/vscode.html-custom-data.json"
+]
+```
+
 ### CSS
 
 #### Cascade Layers
