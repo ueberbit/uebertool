@@ -6,7 +6,7 @@ type colorModel = 'rgb' | 'hsl'
  * @param {string} model - color model.
  * @returns {string} a custom property.
  */
-export const color = (value: string, model: colorModel) => {
+export function color(value: string, model: colorModel) {
   return ({ opacityValue }: { opacityValue: any }) => {
     return opacityValue !== undefined ? `${model}(var(${value}) / ${opacityValue})` : `${model}(var(${value}))`
   }
@@ -18,7 +18,7 @@ export const color = (value: string, model: colorModel) => {
  * @param {string[]} steps Array of steps. E.g. light, dark.
  * @returns Tailwind Color Object
  */
-export const semanticColors = (names: string[], steps: string[], model: colorModel) => {
+export function semanticColors(names: string[], steps: string[], model: colorModel) {
   return names.reduce((a, c) => {
     return {
       ...a,
