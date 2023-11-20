@@ -1,7 +1,7 @@
 import { getCurrentInstance, onUpdated } from 'vue'
 import { adoptStyles } from './styles'
 
-export const useHMR = () => {
+export function useHMR() {
   onUpdated(() => {
     const shadowRoot = getCurrentInstance()?.vnode?.el?.getRootNode()
     const styles = Array.from((document.querySelectorAll('link[href*="tailwind"]')[0] as HTMLStyleElement).sheet?.cssRules || []).reduce((acc, curr: any) => acc + curr.cssText, '')

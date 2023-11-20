@@ -1,7 +1,8 @@
 import fs from 'node:fs'
+import process from 'node:process'
 import path from 'node:path'
 
-export const getThemeName = (): string => {
+export function getThemeName(): string {
   let name = ''
   try {
     const files = fs.readdirSync(process.cwd())
@@ -14,15 +15,15 @@ export const getThemeName = (): string => {
   return name
 }
 
-export const getThemeBasePath = (): string => {
+export function getThemeBasePath(): string {
   return process.cwd().split('/web').at(-1) || `/themes/custom/${getThemeName}`
 }
 
-export const getDistThemeName = (): string => {
+export function getDistThemeName(): string {
   return `${getThemeName()}_dist`
 }
 
-export const getNameSpace = (name: string) => {
+export function getNameSpace(name: string) {
   return {
     ...(name && { [name]: path.resolve(process.cwd(), 'templates') }),
   }

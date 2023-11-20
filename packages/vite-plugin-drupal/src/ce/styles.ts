@@ -23,11 +23,9 @@ export const supportsAdoptingStyleSheets = window.ShadowRoot && 'adoptedStyleShe
  * @param styles The styles of the Element.
  * @param __hmrId hmr id of vite used as an UUID.
  */
-export const adoptStyles = (
-  renderRoot: ShadowRoot | Document,
+export function adoptStyles(renderRoot: ShadowRoot | Document,
   styles: string[] | CSSStyleSheet,
-  __hmrId: string | undefined,
-) => {
+  __hmrId: string | undefined) {
   // If passed a CSSStylesheet just apply it.
   if (styles instanceof CSSStyleSheet) {
     renderRoot.adoptedStyleSheets = [styles]

@@ -1,10 +1,10 @@
 field.formatter.third_party.uebertool_pswp:
   type: mapping
-  label: 'Photoswipe'
+  label: Photoswipe
   mapping:
     pswp:
       type: boolean
-      label: 'Enabled'
+      label: Enabled
     pswp_style:
       type: string
-      label: 'Style'
+      label: Style

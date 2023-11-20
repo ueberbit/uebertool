@@ -4,7 +4,7 @@ const fs = require('node:fs')
  * Check if project is Drupal.
  * @returns {boolean} true if project is Drupal.
  */
-const isDrupal = () => {
+function isDrupal() {
   let drupal = false
 
   // Drupal Root.

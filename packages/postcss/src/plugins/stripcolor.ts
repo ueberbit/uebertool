@@ -1,7 +1,7 @@
 /**
  * Strip away color function of current declaration.
  */
-const plugin = () => {
+function plugin() {
   return {
     postcssPlugin: 'postcss-strip-color',
     Declaration(decl: any) {

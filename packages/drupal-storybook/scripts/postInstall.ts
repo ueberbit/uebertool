@@ -1,4 +1,5 @@
-import path from 'path'
+import path from 'node:path'
+import process from 'node:process'
 import fs from 'fs-extra'
 
 const cwd = process.env.INIT_CWD || ''
@@ -8,7 +9,7 @@ const storybookDir = '.storybook'
 if (cwd === process.cwd())
   process.exit()
 
-const copyLibs = async () => {
+async function copyLibs() {
   !fs.pathExistsSync(path.join(cwd, storybookDir))
     && await fs.copy(
       path.join(base, 'src'),
@@ -16,7 +17,7 @@ const copyLibs = async () => {
     )
 }
 
-const prepareJSON = async () => {
+async function prepareJSON() {
   const pkgJson = await fs.readJSON(path.join(cwd, 'package.json'))
 
   const deps = [...Object.keys(pkgJson.dependencies), ...Object.keys(pkgJson.devDependencies)]
@@ -35,8 +36,7 @@ const prepareJSON = async () => {
 
   await fs.writeJSON(path.join(cwd, 'package.json'), pkgJson, { spaces: 2 })
 }
-
-;(async () => {
+(async () => {
   await prepareJSON()
   await copyLibs()
 })()

@@ -2,8 +2,8 @@ services:
   uebertool_asset_renderer.js.collection_renderer:
     class: Drupal\uebertool_asset_renderer\Asset\JsCollectionRendererDecorator
     decorates: asset.js.collection_renderer
-    arguments: [ '@uebertool_asset_renderer.js.collection_renderer.inner' ]
+    arguments: ['@uebertool_asset_renderer.js.collection_renderer.inner']
   uebertool_asset_renderer.css.collection_renderer:
     class: Drupal\uebertool_asset_renderer\Asset\CssCollectionRendererDecorator
     decorates: asset.css.collection_renderer
-    arguments: [ '@uebertool_asset_renderer.css.collection_renderer.inner' ]
+    arguments: ['@uebertool_asset_renderer.css.collection_renderer.inner']

@@ -55,4 +55,4 @@ jobs:
           webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
           job: ${{ toJson(job) }}
           steps: ${{ toJson(steps) }}
-          overwrite: "{title: `Release uebertool ${github.ref}`}"
+          overwrite: '{title: `Release uebertool ${github.ref}`}'

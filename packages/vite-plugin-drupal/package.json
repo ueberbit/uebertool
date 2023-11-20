@@ -4,18 +4,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./composables": {
       "types": "./dist/composables.d.ts",
-      "require": "./dist/composables.cjs",
-      "import": "./dist/composables.mjs"
+      "import": "./dist/composables.mjs",
+      "require": "./dist/composables.cjs"
     },
     "./ApiCustomElements": {
       "types": "./dist/ce/ApiCustomElements.d.ts",
-      "require": "./dist/ce/ApiCustomElements.cjs",
-      "import": "./dist/ce/ApiCustomElements.mjs"
+      "import": "./dist/ce/ApiCustomElements.mjs",
+      "require": "./dist/ce/ApiCustomElements.cjs"
     }
   },
   "main": "dist/index.cjs",

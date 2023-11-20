@@ -2,7 +2,7 @@
  * Global namespaces
  */
 
-const path = require('path')
+const path = require('node:path')
 
 module.exports = {
   ueberbit: path.resolve(__dirname, '..', 'templates'),

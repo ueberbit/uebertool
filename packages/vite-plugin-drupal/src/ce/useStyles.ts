@@ -5,7 +5,7 @@ import { adoptStyles } from './styles'
  * Mounting normal vue components inside a vue custom elements discards the css.
  * To fix this the styles are applied to the renderRoot.
  */
-export const useStyles = () => {
+export function useStyles() {
   onMounted(() => {
     const instance = getCurrentInstance()
 

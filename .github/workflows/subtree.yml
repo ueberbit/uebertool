@@ -1,9 +1,9 @@
-name: Subtree Split for composer packages 
+name: Subtree Split for composer packages
 
 on:
   push:
     branches:
-      - 'main'
+      - main
     tags:
       - 'v*'
   create:
@@ -26,7 +26,7 @@ jobs:
 
       - uses: nxtlvlsoftware/git-subtree-action@1.1
         with:
-          repo: 'ueberbit/subtree-uebertool-companion'
-          path: 'packages/uebertool-companion'
+          repo: ueberbit/subtree-uebertool-companion
+          path: packages/uebertool-companion
           deploy_key: ${{ secrets.SUBTREE_SPLIT_PRIVATE_KEY }}
           force: true

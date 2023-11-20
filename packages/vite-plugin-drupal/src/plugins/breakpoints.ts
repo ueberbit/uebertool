@@ -10,6 +10,7 @@ import type { Context } from './context'
  * @param theme Breakpoint theme.
  * @param group Breakpoint group.
  * @param name Breakpoint name.
+ * @param multipliers Breakpoint multipliers.
  * @param size Breakpoint size.
  * @returns Drupal Breakpoint entry.
  */

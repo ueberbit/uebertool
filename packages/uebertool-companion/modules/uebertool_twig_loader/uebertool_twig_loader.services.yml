@@ -5,5 +5,4 @@ services:
       - '@theme.manager'
       - '@library.discovery'
     tags:
-      - { name: twig.loader, priority: 300 }
-
+      - {name: twig.loader, priority: 300}
