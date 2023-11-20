@@ -70,7 +70,7 @@ export default (ctx: Context): Plugin => {
             output: {
               manualChunks: {
                 'vue.runtime.esm-browser.prod': ['vue'],
-                'alpine.runtime': ['alpinejs'],
+                // 'alpine.runtime': ['alpinejs'],
               },
               assetFileNames: (assetInfo: any) => {
                 const base = basename(assetInfo.name)
