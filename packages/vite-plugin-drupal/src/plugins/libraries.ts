@@ -259,7 +259,7 @@ async function emitLib(libraries: Record<string, DrupalLibrary>, ctx: Context) {
 function getLibID(file: string, ctx: Context) {
   let { name } = path.parse(file)
   if (ctx.prod) {
-    const hash = name.match(/\.([a-f0-9]{8})/)?.at(1)
+    const hash = name.match(/\.([a-zA-Z0-9_-]{8})/)?.at(1)
     if (hash)
       name = name.replace(`.${hash}`, '')
   }
