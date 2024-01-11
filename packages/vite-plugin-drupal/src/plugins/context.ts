@@ -148,12 +148,12 @@ export default (ctx: Context, options: UserOptions): Plugin => {
   return {
     name: 'vite-plugin-uebertool-context',
     enforce: 'pre',
-    config(config) {
+    config(config, { command }) {
       ctx.config = config
+      ctx.dev = command === 'serve'
+      ctx.prod = !ctx.dev
     },
     configResolved(config) {
-      ctx.dev = config.mode === 'development'
-      ctx.prod = !ctx.dev
       ctx.resoledConfig = config
     },
   }

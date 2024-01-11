@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { basename, dirname, relative, resolve } from 'node:path'
 import fs from 'node:fs'
-import process from 'node:process'
 import type { Plugin } from 'vite'
 import { mergeConfig } from 'vite'
 import fg from 'fast-glob'
@@ -49,15 +48,18 @@ export default (ctx: Context): Plugin => {
             },
           },
         }),
-        base: './',
+        base: ctx.dev ? ctx.themeBasePath : ctx.themeBasePath + (config.build?.outDir || '/dist'),
+        publicDir: `${ctx.themeBasePath}/public`,
         resolve: {
           alias: {
-            '~/': `${resolve(process.cwd())}/`,
-            '@/': `${resolve(process.cwd())}/`,
-            '~~/': `${resolve(process.cwd())}/`,
-            '@@/': `${resolve(process.cwd())}/`,
-            'assets/': `${resolve(process.cwd(), 'assets')}/`,
-            'public': `${resolve(process.cwd(), 'public')}/`,
+            '~/': `${resolve(ctx.root)}/`,
+            '@/': `${resolve(ctx.root)}/`,
+            '~~/': `${resolve(ctx.root)}/`,
+            '@@/': `${resolve(ctx.root)}/`,
+            'assets/': `${resolve(ctx.root, 'assets')}/`,
+            '@assets/': `${resolve(ctx.root, 'assets')}/`,
+            'public/': `${resolve(ctx.root, 'public')}/`,
+            '@public/': `${resolve(ctx.root, 'public')}/`,
           },
         },
         define: {

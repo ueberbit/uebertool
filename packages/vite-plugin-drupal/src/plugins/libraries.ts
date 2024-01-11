@@ -145,7 +145,7 @@ function getCssGroup(filename: string): CSSGroup {
 function getCssPart(file: string, ctx: Context): DrupalLibrary {
   const group = getCssGroup(file)
   const assetPath = ctx.dev
-    ? `${ctx.url}/${file}`
+    ? `${ctx.url}${ctx.themeBasePath}/${file}`
     : `${ctx.themeBasePath}/${ctx.resoledConfig.build.outDir}/${file}`
 
   return <DrupalLibrary>{
@@ -177,7 +177,7 @@ function getCssPart(file: string, ctx: Context): DrupalLibrary {
  */
 function getJsPart(file: string, ctx: Context): DrupalLibrary {
   const assetPath = ctx.dev
-    ? `${ctx.url}/${file}`
+    ? `${ctx.url}${ctx.themeBasePath}/${file}`
     : `${ctx.themeBasePath}/${ctx.resoledConfig.build.outDir}/${file}`
 
   return <DrupalLibrary> {
