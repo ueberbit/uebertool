@@ -1,6 +1,6 @@
 {
   "name": "@ueberbit/stylelint-config",
-  "version": "0.3.5",
+  "version": "0.3.6-beta.0",
   "description": "UEBERBIT StyleLint config",
   "author": {
     "name": "UEBERBIT GmbH",
