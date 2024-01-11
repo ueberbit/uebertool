@@ -54,11 +54,5 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/react-dom": "^16.9.22"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "@wingsuit-designsystem/pattern@1.2.7": "patches/@wingsuit-designsystem__pattern@1.2.7.patch",
-      "@types/react@16.14.32": "patches/@types__react@16.14.32.patch"
-    }
   }
 }
