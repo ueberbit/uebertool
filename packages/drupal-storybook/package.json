@@ -11,8 +11,8 @@
     "Storybook for Drupal"
   ],
   "engines": {
-    "node": ">=18",
-    "pnpm": ">=7.6.0"
+    "node": ">=20",
+    "pnpm": ">=8.1.0"
   },
   "contributors": [
     {
