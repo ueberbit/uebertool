@@ -1,5 +1,6 @@
 import path from 'node:path'
 import fs from 'node:fs/promises'
+import fse from 'fs-extra'
 import type { Plugin } from 'vite'
 import YAML from 'yaml'
 import { defu } from 'defu'
@@ -242,12 +243,12 @@ function buildLib(files: string[], ctx: Context, deps: Map<string, Set<string>>)
  * @param libraries Libraries object
  * @param ctx Plugin Context
  */
-async function emitLib(libraries: Record<string, DrupalLibrary>, ctx: Context) {
+function emitLib(libraries: Record<string, DrupalLibrary>, ctx: Context) {
   const yml = YAML.stringify(libraries)
   const json = JSON.stringify(libraries, null, 2)
 
-  await fs.writeFile(`${ctx.resoledConfig.build.outDir}/libraries.json`, json)
-  await fs.writeFile(`${ctx.resoledConfig.build.outDir}/${ctx.distThemeName}.libraries.yml`, yml)
+  fse.outputFileSync(`${ctx.resoledConfig.build.outDir}/libraries.json`, json)
+  fse.outputFileSync(`${ctx.resoledConfig.build.outDir}/${ctx.distThemeName}.libraries.yml`, yml)
 }
 
 /**
