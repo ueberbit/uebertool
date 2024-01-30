@@ -48,8 +48,8 @@ export default (ctx: Context): Plugin => {
             },
           },
         }),
-        base: ctx.dev ? ctx.themeBasePath : ctx.themeBasePath + (config.build?.outDir || '/dist'),
-        publicDir: `${ctx.themeBasePath}/public`,
+        base: ctx.dev ? './' : ctx.themeBasePath + (config.build?.outDir || '/dist'),
+        publicDir: ctx.dev ? '/public' : `${ctx.themeBasePath}/public`,
         resolve: {
           alias: {
             '~/': `${resolve(ctx.root)}/`,
