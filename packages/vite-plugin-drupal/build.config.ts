@@ -9,10 +9,6 @@ export default defineBuildConfig({
   ],
   clean: true,
   declaration: true,
-  externals: [
-    'unconfig',
-    'magic-string',
-  ],
   rollup: {
     emitCJS: true,
     inlineDependencies: true,
