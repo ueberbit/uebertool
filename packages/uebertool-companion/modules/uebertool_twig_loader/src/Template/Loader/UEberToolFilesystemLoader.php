@@ -79,10 +79,10 @@ class UEberToolFilesystemLoader extends FilesystemLoader {
 
     if (array_key_exists($this->distThemeName, $this->activeTheme->getBaseThemeExtensions())) {
       if (str_starts_with($name, '@')) {
-        $libraryName = preg_replace('/@((\w|-)\/)+|((\.html)?\.twig)/', '', $name);
+        $libraryName = preg_replace('/@((\w|-)+\/)+|((\.html)?\.twig)/', '', $name);
       }
       else {
-        $libraryName = preg_replace('/((\w|-)\/)|((\.html)?\.twig)$/', '', $name);
+        $libraryName = preg_replace('/((\w|-)+\/)|((\.html)?\.twig)$/', '', $name);
       }
 
       $prefix = $this->libraryDiscovery->getLibraryByName($this->distThemeName, $libraryName)
