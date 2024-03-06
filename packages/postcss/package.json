@@ -1,6 +1,6 @@
 {
   "name": "@ueberbit/postcss",
-  "version": "0.3.6-beta.8",
+  "version": "0.3.6",
   "exports": {
     "./stripcolor": {
       "types": "./dist/plugins/stripcolor.d.ts",
