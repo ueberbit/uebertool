@@ -83,6 +83,9 @@ export default (ctx: Context): Plugin => {
                 const base = basename(assetInfo.name)
                 let dir = dirname(assetInfo.name)
 
+                if (base.match(/.(woff2?)$/))
+                  return '[name].[ext]'
+
                 if (assetMap.has(base))
                   return assetMap.get(base)
 
