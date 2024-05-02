@@ -2,7 +2,6 @@
   "name": "@ueberbit/uebertool",
   "version": "0.3.8",
   "private": true,
-  "packageManager": "pnpm@8.1.0",
   "author": {
     "name": "UEBERBIT GmbH",
     "url": "https://ueberbit.de"
@@ -16,8 +15,8 @@
   "license": "MIT",
   "homepage": "https://github.com/ueberbit/uebertool",
   "engines": {
-    "node": ">=20",
-    "pnpm": ">=8.1.0"
+    "node": "^20.0.0",
+    "pnpm": "^9.0.6"
   },
   "scripts": {
     "lint": "eslint .",
@@ -28,8 +27,8 @@
   "devDependencies": {
     "@ueberbit/eslint-config": "workspace:*",
     "@ueberbit/stylelint-config": "workspace:*",
-    "bumpp": "^9.2.0",
-    "typescript": "^5.2.2",
+    "bumpp": "^9.4.1",
+    "typescript": "^5.4.5",
     "unbuild": "^2.0.0"
   },
   "pnpm": {
