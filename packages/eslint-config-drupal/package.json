@@ -1,5 +1,6 @@
 {
   "name": "@ueberbit/eslint-config-drupal",
+  "type": "module",
   "version": "0.3.8",
   "description": "UEBERBIT ESLint config for Drupal",
   "author": {

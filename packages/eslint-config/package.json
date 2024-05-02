@@ -1,5 +1,6 @@
 {
   "name": "@ueberbit/eslint-config",
+  "type": "module",
   "version": "0.3.8",
   "description": "UEBERBIT ESLint config",
   "author": {
@@ -22,10 +23,10 @@
     "index.js"
   ],
   "dependencies": {
-    "@antfu/eslint-config": "^0.43.1",
+    "@antfu/eslint-config": "^2.16.1",
     "@ueberbit/eslint-config-drupal": "workspace:*",
-    "eslint": "^8.54.0",
+    "eslint": "^9.1.1",
     "eslint-gitignore": "^0.1.0",
-    "eslint-plugin-storybook": "^0.6.15"
+    "eslint-plugin-storybook": "^0.8.0"
   }
 }

@@ -28,6 +28,7 @@
     "enable": true
   },
   "eslint.quiet": true,
+  "eslint.experimental.useFlatConfig": true,
   "eslint.validate": [ // Also validate other file types.
     "javascript",
     "typescript",

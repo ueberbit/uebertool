@@ -1,5 +1,6 @@
 {
   "name": "@ueberbit/uebertool",
+  "type": "module",
   "version": "0.3.8",
   "private": true,
   "author": {
@@ -22,7 +23,8 @@
     "lint": "eslint .",
     "release": "bumpp package.json packages/*/package.json packages/*/composer.json --commit --push --tag",
     "taze": "pnpm dlx taze -r",
-    "taze-write": "pnpm dlx taze -r -w"
+    "taze-write": "pnpm dlx taze -r -w",
+    "eslint-explorer": "nlx  @eslint/config-inspector"
   },
   "devDependencies": {
     "@ueberbit/eslint-config": "workspace:*",
