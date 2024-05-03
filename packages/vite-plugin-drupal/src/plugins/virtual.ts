@@ -45,7 +45,7 @@ export default (ctx: Context): Plugin => {
 import 'virtual:vue-ce-loader'
 console.log('${banner}')
 ${konami}
-${ctx.dev && ctx.options.experimental.twighmr && 'import \'virtual:twig-hmr\''}`.trim()
+${ctx.dev && ctx.options.features.twighmr && 'import \'virtual:twig-hmr\''}`.trim()
         return code
       }
     },

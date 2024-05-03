@@ -32,9 +32,10 @@ export interface Options {
   breakpoints: {
     multipliers: string[]
   }
-  experimental: {
+  features: {
     twighmr: boolean
   }
+  experimental: {}
   baseTheme: string
 }
 
@@ -130,9 +131,10 @@ const defaults: Options = {
       '2x',
     ],
   },
-  experimental: {
-    twighmr: false,
+  features: {
+    twighmr: true,
   },
+  experimental: {},
   baseTheme: 'stable9',
 }
 
