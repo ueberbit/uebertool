@@ -1,7 +1,7 @@
 {
   "name": "@ueberbit/eslint-config",
   "type": "module",
-  "version": "0.3.8",
+  "version": "0.4.0-beta.1",
   "description": "UEBERBIT ESLint config",
   "author": {
     "name": "UEBERBIT GmbH",
