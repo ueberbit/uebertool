@@ -19,18 +19,10 @@
 pnpm add -D @ueberbit/eslint-config
 ```
 
-### Config `.eslintrc`
+### Config `eslint.config.js`
 
-```json
-{
-  "extends": "@ueberbit"
-}
+```js
+import config from '@ueberbit/eslint-config'
+
+export default config()
 ```
-
-Alternatively you can use other [files patterns](https://eslint.org/docs/latest/user-guide/configuring/configuration-files):
-- .eslintrc.js
-- .eslintrc.cjs
-- .eslintrc.yaml
-- .eslintrc.yml
-- .eslintrc.json
-- package.json
