@@ -25,6 +25,20 @@ pnpm i -D @ueberbit/vite-plugin-drupal
 
 ## Usage
 
+### vite.config.ts
+```ts
+import { defineConfig } from 'vite'
+import uebertool from '@ueberbit/vite-plugin-drupal'
+
+export default defineConfig({
+  plugins: [
+    uebertool()
+  ],
+})
+```
+
+add js/main.ts and css/tailwind.css to your theme and you are good to go.
+
 ### Entrypoints
 Every js/ts and css file inside:
 ```sh
@@ -69,6 +83,7 @@ Tailwind Layers are wrapped in cascade layers by dafault. Drupal styles should b
 ```css
 @layer drupal
 ```
+(uebertool_cascade_layer does this for you)
 
 You can disable this with:
 
@@ -79,7 +94,7 @@ css: {
 ```
 
 #### Drupal Layers
-When a css file include `{base|layout|component|state|theme}` in the name
+When a css file include `{base|layout|component|state|theme}` in the name.
 
 ### Breakpoints
 The breakpoint.yml uses the breakpoints from your tailwind config file. Per Default it offers 1x and 2x multiplier.
