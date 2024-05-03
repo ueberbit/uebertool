@@ -7,6 +7,7 @@ export default defineBuildConfig({
     'src/ce/ApiCustomElements',
     'src/bootstrap',
   ],
+  externals: ['web-component-analyzer', 'vite', 'typescript'],
   clean: true,
   declaration: true,
   rollup: {
