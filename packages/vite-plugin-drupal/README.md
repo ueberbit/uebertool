@@ -8,7 +8,7 @@ Add it to your theme with:
 pnpm i -D @ueberbit/vite-plugin-drupal
 ```
 
-## Features 
+## Features
 - automagic asset bundling
 - batteries included:
   - preconfigured for tailwind and postcss
@@ -54,6 +54,11 @@ is an entrypoint and also a drupal library. An exception to this are files insid
 ```
 , files starting with an _underscore and file ending with `*.ce.*`.
 
+#### SDC
+Drupal automatically attaches the css and js file with the same name as the sdc. Thus you can add the files you want to be transpiled to the assets, src, js or css folder.
+
+The resulting library will be attached by the companion module.
+
 ### Custom Element Loader
 Files ending with `*.{eager|idle|lazy|visible}.ce.*` are auto injected by the custom element loader.
 Any of these files is auto imported and registered as `<themename>-filename`.
@@ -67,7 +72,7 @@ Any of these files is auto imported and registered as `<themename>-filename`.
 
 ### Custom Element Data
 
-Custom Element Data is exported into .uebertool  
+Custom Element Data is exported into .uebertool
 You can add it to vscode with:
 
 ```json
@@ -79,7 +84,7 @@ You can add it to vscode with:
 ### CSS
 
 #### Cascade Layers
-Tailwind Layers are wrapped in cascade layers by dafault. Drupal styles should be wrapped with 
+Tailwind Layers are wrapped in cascade layers by dafault. Drupal styles should be wrapped with
 ```css
 @layer drupal
 ```
