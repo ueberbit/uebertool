@@ -267,6 +267,11 @@ function getLibID(file: string, ctx: Context) {
   const match = file.match(/^(css|js)\//)
   if (match)
     name = match[0] + name
+
+  const sdc = file.match(/^components\//)
+  if (sdc)
+    name = `sdc--${name}`
+
   name = name.replace(/\//g, '__')
   return name
 }

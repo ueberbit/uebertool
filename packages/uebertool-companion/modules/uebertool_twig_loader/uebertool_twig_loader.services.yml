@@ -5,4 +5,13 @@ services:
       - '@theme.manager'
       - '@library.discovery'
     tags:
-      - {name: twig.loader, priority: 300}
+      - { name: twig.loader, priority: 300 }
+
+  uebertool_twig_loader.twig.loader.component:
+    class: Drupal\uebertool_twig_loader\Template\Loader\UEberToolComponentLoader
+    decorates: 'Drupal\sdc\Twig\TwigComponentLoader'
+    arguments:
+      - '@.inner'
+      - '@plugin.manager.sdc'
+      - '@theme.manager'
+      - '@library.discovery'

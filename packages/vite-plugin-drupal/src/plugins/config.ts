@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { basename, dirname, relative, resolve } from 'node:path'
 import fs from 'node:fs'
 import type { Plugin } from 'vite'
@@ -21,6 +19,7 @@ export default (ctx: Context): Plugin => {
     async config(config) {
       const input = await fg([
         '(js|css|templates)/**/*.(js|jsx|css|ts|tsx)',
+        'components/**/(assets|src|js|css)/*.(js|jsx|css|ts|tsx)',
       ], {
         onlyFiles: true,
         ignore: [
