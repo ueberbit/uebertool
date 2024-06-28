@@ -19,7 +19,6 @@ export default (ctx: Context): Plugin => {
     lazy: lazyLoader,
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
   function cacheStringFunction(fn: Function) {
     const cache = Object.create(null)
     return (str: string) => {

@@ -4,8 +4,7 @@
   "exports": {
     "./stripcolor": {
       "types": "./dist/plugins/stripcolor.d.ts",
-      "import": "./dist/plugins/stripcolor.mjs",
-      "require": "./dist/plugins/stripcolor.cjs"
+      "import": "./dist/plugins/stripcolor.mjs"
     }
   },
   "files": [

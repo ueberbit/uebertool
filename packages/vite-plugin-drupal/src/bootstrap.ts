@@ -24,6 +24,7 @@ export function generateTsConfig() {
       lib: ['ESNext', 'DOM', 'DOM.Iterable'],
       moduleResolution: 'Node',
       strict: true,
+      checkJS: true,
       sourceMap: true,
       resolveJsonModule: true,
       isolatedModules: true,
@@ -91,8 +92,7 @@ export function generateTsConfig() {
     ],
   }, {
     spaces: 2,
-  },
-  )
+  })
   fse.outputJSON('./.uebertool/tsconfig.node.json', {
     compilerOptions: {
       composite: true,

@@ -4,21 +4,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs"
     },
     "./composables": {
       "types": "./dist/composables.d.ts",
-      "import": "./dist/composables.mjs",
-      "require": "./dist/composables.cjs"
+      "import": "./dist/composables.mjs"
     },
     "./ApiCustomElements": {
       "types": "./dist/ce/ApiCustomElements.d.ts",
-      "import": "./dist/ce/ApiCustomElements.mjs",
-      "require": "./dist/ce/ApiCustomElements.cjs"
+      "import": "./dist/ce/ApiCustomElements.mjs"
     }
   },
-  "main": "dist/index.cjs",
+  "main": "dist/index.mjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "bin": {
@@ -37,22 +34,6 @@
     "build": "unbuild",
     "prepack": "pnpm run build"
   },
-  "dependencies": {
-    "@ueberbit/postcss": "workspace:*",
-    "@ueberbit/tailwind": "workspace:*",
-    "@vitejs/plugin-vue": "^5.0.4",
-    "@vue/runtime-core": "^3.4.26",
-    "@vue/shared": "^3.4.26",
-    "@vueuse/core": "^10.9.0",
-    "tailwindcss": "^3.4.3",
-    "unimport": "^3.7.1",
-    "unplugin-icons": "^0.19.0",
-    "unplugin-vue-components": "^0.27.0",
-    "vite": "^5.2.11",
-    "vue": "^3.4.26",
-    "vue-tsc": "^2.0.16",
-    "web-component-analyzer": "^2.0.0"
-  },
   "peerDependencies": {
     "@iconify/json": "^2.2.206",
     "@tailwindcss/forms": "^0.5.7",
@@ -65,6 +46,22 @@
     "postcss": "^8.4.38",
     "postcss-import": "^16.1.0"
   },
+  "dependencies": {
+    "@ueberbit/postcss": "workspace:*",
+    "@ueberbit/tailwind": "workspace:*",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/runtime-core": "^3.4.26",
+    "@vue/shared": "^3.4.26",
+    "@vueuse/core": "^10.9.0",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.5.2",
+    "unimport": "^3.7.1",
+    "unplugin-icons": "^0.19.0",
+    "unplugin-vue-components": "^0.27.0",
+    "vite": "^5.2.11",
+    "vue": "^3.4.26",
+    "vue-tsc": "^2.0.16"
+  },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.12.8",
@@ -73,6 +70,7 @@
     "fs-extra": "^11.2.0",
     "magic-string": "^0.30.10",
     "rollup": "^4.17.2",
+    "web-component-analyzer": "^2.0.0",
     "yaml": "^2.4.2"
   }
 }

@@ -38,11 +38,13 @@ export default (ctx: Context): Plugin => {
           css: {
             postcss: {
               plugins: [
-                require('postcss-import')(),
-                require('tailwindcss/nesting')(),
-                require('tailwindcss')(),
-                require('@ueberbit/postcss/stripcolor')(),
-                require('autoprefixer')(),
+                // @ts-expect-error missing types
+                ((await import('postcss-import')).default),
+                ((await import('tailwindcss/nesting')).default),
+                ((await import('tailwindcss')).default),
+                // @ts-expect-error missing types
+                ((await import('@ueberbit/postcss/stripcolor')).default),
+                ((await import('autoprefixer')).default),
               ],
             },
           },

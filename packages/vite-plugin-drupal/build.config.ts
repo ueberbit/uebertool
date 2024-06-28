@@ -7,11 +7,11 @@ export default defineBuildConfig({
     'src/ce/ApiCustomElements',
     'src/bootstrap',
   ],
-  externals: ['web-component-analyzer', 'vite', 'typescript'],
+  externals: ['vite', 'typescript'],
   clean: true,
   declaration: true,
   rollup: {
-    emitCJS: true,
+    emitCJS: false,
     inlineDependencies: true,
   },
 })
