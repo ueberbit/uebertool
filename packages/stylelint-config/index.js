@@ -18,13 +18,6 @@ module.exports = {
     'web/sites/**/files',
   ],
   rules: {
-    // 'selector-anb-no-unmatchable': null,
-    'max-line-length': [
-      120,
-      {
-        ignorePattern: '/^\\s*(@import|@apply)/',
-      },
-    ],
     'import-notation': 'string',
     'order/order': [
       'dollar-variables',
@@ -50,6 +43,8 @@ module.exports = {
           'import-glob',
           'unocss-placeholder',
           'custom-media',
+          'scope',
+          'view-transition',
         ],
       },
     ],
@@ -59,7 +54,6 @@ module.exports = {
         ignoreFunctions: ['theme'],
       },
     ],
-    'declaration-block-trailing-semicolon': null,
     'no-descending-specificity': null,
     'selector-class-pattern': '^([a-z][a-z0-9]*)(-[a-z0-9]+)*((__([a-z][a-z0-9]*)(-[a-z0-9]+)*)?(--([a-z][a-z0-9]*)(-[a-z0-9]+)*)?)$',
   },

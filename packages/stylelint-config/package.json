@@ -22,9 +22,9 @@
     "index.js"
   ],
   "dependencies": {
-    "stylelint": "16.1.0",
-    "stylelint-config-recess-order": "^4.4.0",
-    "stylelint-config-standard": "36.0.0",
+    "stylelint": "16.6.1",
+    "stylelint-config-recess-order": "^5.0.1",
+    "stylelint-config-standard": "36.0.1",
     "stylelint-order": "^6.0.4"
   }
 }
