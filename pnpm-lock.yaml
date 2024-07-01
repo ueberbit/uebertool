@@ -75,13 +75,13 @@ importers:
         version: 6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)
       '@storybook/react':
         specifier: ^6.5.16
-        version: 6.5.16(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@5.28.5)(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(require-from-string@2.0.2)(type-fest@4.20.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)
+        version: 6.5.16(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@5.28.5)(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(require-from-string@2.0.2)(type-fest@0.21.3)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)
       '@types/react':
         specifier: 16.14.32
         version: 16.14.32(patch_hash=ypshaly2y23ydowsq2tcilu5hu)
       '@wingsuit-designsystem/core':
         specifier: 1.2.7
-        version: 1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@4.20.1)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)
+        version: 1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@0.21.3)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)
       '@wingsuit-designsystem/pattern':
         specifier: 1.2.7
         version: 1.2.7(patch_hash=dnx4ox7h5ubk6phxzjyiyqtmcm)
@@ -90,7 +90,7 @@ importers:
         version: 1.2.7(patch_hash=di2kospjyyw7alnptxev4eiuby)
       '@wingsuit-designsystem/storybook':
         specifier: 1.2.7
-        version: 1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@5.28.5)(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@4.20.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)(webpack@5.89.0)
+        version: 1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@5.28.5)(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@0.21.3)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)(webpack@5.89.0)
       esno:
         specifier: ^0.16.3
         version: 0.16.3
@@ -215,9 +215,6 @@ importers:
       postcss-import:
         specifier: ^16.1.0
         version: 16.1.0(postcss@8.4.38)
-      tailwindcss:
-        specifier: ^3.4.4
-        version: 3.4.4
       typescript:
         specifier: ^5.5.2
         version: 5.5.2
@@ -261,6 +258,9 @@ importers:
       rollup:
         specifier: ^4.18.0
         version: 4.18.0
+      tailwindcss:
+        specifier: ^3.4.4
+        version: 3.4.4
       web-component-analyzer:
         specifier: ^2.0.0
         version: 2.0.0
@@ -10839,10 +10839,6 @@ packages:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
 
-  type-fest@4.20.1:
-    resolution: {integrity: sha512-R6wDsVsoS9xYOpy8vgeBlqpdOyzJ12HNfQhC/aAKWM3YoCV9TtunJzh/QpkMgeDhkoynDcw5f1y+qF9yc/HHyg==}
-    engines: {node: '>=16'}
-
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -13737,7 +13733,7 @@ snapshots:
 
   '@pkgr/core@0.1.1': {}
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.5.10(@types/webpack@4.41.33)(react-refresh@0.11.0)(type-fest@4.20.1)(webpack-hot-middleware@2.26.1)(webpack@5.89.0(webpack-cli@3.3.12(webpack@4.46.0)))':
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.10(@types/webpack@4.41.33)(react-refresh@0.11.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(webpack@5.89.0(webpack-cli@3.3.12(webpack@4.46.0)))':
     dependencies:
       ansi-html-community: 0.0.8
       common-path-prefix: 3.0.0
@@ -13752,10 +13748,10 @@ snapshots:
       webpack: 5.89.0(webpack-cli@3.3.12(webpack@4.46.0))
     optionalDependencies:
       '@types/webpack': 4.41.33
-      type-fest: 4.20.1
+      type-fest: 0.21.3
       webpack-hot-middleware: 2.26.1
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.5.10(@types/webpack@5.28.5)(react-refresh@0.11.0)(type-fest@4.20.1)(webpack-hot-middleware@2.26.1)(webpack@5.89.0)':
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.10(@types/webpack@5.28.5)(react-refresh@0.11.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(webpack@5.89.0)':
     dependencies:
       ansi-html-community: 0.0.8
       common-path-prefix: 3.0.0
@@ -13770,7 +13766,7 @@ snapshots:
       webpack: 5.89.0
     optionalDependencies:
       '@types/webpack': 5.28.5
-      type-fest: 4.20.1
+      type-fest: 0.21.3
       webpack-hot-middleware: 2.26.1
 
   '@rollup/plugin-alias@5.0.0(rollup@3.29.4)':
@@ -15296,11 +15292,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@storybook/react@6.5.16(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@4.41.33)(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(require-from-string@2.0.2)(type-fest@4.20.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))(webpack-hot-middleware@2.26.1)':
+  '@storybook/react@6.5.16(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@4.41.33)(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(require-from-string@2.0.2)(type-fest@0.21.3)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))(webpack-hot-middleware@2.26.1)':
     dependencies:
       '@babel/preset-flow': 7.18.6(@babel/core@7.23.3)
       '@babel/preset-react': 7.18.6(@babel/core@7.23.3)
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.10(@types/webpack@4.41.33)(react-refresh@0.11.0)(type-fest@4.20.1)(webpack-hot-middleware@2.26.1)(webpack@5.89.0(webpack-cli@3.3.12(webpack@4.46.0)))
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.10(@types/webpack@4.41.33)(react-refresh@0.11.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(webpack@5.89.0(webpack-cli@3.3.12(webpack@4.46.0)))
       '@storybook/addons': 6.5.16(react-dom@16.13.1(react@16.13.1))(react@16.13.1)
       '@storybook/client-logger': 6.5.16
       '@storybook/core': 6.5.16(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))(webpack@5.89.0(webpack-cli@3.3.12(webpack@4.46.0)))
@@ -15363,11 +15359,11 @@ snapshots:
       - webpack-hot-middleware
       - webpack-plugin-serve
 
-  '@storybook/react@6.5.16(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@5.28.5)(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(require-from-string@2.0.2)(type-fest@4.20.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)':
+  '@storybook/react@6.5.16(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@5.28.5)(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(require-from-string@2.0.2)(type-fest@0.21.3)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)':
     dependencies:
       '@babel/preset-flow': 7.18.6(@babel/core@7.23.3)
       '@babel/preset-react': 7.18.6(@babel/core@7.23.3)
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.10(@types/webpack@5.28.5)(react-refresh@0.11.0)(type-fest@4.20.1)(webpack-hot-middleware@2.26.1)(webpack@5.89.0)
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.10(@types/webpack@5.28.5)(react-refresh@0.11.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(webpack@5.89.0)
       '@storybook/addons': 6.5.16(react-dom@16.13.1(react@16.13.1))(react@16.13.1)
       '@storybook/client-logger': 6.5.16
       '@storybook/core': 6.5.16(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack@5.89.0)
@@ -16344,14 +16340,14 @@ snapshots:
       '@webassemblyjs/wast-parser': 1.9.0
       '@xtuc/long': 4.2.2
 
-  '@wingsuit-designsystem/core@1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@4.20.1)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)':
+  '@wingsuit-designsystem/core@1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@0.21.3)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)':
     dependencies:
       '@emotion/babel-plugin': 11.10.2(@babel/core@7.23.3)
       '@types/jest': 25.2.3
       '@types/node': 13.13.52
       '@types/webpack': 4.41.33
       '@wingsuit-designsystem/pattern': 1.2.7(patch_hash=dnx4ox7h5ubk6phxzjyiyqtmcm)
-      '@wingsuit-designsystem/storybook': 1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@4.41.33)(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@4.20.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))(webpack-hot-middleware@2.26.1)(webpack@4.46.0(webpack-cli@3.3.12))
+      '@wingsuit-designsystem/storybook': 1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@4.41.33)(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@0.21.3)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))(webpack-hot-middleware@2.26.1)(webpack@4.46.0(webpack-cli@3.3.12))
       autoprefixer: 10.4.5(postcss@7.0.39)
       babel-core: 7.0.0-bridge.0(@babel/core@7.23.3)
       babel-jest: 24.9.0(@babel/core@7.23.3)
@@ -16437,14 +16433,14 @@ snapshots:
       twing: 5.1.2
       twing-drupal-filters: 0.0.2
 
-  '@wingsuit-designsystem/storybook@1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@4.41.33)(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@4.20.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))(webpack-hot-middleware@2.26.1)(webpack@4.46.0(webpack-cli@3.3.12))':
+  '@wingsuit-designsystem/storybook@1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@4.41.33)(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@0.21.3)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))(webpack-hot-middleware@2.26.1)(webpack@4.46.0(webpack-cli@3.3.12))':
     dependencies:
       '@storybook/addon-controls': 6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))
       '@storybook/addon-docs': 6.5.16(@babel/core@7.23.3)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))(webpack@4.46.0(webpack-cli@3.3.12))
       '@storybook/client-api': 6.5.16(react-dom@16.13.1(react@16.13.1))(react@16.13.1)
       '@storybook/components': 6.5.16(react-dom@16.13.1(react@16.13.1))(react@16.13.1)
       '@storybook/preset-typescript': 3.0.0(@babel/core@7.23.3)(eslint@9.5.0)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack@4.46.0(webpack-cli@3.3.12))
-      '@storybook/react': 6.5.16(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@4.41.33)(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(require-from-string@2.0.2)(type-fest@4.20.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))(webpack-hot-middleware@2.26.1)
+      '@storybook/react': 6.5.16(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@4.41.33)(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(require-from-string@2.0.2)(type-fest@0.21.3)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-cli@3.3.12(webpack@4.46.0))(webpack-hot-middleware@2.26.1)
       '@storybook/theming': 6.5.16(react-dom@16.13.1(react@16.13.1))(react@16.13.1)
       '@types/react': 16.14.32(patch_hash=ypshaly2y23ydowsq2tcilu5hu)
       '@types/react-dom': 16.9.22
@@ -16484,14 +16480,14 @@ snapshots:
       - webpack-hot-middleware
       - webpack-plugin-serve
 
-  '@wingsuit-designsystem/storybook@1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@5.28.5)(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@4.20.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)(webpack@5.89.0)':
+  '@wingsuit-designsystem/storybook@1.2.7(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@5.28.5)(encoding@0.1.13)(eslint@9.5.0)(require-from-string@2.0.2)(type-fest@0.21.3)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)(webpack@5.89.0)':
     dependencies:
       '@storybook/addon-controls': 6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)
       '@storybook/addon-docs': 6.5.16(@babel/core@7.23.3)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack@5.89.0)
       '@storybook/client-api': 6.5.16(react-dom@16.13.1(react@16.13.1))(react@16.13.1)
       '@storybook/components': 6.5.16(react-dom@16.13.1(react@16.13.1))(react@16.13.1)
       '@storybook/preset-typescript': 3.0.0(@babel/core@7.23.3)(eslint@9.5.0)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack@5.89.0)
-      '@storybook/react': 6.5.16(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@5.28.5)(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(require-from-string@2.0.2)(type-fest@4.20.1)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)
+      '@storybook/react': 6.5.16(@babel/core@7.23.3)(@storybook/builder-webpack4@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/builder-webpack5@6.5.16(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@storybook/manager-webpack5@6.5.16(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(typescript@5.5.2)(vue-template-compiler@2.7.16))(@types/webpack@5.28.5)(encoding@0.1.13)(eslint@9.5.0)(react-dom@16.13.1(react@16.13.1))(react@16.13.1)(require-from-string@2.0.2)(type-fest@0.21.3)(typescript@5.5.2)(vue-template-compiler@2.7.16)(webpack-hot-middleware@2.26.1)
       '@storybook/theming': 6.5.16(react-dom@16.13.1(react@16.13.1))(react@16.13.1)
       '@types/react': 16.14.32(patch_hash=ypshaly2y23ydowsq2tcilu5hu)
       '@types/react-dom': 16.9.22
@@ -26188,9 +26184,6 @@ snapshots:
   type-fest@0.6.0: {}
 
   type-fest@0.8.1: {}
-
-  type-fest@4.20.1:
-    optional: true
 
   type-is@1.6.18:
     dependencies:

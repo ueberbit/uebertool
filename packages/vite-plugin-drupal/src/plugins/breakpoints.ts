@@ -2,7 +2,7 @@ import process from 'node:process'
 import fse from 'fs-extra'
 import type { Plugin, ResolvedConfig } from 'vite'
 import YAML from 'yaml'
-import resolveConfig from 'tailwindcss/resolveConfig'
+import resolveConfig from 'tailwindcss/resolveConfig.js'
 import type { Context } from './context'
 
 /**

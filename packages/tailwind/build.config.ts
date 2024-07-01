@@ -10,7 +10,7 @@ export default defineBuildConfig({
     'unconfig',
   ],
   rollup: {
-    emitCJS: false,
+    emitCJS: true,
     inlineDependencies: true,
   },
 })
