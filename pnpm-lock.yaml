@@ -215,6 +215,9 @@ importers:
       postcss-import:
         specifier: ^16.1.0
         version: 16.1.0(postcss@8.4.38)
+      tailwindcss:
+        specifier: ^3.4.4
+        version: 3.4.4
       typescript:
         specifier: ^5.5.2
         version: 5.5.2
@@ -258,9 +261,6 @@ importers:
       rollup:
         specifier: ^4.18.0
         version: 4.18.0
-      tailwindcss:
-        specifier: ^3.4.4
-        version: 3.4.4
       web-component-analyzer:
         specifier: ^2.0.0
         version: 2.0.0
@@ -13500,10 +13500,7 @@ snapshots:
       jest-runner: 25.5.4
       jest-runtime: 25.5.4
     transitivePeerDependencies:
-      - bufferutil
-      - canvas
       - supports-color
-      - utf-8-validate
 
   '@jest/transform@24.9.0':
     dependencies:
