@@ -1,6 +1,6 @@
 {
   "name": "@ueberbit/vite-plugin-drupal",
-  "version": "0.5.0-beta.2",
+  "version": "0.5.0-beta.1",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -44,7 +44,8 @@
     "lit": "^3.1.3",
     "morphdom": "^2.7.2",
     "postcss": "^8.4.38",
-    "postcss-import": "^16.1.0"
+    "postcss-import": "^16.1.0",
+    "tailwindcss": "^3.4.4"
   },
   "dependencies": {
     "@ueberbit/postcss": "workspace:*",
@@ -69,7 +70,6 @@
     "fs-extra": "^11.2.0",
     "magic-string": "^0.30.10",
     "rollup": "^4.18.0",
-    "tailwindcss": "^3.4.4",
     "web-component-analyzer": "^2.0.0",
     "yaml": "^2.4.5"
   }
