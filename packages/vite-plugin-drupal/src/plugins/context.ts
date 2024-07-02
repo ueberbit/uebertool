@@ -10,6 +10,8 @@ import {
   VueUseComponentsResolver,
   VueUseDirectiveResolver,
 } from 'unplugin-vue-components/resolvers'
+import type { InlinePreset } from 'unimport'
+import { builtinPresets } from 'unimport'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import fg from 'fast-glob'
 import { defu } from 'defu'
@@ -35,7 +37,7 @@ export interface Options {
   features: {
     twighmr: boolean
   }
-  experimental: {}
+  experimental: object
   baseTheme: string
 }
 
@@ -54,6 +56,9 @@ export interface Context {
   distThemeName: string
   themeBasePath: string
 }
+
+const vueUsePreset = builtinPresets['@vueuse/core']() as InlinePreset
+vueUsePreset.imports = vueUsePreset.imports.filter(i => typeof i !== 'string' || !['toRef', 'toValue'].includes(i))
 
 const defaults: Options = {
   url: 'http://localhost',
@@ -101,7 +106,7 @@ const defaults: Options = {
     presets: [
       'pinia',
       'vue',
-      '@vueuse/core',
+      vueUsePreset,
     ],
     addons: {
       vueTemplate: true,
