@@ -145,8 +145,6 @@ const defaults: Options = {
 
 export default (ctx: Context, options: UserOptions): Plugin => {
   ctx.options = defu<Options, [Options]>(options, defaults)
-  ctx.port = 5173
-  ctx.url = `${ctx.options.url}:${ctx.port}`
   ctx.root = process.cwd()
   ctx.themeName = getThemeName()
   ctx.distThemeName = getDistThemeName()
@@ -159,6 +157,8 @@ export default (ctx: Context, options: UserOptions): Plugin => {
       ctx.config = config
       ctx.dev = command === 'serve'
       ctx.prod = !ctx.dev
+      ctx.port = config.server?.port || 5173
+      ctx.url = `${ctx.options.url}:${ctx.port}`
     },
     configResolved(config) {
       ctx.resoledConfig = config
