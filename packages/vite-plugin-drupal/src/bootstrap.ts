@@ -27,6 +27,7 @@ export function generateTsConfig() {
       checkJS: true,
       sourceMap: true,
       resolveJsonModule: true,
+      checkJs: true,
       isolatedModules: true,
       esModuleInterop: true,
       noEmit: true,
@@ -76,6 +77,7 @@ export function generateTsConfig() {
       },
     },
     include: [
+      '../components/**/*',
       '../js/**/*',
       '../templates/**/*',
       './unimport.d.ts',
