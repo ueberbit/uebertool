@@ -24,7 +24,6 @@ export function generateTsConfig() {
       lib: ['ESNext', 'DOM', 'DOM.Iterable'],
       moduleResolution: 'Node',
       strict: true,
-      checkJS: true,
       sourceMap: true,
       resolveJsonModule: true,
       checkJs: true,
