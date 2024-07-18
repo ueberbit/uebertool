@@ -13,4 +13,5 @@ services:
     arguments:
       - '@.inner'
       - '@plugin.manager.sdc'
+      - '@theme.manager'
       - '@library.discovery'
