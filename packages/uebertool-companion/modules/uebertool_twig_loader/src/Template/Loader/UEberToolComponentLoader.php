@@ -3,7 +3,6 @@
 namespace Drupal\uebertool_twig_loader\Template\Loader;
 
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
-use Drupal\Core\Theme\ThemeManagerInterface;
 use Drupal\sdc\ComponentPluginManager;
 use Drupal\sdc\Exception\ComponentNotFoundException;
 use Drupal\sdc\Twig\TwigComponentLoader;
@@ -15,29 +14,11 @@ use Twig\Loader\LoaderInterface;
  */
 class UEberToolComponentLoader implements LoaderInterface {
 
-  /**
-   * The active theme.
-   *
-   * @var \Drupal\Core\Theme\ActiveTheme
-   */
-  protected $activeTheme;
-
-  /**
-   * The active theme name.
-   *
-   * @var string
-   */
-  protected $activeThemeName;
-
   public function __construct(
     protected TwigComponentLoader $prototype,
     protected ComponentPluginManager $pluginManager,
-    protected ThemeManagerInterface $themeManager,
     protected LibraryDiscoveryInterface $libraryDiscovery,
-  ) {
-    $this->activeTheme = $this->themeManager->getActiveTheme();
-    $this->activeThemeName = $this->activeTheme->getName();
-  }
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -55,14 +36,13 @@ class UEberToolComponentLoader implements LoaderInterface {
     $original_code = file_get_contents($path);
 
     $prefix = '';
-    if (array_key_exists($distThemeName, $this->activeTheme->getBaseThemeExtensions())) {
-      $componentName = $component->getDerivativeId();
-      $libraryName = "sdc--{$componentName}";
 
-      $prefix = $this->libraryDiscovery->getLibraryByName($distThemeName, $libraryName)
-        ? "{{ attach_library('{$distThemeName}/{$libraryName}') }}"
-        : '';
-    }
+    $componentName = $component->getDerivativeId();
+    $libraryName = "sdc--{$componentName}";
+
+    $prefix = $this->libraryDiscovery->getLibraryByName($distThemeName, $libraryName)
+      ? "{{ attach_library('{$distThemeName}/{$libraryName}') }}"
+      : '';
 
     $code = $prefix . $original_code;
     
