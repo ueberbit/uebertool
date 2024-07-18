@@ -9,9 +9,8 @@ services:
 
   uebertool_twig_loader.twig.loader.component:
     class: Drupal\uebertool_twig_loader\Template\Loader\UEberToolComponentLoader
-    decorates: 'Drupal\sdc\Twig\TwigComponentLoader'
+    decorates: 'Drupal\Core\Template\Loader\ComponentLoader'
     arguments:
       - '@.inner'
       - '@plugin.manager.sdc'
-      - '@theme.manager'
       - '@library.discovery'
