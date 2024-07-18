@@ -3,9 +3,9 @@
 namespace Drupal\uebertool_twig_loader\Template\Loader;
 
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
-use Drupal\sdc\ComponentPluginManager;
-use Drupal\sdc\Exception\ComponentNotFoundException;
-use Drupal\sdc\Twig\TwigComponentLoader;
+use Drupal\Core\Theme\ComponentPluginManager;
+use Drupal\Core\Render\Component\Exception\ComponentNotFoundException;
+use Drupal\Core\Template\Loader\ComponentLoader;
 use Twig\Source;
 use Twig\Loader\LoaderInterface;
 
@@ -15,7 +15,7 @@ use Twig\Loader\LoaderInterface;
 class UEberToolComponentLoader implements LoaderInterface {
 
   public function __construct(
-    protected TwigComponentLoader $prototype,
+    protected ComponentLoader $prototype,
     protected ComponentPluginManager $pluginManager,
     protected LibraryDiscoveryInterface $libraryDiscovery,
   ) {}
@@ -45,7 +45,7 @@ class UEberToolComponentLoader implements LoaderInterface {
       : '';
 
     $code = $prefix . $original_code;
-    
+
     return new Source($code, $name, $path);
   }
 
