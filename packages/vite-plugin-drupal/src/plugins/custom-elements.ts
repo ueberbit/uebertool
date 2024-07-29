@@ -100,7 +100,7 @@ export default (ctx: Context): Plugin => {
 
   async function generateVSCodeCustomHTMLData() {
     const files = await fg([
-      '(js|templates)/**/*.ce.{vue,ts,tsx}',
+      '(js|templates|components)/**/*.ce.{vue,ts,tsx,js}',
     ], {
       onlyFiles: true,
     })
