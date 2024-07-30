@@ -1,6 +1,6 @@
 {
   "name": "@ueberbit/vite-plugin-drupal",
-  "version": "0.5.0-beta.16",
+  "version": "0.5.0-beta.17",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
