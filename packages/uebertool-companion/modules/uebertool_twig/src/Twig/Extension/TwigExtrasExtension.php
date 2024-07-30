@@ -40,6 +40,7 @@ class TwigExtrasExtension extends AbstractExtension {
       new TwigFunction('buttons', [$this, 'getButtons']),
       new TwigFunction('languages', [$this, 'getLanguages']),
       new TwigFunction('URL', [$this, 'urlFromUserInput']),
+      new TwigFunction('HTML', [$this, 'HTML']),
     ];
   }
 
@@ -351,5 +352,18 @@ class TwigExtrasExtension extends AbstractExtension {
    */
   public function urlFromUserInput(string $url, array $options = []) {
     return \Drupal\Core\Url::fromUserInput($url, $options);
+  }
+
+  /**
+   * Render HTML from string.
+   * Only use this for demo purposes.
+   *
+   * @param string $html
+   * @return array Render array.
+   */
+  public function HTML($html) {
+    return [
+      '#markup' => $html,
+    ];
   }
 }
