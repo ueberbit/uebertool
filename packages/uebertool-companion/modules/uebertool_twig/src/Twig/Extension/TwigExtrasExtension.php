@@ -349,7 +349,7 @@ class TwigExtrasExtension extends AbstractExtension {
    * @return static
    *   A new Url object based on user input.
    */
-  public function urlFromUserInput(string $url) {
-    return \Drupal\Core\Url::fromUserInput($url);
+  public function urlFromUserInput(string $url, array $options = []) {
+    return \Drupal\Core\Url::fromUserInput($url, $options);
   }
 }
