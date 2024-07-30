@@ -39,6 +39,7 @@ class TwigExtrasExtension extends AbstractExtension {
       new TwigFunction('buttons', [$this, 'getButtons']),
       new TwigFunction('buttons', [$this, 'getButtons']),
       new TwigFunction('languages', [$this, 'getLanguages']),
+      new TwigFunction('ue_url', [$this, 'urlFromUserInput']),
     ];
   }
 
@@ -339,5 +340,16 @@ class TwigExtrasExtension extends AbstractExtension {
     });
 
     return $langs;
+  }
+
+  /**
+   * Return a Drupal URL object.
+   *
+   * @param string $url
+   * @return static
+   *   A new Url object based on user input.
+   */
+  public function urlFromUserInput(string $url) {
+    return \Drupal\Core\Url::fromUserInput($url);
   }
 }
