@@ -39,7 +39,7 @@ class TwigExtrasExtension extends AbstractExtension {
       new TwigFunction('buttons', [$this, 'getButtons']),
       new TwigFunction('buttons', [$this, 'getButtons']),
       new TwigFunction('languages', [$this, 'getLanguages']),
-      new TwigFunction('ue_url', [$this, 'urlFromUserInput']),
+      new TwigFunction('URL', [$this, 'urlFromUserInput']),
     ];
   }
 
