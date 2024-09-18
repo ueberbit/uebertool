@@ -16,7 +16,7 @@ export function getThemeName(): string {
 }
 
 export function getThemeBasePath(): string {
-  return process.cwd().split('/web').at(-1) || `/themes/custom/${getThemeName}`
+  return `/${process.cwd().split('/web/').at(-1)}` || `/themes/custom/${getThemeName}`
 }
 
 export function getDistThemeName(): string {
