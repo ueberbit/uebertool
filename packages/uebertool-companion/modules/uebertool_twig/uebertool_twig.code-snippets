@@ -33,6 +33,30 @@
     "body": ["languages($0)"],
     "description": "Return all languages a specific language or the current language"
   },
+  "class()": {
+    "scope": "twig",
+    "prefix": ["languages()", "languages('en')", "languages('current')"],
+    "body": ["languages($0)"],
+    "description": "Shortcut for create_attribute().addClass()"
+  },
+  "create_attribute()": {
+    "scope": "twig",
+    "prefix": ["create_attribute()"],
+    "body": ["{{ create_attribute()$0 }}"],
+    "description": "Create a blank attribute"
+  },
+  "create_attribute({})": {
+    "scope": "twig",
+    "prefix": ["create_attribute({ attribute: value })"],
+    "body": ["{{ create_attribute({ ${1:style}: '${2:display:block;}' }) }}"],
+    "description": "Create a an attribute with defaults"
+  },
+  "create_attribute({class})": {
+    "scope": "twig",
+    "prefix": ["create_attribute({ class: [] })"],
+    "body": ["{{ create_attribute({ class: ['$1'] }) }}"],
+    "description": "Create a class attribute"
+  },
   "|link_url": {
     "scope": "twig",
     "prefix": ["|link_url"],
