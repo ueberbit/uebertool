@@ -41,6 +41,7 @@ class TwigExtrasExtension extends AbstractExtension {
       new TwigFunction('languages', [$this, 'getLanguages']),
       new TwigFunction('URL', [$this, 'urlFromUserInput']),
       new TwigFunction('HTML', [$this, 'HTML']),
+      new TwigFunction('class', [$this, 'classList']),
     ];
   }
 
@@ -365,5 +366,17 @@ class TwigExtrasExtension extends AbstractExtension {
     return [
       '#markup' => $html,
     ];
+  }
+
+  /**
+   * Shortcut for create_attribute().addClass().
+   *
+   * @param array $classes
+   * @return string
+   */
+  public function classList(array $classes) {
+    $attribute = new Attribute();
+    $attribute->addClass($classes);
+    return $attribute;
   }
 }
