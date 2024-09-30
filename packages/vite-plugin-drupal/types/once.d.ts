@@ -41,7 +41,7 @@
  *   An array of elements that have not yet been processed by a once call
  *   with a given id.
  */
-declare function once<T extends Element>(id: string, selector: NodeList | Array<Element> | Element | string, context?: Document | Element): T[]
+declare function once<T extends HTMLElement>(id: string, selector: NodeList | Array<HTMLElement> | HTMLElement | string, context?: Document | HTMLElement): T[]
 declare namespace once {
   /**
    * Removes a once id from an element's data-drupal-once attribute value.
