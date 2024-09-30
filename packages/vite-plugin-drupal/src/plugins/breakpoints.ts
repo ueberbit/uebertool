@@ -53,7 +53,7 @@ async function generateBreakpoints(theme: string, multipliers: string[]) {
     })
   }
   catch (e) {
-    console.warn(`No tailwind.config.js file found in ${process.cwd()}!\n${e}`)
+    console.warn(`\nNo tailwind.config.js file found in ${process.cwd()}! Not generating breakpoints!\n`)
   }
   return screens
 }
