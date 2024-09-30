@@ -60,6 +60,7 @@ const deps = [
   [/Drupal\.Message/, 'core/drupal.message', '$distThemeName/status-messages'],
   [/Drupal\.(theme\.)?(p|P)rogress/, 'core/drupal.progress'],
   [/Cookies\./, 'core/js-cookie'],
+  [/FloatingUI(Core|DOM)\./, 'core/internal.floating-ui'],
 ] as const
 
 export default (ctx: Context): Plugin => {
@@ -260,7 +261,7 @@ function emitLib(libraries: Record<string, DrupalLibrary>, ctx: Context) {
 function getLibID(file: string, ctx: Context) {
   let { name } = path.parse(file)
   if (ctx.prod) {
-    const hash = name.match(/\.([a-zA-Z0-9_-]{8})/)?.at(1)
+    const hash = name.match(/\.([\w-]{8})/)?.at(1)
     if (hash)
       name = name.replace(`.${hash}`, '')
   }
