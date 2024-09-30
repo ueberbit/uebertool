@@ -57,6 +57,12 @@
     "body": ["{{ create_attribute({ class: ['$1'] }) }}"],
     "description": "Create a class attribute"
   },
+  "tailwind_config()": {
+    "scope": "twig",
+    "prefix": ["tailwind_config()"],
+    "body": ["tailwind_config('$0')"],
+    "description": "reference tailwind config"
+  },
   "|link_url": {
     "scope": "twig",
     "prefix": ["|link_url"],
