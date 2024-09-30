@@ -9,6 +9,7 @@ use Drupal\Core\URL;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Symfony\Component\Yaml\Yaml;    
 
 /**
  * Provides field value filters for Twig templates.
@@ -42,6 +43,7 @@ class TwigExtrasExtension extends AbstractExtension {
       new TwigFunction('URL', [$this, 'urlFromUserInput']),
       new TwigFunction('HTML', [$this, 'HTML']),
       new TwigFunction('class', [$this, 'classList']),
+      new TwigFunction('tailwind_config', [$this, 'tailwindConfig']),
     ];
   }
 
@@ -378,5 +380,50 @@ class TwigExtrasExtension extends AbstractExtension {
     $attribute = new Attribute();
     $attribute->addClass($classes);
     return $attribute;
+  }
+
+  /**
+   * Get Tailwind Config.
+   *
+   * @param string $key
+   * @return mixed
+   */
+  public function tailwindConfig(?string $key) {
+    /** @var Drupal\Core\Theme\ThemeManager */
+    $theme_manager = \Drupal::service('theme.manager');
+    $theme = $theme_manager->getActiveTheme();
+
+    try {
+      $uebertool_dist_theme = current(array_filter($theme->getBaseThemeExtensions(), function($theme) {
+        return str_ends_with($theme->getName(), '_dist');
+      }));
+  
+      if (!$uebertool_dist_theme) {
+        return '';
+      }
+
+      $yml = Yaml::parseFile(DRUPAL_ROOT . "/{$uebertool_dist_theme->getPath()}/{$uebertool_dist_theme->getName()}.tailwind.yml");
+
+      return $this->getValueByKey($yml, $key);
+    } catch (\Exception $e) {
+      return '';
+    }
+  }
+
+  /**
+   * Get dynamic value from array.
+   */
+  function getValueByKey($array, $key) {
+    $keys = explode('.', $key);
+    $currentValue = $array;
+    foreach ($keys as $k) {
+      if (isset($currentValue[$k])) {
+        $currentValue = $currentValue[$k];
+      } else {
+        return null;
+      }
+    }
+    
+    return $currentValue;
   }
 }

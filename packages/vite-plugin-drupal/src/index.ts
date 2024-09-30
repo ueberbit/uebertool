@@ -14,6 +14,7 @@ import virtual from './plugins/virtual'
 import vuePlugin from './plugins/custom-elements'
 import breakpoints from './plugins/breakpoints'
 import tailwindHMR from './plugins/tailwind-hmr'
+import tailwindConfig from './plugins/tailwind-config'
 import vueCustomElement from './plugins/vue-custom-element'
 import restart from './plugins/restart'
 
@@ -31,6 +32,7 @@ export default (options: UserOptions = {}): Plugin[] => {
     libraries(ctx),
     themeInfo(ctx),
     tailwindHMR(),
+    tailwindConfig(ctx),
     vueCustomElement(),
     breakpoints(ctx),
     twig(ctx),
