@@ -35,7 +35,9 @@ export interface Options {
     multipliers: string[]
   }
   features: {
+    resetTheme: boolean
     twighmr: boolean
+    clearCache: boolean | string
   }
   experimental: object
   baseTheme: string
@@ -137,7 +139,9 @@ const defaults: Options = {
     ],
   },
   features: {
+    resetTheme: true,
     twighmr: true,
+    clearCache: 'drush cr',
   },
   experimental: {},
   baseTheme: 'stable9',

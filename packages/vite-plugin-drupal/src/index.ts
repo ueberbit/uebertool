@@ -15,6 +15,7 @@ import vuePlugin from './plugins/custom-elements'
 import breakpoints from './plugins/breakpoints'
 import tailwindHMR from './plugins/tailwind-hmr'
 import vueCustomElement from './plugins/vue-custom-element'
+import restart from './plugins/restart'
 
 export default (options: UserOptions = {}): Plugin[] => {
   const ctx = <Context>{}
@@ -37,6 +38,7 @@ export default (options: UserOptions = {}): Plugin[] => {
     vue(ctx.options.vue),
     vuePlugin(ctx),
     Icons(ctx.options.icons || {}),
+    restart(ctx),
     UnimportPlugin.vite(ctx.options.unimport || {}),
     Components(ctx.options.components),
   ].flat()
