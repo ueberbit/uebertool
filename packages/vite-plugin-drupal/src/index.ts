@@ -17,7 +17,7 @@ import tailwindHMR from './plugins/tailwind-hmr'
 import tailwindConfig from './plugins/tailwind-config'
 import vueCustomElement from './plugins/vue-custom-element'
 import restart from './plugins/restart'
-import copyStatic from './plugins/copy-static'
+// import copyStatic from './plugins/copy-static'
 
 export default (options: UserOptions = {}): Plugin[] => {
   const ctx = <Context>{}
@@ -29,7 +29,7 @@ export default (options: UserOptions = {}): Plugin[] => {
   return [
     context(ctx, options),
     config(ctx),
-    copyStatic(ctx),
+    // copyStatic(ctx),
     css(ctx),
     libraries(ctx),
     themeInfo(ctx),
