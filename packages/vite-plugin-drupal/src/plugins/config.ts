@@ -18,8 +18,8 @@ export default (ctx: Context): Plugin => {
     name: 'vite-plugin-uebertool-config',
     async config(config) {
       const input = await fg([
-        '(js|css|templates)/**/*.(js|jsx|css|ts|tsx)',
-        'components/**/(assets|src|js|css)/*.(js|jsx|css|ts|tsx)',
+        '(js|css|templates)/**/*.(js|jsx|css|scss|ts|tsx)',
+        'components/**/(assets|src|js|css)/*.(js|jsx|css|scss|ts|tsx)',
       ], {
         onlyFiles: true,
         ignore: [
@@ -91,6 +91,8 @@ export default (ctx: Context): Plugin => {
                   return assetMap.get(base)
 
                 const fullPath = input.find(file => file.endsWith(base))
+                  || input.find(file => file.endsWith(base.replace(/\.css$/, '.scss')))
+
                 if (fullPath)
                   dir = dirname(fullPath)
 

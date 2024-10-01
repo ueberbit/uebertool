@@ -35,8 +35,8 @@
   },
   "class()": {
     "scope": "twig",
-    "prefix": ["languages()", "languages('en')", "languages('current')"],
-    "body": ["languages($0)"],
+    "prefix": ["class()"],
+    "body": ["class($0)"],
     "description": "Shortcut for create_attribute().addClass()"
   },
   "create_attribute()": {
