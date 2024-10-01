@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Theme override to display a region.
+ *
+ * Available variables:
+ * - content: The content for this region, typically blocks.
+ * - attributes: HTML attributes for the region <div>.
+ * - region: The name of the region variable as defined in the theme's
+ *   .info.yml file.
+ *
+ * @see template_preprocess_region()
+ */
+#}
+
+{#
+Wrapper is needed for 3rd party modules like contextual.
+Remove div if not needed.
+#}
+
+{% from '@' ~ active_theme() ~ '_dist' ~ "/macros.html.twig" import maybe_attr %}
+
+{% if attributes|length != 0 %}
+  {% set attributes = attributes.addClass('contents') %}
+{% endif %}
+
+{% if content %}
+  {{ maybe_attr(attributes) }}
+    {{ content }}
+  {{ maybe_attr(attributes, false) }}
+{% endif %}

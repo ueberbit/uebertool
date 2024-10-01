@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Macros.
+ */
+#}
+
+{# Conditionally render wrapper #}
+{% macro maybe_attr(attrs, start = true) %}
+  {% apply spaceless %}
+    {%- if start -%}
+      {%- if attrs.toArray()|length -%}
+        <div{{ attrs }}>
+      {%- endif -%}
+    {%- else -%}
+      {%- if attrs.toArray()|length -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  {% endapply %}
+{% endmacro %}
