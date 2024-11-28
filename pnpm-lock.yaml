@@ -4,6 +4,12 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    defu:
+      specifier: ^6.1.4
+      version: 6.1.4
+
 overrides:
   typescript: ^5.7.2
 
@@ -35,13 +41,12 @@ importers:
       '@ueberbit/eslint-config-drupal':
         specifier: workspace:*
         version: link:../eslint-config-drupal
+      defu:
+        specifier: 'catalog:'
+        version: 6.1.4
       eslint:
         specifier: ^9.5.0
         version: 9.15.0(jiti@2.4.0)
-    devDependencies:
-      defu:
-        specifier: ^6.1.4
-        version: 6.1.4
 
   packages/eslint-config-drupal: {}
 
@@ -146,7 +151,7 @@ importers:
         specifier: ^22.10.1
         version: 22.10.1
       defu:
-        specifier: ^6.1.4
+        specifier: 'catalog:'
         version: 6.1.4
       fs-extra:
         specifier: ^11.2.0
