@@ -119,6 +119,7 @@ export default (ctx: Context): Plugin => {
             ignored: [
               '**/*.stories.(mdx|jsx|md)',
               '**/*.yml',
+              '**/.uebertool/**',
             ],
           },
         },
