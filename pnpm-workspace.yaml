@@ -1,3 +1,5 @@
 packages:
   - 'packages/*'
   - 'drupal/web/themes/custom/ueberbit/*'
+catalog:
+  defu: ^6.1.4

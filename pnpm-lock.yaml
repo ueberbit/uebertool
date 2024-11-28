@@ -38,6 +38,10 @@ importers:
       eslint:
         specifier: ^9.5.0
         version: 9.15.0(jiti@2.4.0)
+    devDependencies:
+      defu:
+        specifier: ^6.1.4
+        version: 6.1.4
 
   packages/eslint-config-drupal: {}
 
