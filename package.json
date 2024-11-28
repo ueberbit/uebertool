@@ -16,7 +16,7 @@
   "license": "MIT",
   "homepage": "https://github.com/ueberbit/uebertool",
   "engines": {
-    "node": "^20.0.0",
+    "node": "^22.0.0",
     "pnpm": "^9.0.6"
   },
   "scripts": {
@@ -34,7 +34,7 @@
     "unbuild": "^2.0.0"
   },
   "pnpm": {
-    "patchedDependencies": {
+    "_patchedDependencies": {
       "@wingsuit-designsystem/pattern@1.2.7": "./patches/@wingsuit-designsystem__pattern@1.2.7.patch",
       "@types/react@16.14.32": "patches/@types__react@16.14.32.patch",
       "@wingsuit-designsystem/pattern-react@1.2.7": "patches/@wingsuit-designsystem__pattern-react@1.2.7.patch"
