@@ -1,3 +1,4 @@
 packages:
   - 'packages/*'
+  - '!packages/drupal-storybook'
   - 'drupal/web/themes/custom/ueberbit/*'
