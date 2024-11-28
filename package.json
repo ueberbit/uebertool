@@ -32,15 +32,5 @@
     "bumpp": "^9.4.1",
     "typescript": "^5.5.2",
     "unbuild": "^2.0.0"
-  },
-  "pnpm": {
-    "_patchedDependencies": {
-      "@wingsuit-designsystem/pattern@1.2.7": "./patches/@wingsuit-designsystem__pattern@1.2.7.patch",
-      "@types/react@16.14.32": "patches/@types__react@16.14.32.patch",
-      "@wingsuit-designsystem/pattern-react@1.2.7": "patches/@wingsuit-designsystem__pattern-react@1.2.7.patch"
-    },
-    "overrides": {
-      "typescript": "^5.5.2"
-    }
   }
 }
