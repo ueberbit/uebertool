@@ -82,9 +82,9 @@ const defaults: Options = {
         './assets/icons/**',
       ], {
         onlyDirectories: true,
-        deep: 1,
+        deep: 3,
       }).reduce((a, c) => {
-        const key = c.split(path.sep).at(-1)
+        const key = c.replace(new RegExp(`${path.sep}$`), "").split(path.sep).at(-1);
         if (!key)
           return {}
         return {
