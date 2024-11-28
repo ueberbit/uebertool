@@ -1,9 +1,9 @@
 // @ts-check
 import path from 'node:path'
 import url from 'node:url'
-import { readGitignoreFiles } from 'eslint-gitignore'
 import antfu from '@antfu/eslint-config'
 import drupal from '@ueberbit/eslint-config-drupal'
+import { defu }  from 'defu'
 
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -33,7 +33,9 @@ const __dirname = path.dirname(__filename)
  *  The merged ESLint configurations.
  */
 function config(options = {}, ...userConfigs) {
-  return antfu(options, ...userConfigs)
+  return antfu(defu(options, {
+    gitignore: true,
+  }), ...userConfigs)
     .append(drupal())
     .append({
       ignores: [
@@ -44,7 +46,6 @@ function config(options = {}, ...userConfigs) {
         '**/.storybook/**',
         '**/*.jsx',
         '**/_deprecated/**',
-        ...readGitignoreFiles({ cwd: __dirname }),
       ],
     })
 }

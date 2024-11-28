@@ -23,10 +23,8 @@
     "index.js"
   ],
   "dependencies": {
-    "@antfu/eslint-config": "^2.21.1",
+    "@antfu/eslint-config": "^3.11.2",
     "@ueberbit/eslint-config-drupal": "workspace:*",
-    "eslint": "^9.5.0",
-    "eslint-gitignore": "^0.1.0",
-    "eslint-plugin-storybook": "^0.8.0"
+    "eslint": "^9.5.0"
   }
 }
