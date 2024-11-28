@@ -2,7 +2,7 @@ import { basename, dirname, relative, resolve } from 'node:path'
 import fs from 'node:fs'
 import type { Plugin } from 'vite'
 import { mergeConfig } from 'vite'
-import fg from 'fast-glob'
+import { glob } from 'tinyglobby'
 import type { Context } from './context'
 
 function postCssConfig() {
@@ -17,7 +17,7 @@ export default (ctx: Context): Plugin => {
   return {
     name: 'vite-plugin-uebertool-config',
     async config(config) {
-      const input = await fg([
+      const input = await glob([
         '(js|css|templates)/**/*.(js|jsx|css|scss|ts|tsx)',
         'components/**/(assets|src|js|css)/*.(js|jsx|css|scss|ts|tsx)',
       ], {

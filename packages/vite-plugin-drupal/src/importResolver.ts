@@ -1,10 +1,10 @@
 import { parse } from 'node:path'
-import fg from 'fast-glob'
+import { globSync } from 'tinyglobby'
 import type { ComponentResolver } from 'unplugin-vue-components'
 
 export default (): ComponentResolver => {
   const components = new Map()
-  fg.sync([
+  globSync([
     '(js|templates)/**/*.ce.vue',
   ], {
     onlyFiles: true,

@@ -13,7 +13,7 @@ import {
 import type { InlinePreset } from 'unimport'
 import { builtinPresets } from 'unimport'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
-import fg from 'fast-glob'
+import { globSync } from 'tinyglobby'
 import { defu } from 'defu'
 import { getDistThemeName, getThemeBasePath, getThemeName } from '../utils'
 import LocalComponentResolver from '../importResolver'
@@ -78,7 +78,7 @@ const defaults: Options = {
     },
     customCollections: {
       [getThemeName()]: FileSystemIconLoader('assets/icons'),
-      ...fg.sync([
+      ...globSync([
         './assets/icons/**',
       ], {
         onlyDirectories: true,

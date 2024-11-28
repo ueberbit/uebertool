@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
 import fse from 'fs-extra'
-import fg from 'fast-glob'
+import { glob } from 'tinyglobby'
 import { analyzeText, transformAnalyzerResult } from 'web-component-analyzer'
 import { camelize, hyphenate } from '@vue/shared'
 import { common, eagerLoader, idleLoader, lazyLoader, visibleLoader } from '../ce/ceLoader'
@@ -59,7 +59,7 @@ export default (ctx: Context): Plugin => {
   }
 
   const addLoader = cacheStringFunction(async (str: string) => {
-    const files = await fg([str], {
+    const files = await glob([str], {
       onlyFiles: true,
     })
     const match = str.match(/\.(\w+)\.ce/) || []
@@ -99,7 +99,7 @@ export default (ctx: Context): Plugin => {
   }
 
   async function generateVSCodeCustomHTMLData() {
-    const files = await fg([
+    const files = await glob([
       '(js|templates|components)/**/*.ce.{vue,ts,tsx,js}',
     ], {
       onlyFiles: true,
