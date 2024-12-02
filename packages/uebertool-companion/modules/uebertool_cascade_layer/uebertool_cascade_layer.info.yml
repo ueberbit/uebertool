@@ -2,4 +2,4 @@ name: UEbertool Cascade Layer
 type: module
 description: Wrap drupal styles in layer @drupal
 package: UEbertool
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^9 || ^10 || ^11
