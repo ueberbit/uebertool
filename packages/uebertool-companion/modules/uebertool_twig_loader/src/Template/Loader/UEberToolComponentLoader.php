@@ -40,9 +40,12 @@ class UEberToolComponentLoader implements LoaderInterface {
     $componentName = $component->getDerivativeId();
     $libraryName = "sdc--{$componentName}";
 
-    $prefix = $this->libraryDiscovery->getLibraryByName($distThemeName, $libraryName)
-      ? "{{ attach_library('{$distThemeName}/{$libraryName}') }}"
-      : '';
+    $prefix = '';
+    if (!str_starts_with($path, 'core/')) {
+      $prefix = $this->libraryDiscovery->getLibraryByName($distThemeName, $libraryName)
+        ? "{{ attach_library('{$distThemeName}/{$libraryName}') }}"
+        : '';
+    }
 
     $code = $prefix . $original_code;
 
