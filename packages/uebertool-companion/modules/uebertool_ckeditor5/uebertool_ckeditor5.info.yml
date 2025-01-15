@@ -1,6 +1,6 @@
 name: UEbertool CKEditor 5
 type: module
-description: Addiotional CKEditor 5 Features
+description: Additional CKEditor 5 Features
 package: UEbertool
 core_version_requirement: ^9 || ^10 || ^11
 dependencies:
