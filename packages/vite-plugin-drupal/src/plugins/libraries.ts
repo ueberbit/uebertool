@@ -1,10 +1,10 @@
-import path from 'node:path'
-import fs from 'node:fs/promises'
-import fse from 'fs-extra'
 import type { Plugin } from 'vite'
-import YAML from 'yaml'
-import { defu } from 'defu'
 import type { Context } from './context'
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import { defu } from 'defu'
+import fse from 'fs-extra'
+import YAML from 'yaml'
 
 export interface DrupalLibrary {
   version?: string
@@ -54,6 +54,7 @@ const deps = [
   [/drupalSettings\./, 'core/drupalSettings'],
   [/Drupal\.announce/, 'core/drupal.announce'],
   [/Drupal\.debounce/, 'core/drupal.debounce'],
+  [/Drupal\.dialog/, 'core/drupal.dialog'],
   [/Drupal\.(theme\.)?(a|A)jax/, 'core/drupal.ajax'],
   [/Drupal\.debounce/, 'core/drupal.debounce'],
   [/Drupal\.displace/, 'core/drupal.displace'],
