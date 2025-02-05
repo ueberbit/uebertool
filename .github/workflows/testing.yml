@@ -6,6 +6,9 @@ on:
       - main
       - feature/*
 
+env:
+  SIMPLETEST_DB: sqlite://localhost/sites/default/files/.ht.sqlite
+
 jobs:
   test:
     runs-on: ubuntu-latest
