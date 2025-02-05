@@ -171,10 +171,7 @@ class TwigExtrasExtension extends AbstractExtension {
   }
 
   /**
-   * Get url of a Link Field.
-   *
-   * @param array $build
-   *   The render array whose children are to be filtered.
+   * Retrieves the link url from a link render array or link field item.
    *
    * @return string
    *   Link url.
@@ -193,13 +190,10 @@ class TwigExtrasExtension extends AbstractExtension {
   }
 
   /**
-   * Get text of a Link Field.
-   *
-   * @param array $build
-   *   The render array whose children are to be filtered.
+   * Retrieves the link text from a link render array or link field item.
    *
    * @return string
-   *   Link Text.
+   *   Link text or empty string.
    */
   public function linkText(?array $build): string {
     if ($this->isLink($build)) {
@@ -215,10 +209,10 @@ class TwigExtrasExtension extends AbstractExtension {
   }
 
   /**
-   * Get Attributes of a Link Field.
+   * Retrieves the link attributes from a link render array or link field item.
    *
-   * @param array $build
-   *   The render array whose children are to be filtered.
+   * @return \Drupal\Core\Template\Attribute
+   *   Link attributes.
    */
   public function linkAttributes(?array $build): Attribute {
     if ($this->isLink($build)) {
@@ -279,7 +273,7 @@ class TwigExtrasExtension extends AbstractExtension {
     }
 
     foreach (Element::children($build) as $key) {
-      /** @var \Drupal\Core\URL */
+      /** @var \Drupal\Core\Url */
       $url = $build[$key]['#url'];
       $currentVariant = is_string($variant) ? $variant : $variant[$key];
 
