@@ -1,5 +1,11 @@
 name: Testing
 
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+
 jobs:
   release:
     runs-on: ubuntu-latest
