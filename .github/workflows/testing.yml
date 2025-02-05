@@ -31,4 +31,10 @@ jobs:
           cat composer.json
           composer require drupal/core-dev:11.1.1
           composer require ueberbit/uebertool_companion
+          composer require drush/drush
+
+      - name: Run tests
+        run: |
+          cd ~/drupal
+          vendor/bin/phpunit -c web/core -- web/modules/contrib/uebertool_companion
      
