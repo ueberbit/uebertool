@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\Tests\uebertool_twig\Kernel;
 
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\purl\Url;
 use Drupal\uebertool_twig\Twig\Extension\TwigExtrasExtension;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Group;
  * Test description.
  */
 #[Group('uebertool_twig')]
-final class TestTwigExtrasExtension extends KernelTestBase {
+final class TwigExtrasExtensionTest extends KernelTestBase {
 
   /**
    * {@inheritdoc}
