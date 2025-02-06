@@ -2,19 +2,25 @@
 
 namespace Drupal\uebertool_twig\Twig\Extension;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\ByteSizeMarkup;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Template\Attribute;
-use Drupal\Core\URL;
+use Drupal\Core\Url;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Symfony\Component\Yaml\Yaml;    
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Provides field value filters for Twig templates.
  */
 class TwigExtrasExtension extends AbstractExtension {
+
+  public function __construct(protected RendererInterface $renderer) {
+  }
 
   /**
    * {@inheritdoc}
@@ -131,7 +137,7 @@ class TwigExtrasExtension extends AbstractExtension {
       return '';
     }
 
-    $fileSize = format_size($files[0]->getSize());
+    $fileSize = ByteSizeMarkup::create($files[0]->getSize());
     return $fileSize;
   }
 
@@ -165,69 +171,73 @@ class TwigExtrasExtension extends AbstractExtension {
   }
 
   /**
-   * Get url of a Link Field.
-   *
-   * @param array $build
-   *   The render array whose children are to be filtered.
+   * Retrieves the link url from a link render array or link field item.
    *
    * @return string
    *   Link url.
    */
   public function linkUrl(?array $build): string {
-    if (!$this->isLink($build)) {
-      return '';
+    if ($this->isLink($build)) {
+      return $build['#url']->toString() ?? '';
     }
 
-    /** @var \Drupal\Core\URL */
-    $url = $build[0]['#url'];
+    // BC-Layer, handle array link fields items.
+    if (isset($build[0]) && $this->isLink($build[0])) {
+      @trigger_error('Calling link_url on field render array is deprecated. Use |field_value|first|link_url instead.', E_USER_DEPRECATED);
+      return $this->linkUrl($build[0]);
+    }
 
-    return $url->toString();
+    return '';
   }
 
   /**
-   * Get text of a Link Field.
-   *
-   * @param array $build
-   *   The render array whose children are to be filtered.
+   * Retrieves the link text from a link render array or link field item.
    *
    * @return string
-   *   Link Text.
+   *   Link text or empty string.
    */
   public function linkText(?array $build): string {
-    if (!$this->isLink($build)) {
-      return '';
+    if ($this->isLink($build)) {
+      return $build['#title'] ?? '';
     }
 
-    if (!isset($build[0]['#title'])) {
-      return '';
+    // BC-Layer, handle array link fields items.
+    if (isset($build[0]) && $this->isLink($build[0])) {
+      @trigger_error('Calling link_text on field render array is deprecated. Use |field_value|first|link_text instead.', E_USER_DEPRECATED);
+      return $this->linkText($build[0]);
     }
 
-    return $build[0]['#title'];
+    return '';
   }
 
   /**
-   * Get Attributes of a Link Field.
+   * Retrieves the link attributes from a link render array or link field item.
    *
-   * @param array $build
-   *   The render array whose children are to be filtered.
-   *
-   * @return Drupal\Core\Template\Attribute;
-   *   Attributes.
+   * @return \Drupal\Core\Template\Attribute
+   *   Link attributes.
    */
   public function linkAttributes(?array $build): Attribute {
-    if (!$this->isLink($build)) {
-      return new Attribute([]);
+    if ($this->isLink($build)) {
+      $element = $this->renderer->renderInIsolation($build);
+      $dom = Html::load($element);
+      $xpath = new \DOMXPath($dom);
+
+      /** @var \DOMElement[] $elements */
+      $element = $xpath->query('//a')->item(0);
+      $attribute = new Attribute(array_map(function ($item) {
+        return $item->nodeValue;
+      }, iterator_to_array($element->attributes->getIterator())));
+      $attribute->removeAttribute('href');
+      return $attribute;
     }
 
-    /** @var \Drupal\Core\URL */
-    $url = $build[0]['#url'];
-    $options = $url->getOptions();
-
-    if (empty($options) || !isset($options['attributes'])) {
-      return new Attribute([]);
+    // BC-Layer, handle array link fields items.
+    if (isset($build[0]) && $this->isLink($build[0])) {
+      @trigger_error('Calling link_attrs on field render array is deprecated. Use |field_value|first|link_attrs instead.', E_USER_DEPRECATED);
+      return $this->linkAttributes($build[0]);
     }
 
-    return new Attribute($options['attributes']);
+    return new Attribute();
   }
 
   /**
@@ -266,7 +276,7 @@ class TwigExtrasExtension extends AbstractExtension {
     }
 
     foreach (Element::children($build) as $key) {
-      /** @var \Drupal\Core\URL */
+      /** @var \Drupal\Core\Url */
       $url = $build[$key]['#url'];
       $currentVariant = is_string($variant) ? $variant : $variant[$key];
 
@@ -290,12 +300,12 @@ class TwigExtrasExtension extends AbstractExtension {
    *
    * @return bool
    */
-  public function isLink(?array $build): bool {
-    if (!(isset($build[0]) && isset($build[0]['#type']) && $build[0]['#type'] === 'link' && isset($build[0]['#url']))) {
+  protected function isLink(?array $build): bool {
+    if (!(isset($build['#type']) && isset($build['#url']) && $build['#type'] === 'link')) {
       return FALSE;
     }
 
-    if (!$build[0]['#url'] instanceof URL) {
+    if (!$build['#url'] instanceof Url) {
       return FALSE;
     }
 
@@ -397,7 +407,7 @@ class TwigExtrasExtension extends AbstractExtension {
       $uebertool_dist_theme = current(array_filter($theme->getBaseThemeExtensions(), function($theme) {
         return str_ends_with($theme->getName(), '_dist');
       }));
-  
+
       if (!$uebertool_dist_theme) {
         return '';
       }
@@ -423,7 +433,7 @@ class TwigExtrasExtension extends AbstractExtension {
         return null;
       }
     }
-    
+
     return $currentValue;
   }
 }

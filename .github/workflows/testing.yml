@@ -1,0 +1,41 @@
+name: Testing
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+
+env:
+  SIMPLETEST_DB: sqlite://localhost/sites/default/files/.ht.sqlite
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: Setup Drupal
+        run: composer create-project --no-install --no-interaction drupal/recommended-project:^11.1.1 ~/drupal
+
+      - name: Configure composer project
+        run: |
+          cd ~/drupal
+          composer config minimum-stability dev
+          composer config prefer-stable true
+          composer config repositories.0 '{"type": "path", "url": "'$GITHUB_WORKSPACE'/packages/uebertool-companion", "options": {"symlink": false}}'
+          composer config repositories.1 '{"type": "composer", "url": "https://asset-packagist.org"}'
+          composer require drupal/core-dev:^11.1.1 \
+            drush/drush \
+            ueberbit/uebertool_companion
+
+      - name: Run tests
+        run: |
+          cd ~/drupal
+          vendor/bin/phpunit -c web/core -- web/modules/contrib/uebertool_companion
