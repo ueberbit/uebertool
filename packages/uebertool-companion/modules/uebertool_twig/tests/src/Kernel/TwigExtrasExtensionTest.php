@@ -9,6 +9,7 @@ use Drupal\Core\Url;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\uebertool_twig\Twig\Extension\TwigExtrasExtension;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 /**
  * Test description.
@@ -50,13 +51,6 @@ final class TwigExtrasExtensionTest extends KernelTestBase {
       '#title' => 'Link text',
       '#url' => Url::fromRoute('<front>'),
     ]));
-    $this->assertSame('Link text', $this->twigExtension->linkText([
-      [
-        '#type' => 'link',
-        '#title' => 'Link text',
-        '#url' => Url::fromRoute('<front>'),
-      ],
-    ]));
   }
 
   /**
@@ -77,13 +71,7 @@ final class TwigExtrasExtensionTest extends KernelTestBase {
       '#title' => 'Link text',
       '#url' => Url::fromUri('https://example.com'),
     ]));
-    $this->assertSame('https://example.com', $this->twigExtension->linkUrl([
-      [
-        '#type' => 'link',
-        '#title' => 'Link text',
-        '#url' => Url::fromUri('https://example.com'),
-      ],
-    ]));
+
   }
 
   /**
@@ -140,6 +128,27 @@ final class TwigExtrasExtensionTest extends KernelTestBase {
       '#url' => $url,
       '#attributes' => [
         'target' => '_blank',
+      ],
+    ]));
+  }
+
+  #[IgnoreDeprecations]
+  public function testLinkDeprecations() {
+    $this->expectDeprecation('Calling link_text on field render array is deprecated. Use |field_value|first|link_text instead.');
+    $this->assertSame('Link text', $this->twigExtension->linkText([
+      [
+        '#type' => 'link',
+        '#title' => 'Link text',
+        '#url' => Url::fromRoute('<front>'),
+      ],
+    ]));
+
+    $this->expectDeprecation('Calling link_url on field render array is deprecated. Use |field_value|first|link_url instead.');
+    $this->assertSame('https://example.com', $this->twigExtension->linkUrl([
+      [
+        '#type' => 'link',
+        '#title' => 'Link text',
+        '#url' => Url::fromUri('https://example.com'),
       ],
     ]));
   }
