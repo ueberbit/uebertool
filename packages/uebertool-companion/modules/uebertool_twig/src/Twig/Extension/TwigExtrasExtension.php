@@ -183,6 +183,7 @@ class TwigExtrasExtension extends AbstractExtension {
 
     // BC-Layer, handle array link fields items.
     if (isset($build[0])) {
+      @trigger_error('Calling link_url on field render array is deprecated. Use |field_value|link_url instead.', E_USER_DEPRECATED);
       return $this->linkUrl($build[0]);
     }
 
@@ -202,6 +203,7 @@ class TwigExtrasExtension extends AbstractExtension {
 
     // BC-Layer, handle array link fields items.
     if (isset($build[0])) {
+      @trigger_error('Calling link_text on field render array is deprecated. Use |field_value|link_text instead.', E_USER_DEPRECATED);
       return $this->linkText($build[0]);
     }
 
@@ -231,6 +233,7 @@ class TwigExtrasExtension extends AbstractExtension {
 
     // BC-Layer, handle array link fields items.
     if (isset($build[0])) {
+      @trigger_error('Calling link_attrs on field render array is deprecated. Use |field_value|link_attrs instead.', E_USER_DEPRECATED);
       return $this->linkAttributes($build[0]);
     }
 
