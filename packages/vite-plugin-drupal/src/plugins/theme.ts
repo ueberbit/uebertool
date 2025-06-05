@@ -1,8 +1,8 @@
-import fs from 'node:fs/promises'
-import { constants } from 'node:fs'
 import type { Plugin, ResolvedConfig } from 'vite'
-import YAML from 'yaml'
 import type { Context } from './context'
+import { constants } from 'node:fs'
+import fs from 'node:fs/promises'
+import YAML from 'yaml'
 
 export default (ctx: Context): Plugin => {
   let config: ResolvedConfig

@@ -13,7 +13,6 @@ export default (ctx: Context): Plugin[] => {
           transform(src, id) {
             if (fileRegex.test(id)) {
               const s = new MagicString(src)
-              console.log(src)
               s.replace(/@(tailwind) (.*);/g, (_, _$1, $2) => `/*>tailwind-${$2}*/\n@tailwind ${$2};\n/*<tailwind-${$2}*/`)
 
               return {
@@ -28,7 +27,6 @@ export default (ctx: Context): Plugin[] => {
           transform(src, id) {
             if (fileRegex.test(id)) {
               const s = new MagicString(src)
-              console.log('post', src)
               s.replace(/\/\*>(tailwind-.*)\*\//g, (_, $1) => `@layer ${$1} {`)
               s.replace(/\/\*<(tailwind-.*)\*\//g, '}')
 

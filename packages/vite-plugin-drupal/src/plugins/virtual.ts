@@ -1,11 +1,11 @@
 import type { Plugin } from 'vite'
+import type { Context } from './context'
 import MagicString from 'magic-string'
 import pkg from '../../package.json'
-import type { Context } from './context'
 
 const virtualModuleId = 'virtual:uebertool'
 const resolvedVirtualModuleId = `\0${virtualModuleId}`
-const fileRegex = /main\.(t|j)s$/
+const fileRegex = /main\.[tj]s$/
 const banner = `Build with UEBERTOOL@${pkg.version} https://github.com/ueberbit/uebertool`
 
 const konami = `

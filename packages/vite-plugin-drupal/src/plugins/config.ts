@@ -1,9 +1,9 @@
-import { basename, dirname, relative, resolve } from 'node:path'
-import fs from 'node:fs'
 import type { Plugin } from 'vite'
-import { mergeConfig } from 'vite'
-import { glob } from 'tinyglobby'
 import type { Context } from './context'
+import fs from 'node:fs'
+import { basename, dirname, relative, resolve } from 'node:path'
+import { glob } from 'tinyglobby'
+import { mergeConfig } from 'vite'
 
 function postCssConfig() {
   return fs.promises.access('postcss.config.js', fs.constants.F_OK)

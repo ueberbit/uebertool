@@ -1,10 +1,10 @@
 import type { Plugin } from 'vite'
+import type { Context } from './context'
+import { camelize, hyphenate } from '@vue/shared'
 import fse from 'fs-extra'
 import { glob } from 'tinyglobby'
 import { analyzeText, transformAnalyzerResult } from 'web-component-analyzer'
-import { camelize, hyphenate } from '@vue/shared'
 import { common, eagerLoader, idleLoader, lazyLoader, visibleLoader } from '../ce/ceLoader'
-import type { Context } from './context'
 
 const virtualModuleId = 'virtual:vue-ce-loader'
 const resolvedVirtualModuleId = `\0${virtualModuleId}`
@@ -19,7 +19,7 @@ export default (ctx: Context): Plugin => {
     lazy: lazyLoader,
   }
 
-  function cacheStringFunction(fn: Function) {
+  function cacheStringFunction(fn: (str: string) => Promise<string>) {
     const cache = Object.create(null)
     return (str: string) => {
       const hit = cache[str]
@@ -74,7 +74,7 @@ export default (ctx: Context): Plugin => {
   })
 
   function extractVueDocs(fileName: string, fileContent: string) {
-    const docsBlock = fileContent.match(/<docs.*>([\s\S]*?)<\/docs>/g)
+    const docsBlock = fileContent.match(/<docs[^>]*>([\s\S]*?)<\/docs>/g)
     const tagName = getTagName(fileName)
 
     tagNameMap.add(tagName)

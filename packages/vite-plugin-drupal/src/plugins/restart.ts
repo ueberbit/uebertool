@@ -1,8 +1,8 @@
+import type { Plugin } from 'vite'
+import type { Context } from './context'
 import { spawn } from 'node:child_process'
 import path from 'node:path'
-import type { Plugin } from 'vite'
 import { createLogger } from 'vite'
-import type { Context } from './context'
 
 export default (ctx: Context): Plugin => {
   let timer: ReturnType<typeof setTimeout> | undefined

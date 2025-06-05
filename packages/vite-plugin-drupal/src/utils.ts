@@ -1,6 +1,6 @@
 import fs from 'node:fs'
-import process from 'node:process'
 import path from 'node:path'
+import process from 'node:process'
 
 export function getThemeName(): string {
   let name = ''

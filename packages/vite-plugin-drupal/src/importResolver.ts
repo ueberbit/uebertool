@@ -1,6 +1,6 @@
+import type { ComponentResolver } from 'unplugin-vue-components'
 import { parse } from 'node:path'
 import { globSync } from 'tinyglobby'
-import type { ComponentResolver } from 'unplugin-vue-components'
 
 export default (): ComponentResolver => {
   const components = new Map()

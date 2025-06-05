@@ -1,5 +1,5 @@
-import MagicString from 'magic-string'
 import type { Plugin } from 'vite'
+import MagicString from 'magic-string'
 
 export default (): Plugin => {
   return {
