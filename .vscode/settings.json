@@ -6,7 +6,7 @@
     "twig": "html"
   },
   "files.associations": {
-    "*.css": "tailwindcss" // Associate *.css files with tailwindcss.
+    "*.css": "css"
   },
   "stylelint.snippet": [
     "tailwindcss"
