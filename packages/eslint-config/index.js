@@ -1,12 +1,7 @@
 // @ts-check
-import path from 'node:path'
-import url from 'node:url'
 import antfu from '@antfu/eslint-config'
 import drupal from '@ueberbit/eslint-config-drupal'
-import { defu }  from 'defu'
-
-const __filename = url.fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+import { defu } from 'defu'
 
 /**
  * @template T
@@ -33,7 +28,7 @@ const __dirname = path.dirname(__filename)
  *  The merged ESLint configurations.
  */
 function config(options = {}, ...userConfigs) {
-  return antfu(defu(options, {
+  return antfu(defu(options, /** @type {OptionsConfig} */ {
     gitignore: true,
   }), ...userConfigs)
     .append(drupal())

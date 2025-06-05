@@ -29,9 +29,9 @@
   "devDependencies": {
     "@ueberbit/eslint-config": "workspace:*",
     "@ueberbit/stylelint-config": "workspace:*",
-    "bumpp": "^9.4.1",
+    "bumpp": "^10.1.1",
     "typescript": "^5.7.2",
-    "unbuild": "^2.0.0"
+    "unbuild": "^3.5.0"
   },
   "pnpm": {
     "overrides": {
