@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import Unimport from 'unimport/unplugin'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
-// import breakpoints from './plugins/breakpoints'
+import breakpoints from './plugins/breakpoints'
 import config from './plugins/config'
 import context from './plugins/context'
 import css from './plugins/css'
@@ -37,7 +37,7 @@ export default (options: UserOptions = {}): Plugin[] => {
     tailwindHMR(),
     // tailwindConfig(ctx),
     vueCustomElement(),
-    // breakpoints(ctx),
+    breakpoints(ctx),
     twig(ctx),
     virtual(ctx),
     vue(ctx.options.vue),

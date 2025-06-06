@@ -1,8 +1,7 @@
 import type { Plugin, ResolvedConfig } from 'vite'
 import type { Context } from './context'
-import process from 'node:process'
 import fse from 'fs-extra'
-import resolveConfig from 'tailwindcss/resolveConfig.js'
+import defaultTheme from 'tailwindcss/defaultTheme'
 import YAML from 'yaml'
 
 /**
@@ -14,7 +13,7 @@ import YAML from 'yaml'
  * @param size Breakpoint size.
  * @returns Drupal Breakpoint entry.
  */
-function getScreen(theme: string, group: string, name: string, multipliers: string[], size?: number) {
+function getScreen(theme: string, group: string, name: string, multipliers: string[], size?: string) {
   return {
     [[theme, group, name].join('.')]: {
       label: name,
@@ -32,29 +31,22 @@ function getScreen(theme: string, group: string, name: string, multipliers: stri
 
 async function generateBreakpoints(theme: string, multipliers: string[]) {
   let screens = {}
-  try {
-    const tailwindConfigFile = await import(`${process.cwd()}/tailwind.config.js`)
+  const tailwindConfig = defaultTheme
+  const breakpoints = {
+    ...tailwindConfig.screens ?? {},
+  }
+  const group = 'Tailwind'
 
-    const tailwindConfig = resolveConfig(tailwindConfigFile.default)
-    const breakpoints = {
-      ...tailwindConfig.theme?.screens ?? {},
-    }
-    const group = 'Tailwind'
+  screens = {
+    ...getScreen(theme, group, 'xs', multipliers),
+  }
 
+  ;(Object.keys(breakpoints) as Array<keyof typeof tailwindConfig.screens>).forEach((screen) => {
     screens = {
-      ...getScreen(theme, group, 'xs', multipliers),
+      ...screens,
+      ...getScreen(theme, group, screen, multipliers, breakpoints[screen]),
     }
-
-    Object.keys(breakpoints).forEach((screen) => {
-      screens = {
-        ...screens,
-        ...getScreen(theme, group, screen, multipliers, breakpoints[screen]),
-      }
-    })
-  }
-  catch (e) {
-    console.warn(`\nNo tailwind.config.js file found in ${process.cwd()}! Not generating breakpoints!\n`)
-  }
+  })
   return screens
 }
 
