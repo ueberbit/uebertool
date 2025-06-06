@@ -3,7 +3,6 @@ import type { Context, UserOptions } from './plugins/context'
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import Unimport from 'unimport/unplugin'
-import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import breakpoints from './plugins/breakpoints'
 import config from './plugins/config'
@@ -35,14 +34,12 @@ export default (options: UserOptions = {}): Plugin[] => {
     themeInfo(ctx),
     tailwindcss(),
     tailwindHMR(),
-    // tailwindConfig(ctx),
     vueCustomElement(),
     breakpoints(ctx),
     twig(ctx),
     virtual(ctx),
     vue(ctx.options.vue),
     vuePlugin(ctx),
-    Icons(ctx.options.icons || {}),
     restart(ctx),
     UnimportPlugin.vite(ctx.options.unimport || {}),
     Components(ctx.options.components),

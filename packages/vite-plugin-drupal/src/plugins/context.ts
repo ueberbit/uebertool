@@ -1,27 +1,22 @@
-import path from 'node:path'
-import process from 'node:process'
-import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
 import type { Options as VueOptions } from '@vitejs/plugin-vue'
-import type { Options as IconsOptions } from 'unplugin-icons'
+import type { InlinePreset } from 'unimport'
 import type Unimport from 'unimport/unplugin'
 import type { Options as ComponentOptions } from 'unplugin-vue-components'
+import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
+import process from 'node:process'
+import { defu } from 'defu'
+import { builtinPresets } from 'unimport'
 import {
   HeadlessUiResolver,
   VueUseComponentsResolver,
   VueUseDirectiveResolver,
 } from 'unplugin-vue-components/resolvers'
-import type { InlinePreset } from 'unimport'
-import { builtinPresets } from 'unimport'
-import { FileSystemIconLoader } from 'unplugin-icons/loaders'
-import { globSync } from 'tinyglobby'
-import { defu } from 'defu'
-import { getDistThemeName, getThemeBasePath, getThemeName } from '../utils'
 import LocalComponentResolver from '../importResolver'
+import { getDistThemeName, getThemeBasePath, getThemeName } from '../utils'
 
 export interface Options {
   url: string
   vue: VueOptions
-  icons: IconsOptions
   unimport: Partial<Parameters<typeof Unimport.vite>>[0]
   components: ComponentOptions
   themePackage?: string
@@ -69,29 +64,6 @@ const defaults: Options = {
       compilerOptions: {
         isCustomElement: tag => tag.includes('-'),
       },
-    },
-  },
-  icons: {
-    compiler: 'web-components',
-    webComponents: {
-      autoDefine: true,
-    },
-    customCollections: {
-      [getThemeName()]: FileSystemIconLoader('assets/icons'),
-      ...globSync([
-        './assets/icons/**',
-      ], {
-        onlyDirectories: true,
-        deep: 3,
-      }).reduce((a, c) => {
-        const key = c.replace(new RegExp(`${path.sep}$`), "").split(path.sep).at(-1);
-        if (!key)
-          return {}
-        return {
-          ...a,
-          [key]: FileSystemIconLoader(`assets/icons/${key}`),
-        }
-      }, {}),
     },
   },
   unimport: {
