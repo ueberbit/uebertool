@@ -90,14 +90,6 @@ Tailwind Layers are wrapped in cascade layers by dafault. Drupal styles should b
 ```
 (uebertool_cascade_layer does this for you)
 
-You can disable this with:
-
-```ts
-css: {
-  cascadeLayers: false
-}
-```
-
 #### Drupal Layers
 When a css file include `{base|layout|component|state|theme}` in the name.
 

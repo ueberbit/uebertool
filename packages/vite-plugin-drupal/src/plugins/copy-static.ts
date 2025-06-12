@@ -1,8 +1,8 @@
-import { fileURLToPath } from 'node:url'
-import { dirname, resolve } from 'node:path'
 import type { Plugin } from 'vite'
-import fse from 'fs-extra'
 import type { Context } from './context'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import fse from 'fs-extra'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const staticPath = resolve(__dirname, '../../static')

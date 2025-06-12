@@ -73,7 +73,7 @@ export function adoptStyles(renderRoot: ShadowRoot | Document, styles: string[] 
 }
 
 export const baseStyles = `
-  @layer base, tailwind-base, tailwind-components, tailwind-utilities;
+  @layer properties, theme, base, drupal, components, utilities;
   @layer base {
     :host {
       box-sizing: border-box;

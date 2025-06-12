@@ -20,9 +20,6 @@ export interface Options {
   unimport: Partial<Parameters<typeof Unimport.vite>>[0]
   components: ComponentOptions
   themePackage?: string
-  css: {
-    cascadeLayers: boolean
-  }
   ce: {
     prefix: string
   }
@@ -100,9 +97,6 @@ const defaults: Options = {
   },
   ce: {
     prefix: getThemeName() || 'ce',
-  },
-  css: {
-    cascadeLayers: true,
   },
   breakpoints: {
     multipliers: [

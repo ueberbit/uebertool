@@ -40,4 +40,5 @@ self.site.yml
 db.sql
 /web/themes/custom/ce/tailwind.config.js
 drupal
+drupal copy
 create-uebertool

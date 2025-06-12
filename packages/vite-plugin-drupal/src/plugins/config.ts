@@ -1,15 +1,8 @@
 import type { Plugin } from 'vite'
 import type { Context } from './context'
-import fs from 'node:fs'
 import { basename, dirname, relative, resolve } from 'node:path'
 import { glob } from 'tinyglobby'
 import { mergeConfig } from 'vite'
-
-function postCssConfig() {
-  return fs.promises.access('postcss.config.js', fs.constants.F_OK)
-    .then(() => true)
-    .catch(() => false)
-}
 
 export default (ctx: Context): Plugin => {
   const assetMap = new Map<string, string>()
@@ -34,21 +27,6 @@ export default (ctx: Context): Plugin => {
       })
 
       return mergeConfig(config, {
-        ...(!(await postCssConfig()) && {
-          css: {
-            postcss: {
-              plugins: [
-                // @ts-expect-error missing types
-                ((await import('postcss-import')).default),
-                ((await import('tailwindcss/nesting/index.js')).default),
-                ((await import('tailwindcss')).default),
-                // @ts-expect-error missing types
-                ((await import('@ueberbit/postcss/stripcolor')).default),
-                ((await import('autoprefixer')).default),
-              ],
-            },
-          },
-        }),
         base: ctx.dev ? './' : ctx.themeBasePath + (config.build?.outDir || '/dist'),
         publicDir: ctx.dev ? '/public' : `${ctx.themeBasePath}/public`,
         resolve: {
