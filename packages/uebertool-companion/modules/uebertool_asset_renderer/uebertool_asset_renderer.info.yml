@@ -2,4 +2,4 @@ name: UEbertool Asset Renderer
 type: module
 description: Remove version query from custom theme assets. Use noquery = true in your theme's libraries.yml.
 package: UEbertool
-core_version_requirement: ^9 || ^10 || ^11
+core_version_requirement: ^11

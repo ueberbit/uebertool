@@ -13,7 +13,7 @@ export default (ctx: Context): Plugin => {
     'base theme': ctx.options.baseTheme,
     'description': `${ctx.themeName.toUpperCase()} Theme for compiled assets.`,
     'package': `${ctx.options.themePackage || ctx.themeName}`,
-    'core_version_requirement': '^9 || ^10 || ^11',
+    'core_version_requirement': '^11',
     'hidden': true,
     'libraries': [
       `${ctx.distThemeName}/css__tailwind`,
