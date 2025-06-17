@@ -128,8 +128,8 @@ export default (ctx: Context, options: UserOptions): Plugin => {
       ctx.dev = command === 'serve'
       ctx.prod = !ctx.dev
       ctx.port = config.server?.port || 5173
-      ctx.url = !options.url && process.env.DDEV_PRIMARY_URL
-        ? `${process.env.DDEV_PRIMARY_URL}:${ctx.port}`
+      ctx.url = !options.url && (process.env.UEBERTOOL_URL || process.env.DDEV_PRIMARY_URL)
+        ? `${process.env.UEBERTOOL_URL || process.env.DDEV_PRIMARY_URL}:${ctx.port}`
         : `${ctx.options.url}:${ctx.port}`
     },
     configResolved(config) {
