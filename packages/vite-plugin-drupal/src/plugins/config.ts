@@ -1,6 +1,7 @@
 import type { Plugin } from 'vite'
 import type { Context } from './context'
 import { basename, dirname, relative, resolve } from 'node:path'
+import process from 'node:process'
 import { glob } from 'tinyglobby'
 import { mergeConfig } from 'vite'
 
@@ -93,9 +94,11 @@ export default (ctx: Context): Plugin => {
           cors: {
             origin: '*',
           },
-          hmr: {
-            protocol: 'ws',
-          },
+          ...(process.env.DDEV_PRIMARY_URL?.startsWith('https://') && {
+            hmr: {
+              protocol: 'wss',
+            },
+          }),
           watch: {
             ignored: [
               '**/*.stories.(mdx|jsx|md)',
