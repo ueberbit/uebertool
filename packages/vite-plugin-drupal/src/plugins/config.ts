@@ -90,6 +90,9 @@ export default (ctx: Context): Plugin => {
           },
         },
         server: {
+          cors: {
+            origin: '*',
+          },
           hmr: {
             protocol: 'ws',
           },
