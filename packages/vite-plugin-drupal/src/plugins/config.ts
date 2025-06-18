@@ -94,6 +94,8 @@ export default (ctx: Context): Plugin => {
           cors: {
             origin: '*',
           },
+          host: true,
+          strictPort: true,
           ...(process.env.DDEV_PRIMARY_URL?.startsWith('https://') && {
             hmr: {
               protocol: 'wss',
