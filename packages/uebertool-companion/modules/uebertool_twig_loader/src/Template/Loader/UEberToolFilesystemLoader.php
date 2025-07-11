@@ -85,8 +85,22 @@ class UEberToolFilesystemLoader extends FilesystemLoader {
         $libraryName = preg_replace('/((\w|-)+\/)|((\.html)?\.twig)$/', '', $name);
       }
 
-      $prefix = $this->libraryDiscovery->getLibraryByName($this->distThemeName, $libraryName)
-        ? "{{ attach_library('{$this->distThemeName}/{$libraryName}') }}"
+      $extension = FALSE;
+      $libraryExists = $this->libraryDiscovery->getLibraryByName($this->distThemeName, $libraryName);
+      if ($libraryExists) {
+        $extension = $this->distThemeName;
+      }
+      else {
+        foreach ($this->activeTheme->getBaseThemeExtensions() as $baseTheme) {
+          if ($this->libraryDiscovery->getLibraryByName($baseTheme->getName(), $libraryName)) {
+            $extension = $baseTheme->getName();
+            break;
+          }
+        }
+      }
+
+      $prefix = $extension
+        ? "{{ attach_library('{$extension}/{$libraryName}') }}"
         : '';
     }
 
