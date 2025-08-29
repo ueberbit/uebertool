@@ -28,7 +28,7 @@
     "types"
   ],
   "engines": {
-    "node": "^22.0.0",
+    "node": ">=22.0.0",
     "pnpm": "^10.11.0"
   },
   "scripts": {
