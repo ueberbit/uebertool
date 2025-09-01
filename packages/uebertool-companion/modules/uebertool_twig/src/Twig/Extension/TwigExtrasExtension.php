@@ -40,7 +40,7 @@ class TwigExtrasExtension extends AbstractExtension {
   /**
    * {@inheritdoc}
    */
-  public function getFunctions() {
+  public function getFunctions(): array {
     return [
       new TwigFunction('button', [$this, 'getButton']),
       new TwigFunction('buttons', [$this, 'getButtons']),
@@ -218,6 +218,12 @@ class TwigExtrasExtension extends AbstractExtension {
    */
   public function linkAttributes(?array $build): Attribute {
     if ($this->isLink($build)) {
+      $linkAttributes = new Attribute();
+      $linkAttributes->addClass($build['#url']->getOption('attributes')['class'] ?? []);
+      if ((string) $linkAttributes) {
+        @trigger_error('Handling the class attribute from the Url object is deprecated. Use $element["#attributes"] instead. See https://www.drupal.org/node/3494015', E_USER_DEPRECATED);
+      }
+
       $element = $this->renderer->renderInIsolation($build);
       $dom = Html::load($element);
       $xpath = new \DOMXPath($dom);
@@ -228,6 +234,7 @@ class TwigExtrasExtension extends AbstractExtension {
         return $item->nodeValue;
       }, iterator_to_array($element->attributes->getIterator())));
       $attribute->removeAttribute('href');
+      $attribute->merge($linkAttributes);
       return $attribute;
     }
 
