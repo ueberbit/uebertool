@@ -31,7 +31,7 @@ jobs:
           composer config prefer-stable true
           composer config repositories.0 '{"type": "path", "url": "'$GITHUB_WORKSPACE'/packages/uebertool-companion", "options": {"symlink": false}}'
           composer config repositories.1 '{"type": "composer", "url": "https://asset-packagist.org"}'
-          composer require drupal/core-dev:^11.1.1 \
+          composer require -W drupal/core-dev:^11.1.1 \
             drush/drush \
             ueberbit/uebertool_companion
 
