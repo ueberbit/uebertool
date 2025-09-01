@@ -109,19 +109,24 @@ final class TwigExtrasExtensionTest extends KernelTestBase {
         'class' => 'foo',
       ],
     ]));
+  }
 
+  #[IgnoreDeprecations]
+  public function testLinkAttributesWithUrlOptions(): void {
     // Collect attributes from link options.
     $url = Url::fromUri('https://example.com');
     $url->setOption('attributes', [
       'class' => 'foo',
       'data-foo' => 'bar',
     ]);
+
+    $this->expectDeprecation('Handling the class attribute from the Url object is deprecated. Use $element["#attributes"] instead.');
     $this->assertEquals(new Attribute([
+      'data-foo' => 'bar',
+      'target' => '_blank',
       'class' => [
         'foo',
       ],
-      'data-foo' => 'bar',
-      'target' => '_blank',
     ]), $this->twigExtension->linkAttributes([
       '#type' => 'link',
       '#title' => 'Link text',
