@@ -23,9 +23,9 @@
     "index.js"
   ],
   "dependencies": {
-    "@antfu/eslint-config": "^4.13.3",
+    "@antfu/eslint-config": "^5.2.1",
     "@ueberbit/eslint-config-drupal": "workspace:*",
     "defu": "catalog:",
-    "eslint": "^9.28.0"
+    "eslint": "^9.34.0"
   }
 }
