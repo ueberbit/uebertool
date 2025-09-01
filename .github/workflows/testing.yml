@@ -2,9 +2,6 @@ name: Testing
 
 on:
   push:
-    branches:
-      - main
-      - feature/*
 
 env:
   SIMPLETEST_DB: sqlite://localhost/sites/default/files/.ht.sqlite
