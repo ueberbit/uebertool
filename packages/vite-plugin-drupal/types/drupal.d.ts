@@ -283,8 +283,48 @@ declare namespace Drupal {
   interface Ajax {}
   // Todo.
   interface AjaxCommands {}
-
-  type DrupalSettings = Record<string, any>
+  
+  type DrupalSettings = {
+    path?: {
+      baseUrl: string
+      pathPrefix: string
+      currentPath: string
+      currentPathIsAdmin: boolean
+      isFront: boolean
+      currentLanguage: string
+      currentQuery: Record<string, Record<string, string>>
+    }
+    pluralDelimiter?: string
+    suppressDeprecationErrors?: boolean
+    ajaxPageState?: {
+      libraries: string
+      theme: string
+      theme_token: string | null
+    }
+    ajaxTrustedUrl?: Record<string, boolean>
+    bigPipePlaceholderIds?: Record<string, any>
+    views?: {
+      ajax_path?: string
+      ajaxViews?: Record<string, {
+        view_name: string
+        view_display_id: string
+        view_args: string
+        view_path: string
+        view_base_path: string | null
+        view_dom_id: string
+        pager_element: number
+      }>
+    }
+    domain?: {
+      id: string
+      name: string
+      label: string
+    }
+    user?: {
+      uid: number
+      permissionsHash: string
+    }
+  } & Record<string, any>
   type BehaviorAttach = (
     context: Document | HTMLElement,
     settings: object | null
