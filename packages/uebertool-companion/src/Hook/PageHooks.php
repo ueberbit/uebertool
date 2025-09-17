@@ -14,7 +14,8 @@ class PageHooks {
       [
         '#tag' => 'style',
         '#value' => '@layer properties, theme, base, drupal, components, utilities;',
-      ]
+      ],
+      'uebertool_companion_layer',
     ];
   }
 
