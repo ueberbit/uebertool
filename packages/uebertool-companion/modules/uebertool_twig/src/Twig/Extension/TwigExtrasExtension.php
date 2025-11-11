@@ -231,7 +231,6 @@ class TwigExtrasExtension extends AbstractExtension {
         }, iterator_to_array($element->attributes->getIterator())));
         $attribute->removeAttribute('href');
       }
-      $attribute->removeAttribute('href');
       return $attribute;
     }
 
