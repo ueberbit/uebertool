@@ -3,9 +3,11 @@
 namespace Drupal\uebertool_twig_loader\Template\Loader;
 
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
+use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\Theme\ComponentPluginManager;
 use Drupal\Core\Render\Component\Exception\ComponentNotFoundException;
 use Drupal\Core\Template\Loader\ComponentLoader;
+use Drupal\Core\Theme\ExtensionType;
 use Twig\Source;
 use Twig\Loader\LoaderInterface;
 
@@ -18,38 +20,36 @@ class UEberToolComponentLoader implements LoaderInterface {
     protected ComponentLoader $prototype,
     protected ComponentPluginManager $pluginManager,
     protected LibraryDiscoveryInterface $libraryDiscovery,
+    protected ThemeHandlerInterface $themeHandler,
   ) {}
 
   /**
    * {@inheritdoc}
    */
   public function getSourceContext($name): Source {
-    try {
-      $component = $this->pluginManager->find($name);
-      $path = $component->getTemplatePath();
-      $themeName = explode($component::DERIVATIVE_SEPARATOR, $component->getPluginId())[0];
-      $distThemeName = "{$themeName}_dist";
-    }
-    catch (ComponentNotFoundException $e) {
-      return new Source('', $name, '');
-    }
-    $original_code = file_get_contents($path);
+    $source = $this->prototype->getSourceContext($name);
 
-    $prefix = '';
-
-    $componentName = $component->getDerivativeId();
-    $libraryName = "sdc--{$componentName}";
-
-    $prefix = '';
-    if (!str_starts_with($path, 'core/')) {
-      $prefix = $this->libraryDiscovery->getLibraryByName($distThemeName, $libraryName)
-        ? "{{ attach_library('{$distThemeName}/{$libraryName}') }}"
-        : '';
+    // Skip empty/non-existing components.
+    if ($source->getCode() === '' && $source->getPath() === '') {
+      return $source;
     }
 
-    $code = $prefix . $original_code;
+    $component = $this->pluginManager->find($name);
+    $pluginDefinition = $component->getPluginDefinition();
+    $distThemeName = "{$pluginDefinition['provider']}_dist";
 
-    return new Source($code, $name, $path);
+    // Only components from themes with a '_dist' theme get special treatment.
+    if ($pluginDefinition['extension_type'] === ExtensionType::Theme && $this->themeHandler->themeExists($distThemeName)) {
+      $componentName = $component->getDerivativeId();
+      $libraryName = "sdc--{$componentName}";
+      $hasLibrary = $this->libraryDiscovery->getLibraryByName($distThemeName, $libraryName);
+      if ($hasLibrary) {
+        $prefix = "{{ attach_library('{$distThemeName}/{$libraryName}') }}";
+        $source = new Source($prefix . $source->getCode(), $source->getName(), $source->getPath());
+      }
+    }
+
+    return $source;
   }
 
   /**
