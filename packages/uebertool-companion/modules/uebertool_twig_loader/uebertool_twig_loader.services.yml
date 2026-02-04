@@ -14,3 +14,4 @@ services:
       - '@.inner'
       - '@plugin.manager.sdc'
       - '@library.discovery'
+      - '@theme_handler'
