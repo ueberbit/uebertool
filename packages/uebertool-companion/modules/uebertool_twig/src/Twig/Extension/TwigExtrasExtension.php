@@ -229,11 +229,14 @@ class TwigExtrasExtension extends AbstractExtension {
       $xpath = new \DOMXPath($dom);
 
       /** @var \DOMElement[] $elements */
-      $element = $xpath->query('//a')->item(0);
-      $attribute = new Attribute(array_map(function ($item) {
-        return $item->nodeValue;
-      }, iterator_to_array($element->attributes->getIterator())));
-      $attribute->removeAttribute('href');
+      $element = $xpath->query('//a | //span | //button')->item(0);
+      $attribute = new Attribute();
+      if ($element && $element->hasAttributes()) {
+        $attribute = new Attribute(array_map(function ($item) {
+          return $item->nodeValue;
+        }, iterator_to_array($element->attributes->getIterator())));
+        $attribute->removeAttribute('href');
+      }
       $attribute->merge($linkAttributes);
       return $attribute;
     }

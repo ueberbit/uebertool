@@ -10,17 +10,19 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\uebertool_twig\Twig\Extension\TwigExtrasExtension;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Test description.
  */
 #[Group('uebertool_twig')]
+#[RunTestsInSeparateProcesses]
 final class TwigExtrasExtensionTest extends KernelTestBase {
 
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['uebertool_twig'];
+  protected static $modules = ['uebertool_twig', 'system'];
 
   protected TwigExtrasExtension $twigExtension;
 
@@ -101,6 +103,57 @@ final class TwigExtrasExtensionTest extends KernelTestBase {
       'class' => [
         'foo',
       ],
+    ]), $this->twigExtension->linkAttributes([
+      '#type' => 'link',
+      '#title' => 'Link text',
+      '#url' => $url,
+      '#attributes' => [
+        'class' => 'foo',
+      ],
+    ]));
+  }
+
+  /**
+   * Tests linkUrl, with <none>, <nolink> and <button> routes.
+   */
+  public function testLinkAttributeForSpecialRoutes(): void {
+    // Collect #attributes from render array. Url with <none>
+    $url = Url::fromRoute('<none>');
+    $this->assertEquals(new Attribute([
+      'class' => [
+        'foo',
+      ],
+    ]), $this->twigExtension->linkAttributes([
+      '#type' => 'link',
+      '#title' => 'Link text',
+      '#url' => $url,
+      '#attributes' => [
+        'class' => 'foo',
+      ],
+    ]));
+
+    // Collect #attributes from render array. Url with <nolink>
+    $url = Url::fromRoute('<nolink>');
+    $this->assertEquals(new Attribute([
+      'class' => [
+        'foo',
+      ],
+    ]), $this->twigExtension->linkAttributes([
+      '#type' => 'link',
+      '#title' => 'Link text',
+      '#url' => $url,
+      '#attributes' => [
+        'class' => 'foo',
+      ],
+    ]));
+
+    // Collect #attributes from render array. Url with <button>
+    $url = Url::fromRoute('<button>');
+    $this->assertEquals(new Attribute([
+      'class' => [
+        'foo',
+      ],
+      'type' => 'button',
     ]), $this->twigExtension->linkAttributes([
       '#type' => 'link',
       '#title' => 'Link text',
