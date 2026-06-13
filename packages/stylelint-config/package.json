@@ -1,6 +1,9 @@
 {
   "name": "@ueberbit/stylelint-config",
   "version": "0.8.1",
+  "bugs": {
+    "url": "https://github.com/ueberbit/uebertool/issues"
+  },
   "description": "UEBERBIT StyleLint config",
   "author": {
     "name": "UEBERBIT GmbH",
