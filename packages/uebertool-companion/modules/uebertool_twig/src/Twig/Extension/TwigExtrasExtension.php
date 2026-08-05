@@ -399,10 +399,10 @@ class TwigExtrasExtension extends AbstractExtension {
   /**
    * Shortcut for create_attribute().addClass().
    *
-   * @param array $classes
+   * @param string|array $classes
    * @return string
    */
-  public function classList(array $classes) {
+  public function classList(string|array $classes) {
     $attribute = new Attribute();
     $attribute->addClass($classes);
     return $attribute;
