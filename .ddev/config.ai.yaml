@@ -1,0 +1,10 @@
+hooks:
+  post-start:
+    - exec: pnpx skills@1.5.23 experimental_install
+    - exec: |
+        mkdir -p misc/ai/plans .claude .opencode
+        ln -sfn ../misc/ai/plans .claude/plans
+        ln -sfn ../misc/ai/plans .opencode/plans
+        if [ -d .claude/skills ] && [ ! -L .claude/skills ]; then rm -rf .claude/skills; fi
+        ln -sfn ../.agents/skills .claude/skills
+        if [ ! -e CLAUDE.md ] || [ -L CLAUDE.md ]; then ln -sfn AGENTS.md CLAUDE.md; fi

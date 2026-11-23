@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "skills": {
+    "ddev-expert": {
+      "source": "madsnorgaard/drupal-agent-resources",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ddev-expert/SKILL.md",
+      "computedHash": "587de15bc875abb635eabf0571669d8e79204a7b41065999053eed3e471e04ac"
+    },
+    "drupal": {
+      "source": "./misc/ai/skills/drupal",
+      "sourceType": "local",
+      "computedHash": "7e13b80c8036af0d7c4469ed33d2f9de59dcf6b9c6a801badc82c85fccf65543"
+    },
+    "drupal-expert": {
+      "source": "madsnorgaard/drupal-agent-resources",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/drupal-expert/SKILL.md",
+      "computedHash": "9e1eba4980c3526e525ab05a357d24e2650e119a5c13f1326f16cdc230b6e8fb"
+    },
+    "drupal-security": {
+      "source": "madsnorgaard/drupal-agent-resources",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/drupal-security/SKILL.md",
+      "computedHash": "463f31c58f5d24d7cf81306b8b5b28e47b2c21be4867cdf6e7c5af115566b158"
+    }
+  }
+}
