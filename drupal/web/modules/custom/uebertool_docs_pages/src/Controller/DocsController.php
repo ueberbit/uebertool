@@ -20,7 +20,7 @@ final class DocsController extends ControllerBase {
   ) {}
 
   /**
-   * Redirects /docs to the first page.
+   * Redirects /uebertool to the first page.
    */
   public function index(): RedirectResponse {
     $slug = array_key_first($this->navigation->pages());

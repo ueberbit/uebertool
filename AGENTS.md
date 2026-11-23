@@ -1,8 +1,12 @@
 This is a ddev project. You can find the the ddev config in `.ddev`.
 
 This repository is a pnpm monorepo of UEBERBIT's shared tooling (`packages/*`).
-`drupal/` is a local, gitignored Drupal playground (docroot `drupal/web`,
-composer root `drupal`) used to try the Drupal packages.
+`drupal/` is a Drupal playground (docroot `drupal/web`, composer root
+`drupal`) used to try the Drupal packages. It is tracked except for the usual
+composer, scaffold and build artifacts (see `drupal/.gitignore`). It also hosts
+the docs: https://uebertool.localhost/uebertool/, exported statically to
+https://static.uebertool.localhost/uebertool/ and GitHub Pages (see the root
+`README.md`).
 
 Always run these command in the container via ddev:
 - pnpm

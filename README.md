@@ -2,6 +2,8 @@
 
 A collection of tools and configs for unified standards across UEBERBIT projects.
 
+Docs: https://ueberbit.github.io/uebertool/
+
 It currently consists of:
 
 ## Linting:
@@ -18,3 +20,17 @@ It currently consists of:
 - [postcss](https://github.com/ueberbit/uebertool/tree/main/packages/postcss)
 - [tailwind](https://github.com/ueberbit/uebertool/tree/main/packages/tailwind)
 - [storybook](https://github.com/ueberbit/uebertool/tree/main/packages/drupal-storybook)
+
+## Docs
+
+The docs are a Drupal site in `drupal/` (module `uebertool_docs_pages`, theme
+`uebertool_docs`), exported to static HTML with [Tome](https://www.drupal.org/project/tome)
+and deployed to GitHub Pages by `.github/workflows/docs.yml` on every push to `main`.
+
+Locally with DDEV:
+
+- Dynamic: https://uebertool.localhost/uebertool/
+- Static export: `ddev exec -d /var/www/html/drupal scripts/export-docs.sh`, then
+  https://static.uebertool.localhost/uebertool/
+
+Details in the [uebertool_docs_pages README](drupal/web/modules/custom/uebertool_docs_pages/README.md).

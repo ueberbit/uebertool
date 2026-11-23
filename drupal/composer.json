@@ -25,6 +25,7 @@
         "drupal/gin_toolbar": "^3.0",
         "drupal/stable": "^2.0",
         "drupal/styleguide": "^2.0@beta",
+        "drupal/tome": "^1",
         "drupal/tour": "^3.0",
         "drupal/twig_field_value": "^3.0",
         "drupal/twig_tweak": "^3.1",

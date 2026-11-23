@@ -1,0 +1,80 @@
+name: Docs
+
+on:
+  push:
+    branches:
+      - main
+  # Builds and checks the export without deploying.
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: 'pnpm'
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+
+      # The docs theme's dist/ holds its base theme, so build it before Drupal
+      # sees the theme.
+      - name: Build docs theme
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --filter @ueberbit/uebertool-docs-theme... build
+
+      # A minimal site with only what the docs need. config/sync is the
+      # playground's config and not needed for the export.
+      - name: Install Drupal
+        working-directory: drupal
+        run: |
+          composer install --no-interaction --no-progress
+          vendor/bin/drush si minimal -y --db-url=sqlite://localhost/sites/default/files/.ht.sqlite
+          vendor/bin/drush en -y uebertool_companion uebertool_twig uebertool_twig_loader uebertool_asset_renderer uebertool_cascade_layer uebertool_docs_pages tome_static
+          vendor/bin/drush theme:install -y uebertool_docs
+          vendor/bin/drush cset -y system.theme default uebertool_docs
+          vendor/bin/drush cset -y system.site page.front /uebertool
+
+      - name: Export static site
+        working-directory: drupal
+        run: scripts/export-docs.sh
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: drupal/html/uebertool
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    # Add required reviewers to this environment so every deploy needs approval.
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

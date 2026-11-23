@@ -28,6 +28,9 @@
 # Ignore directories created by Deployer
 /.build/
 
+# Static export of the docs (scripts/export-docs.sh)
+/html/
+
 # Ignore node_modules
 **/node_modules/
 

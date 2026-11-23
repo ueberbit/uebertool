@@ -4,7 +4,7 @@ docroot: drupal/web
 php_version: "8.4"
 webserver_type: nginx-fpm
 xdebug_enabled: false
-additional_hostnames: []
+additional_hostnames: ["static.uebertool"]
 additional_fqdns: []
 database:
     type: mariadb
