@@ -6,7 +6,7 @@
     "directory": "packages/eslint-config-drupal"
   },
   "type": "module",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "UEBERBIT ESLint config for Drupal",
   "author": {
     "name": "UEBERBIT GmbH",

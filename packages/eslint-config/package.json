@@ -6,7 +6,7 @@
     "directory": "packages/eslint-config"
   },
   "type": "module",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "UEBERBIT ESLint config",
   "author": {
     "name": "UEBERBIT GmbH",
