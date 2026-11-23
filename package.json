@@ -32,14 +32,5 @@
     "bumpp": "^11.0.1",
     "typescript": "^6.0.2",
     "unbuild": "^3.6.1"
-  },
-  "pnpm": {
-    "overrides": {
-      "typescript": "^5.9.3"
-    },
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "esbuild"
-    ]
   }
 }
