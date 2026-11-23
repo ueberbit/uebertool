@@ -1,0 +1,7 @@
+name: 'sdc_details'
+type: module
+description: 'ui components'
+package: woldtwerk
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:sdc

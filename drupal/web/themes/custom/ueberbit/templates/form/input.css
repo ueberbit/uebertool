@@ -1,0 +1,48 @@
+/**
+* Style Checkbox as a Toggle.
+*/
+:where(.form-toggle) {
+  --chkbg: 0 0% 100%;
+  --chkc: 215 28% 17%;
+  --focus-shadow: 0 0 0;
+  --chkbs: 1.5rem;
+  --chkbw: calc(var(--chkbs) * 2);
+  --chkbh: var(--chkbs);
+
+  appearance: none;
+  width: var(--chkbw);
+  height: var(--chkbh);
+  cursor: pointer;
+  background: hsla(var(--chkc) / var(--o-bg, 0.2));
+  border: 1px solid hsla(var(--chkc) / var(--o-b, 0.2));
+  border-radius: 1.5rem;
+  box-shadow:
+    calc(var(--chkbs) * -1) 0 0 2px hsl(var(--chkbg)) inset,
+    0 0 0 2px hsl(var(--chkbg)) inset,
+    var(--focus-shadow);
+  transition: background, box-shadow var(--animation-input, 0.2s) ease-in-out;
+  transition-duration: 300ms;
+
+  &:where(:focus-visible) {
+    --focus-shadow: 0 0 0 2px hsl(var(--chkbg)), 0 0 0 4px hsl(var(--chkc));
+  }
+
+  &:where(:checked),
+  &:where([checked="true"]) {
+    --o-bg: 1;
+
+    box-shadow:
+      var(--chkbs) 0 0 2px hsl(var(--chkbg)) inset,
+      0 0 0 2px hsl(var(--chkbg)) inset,
+      var(--focus-shadow);
+  }
+
+  &:where(:disabled) {
+    background-color: hsla(var(--chkc) / 20%);
+    border-color: transparent;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * A docs page: title, lead and the content from templates/docs/{slug}.html.twig.
+ *
+ * Variables:
+ * - slug, page_title, description, prev, next
+ * - generated: files the plugin generated for this theme, keyed by name.
+ */
+#}
+<div class="sl-content-panel">
+  <h1 id="_top" class="sl-title">{{ page_title }}</h1>
+  {% if description %}
+    <p class="sl-lead">{{ description }}</p>
+  {% endif %}
+</div>
+
+<div class="sl-content-panel">
+  <div class="sl-markdown">
+    {# Shortcuts for the content templates. #}
+    {% set code_block = '@uebertool_docs/components/code-block/code-block.html.twig' %}
+    {% set aside = '@uebertool_docs/components/aside/aside.html.twig' %}
+    {% set preview = '@uebertool_docs/components/preview/preview.html.twig' %}
+    {% include '@uebertool_docs/docs/' ~ slug ~ '.html.twig' %}
+  </div>
+
+  <footer class="sl-pagination">
+    {% if prev %}
+      <a href="{{ prev.url }}" rel="prev">
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="size-6 shrink-0"><path fill="currentColor" d="M17 11H9.4l3.3-3.3a1 1 0 0 0-1.4-1.4l-5 5a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L9.4 13H17a1 1 0 0 0 0-2Z"/></svg>
+        <span><span class="sl-pagination-label">{{ 'Previous'|t }}</span><br><span class="sl-pagination-title">{{ prev.title }}</span></span>
+      </a>
+    {% else %}
+      <span></span>
+    {% endif %}
+    {% if next %}
+      <a href="{{ next.url }}" rel="next" class="text-right">
+        <span><span class="sl-pagination-label">{{ 'Next'|t }}</span><br><span class="sl-pagination-title">{{ next.title }}</span></span>
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="size-6 shrink-0"><path fill="currentColor" d="M17.9 11.6a1 1 0 0 0-.2-.3l-5-5a1 1 0 0 0-1.4 1.4l3.3 3.3H7a1 1 0 0 0 0 2h7.6l-3.3 3.3a1 1 0 0 0 1.4 1.4l5-5a1 1 0 0 0 .2-.3 1 1 0 0 0 0-.8Z"/></svg>
+      </a>
+    {% endif %}
+  </footer>
+</div>

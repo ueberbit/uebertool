@@ -1,0 +1,13 @@
+name: UEBERBIT Default Content
+type: module
+description: Provides additional functionality for the site.
+package: UEBERBIT
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:default_content
+
+default_content:
+  node:
+    # Basic Page
+    ## Typography
+    - bd0e428f-99c5-4f41-9384-df2c9dc534b8

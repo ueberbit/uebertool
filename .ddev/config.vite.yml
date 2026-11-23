@@ -1,0 +1,5 @@
+web_extra_exposed_ports:
+  - name: vite
+    container_port: 5174
+    http_port: 5175
+    https_port: 5174

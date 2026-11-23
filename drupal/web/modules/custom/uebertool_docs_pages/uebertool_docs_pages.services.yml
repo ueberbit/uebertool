@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+
+  uebertool_docs_pages.navigation:
+    class: Drupal\uebertool_docs_pages\DocsNavigation
+  Drupal\uebertool_docs_pages\DocsNavigation: '@uebertool_docs_pages.navigation'
+
+  uebertool_docs_pages.theme_negotiator:
+    class: Drupal\uebertool_docs_pages\Theme\DocsThemeNegotiator
+    tags:
+      - { name: theme_negotiator, priority: 1000 }

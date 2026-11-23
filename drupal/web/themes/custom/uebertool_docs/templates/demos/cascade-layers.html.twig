@@ -1,0 +1,21 @@
+{# Rendered in an iframe so the unlayered rule cannot leak into the docs. #}
+<style>
+  @layer drupal {
+    .drupal-button { background: #94a3b8; color: #0f172a; padding: .5rem 1rem; border-radius: .375rem; border: 0 }
+  }
+  .legacy-button { background: #94a3b8; color: #0f172a; padding: .5rem 1rem; border-radius: .375rem; border: 0 }
+</style>
+<div class="grid gap-4">
+  <div class="flex flex-wrap items-center gap-4">
+    <button type="button" class="drupal-button">.drupal-button</button>
+    <span class="text-sm text-slate-600">Drupal styles in <code>@layer drupal</code></span>
+  </div>
+  <div class="flex flex-wrap items-center gap-4">
+    <button type="button" class="drupal-button bg-pink-600 text-white">.drupal-button.bg-pink-600</button>
+    <span class="text-sm text-slate-600">Utilities win over <code>@layer drupal</code></span>
+  </div>
+  <div class="flex flex-wrap items-center gap-4">
+    <button type="button" class="legacy-button bg-pink-600 text-white">.legacy-button.bg-pink-600</button>
+    <span class="text-sm text-slate-600">Unlayered CSS beats every layer, utilities included</span>
+  </div>
+</div>

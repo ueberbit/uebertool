@@ -1,0 +1,29 @@
+textarea:
+  use: "@ueberbit/form/textarea.html.twig"
+  namespace: "Form"
+  label: Textarea
+  description: The textarea HTML element represents a multi-line plain-text editing control, useful when you want to allow users to enter a sizeable amount of free-form text, for example a comment on a review or feedback form.
+  fields:
+    value:
+      type: text
+      label: Value
+      description: The textarea content.
+      preview: Lorem ispum dolor sit amet
+
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+    wrapper_attributes:
+      type: attributes
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+    resizable:
+      type: boolean
+      label: Resizeable
+      description: An indicator for whether the textarea is resizable.
+    required:
+      type: boolean
+      label: Resizeable
+      description: An indicator for whether the textarea is required.

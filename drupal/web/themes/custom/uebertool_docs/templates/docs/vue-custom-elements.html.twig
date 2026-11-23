@@ -1,0 +1,27 @@
+<p>Vue's own <code>defineCustomElement</code> leaves out Tailwind and the styles of nested components. The plugin ships a patched version that fixes both.</p>
+
+{% include preview with { demo: 'vue-tailwind', title: 'Tailwind inside a Vue custom element' } %}
+
+{% include code_block with { lang: 'vue', title: 'templates/demos/vue/tailwind-card.idle.ce.vue', code: source('@uebertool_docs/demos/vue/tailwind-card.idle.ce.vue') } only %}
+
+<h2>Styles in the shadow root</h2>
+<p>Each Vue custom element adopts three stylesheets into its shadow root:</p>
+<ol>
+  <li><strong>Base styles:</strong> the layer order, <code>:host { display: block }</code>, <code>box-sizing: border-box</code> and <code>[hidden]</code>.</li>
+  <li><strong>Tailwind:</strong> the rules of the page's <code>link[href*="tailwind"]</code> stylesheet. It is parsed once and shared by all elements as a constructed stylesheet.</li>
+  <li><strong>Component styles:</strong> the <code>&lt;style&gt;</code> blocks of the element.</li>
+</ol>
+
+<h2>Nested components</h2>
+<p><code>*.ce.vue</code> files without a loading strategy are not registered as elements. They are regular components that can be used by name, without an import (here <code>&lt;DemoBadge&gt;</code>). The plugin injects a <code>useStyles()</code> call into every <code>*.ce.vue</code> file, which copies a nested component's <code>&lt;style&gt;</code> into the shadow root it renders in.</p>
+{% include code_block with { lang: 'vue', title: 'templates/demos/vue/DemoBadge.ce.vue', code: source('@uebertool_docs/demos/vue/DemoBadge.ce.vue') } only %}
+
+<h2>Tailwind HMR</h2>
+<p>In dev mode a <code>useHMR()</code> call is injected as well: when the element updates, it re-reads the Tailwind stylesheet. Newly used utility classes show up inside the shadow DOM without a reload.</p>
+
+<h2>Good to know</h2>
+<ul>
+  <li>Any tag containing a dash is treated as a custom element by the Vue template compiler.</li>
+  <li>The Options API is disabled in builds. Use <code>&lt;script setup&gt;</code>.</li>
+  <li>A <code>&lt;docs&gt;</code> block is removed from the bundle and only used for <a href="{{ path('uebertool_docs_pages.page', { slug: 'custom-element-data' }) }}">editor support</a>.</li>
+</ul>

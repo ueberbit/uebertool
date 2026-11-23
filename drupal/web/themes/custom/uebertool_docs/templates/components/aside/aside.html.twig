@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Callout box like Starlight's <Aside>.
+ *
+ * Variables:
+ * - type: note (default), tip, caution or danger.
+ * - title: Optional title, defaults to the type.
+ * Blocks:
+ * - content
+ */
+#}
+{% set type = type|default('note') %}
+{% set icons = {
+  note: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2Zm0-8h-2V7h2Z',
+  tip: 'M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z',
+  caution: 'M12.9 2.5a1 1 0 0 0-1.8 0l-9 17A1 1 0 0 0 3 21h18a1 1 0 0 0 .9-1.5ZM13 18h-2v-2h2Zm0-4h-2V9h2Z',
+  danger: 'M15.7 2H8.3L3 7.3v7.4L8.3 20h7.4l5.3-5.3V7.3ZM13 17h-2v-2h2Zm0-4h-2V7h2Z',
+} %}
+<aside class="sl-aside sl-aside--{{ type }} not-prose" aria-label="{{ title|default(type|capitalize) }}">
+  <p class="sl-aside-title">
+    <svg aria-hidden="true" viewBox="0 0 24 24" class="size-4"><path fill="currentColor" d="{{ icons[type] }}"/></svg>
+    {{ title|default(type|capitalize) }}
+  </p>
+  <div class="sl-aside-content">
+    {% block content %}{% endblock %}
+  </div>
+</aside>

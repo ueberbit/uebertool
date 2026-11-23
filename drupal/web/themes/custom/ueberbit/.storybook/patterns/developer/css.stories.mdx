@@ -1,0 +1,33 @@
+import { Meta, Canvas } from '@storybook/addon-docs';
+
+<Meta title="Developer/CSS"
+  parameters={{ viewMode: 'docs', previewTabs: { canvas: { hidden: true }}}}
+/>
+
+# CSS
+
+## PostCSS
+
+The Starter provides default configuration for postcss. The default config is only used if no `postcss.config.js` file is present inside the theme directory.
+The default config looks like this:
+
+```js
+plugins: [
+  require('postcss-import')(),
+  require('tailwindcss/nesting')(),
+  require('tailwindcss')(),
+  require('autoprefixer')(),
+]
+```
+
+If you want to provide your own config, you can create a `postcss.config.js` file inside the theme.
+
+## Cascade Layers
+The Starter makes use of css cascade layers. Aggregated styles from drupal are wrapped in the drupal layer. This allows very easy overriding of drupal styles.
+
+Tailwind layers are wrapped in the tailwind-base, tailwind-components and tailwind-utilities layers.
+
+The ordering of layers looks like this:
+```css
+@layer tailwind-base, drupal, tailwind-components, tailwind-utilities;
+```

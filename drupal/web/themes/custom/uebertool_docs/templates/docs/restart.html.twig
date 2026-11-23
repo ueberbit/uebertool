@@ -1,0 +1,25 @@
+<p>Adding or deleting a file changes the list of <a href="{{ path('uebertool_docs_pages.page', { slug: 'entrypoints' }) }}">entrypoints</a> and therefore the libraries. In dev mode the plugin takes care of it.</p>
+
+<h2>What happens</h2>
+<p>When a <code>.css</code>, <code>.js</code>, <code>.ts</code> or <code>.twig</code> file is <strong>added or removed</strong> (not when one changes), the plugin waits 500&nbsp;ms, then:</p>
+<ol>
+  <li>restarts the Vite dev server, which writes a fresh <code>libraries.yml</code>,</li>
+  <li>runs the cache clear command, <code>drush cr</code> by default, so Drupal picks up the new libraries and templates.</li>
+</ol>
+<p>Files starting with an underscore are ignored.</p>
+
+<h2>Configuration</h2>
+{% embed code_block with { lang: 'ts', title: 'vite.config.ts' } %}{% block code %}{% verbatim %}
+uebertool({
+  features: {
+    // Any command, split on spaces. `false` disables it.
+    clearCache: 'ddev drush cr',
+  },
+})
+{% endverbatim %}{% endblock %}{% endembed %}
+
+{% embed aside %}
+  {% block content %}
+    <p>The command runs where Vite runs. If Vite runs on your host and Drupal in DDEV, use <code>ddev drush cr</code>.</p>
+  {% endblock %}
+{% endembed %}

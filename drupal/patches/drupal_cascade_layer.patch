@@ -1,0 +1,17 @@
+diff --git a/core/lib/Drupal/Core/Asset/CssCollectionOptimizer.php b/core/lib/Drupal/Core/Asset/CssCollectionOptimizer.php
+index 7d47dad86e..de35eb4ea8 100644
+--- a/core/lib/Drupal/Core/Asset/CssCollectionOptimizer.php
++++ b/core/lib/Drupal/Core/Asset/CssCollectionOptimizer.php
+@@ -116,10 +116,11 @@ public function optimize(array $css_assets) {
+             }
+             if (empty($uri) || !file_exists($uri)) {
+               // Optimize each asset within the group.
+-              $data = '';
++              $data = '@layer drupal {';
+               foreach ($css_group['items'] as $css_asset) {
+                 $data .= $this->optimizer->optimize($css_asset);
+               }
++              $data .= '}';
+               // Per the W3C specification at
+               // http://www.w3.org/TR/REC-CSS2/cascade.html#at-import, @import
+               // rules must precede any other style, so we move those to the

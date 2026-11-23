@@ -1,0 +1,54 @@
+<p>Every <a href="{{ path('uebertool_docs_pages.page', { slug: 'entrypoints' }) }}">entrypoint</a> becomes a library in <code>dist/&lt;theme&gt;_dist.libraries.yml</code>. The file is written on <code>vite build</code> and when the dev server starts.</p>
+
+<h2>Generated for this theme</h2>
+<p>This is the actual file the plugin generated for the theme you are looking at:</p>
+{% include code_block with { lang: 'yaml', title: generated.libraries.path, code: generated.libraries.code } only %}
+
+<h2>Library names</h2>
+<table>
+  <thead><tr><th>Source</th><th>Library</th></tr></thead>
+  <tbody>
+    <tr><td><code>js/main.ts</code></td><td><code>js__main</code></td></tr>
+    <tr><td><code>css/tailwind.css</code></td><td><code>css__tailwind</code></td></tr>
+    <tr><td><code>templates/layout/page.ts</code></td><td><code>page</code></td></tr>
+    <tr><td><code>components/card/src/card.ts</code></td><td><code>sdc--card</code></td></tr>
+  </tbody>
+</table>
+<p>Files in <code>js/</code> and <code>css/</code> are prefixed with their folder, templates use their plain file name so <code>uebertool_twig_loader</code> can find them by template name. A script and a stylesheet with the same name end up in the same library.</p>
+
+<p><code>js__main</code>, <code>css__tailwind</code> and <code>css__gin-custom</code> are loaded on every page through the <a href="{{ path('uebertool_docs_pages.page', { slug: 'theme-info' }) }}">dist theme</a>.</p>
+
+<h2>Detected Drupal dependencies</h2>
+<p>The plugin scans each script for Drupal APIs and adds the matching core libraries as dependencies:</p>
+<table>
+  <thead><tr><th>Code contains</th><th>Dependency</th></tr></thead>
+  <tbody>
+    <tr><td><code>once(</code>, <code>once.</code></td><td><code>core/once</code></td></tr>
+    <tr><td><code>Drupal.</code></td><td><code>core/drupal</code></td></tr>
+    <tr><td><code>drupalSettings.</code></td><td><code>core/drupalSettings</code></td></tr>
+    <tr><td><code>Drupal.announce</code></td><td><code>core/drupal.announce</code></td></tr>
+    <tr><td><code>Drupal.debounce</code></td><td><code>core/drupal.debounce</code></td></tr>
+    <tr><td><code>Drupal.dialog</code></td><td><code>core/drupal.dialog</code></td></tr>
+    <tr><td><code>Drupal.ajax</code>, <code>Drupal.Ajax</code>, <code>Drupal.theme.ajax…</code></td><td><code>core/drupal.ajax</code></td></tr>
+    <tr><td><code>Drupal.displace</code></td><td><code>core/drupal.displace</code></td></tr>
+    <tr><td><code>Drupal.Message</code></td><td><code>core/drupal.message</code>, <code>&lt;theme&gt;_dist/status-messages</code></td></tr>
+    <tr><td><code>Drupal.progress</code>, <code>Drupal.Progress</code></td><td><code>core/drupal.progress</code></td></tr>
+    <tr><td><code>Cookies.</code></td><td><code>core/js-cookie</code></td></tr>
+    <tr><td><code>FloatingUICore.</code>, <code>FloatingUIDOM.</code></td><td><code>core/internal.floating-ui</code></td></tr>
+  </tbody>
+</table>
+
+<h2>CSS groups</h2>
+<p>Drupal orders CSS by group. A stylesheet is assigned to a group by its file name: <code>*.layout.css</code>, <code>*.component.css</code>, <code>*.state.css</code> and <code>*.theme.css</code>. Everything else is <code>base</code>. The group suffix is removed from the library name, so <code>css/card.component.css</code> and <code>css/card.ts</code> share the library <code>css__card</code>.</p>
+
+{% embed aside with { type: 'caution', title: 'Known issue in production builds' } %}
+  {% block content %}
+    <p>With Vite 8, a production build of <code>css/demo.component.css</code> produced <code>demo.[hash].css</code> in the dist root. The resulting library was <code>demo</code> in group <code>base</code> instead of <code>css__demo</code> in group <code>component</code>. The dev server uses the source file names and is not affected.</p>
+  {% endblock %}
+{% endembed %}
+
+<h2>Dev vs. build</h2>
+<ul>
+  <li><strong>Dev:</strong> all assets are external URLs pointing to the Vite dev server, plus a <code>vite</code> library that loads <code>/@vite/client</code> for HMR.</li>
+  <li><strong>Build:</strong> hashed files in <code>dist/</code>, scripts as <code>type: module</code>, never preprocessed or aggregated by Drupal.</li>
+</ul>

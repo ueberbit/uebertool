@@ -1,0 +1,5 @@
+name: classy
+type: theme
+base theme: false
+package: UEBERBIT
+core_version_requirement: ^9 || 10

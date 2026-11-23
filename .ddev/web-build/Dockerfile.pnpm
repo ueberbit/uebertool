@@ -1,0 +1,18 @@
+ARG PNPM_VERSION=12
+RUN npm install --global -f pnpm@latest-${PNPM_VERSION}
+
+USER $username
+ARG HOME=/home/$username
+ARG PATH=/mnt/ddev-global-cache/pnpm:$PATH
+COPY <<-"EOF" $HOME/.bashrc.d/pnpm
+# pnpm
+export PNPM_HOME="/mnt/ddev-global-cache/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+EOF
+RUN source $HOME/.bashrc.d/pnpm && \
+  pnpm config set store-dir /mnt/ddev-global-cache/pnpm/store && \
+  pnpm add -g @antfu/ni
+USER root

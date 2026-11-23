@@ -1,0 +1,25 @@
+<p>The loader doesn't care how an element is written. Plain classes, <a href="https://lit.dev">Lit</a>, Vue single file components and TSX all work side by side.</p>
+
+{% include preview with { demo: 'custom-element-types', title: 'Four flavours, one loader' } %}
+
+<h2>Vanilla</h2>
+{% include code_block with { lang: 'ts', title: 'hello-vanilla.idle.ce.ts', code: source('@uebertool_docs/demos/types/hello-vanilla.idle.ce.ts') } only %}
+
+<h2>Lit</h2>
+{% include code_block with { lang: 'ts', title: 'hello-lit.idle.ce.ts', code: source('@uebertool_docs/demos/types/hello-lit.idle.ce.ts') } only %}
+
+{% embed aside %}
+  {% block content %}
+    <p>Lit is a peer dependency. Install it in your theme to use it.</p>
+  {% endblock %}
+{% endembed %}
+
+<h2>Vue</h2>
+<p><code>.ce.vue</code> files are wrapped with the plugin's own <code>defineCustomElement</code>. Props become attributes, <code>&lt;slot&gt;</code> works as usual. See <a href="{{ path('uebertool_docs_pages.page', { slug: 'vue-custom-elements' }) }}">Vue custom elements</a> for styling.</p>
+{% include code_block with { lang: 'vue', title: 'hello-vue.idle.ce.vue', code: source('@uebertool_docs/demos/types/hello-vue.idle.ce.vue') } only %}
+
+<h2>TSX</h2>
+{% include code_block with { lang: 'tsx', title: 'hello-tsx.idle.ce.tsx', code: source('@uebertool_docs/demos/types/hello-tsx.idle.ce.tsx') } only %}
+
+<h2>Use in Twig</h2>
+{% include code_block with { lang: 'twig', title: 'templates/demos/custom-element-types.html.twig', code: source('@uebertool_docs/demos/custom-element-types.html.twig') } only %}

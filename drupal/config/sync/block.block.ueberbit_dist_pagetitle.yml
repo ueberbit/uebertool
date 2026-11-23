@@ -1,0 +1,18 @@
+uuid: b744fedb-e780-4537-bd3b-5b55e3b66fc8
+langcode: en
+status: true
+dependencies:
+  theme:
+    - ueberbit_dist
+id: ueberbit_dist_pagetitle
+theme: ueberbit_dist
+region: content
+weight: -3
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

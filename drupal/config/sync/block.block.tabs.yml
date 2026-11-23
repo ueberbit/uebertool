@@ -1,0 +1,20 @@
+uuid: abdc4ead-8a8d-4b36-b053-b65e839bcd12
+langcode: en
+status: true
+dependencies:
+  theme:
+    - ueberbit
+id: tabs
+theme: ueberbit
+region: tabs
+weight: -3
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

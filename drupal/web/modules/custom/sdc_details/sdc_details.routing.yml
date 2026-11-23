@@ -1,0 +1,7 @@
+sdc_details.details_item:
+  path: '/__sdc/details'
+  defaults:
+    _title_callback: '\Drupal\sdc_details\Controller\DetailsController::title'
+    _controller: '\Drupal\sdc_details\Controller\DetailsController::build'
+  requirements:
+    _permission: 'access content'

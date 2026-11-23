@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/forms";
+
+body {
+  overflow-x: hidden;
+}
+
+@font-face {
+  font-family: 'Noto Sans Mono';
+  font-style: normal;
+  font-weight: 400;
+  /* src: url('@public/fonts/noto_sans_mono/noto-sans-mono-v30-latin-regular.woff2') format("woff2"); */
+  font-display: swap;
+}
+
+:root {
+  font-family: Noto Sans Mono;
+}

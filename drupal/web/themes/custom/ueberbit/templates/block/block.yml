@@ -1,0 +1,74 @@
+block:
+  use: "@ueberbit/block/block.html.twig"
+  namespace: "Block"
+  label: Block
+  description: Form
+  fields:
+    content:
+      type: pattern
+      label: Content
+      description: The content of this block.
+      preview:
+        - id: placeholder
+          fields:
+            children: This is a Block
+    title_prefix:
+      type: text
+      label: title_prefix
+      description: |
+        Additional output populated by modules, intended to be
+        displayed in front of the main title tag that appears in the template.
+    title_suffix:
+      type: text
+      label: title_suffix
+      description: |
+        Additional output populated by modules, intended to be
+        displayed after the main title tag that appears in the template.
+    label:
+      type: text
+      label: Label
+      description: The configured label of the block if visible.
+  settings:
+    attributes:
+      type: attributes
+      label: Attributes
+      description: array of HTML attributes populated by modules, intended to be added to the main container tag of this template.
+    title_attributes:
+      type: attributes
+      label: Attributes
+      description: Same as attributes, except applied to the main title tag that appears in the template.
+    plugin_id:
+      type: textfield
+      label: Plugin ID
+      description: The ID of the block implementation.
+    configuration:
+      type: object
+      label: Configuration
+      description: A list of the block's configuration values.
+    inline:
+      type: boolean
+      label: Inline
+      description: Remove block wrapper.
+  variants:
+    __default:
+      label: Default
+      fields:
+        content:
+          - id: placeholder
+            fields:
+              children: This is a Block with wrapper markup.
+    inline:
+      label: Inline
+      fields:
+        content:
+          - id: placeholder
+            fields:
+              children: This is an Inline Block without any wrapper markup.
+      settings:
+        inline: true
+
+#  * - configuration: A list of the block's configuration values.
+#  *   - label: The configured label for the block.
+#  *   - label_display: The display settings for the label.
+#  *   - provider: The module or other provider that provided this block plugin.
+#  *   - Block plugin specific settings will also be stored here.

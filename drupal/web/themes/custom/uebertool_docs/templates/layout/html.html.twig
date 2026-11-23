@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Document shell of the docs. Applies the stored color scheme before the CSS
+ * loads, like Starlight does, to avoid a flash of the wrong theme.
+ */
+#}
+<!DOCTYPE html>
+<html{{ html_attributes.setAttribute('data-theme', 'dark') }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token }}">
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <script>
+      (() => {
+        let stored = 'auto'
+        try { stored = localStorage.getItem('uebertool-docs-theme') || 'auto' } catch {}
+        const dark = stored === 'dark' || (stored === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      })()
+    </script>
+    <css-placeholder token="{{ placeholder_token }}">
+    <js-placeholder token="{{ placeholder_token }}">
+  </head>
+  <body{{ attributes }}>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-[var(--sl-color-text-accent)] focus:px-4 focus:py-2 focus:text-[var(--sl-color-black)]">
+      {{ 'Skip to content'|t }}
+    </a>
+    {# page_top (admin toolbar) is left out on purpose, see uebertool_docs_page_attachments_alter(). #}
+    {{ page }}
+    {{ page_bottom }}
+    <js-bottom-placeholder token="{{ placeholder_token }}">
+  </body>
+</html>

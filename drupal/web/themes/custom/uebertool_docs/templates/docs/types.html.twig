@@ -1,0 +1,39 @@
+<p>The plugin ships types for Drupal's JavaScript API and generates a TypeScript setup for your theme.</p>
+
+<h2>Setup</h2>
+<p>The <code>uebertool</code> binary, which runs before <code>vite</code> in the <code>dev</code> and <code>build</code> scripts, writes <code>.uebertool/tsconfig.json</code> and <code>.uebertool/vite-env.d.ts</code>. Extend it from your theme:</p>
+{% embed code_block with { lang: 'json', title: 'tsconfig.json' } %}{% block code %}{% verbatim %}
+{
+  "extends": "./.uebertool/tsconfig.json"
+}
+{% endverbatim %}{% endblock %}{% endembed %}
+
+{% include code_block with { lang: 'ts', title: generated.vite_env.path, code: generated.vite_env.code } only %}
+
+<h2>What is typed</h2>
+<ul>
+  <li><code>Drupal</code>: behaviors, <code>Drupal.t()</code>, <code>Drupal.Message</code>, … and <code>drupalSettings</code>,</li>
+  <li><code>once()</code> from <code>core/once</code>,</li>
+  <li>Vite's <code>import.meta.env</code> and <code>import.meta.hot</code>,</li>
+  <li><code>*.vue</code> imports,</li>
+  <li><a href="{{ path('uebertool_docs_pages.page', { slug: 'auto-imports' }) }}">auto-imports</a> and Vue custom element tag names (<code>.uebertool/*.d.ts</code>).</li>
+</ul>
+
+{% embed code_block with { lang: 'ts' } %}{% block code %}{% verbatim %}
+Drupal.behaviors.accordion = {
+  attach(context) {
+    once('accordion', '.accordion', context).forEach((element) => {
+      element.setAttribute('aria-label', Drupal.t('Accordion'))
+    })
+  },
+}
+{% endverbatim %}{% endblock %}{% endembed %}
+
+<h2>Generated tsconfig</h2>
+{% include code_block with { lang: 'json', title: generated.tsconfig.path, code: generated.tsconfig.code } only %}
+
+{% embed aside %}
+  {% block content %}
+    <p>Add <code>.uebertool/</code> to your <code>.gitignore</code>. Everything in it is regenerated.</p>
+  {% endblock %}
+{% endembed %}

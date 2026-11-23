@@ -1,0 +1,4 @@
+<div x-data class="rounded-lg p-6 transition-colors" :class="$store.darkMode.on ? 'bg-slate-900 text-white' : 'bg-slate-100'">
+  <p class="mb-4">Dark mode is <strong x-text="$store.darkMode.on ? 'on' : 'off'">off</strong>.</p>
+  <button type="button" class="cursor-pointer rounded-md bg-indigo-600 px-4 py-2 font-semibold text-white" @click="$store.darkMode.toggle()">Toggle dark mode</button>
+</div>

@@ -1,0 +1,80 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": false,
+    "module": "ESNext",
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "moduleResolution": "Node",
+    "strict": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "checkJs": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "baseUrl": "..",
+    "paths": {
+      "~": [
+        "."
+      ],
+      "~/*": [
+        "./*"
+      ],
+      "@": [
+        "."
+      ],
+      "@/*": [
+        "./*"
+      ],
+      "~~": [
+        "."
+      ],
+      "~~/*": [
+        "./*"
+      ],
+      "@@": [
+        "."
+      ],
+      "@@/*": [
+        "./*"
+      ],
+      "assets": [
+        "assets"
+      ],
+      "assets/*": [
+        "assets/*"
+      ],
+      "public": [
+        "public"
+      ],
+      "public/*": [
+        "public/*"
+      ]
+    }
+  },
+  "include": [
+    "../components/**/*",
+    "../js/**/*",
+    "../templates/**/*",
+    "./unimport.d.ts",
+    "./vite-env.d.ts"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "**/*.stories.jsx",
+    "**/.storybook/**/*",
+    "**/*.js",
+    "**/*.mdx",
+    "**/*.tsx"
+  ]
+}

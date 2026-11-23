@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Live preview of a demo from templates/demos.
+ *
+ * Variables:
+ * - demo: Name of the demo template (without .html.twig).
+ * - title: Caption.
+ * - iframe: Render the demo isolated in an iframe (route /docs/preview/{demo}).
+ * - height: Height of the iframe in px.
+ */
+#}
+{% set src = path('uebertool_docs_pages.preview', { demo: demo }) %}
+<figure class="sl-preview not-prose">
+  {% if iframe %}
+    <iframe src="{{ src }}" title="{{ title }}" loading="lazy" style="height: {{ height|default(260) }}px"></iframe>
+  {% else %}
+    <div class="sl-preview-body">
+      {% include '@uebertool_docs/demos/' ~ demo ~ '.html.twig' %}
+    </div>
+  {% endif %}
+  <figcaption>
+    <span>{{ 'Live preview'|t }} · {{ title }}</span>
+    <a href="{{ src }}" target="_blank" rel="noopener">{{ 'Open in new tab'|t }} ↗</a>
+  </figcaption>
+</figure>

@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the UEBERTOOL Docs theme.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for page templates.
+ */
+function uebertool_docs_theme_suggestions_page_alter(array &$suggestions): void {
+  if (\Drupal::routeMatch()->getRouteName() === 'uebertool_docs_pages.preview') {
+    $suggestions[] = 'page__docs_preview';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
+function uebertool_docs_preprocess_page(array &$variables): void {
+  /** @var \Drupal\uebertool_docs_pages\DocsNavigation $navigation */
+  $navigation = \Drupal::service('uebertool_docs_pages.navigation');
+  $current = \Drupal::routeMatch()->getParameter('slug');
+
+  $variables['site_name'] = 'UEBERTOOL';
+  $variables['home_url'] = Url::fromRoute('uebertool_docs_pages.index')->toString();
+  $variables['current_slug'] = $current;
+
+  $variables['sidebar'] = [];
+  foreach ($navigation->groups() as $group) {
+    $items = [];
+    foreach ($group['items'] as $slug => $item) {
+      $items[] = [
+        'title' => $item['title'],
+        'url' => Url::fromRoute('uebertool_docs_pages.page', ['slug' => $slug])->toString(),
+        'current' => $slug === $current,
+      ];
+    }
+    $variables['sidebar'][] = ['label' => $group['label'], 'items' => $items];
+  }
+
+  $variables['#cache']['contexts'][] = 'route';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for uebertool-docs-page.html.twig.
+ */
+function uebertool_docs_preprocess_uebertool_docs_page(array &$variables): void {
+  /** @var \Drupal\uebertool_docs_pages\DocsNavigation $navigation */
+  $navigation = \Drupal::service('uebertool_docs_pages.navigation');
+  $slug = $variables['slug'];
+  $pages = $navigation->pages();
+  $slugs = array_keys($pages);
+  $index = array_search($slug, $slugs, TRUE);
+
+  $variables['page_title'] = $pages[$slug]['title'];
+
+  $link = static fn (?string $slug) => $slug ? [
+    'title' => $pages[$slug]['title'],
+    'url' => Url::fromRoute('uebertool_docs_pages.page', ['slug' => $slug])->toString(),
+  ] : NULL;
+  $variables['prev'] = $link($slugs[$index - 1] ?? NULL);
+  $variables['next'] = $link($slugs[$index + 1] ?? NULL);
+
+  // Files the plugin generated for this very theme. Shown in the docs as
+  // real-world examples of the build output.
+  $theme_path = \Drupal::service('extension.list.theme')->getPath('uebertool_docs');
+  $files = [
+    'libraries' => 'dist/uebertool_docs_dist.libraries.yml',
+    'breakpoints' => 'dist/uebertool_docs_dist.breakpoints.yml',
+    'info' => 'dist/uebertool_docs_dist.info.yml',
+    'vscode' => '.uebertool/vscode.html-custom-data.json',
+    'custom_elements' => '.uebertool/custom-elements.d.ts',
+    'tsconfig' => '.uebertool/tsconfig.json',
+    'vite_env' => '.uebertool/vite-env.d.ts',
+  ];
+  $variables['generated'] = [];
+  foreach ($files as $key => $file) {
+    $path = "$theme_path/$file";
+    $variables['generated'][$key] = [
+      'path' => $file,
+      'code' => is_file($path) ? trim((string) file_get_contents($path)) : "# $file has not been generated yet. Run `pnpm build`.",
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for uebertool-docs-preview.html.twig.
+ */
+function uebertool_docs_preprocess_uebertool_docs_preview(array &$variables): void {
+  $variables['title'] = $variables['demo'];
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * The docs have their own header. html.html.twig does not print page_top (the
+ * admin toolbar), so drop the toolbar assets as well.
+ */
+function uebertool_docs_page_attachments_alter(array &$attachments): void {
+  $attachments['#attached']['library'] = array_values(array_filter(
+    $attachments['#attached']['library'] ?? [],
+    static fn (string $library) => !preg_match('#^(toolbar|gin_toolbar|gin|navigation)/#', $library),
+  ));
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for html.html.twig.
+ */
+function uebertool_docs_preprocess_html(array &$variables): void {
+  // "Page | UEBERTOOL" like Starlight, instead of the Drupal site name.
+  $variables['head_title']['name'] = 'UEBERTOOL';
+}

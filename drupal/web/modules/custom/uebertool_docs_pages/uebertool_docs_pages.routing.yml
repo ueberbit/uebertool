@@ -1,0 +1,24 @@
+uebertool_docs_pages.index:
+  path: '/docs'
+  defaults:
+    _controller: '\Drupal\uebertool_docs_pages\Controller\DocsController::index'
+  requirements:
+    _access: 'TRUE'
+
+uebertool_docs_pages.page:
+  path: '/docs/{slug}'
+  defaults:
+    _controller: '\Drupal\uebertool_docs_pages\Controller\DocsController::page'
+    _title_callback: '\Drupal\uebertool_docs_pages\Controller\DocsController::title'
+  requirements:
+    _access: 'TRUE'
+    slug: '[a-z0-9-]+'
+
+uebertool_docs_pages.preview:
+  path: '/docs/preview/{demo}'
+  defaults:
+    _controller: '\Drupal\uebertool_docs_pages\Controller\DocsController::preview'
+    _title: 'Preview'
+  requirements:
+    _access: 'TRUE'
+    demo: '[a-z0-9-]+'

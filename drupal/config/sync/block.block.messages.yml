@@ -1,0 +1,20 @@
+uuid: 71f1aa06-6c06-4ccc-b6d7-9cb226b4b739
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ueberbit
+id: messages
+theme: ueberbit
+region: messages
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Messages
+  label_display: '0'
+  provider: system
+visibility: {  }

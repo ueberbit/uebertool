@@ -1,0 +1,51 @@
+<p>You never list entrypoints by hand. The plugin globs your theme and every match becomes its own Vite entry and, later, its own Drupal library.</p>
+
+<h2>What is an entrypoint</h2>
+<p>All <code>js</code>, <code>jsx</code>, <code>ts</code>, <code>tsx</code>, <code>css</code> and <code>scss</code> files in:</p>
+{% embed code_block with { lang: 'sh' } %}{% block code %}{% verbatim %}
+js/**
+css/**
+templates/**
+components/**/{assets,src,js,css}/*
+{% endverbatim %}{% endblock %}{% endembed %}
+
+<p>Excluded are:</p>
+<ul>
+  <li>files starting with an underscore, e.g. <code>_helpers.ts</code>,</li>
+  <li>custom elements (<code>*.ce.*</code>), stories (<code>*.stories.*</code>) and declaration files (<code>*.d.ts</code>),</li>
+  <li>everything in <code>js/composables</code>, <code>js/stores</code> and <code>js/utils</code>. Import those, or let them be <a href="{{ path('uebertool_docs_pages.page', { slug: 'auto-imports' }) }}">auto-imported</a>.</li>
+</ul>
+
+{% embed aside %}
+  {% block content %}
+    <p><code>.vue</code> files are never entrypoints. Name them <code>*.ce.vue</code> to turn them into <a href="{{ path('uebertool_docs_pages.page', { slug: 'custom-element-loader' }) }}">custom elements</a>.</p>
+  {% endblock %}
+{% endembed %}
+
+<h2>Templates with their own assets</h2>
+<p>Put a script or stylesheet next to a Twig template and give it the same name. With <code>uebertool_twig_loader</code> enabled, the library is attached whenever the template renders – no <code>attach_library()</code> needed.</p>
+<p>This theme does exactly that for its layout and code blocks:</p>
+{% embed code_block with { lang: 'sh', title: 'themes/custom/uebertool_docs' } %}{% block code %}{% verbatim %}
+templates/layout/page.html.twig
+templates/layout/page.ts                         # library "page"
+templates/components/code-block/code-block.html.twig
+templates/components/code-block/code-block.ts    # library "code-block"
+{% endverbatim %}{% endblock %}{% endembed %}
+
+<h2>Single directory components</h2>
+<p>For SDCs, Drupal attaches the <code>.css</code> and <code>.js</code> file with the component's name itself. Put the sources you want transpiled into <code>assets</code>, <code>src</code>, <code>js</code> or <code>css</code> inside the component folder. Their libraries are prefixed with <code>sdc--</code> and attached by the companion module.</p>
+
+<h2>Aliases</h2>
+<p>These aliases resolve to your theme root and work in JS and CSS:</p>
+<table>
+  <thead><tr><th>Alias</th><th>Resolves to</th></tr></thead>
+  <tbody>
+    <tr><td><code>~/</code>, <code>@/</code>, <code>~~/</code>, <code>@@/</code></td><td>theme root</td></tr>
+    <tr><td><code>assets/</code>, <code>@assets/</code></td><td><code>./assets</code></td></tr>
+    <tr><td><code>public/</code>, <code>@public/</code></td><td><code>./public</code></td></tr>
+  </tbody>
+</table>
+
+<h2>Output</h2>
+<p>Production files keep their source directory and get a content hash, e.g. <code>templates/layout/page.wWm7aee3.js</code>. The Vue and Alpine runtimes end up in shared chunks (<code>vue.runtime.esm-browser.prod</code>, <code>alpine.runtime</code>). Font files keep their original name. A Vite manifest is written to <code>dist/.vite/manifest.json</code>.</p>
+<p>The build also defines <code>__DEV__</code> and disables Vue's Options API (<code>__VUE_OPTIONS_API__: false</code>), so components must use <code>&lt;script setup&gt;</code> or the Composition API.</p>

@@ -1,0 +1,86 @@
+select:
+  use: "@ueberbit/form/select.html.twig"
+  namespace: "Form"
+  label: Select
+  description: The select HTML element represents a control that provides a menu of options.
+  fields:
+    options:
+      type: object
+      label: Options
+      description: The option element children.
+      preview:
+        - label: option 1
+          type: option
+          value: option_1
+          selected: false
+        - label: option 2
+          type: option
+          value: option_2
+          selected: false
+        - label: option 3
+          type: option
+          value: option_3
+          selected: false
+        - label: option 4
+          type: option
+          value: option_4
+          selected: false
+
+  settings:
+    # attributes:
+    #   type: attributes
+    #   label: Attributes
+    #   description: A list of HTML attributes for the wrapper element.
+    attributes:
+      type: object
+      label: Attributes
+      description: A list of HTML attributes for the wrapper element.
+      default_value: class="form-select"
+
+  variants:
+    __default:
+      label: Simple
+    multiple:
+      label: Multiple
+      settings:
+        attributes: class="form-multiselect"
+      fields:
+        options:
+          - label: optgroup 1
+            type: optgroup
+            options:
+              - label: option 1_1
+                type: option
+                value: option_1_1
+                selected: false
+              - label: option 1_2
+                type: option
+                value: option_1_2
+                selected: false
+              - label: option 1_3
+                type: option
+                value: option_1_3
+                selected: false
+              - label: option 1_4
+                type: option
+                value: option_1_4
+                selected: false
+          - label: optgroup 2
+            type: optgroup
+            options:
+              - label: option 2_1
+                type: option
+                value: option_2_1
+                selected: false
+              - label: option 2_2
+                type: option
+                value: option_2_2
+                selected: false
+              - label: option 2_3
+                type: option
+                value: option_2_3
+                selected: false
+              - label: option 2_4
+                type: option
+                value: option_2_4
+                selected: false

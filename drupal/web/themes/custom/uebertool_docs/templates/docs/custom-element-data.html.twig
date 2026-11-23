@@ -1,0 +1,39 @@
+<p>On every build start, and whenever a <code>*.ce.*</code> file changes, the plugin runs <a href="https://github.com/runem/web-component-analyzer">web-component-analyzer</a> over <code>js</code>, <code>templates</code> and <code>components</code>. The result gives you tag and attribute completion in Twig and HTML files.</p>
+
+<h2>VS Code</h2>
+<p>Point VS Code to the generated file:</p>
+{% embed code_block with { lang: 'json', title: '.vscode/settings.json' } %}{% block code %}{% verbatim %}
+{
+  "html.customData": [
+    "web/themes/custom/mytheme/.uebertool/vscode.html-custom-data.json"
+  ]
+}
+{% endverbatim %}{% endblock %}{% endembed %}
+
+<h2>Documenting elements</h2>
+<p>Write a JSDoc comment with an <code>@element</code> tag. For Vue files, put it in a <code>&lt;docs&gt;</code> block:</p>
+{% embed code_block with { lang: 'vue' } %}{% block code %}{% verbatim %}
+<docs lang="ts">
+/**
+ * A Vue single file component as custom element.
+ *
+ * @element demo-hello-vue
+ *
+ * @attr {string} name - Who to greet.
+ *
+ * @slot - Appended after the greeting.
+ */
+</docs>
+{% endverbatim %}{% endblock %}{% endembed %}
+
+{% embed aside with { type: 'caution', title: '@element is required for TypeScript files' } %}
+  {% block content %}
+    <p>The analyzer only finds classes that are registered with <code>customElements.define()</code> or tagged with <code>@element</code>. The loader registers the elements at runtime, so add the tag to TS and TSX elements, or they won't show up.</p>
+  {% endblock %}
+{% endembed %}
+
+<h2>Generated for this theme</h2>
+{% include code_block with { lang: 'json', title: generated.vscode.path, code: generated.vscode.code } only %}
+
+<p>Vue custom elements are also added to <code>HTMLElementTagNameMap</code>, so <code>document.querySelector('demo-hello-vue')</code> is typed:</p>
+{% include code_block with { lang: 'ts', title: generated.custom_elements.path, code: generated.custom_elements.code } only %}

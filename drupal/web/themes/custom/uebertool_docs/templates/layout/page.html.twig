@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * Starlight-like docs layout: header, sidebar, content and "On this page".
+ *
+ * page.ts next to this file is a Vite entrypoint and therefore a Drupal
+ * library named "page", which uebertool_twig_loader attaches automatically.
+ */
+#}
+<div class="sl-page" x-data="{ menu: false }" @keydown.escape.window="menu = false">
+  <header class="sl-header">
+    <div class="flex h-full items-center gap-4">
+      <a href="{{ home_url }}" class="sl-site-title">
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="size-7"><path fill="currentColor" d="M3 4h4v10a5 5 0 0 0 10 0V4h4v10a9 9 0 0 1-18 0Z"/></svg>
+        <span>{{ site_name }}</span>
+      </a>
+    </div>
+    <div class="flex h-full items-center justify-end gap-4">
+      <a class="sl-icon-link" href="https://github.com/ueberbit/uebertool" rel="me">
+        <span class="sr-only">GitHub</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></svg>
+      </a>
+      <label class="sl-theme-select">
+        <span class="sr-only">{{ 'Select theme'|t }}</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="pointer-events-none absolute left-2 size-4"><path fill="currentColor" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 16V5a7 7 0 0 1 0 14Z"/></svg>
+        <select data-theme-select>
+          <option value="dark">{{ 'Dark'|t }}</option>
+          <option value="light">{{ 'Light'|t }}</option>
+          <option value="auto" selected>{{ 'Auto'|t }}</option>
+        </select>
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="pointer-events-none absolute right-2 size-4"><path fill="currentColor" d="M17 9.2a1 1 0 0 0-1.4 0L12 12.8 8.5 9.2a1 1 0 1 0-1.4 1.5l4.2 4.2a1 1 0 0 0 1.4 0l4.3-4.2a1 1 0 0 0 0-1.5Z"/></svg>
+      </label>
+      <button type="button" class="sl-menu-button" @click="menu = !menu" :aria-expanded="menu" aria-controls="sl-sidebar">
+        <span class="sr-only">{{ 'Menu'|t }}</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5"><path fill="currentColor" d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav id="sl-sidebar" class="sl-sidebar" :class="menu && 'is-open'" aria-label="{{ 'Main'|t }}">
+    <ul class="sl-sidebar-groups">
+      {% for group in sidebar %}
+        <li>
+          <details open>
+            <summary>
+              <span class="sl-group-label">{{ group.label }}</span>
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="sl-caret size-5"><path fill="currentColor" d="m14.8 11.3-4.2-4.2a1 1 0 0 0-1.4 1.4l3.5 3.5-3.5 3.6a1 1 0 0 0 1.4 1.4l4.2-4.2a1 1 0 0 0 0-1.5Z"/></svg>
+            </summary>
+            <ul>
+              {% for item in group.items %}
+                <li>
+                  <a href="{{ item.url }}"{% if item.current %} aria-current="page"{% endif %}>{{ item.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </details>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <div class="sl-main-frame">
+    <div class="sl-main-wrapper">
+      <main id="main-content" class="sl-main">
+        {{ page.content }}
+      </main>
+      <aside class="sl-toc" aria-labelledby="sl-toc-heading">
+        <h2 id="sl-toc-heading">{{ 'On this page'|t }}</h2>
+        <ul data-toc></ul>
+      </aside>
+    </div>
+  </div>
+</div>

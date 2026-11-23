@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=/home/woldtwerk/.local/share/drupal/metadata.schema.json
+$schema: https://git.drupalcode.org/project/sdc/-/raw/1.x/src/metadata.schema.json
+name: Details
+props:
+  type: object
+  properties:
+    open:
+      title: Open
+      type: boolean
+      default: false
+    disabled:
+      title: Disabled
+      type: boolean
+      default: false
+    name:
+      title: Name
+      type: string
+      default: ''
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      name: Attributes
+    summary_attributes:
+      type: Drupal\Core\Template\Attribute
+      name: Attributes
+slots:
+  summary:
+    title: Summary
+    required: true
+  content:
+    title: Content
+    required: true
+# libraryOverrides:
+#   dependencies:
+#     - core/once
+#   js:
+#     details.js: {attributes: {type: module}}
+#   css:
+#     component:
+#       details.css: {preprocess: false}

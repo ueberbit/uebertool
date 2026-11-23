@@ -1,0 +1,10 @@
+placeholder:
+  use: "@ueberbit/misc/_placeholder.html.twig"
+  namespace: "Misc"
+  label: Placeholder
+  description: Just a placeholder pattern
+  fields:
+    children:
+      type: text
+      label: Children
+      description: The child elements of the form.

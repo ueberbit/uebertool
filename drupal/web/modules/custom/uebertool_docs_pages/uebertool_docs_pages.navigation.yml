@@ -1,0 +1,60 @@
+# Sidebar of the docs. Every item is rendered from
+# themes/custom/uebertool_docs/templates/docs/{slug}.html.twig.
+- label: 'Start here'
+  items:
+    getting-started:
+      title: 'Getting started'
+      description: 'Install the plugin and build your first Drupal theme with Vite.'
+- label: 'Build & Drupal integration'
+  items:
+    entrypoints:
+      title: 'Entrypoints'
+      description: 'Which files are bundled and how they become Drupal libraries.'
+    libraries:
+      title: 'libraries.yml'
+      description: 'Generated Drupal libraries, including detected core dependencies.'
+    breakpoints:
+      title: 'breakpoints.yml'
+      description: 'Drupal breakpoints generated from the Tailwind screens.'
+    theme-info:
+      title: 'Dist theme'
+      description: 'The generated *_dist theme that ties the build output to Drupal.'
+    css:
+      title: 'CSS & Tailwind'
+      description: 'Tailwind CSS v4, cascade layers and public asset paths.'
+- label: 'Custom elements'
+  items:
+    custom-element-loader:
+      title: 'Custom element loader'
+      description: 'Register custom elements by file name: eager, idle, lazy or visible.'
+    custom-element-types:
+      title: 'Vanilla, Lit, Vue & TSX'
+      description: 'Every flavour of custom element the loader understands.'
+    vue-custom-elements:
+      title: 'Vue custom elements'
+      description: 'Tailwind, scoped styles and nested components inside the shadow DOM.'
+    custom-element-data:
+      title: 'Editor support'
+      description: 'Custom element data for VS Code and typed tag names.'
+- label: 'Developer experience'
+  items:
+    auto-imports:
+      title: 'Auto-imports'
+      description: 'Use Vue, VueUse, your own utils and components without import statements.'
+    alpine:
+      title: 'Alpine.js'
+      description: 'Alpine is available everywhere as soon as you use it.'
+    twig-hmr:
+      title: 'Twig HMR'
+      description: 'Edit a Twig template and see the change without a reload.'
+    restart:
+      title: 'Restart & cache clear'
+      description: 'New entrypoints restart Vite and clear the Drupal cache.'
+    types:
+      title: 'TypeScript'
+      description: 'Types for Drupal, drupalSettings and once, plus a generated tsconfig.'
+- label: 'Reference'
+  items:
+    options:
+      title: 'Options'
+      description: 'All options of the plugin and their defaults.'

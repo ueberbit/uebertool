@@ -1,0 +1,60 @@
+import { Canvas, Meta, Story, SourceContainer } from '@storybook/addon-docs'
+import { Anchor } from '@storybook/addon-docs/blocks'
+import { styled } from '@storybook/theming'
+
+export const AlertWrapper = styled.div`
+  & div[data-drupal-messages] {
+    position: relative;
+    --animation-leave: none;
+  }
+`
+
+<Meta title="Misc/Status Messages"
+  parameters={{ viewMode: 'docs', previewTabs: { canvas: { hidden: true }}}}
+  decorators={[
+    (Story) => (
+      <div data-drupal-messages="">
+        <Story />
+      </div>
+    ),
+  ]}
+/>
+
+
+<Anchor storyId='misc-status-messages--status' />
+
+# Status Messages
+Default styling for Drupal Status Message. No markup changes required.
+
+
+
+export const Status = () => (
+  <div role="contentinfo" aria-label="Status message">
+    <h2 className="visually-hidden">Status message</h2>
+    Article
+    <em className="placeholder"><a href="/node/3" hrefLang="en">Article 3</a></em>
+    has been updated.
+  </div>
+)
+
+
+## Status
+<Canvas>
+  <AlertWrapper>
+    <Status/>
+  </AlertWrapper>
+</Canvas>
+
+<!-- ## Warning
+<Canvas>
+  <AlertWrapper>
+    <Story id='misc-status-messages--warning' ></Story>
+  </AlertWrapper>
+</Canvas>
+
+## Error
+<Canvas>
+  <AlertWrapper>
+    <Story id='misc-status-messages--error' ></Story>
+  </AlertWrapper>
+</Canvas> -->

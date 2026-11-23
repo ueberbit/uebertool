@@ -1,0 +1,10 @@
+{# Rendered in an iframe: reloading the frame shows fresh timings. #}
+<p class="mb-4 text-sm text-slate-600">Each element prints when the loader defined it (ms since navigation start).</p>
+<div class="grid gap-3">
+  <demo-load-eager></demo-load-eager>
+  <demo-load-idle></demo-load-idle>
+  <demo-load-lazy></demo-load-lazy>
+</div>
+<p class="mt-6 text-sm text-slate-600">&darr; Scroll down: <code>&lt;demo-load-visible&gt;</code> is only imported when it comes close to the viewport.</p>
+<div class="h-[160vh]"></div>
+<demo-load-visible></demo-load-visible>

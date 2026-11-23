@@ -1,0 +1,26 @@
+import { Meta, Canvas } from '@storybook/addon-docs';
+
+<Meta title="Developer/Vue"
+  parameters={{ viewMode: 'docs', previewTabs: { canvas: { hidden: true }}}}
+/>
+
+# Vue
+
+`@vitejs/plugin-vue` is included in the starter. The configuration can be overriden with:
+
+```ts
+import { defineConfig } from "vite"
+import uebertool from '@ueberbit/vite-plugin-drupal'
+
+export default defineConfig(async () => {
+  return {
+    plugins: [
+      uebertool({
+        vue: {
+          reactivityTransform: true
+        }
+      }),
+    ],
+  }
+})
+```

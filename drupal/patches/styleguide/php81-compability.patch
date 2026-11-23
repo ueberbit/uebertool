@@ -1,0 +1,12 @@
+diff --git a/src/Theme/StyleguideThemeNegotiator.php b/src/Theme/StyleguideThemeNegotiator.php
+index 4831376..95096b9 100644
+--- a/src/Theme/StyleguideThemeNegotiator.php
++++ b/src/Theme/StyleguideThemeNegotiator.php
+@@ -57,7 +57,7 @@ class StyleguideThemeNegotiator implements ThemeNegotiatorInterface, ContainerIn
+    *   decide.
+    */
+   public function applies(RouteMatchInterface $route_match) {
+-    if (strpos($route_match->getRouteName(), 'styleguide.') === FALSE) {
++    if (strpos((string) $route_match->getRouteName(), 'styleguide.') === FALSE) {
+       return FALSE;
+     }

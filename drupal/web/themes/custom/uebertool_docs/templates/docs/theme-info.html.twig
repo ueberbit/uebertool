@@ -1,0 +1,26 @@
+<p>The generated files have to live in an extension Drupal knows about. The plugin therefore creates a hidden theme in <code>dist/</code> called <code>&lt;theme&gt;_dist</code>, and your theme uses it as base theme.</p>
+
+<h2>Generated for this theme</h2>
+{% include code_block with { lang: 'yaml', title: generated.info.path, code: generated.info.code } only %}
+
+<p>Your theme only has to point to it:</p>
+{% embed code_block with { lang: 'yaml', title: 'uebertool_docs.info.yml' } %}{% block code %}{% verbatim %}
+name: 'UEBERTOOL Docs'
+type: theme
+base theme: uebertool_docs_dist
+core_version_requirement: ^11
+{% endverbatim %}{% endblock %}{% endembed %}
+
+<h2>What it contains</h2>
+<ul>
+  <li><strong>Global libraries:</strong> <code>css__tailwind</code>, <code>js__main</code> and <code>css__gin-custom</code> are attached on every page.</li>
+  <li><strong>Base theme:</strong> the dist theme itself extends <code>stable9</code>. Change it with the <code>baseTheme</code> option.</li>
+  <li><strong>Package:</strong> the theme name, or the <code>themePackage</code> option.</li>
+  <li><strong>Hidden:</strong> it never shows up in the Appearance UI.</li>
+</ul>
+
+{% embed aside %}
+  {% block content %}
+    <p>The dist theme is written on <code>vite build</code> and when the dev server starts. Run one of them before enabling your theme for the first time, otherwise Drupal cannot find the base theme.</p>
+  {% endblock %}
+{% endembed %}

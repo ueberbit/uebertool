@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "tags": [
+    {
+      "name": "ww-details",
+      "description": "Details show a brief summary and expand to show additional content.\n\nEvents:\n\n  * `ww-hide` - \n\n  * `ww-show` - \n\nSlots:\n\n  * ` ` {} - The details' main content.\n\n  * `summary` {} - The details' summary. Alternatively, you can use the `summary` attribute.\n\nProperties:\n\n  * `open` - \n\n  * `disabled` - ",
+      "attributes": [
+        {
+          "name": "onww-hide",
+          "description": "`ww-hide` - "
+        },
+        {
+          "name": "onww-show",
+          "description": "`ww-show` - "
+        }
+      ]
+    },
+    {
+      "name": "ueberbit-button-eager",
+      "description": "Here is a description of my web component.\n\nEvents:\n\n  * `change` {} - This jsdoc tag makes it possible to document events.\n\n  * `submit` {} - \n\nSlots:\n\n  * ` ` {} - This is an unnamed slot (the default slot)\n\n  * `start` {} - This is a slot named \"start\".\n\n  * `end` {} - \n\nAttributes:\n\n  * `disabled` {Boolean} - This jsdoc tag documents an attribute.\n\n  * `switch` {on|off} - Here is an attribute with either the \"on\" or \"off\" value.\n\n  * `my-attr` - \n\nProperties:\n\n  * `myProp` {String} - You can use this jsdoc tag to document properties.\n\n  * `value` - ",
+      "attributes": [
+        {
+          "name": "disabled",
+          "description": "`disabled` {Boolean} - This jsdoc tag documents an attribute.\n\n",
+          "valueSet": "v"
+        },
+        {
+          "name": "switch",
+          "description": "`switch` {on|off} - Here is an attribute with either the \"on\" or \"off\" value.\n\n",
+          "values": [
+            {
+              "name": "on"
+            },
+            {
+              "name": "off"
+            }
+          ]
+        },
+        {
+          "name": "my-attr",
+          "description": "`my-attr` - \n\nDefault: default value"
+        },
+        {
+          "name": "onchange",
+          "description": "`change` {} - This jsdoc tag makes it possible to document events."
+        },
+        {
+          "name": "onsubmit",
+          "description": "`submit` {} - "
+        }
+      ]
+    },
+    {
+      "name": "ueberbit-lit",
+      "description": "Attributes:\n\n  * `name` {`string`} - \n\nProperties:\n\n  * `styles` - \n\n  * `name` {`string`} - ",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "`name` {`string`} - \n\nProperty: name\n\nDefault: Somebody"
+        }
+      ]
+    },
+    {
+      "name": "ueberbit-vanilla",
+      "description": "Vanilla web-component.\n\nSlots:\n\n  * ` ` {} - The components default slot",
+      "attributes": []
+    },
+    {
+      "name": "ueberbit-foo",
+      "description": "Here is a description of my web component.\n\nSlots:\n\n  * ` ` {} - This is an unnamed slot (the default slot)\n\nAttributes:\n\n  * `Title` {String} - This jsdoc tag documents an attribute.",
+      "attributes": [
+        {
+          "name": "Title",
+          "description": "`Title` {String} - This jsdoc tag documents an attribute.\n\n"
+        }
+      ]
+    },
+    {
+      "name": "ueberbit-vue",
+      "description": "Here is a description of my web component.\n\nSlots:\n\n  * ` ` {} - This is an unnamed slot (the default slot)\n\nAttributes:\n\n  * `Title` {String} - This jsdoc tag documents an attribute.",
+      "attributes": [
+        {
+          "name": "Title",
+          "description": "`Title` {String} - This jsdoc tag documents an attribute.\n\n"
+        }
+      ]
+    }
+  ],
+  "globalAttributes": [],
+  "valueSets": []
+}

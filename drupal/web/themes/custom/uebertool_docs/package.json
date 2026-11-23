@@ -1,0 +1,29 @@
+{
+  "name": "@ueberbit/uebertool-docs-theme",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=26.0.0",
+    "pnpm": "^12.0.0"
+  },
+  "scripts": {
+    "dev": "uebertool && vite",
+    "build": "uebertool && vite build"
+  },
+  "dependencies": {
+    "@shikijs/langs": "^4.6.0",
+    "@shikijs/themes": "^4.6.0",
+    "@vueuse/core": "^14.2.1",
+    "alpinejs": "^3.15.11",
+    "lit": "^3.3.2",
+    "morphdom": "^2.7.8",
+    "shiki": "^4.6.0",
+    "tailwindcss": "^4.2.2",
+    "vue": "^3.5.32"
+  },
+  "devDependencies": {
+    "@ueberbit/vite-plugin-drupal": "workspace:*",
+    "vite": "^8.0.7"
+  }
+}

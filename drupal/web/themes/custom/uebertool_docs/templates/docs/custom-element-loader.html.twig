@@ -1,0 +1,37 @@
+<p>Name a file <code>*.{eager|idle|lazy|visible}.ce.{vue,ts,tsx,js,jsx}</code> and it becomes a custom element. You don't register it or attach a library. The file name picks the tag name and the loading strategy.</p>
+
+{% embed code_block with { lang: 'sh' } %}{% block code %}{% verbatim %}
+templates/demos/loader/load-idle.idle.ce.ts   →  <demo-load-idle>
+templates/components/card/card.visible.ce.vue →  <mytheme-card>
+{% endverbatim %}{% endblock %}{% endembed %}
+
+<p>The tag name is <code>&lt;prefix&gt;-&lt;file name&gt;</code>. The prefix defaults to the theme name; this theme sets it to <code>demo</code> with the <code>ce.prefix</code> option.</p>
+
+<h2>Loading strategies</h2>
+<table>
+  <thead><tr><th>Mode</th><th>When the element is imported and defined</th></tr></thead>
+  <tbody>
+    <tr><td><code>eager</code></td><td>Part of the main bundle, defined immediately. You rarely want this.</td></tr>
+    <tr><td><code>idle</code></td><td>Dynamic import in <code>requestIdleCallback</code> (at the latest after 1&nbsp;s).</td></tr>
+    <tr><td><code>lazy</code></td><td>Dynamic import right after the main bundle ran.</td></tr>
+    <tr><td><code>visible</code></td><td>Dynamic import once an instance is within 50% of the viewport. Elements that never show up are never loaded.</td></tr>
+  </tbody>
+</table>
+
+{% include preview with { demo: 'custom-element-loader', title: 'Loader strategies', iframe: true, height: 300 } %}
+
+{% embed aside with { type: 'caution', title: 'idle and lazy load on every page' } %}
+  {% block content %}
+    <p><code>eager</code>, <code>idle</code> and <code>lazy</code> elements are imported on every page that loads <code>js/main</code>, whether the tag is used or not. Use <code>visible</code> for anything that is not on most pages.</p>
+  {% endblock %}
+{% endembed %}
+
+<h2>Exports</h2>
+<p><code>idle</code>, <code>lazy</code> and <code>visible</code> modules register their <em>first</em> export (or the default export of a <code>.vue</code> file). <code>eager</code> modules must have a <strong>default</strong> export:</p>
+{% include code_block with { lang: 'ts', title: 'templates/demos/loader/load-eager.eager.ce.ts', code: source('@uebertool_docs/demos/loader/load-eager.eager.ce.ts') } only %}
+
+<h2>Requirements</h2>
+<ul>
+  <li>The loader is injected into <code>js/main.ts</code> (or <code>main.js</code>), so the theme needs that file.</li>
+  <li><code>visible</code> registers <code>Drupal.behaviors.customElementLoader</code>, so elements in content added by AJAX are observed too.</li>
+</ul>

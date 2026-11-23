@@ -1,0 +1,10 @@
+# global:
+#   dependencies:
+    # - core/drupal
+    # - core/drupalSettings
+    # - core/once
+    # - ueberbit_dist/main
+    # - ueberbit_dist/js--polyfill
+    # - ueberbit_dist/status-messages
+    # - ueberbit_dist/tailwind
+    # - ueberbit_dist/gin-custom

@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "tags": [
+    {
+      "name": "demo-hello-lit",
+      "description": "A Lit element.\n\nSlots:\n\n  * ` ` {} - Appended after the greeting.\n\nAttributes:\n\n  * `name` {string} - Who to greet.\n\nProperties:\n\n  * `properties` {`{ name: { type: any; }; }`} - \n\n  * `styles` - \n\n  * `name` {string} - Who to greet.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "`name` {string} - Who to greet.\n\nProperty: name\n\nDefault: Somebody"
+        }
+      ]
+    },
+    {
+      "name": "demo-hello-tsx",
+      "description": "Custom elements can be written in .tsx as well.\n\nAttributes:\n\n  * `name` {string} - Who to greet.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "`name` {string} - Who to greet.\n\n"
+        }
+      ]
+    },
+    {
+      "name": "demo-hello-vanilla",
+      "description": "A vanilla custom element.\n\nAttributes:\n\n  * `name` {string} - Who to greet.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "`name` {string} - Who to greet.\n\n"
+        }
+      ]
+    },
+    {
+      "name": "demo-hello-vue",
+      "description": "A Vue single file component as custom element.\n\nSlots:\n\n  * ` ` {} - Appended after the greeting.\n\nAttributes:\n\n  * `name` {string} - Who to greet.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "`name` {string} - Who to greet.\n\n"
+        }
+      ]
+    },
+    {
+      "name": "demo-mouse-tracker",
+      "description": "Uses auto-imported APIs only: `ref`/`computed` (vue preset),\n`useMouse` (@vueuse/core preset) and `formatMs` (./js/utils).\n\n",
+      "attributes": []
+    },
+    {
+      "name": "demo-tailwind-card",
+      "description": "Tailwind utilities inside the shadow DOM of a Vue custom element.\n\nSlots:\n\n  * ` ` {} - Card body.\n\nAttributes:\n\n  * `title` {string} - Card title.",
+      "attributes": [
+        {
+          "name": "title",
+          "description": "`title` {string} - Card title.\n\n"
+        }
+      ]
+    }
+  ],
+  "globalAttributes": [],
+  "valueSets": []
+}

@@ -1,0 +1,29 @@
+form-element-label:
+  use: "@ueberbit/form/form-element-label.html.twig"
+  namespace: "Form"
+  label: Form Element Label
+  description: Form Element Label
+  fields:
+    title:
+      type: text
+      label: Title
+      description: The label's text.
+      preview: I'm a slick label
+  settings:
+    attributes:
+      type: object
+      label: Attributes
+      description: A list of HTML attributes for the label.
+    title_display:
+      type: select
+      label: Title display
+      description: Elements title_display setting.
+      options:
+        before: before
+        after: after
+        invisible: invisible
+      default_value: after
+    required:
+      type: boolean
+      label: Required
+      description: An indicator for whether the associated form element is required.

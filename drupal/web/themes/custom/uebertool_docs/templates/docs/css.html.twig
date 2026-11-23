@@ -1,0 +1,30 @@
+<p>Tailwind CSS v4 is built in through <code>@tailwindcss/vite</code>. You don't need a PostCSS or Tailwind config file. Import Tailwind in <code>css/tailwind.css</code> and you are done.</p>
+
+{% embed code_block with { lang: 'css', title: 'css/tailwind.css' } %}{% block code %}{% verbatim %}
+@import "tailwindcss";
+{% endverbatim %}{% endblock %}{% endembed %}
+
+{% embed aside %}
+  {% block content %}
+    <p>Keep <code>tailwind</code> in the file name. Vue custom elements look for <code>link[href*="tailwind"]</code> to share the stylesheet with their shadow DOM, see <a href="{{ path('uebertool_docs_pages.page', { slug: 'vue-custom-elements' }) }}">Vue custom elements</a>.</p>
+  {% endblock %}
+{% endembed %}
+
+<h2>Cascade layers</h2>
+<p>Tailwind v4 puts its styles into the layers <code>theme</code>, <code>base</code>, <code>components</code> and <code>utilities</code>. The companion module adds a <code>drupal</code> layer and fixes the order in the page <code>&lt;head&gt;</code>:</p>
+{% embed code_block with { lang: 'css' } %}{% block code %}{% verbatim %}
+@layer properties, theme, base, drupal, components, components-custom, utilities;
+{% endverbatim %}{% endblock %}{% endembed %}
+
+<p><code>uebertool_cascade_layer</code> wraps the CSS of Drupal core and modules in <code>@layer drupal</code>. As a result, Tailwind utilities always win over Drupal's styles, without <code>!important</code>. Vue custom elements declare <code>properties, theme, base, drupal, components, utilities</code> in their shadow root.</p>
+
+{% include preview with { demo: 'cascade-layers', title: 'Cascade layers', iframe: true, height: 230 } %}
+
+{% embed aside with { type: 'caution' } %}
+  {% block content %}
+    <p>Unlayered CSS beats every layer. Put your own non-utility CSS into a layer as well, e.g. <code>@layer components { … }</code>.</p>
+  {% endblock %}
+{% endembed %}
+
+<h2>Public assets</h2>
+<p>Inside <code>url()</code>, <code>@public/…</code> and <code>~/public/…</code> are resolved by Vite, so the file is bundled and hashed. Everywhere else in CSS the plugin rewrites them to the absolute path of your theme's <code>public</code> folder, e.g. <code>/themes/custom/mytheme/public</code>.</p>

@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Code block in the style of Expressive Code.
+ *
+ * Pass the code either as `code` or as the `code` block of an embed:
+ * @code
+ * {% embed '@uebertool_docs/components/code-block/code-block.html.twig' with { lang: 'ts', title: 'vite.config.ts' } %}
+ *   {% block code %}{% verbatim %}...{% endverbatim %}{% endblock %}
+ * {% endembed %}
+ * @endcode
+ *
+ * Variables:
+ * - lang: Shiki language id. "sh" renders a terminal frame.
+ * - title: Optional file name shown as tab.
+ * - code: The code (escaped on output).
+ */
+#}
+{% set body %}{% block code %}{% endblock %}{% endset %}
+{# Concatenating turns the captured Markup into a plain string, so it is escaped. #}
+{% set source = (code ?? (body ~ ''))|trim %}
+{% set terminal = lang in ['sh', 'bash', 'shell'] %}
+<figure class="sl-code not-prose{{ title or terminal ? ' has-header' }}{{ terminal ? ' is-terminal' }}" data-code-block>
+  {% if title or terminal %}
+    <figcaption class="sl-code-header">
+      <span class="sl-code-title">{{ title }}</span>
+    </figcaption>
+  {% endif %}
+  <pre data-language="{{ lang|default('txt') }}"><code>{{ source }}</code></pre>
+  <button type="button" class="sl-code-copy" data-copy title="{{ 'Copy to clipboard'|t }}">
+    <span class="sr-only">{{ 'Copy to clipboard'|t }}</span>
+    <svg aria-hidden="true" viewBox="0 0 24 24" class="size-4"><path fill="none" stroke="currentColor" stroke-width="1.75" d="M9 9V5.5A1.5 1.5 0 0 1 10.5 4h8A1.5 1.5 0 0 1 20 5.5v8a1.5 1.5 0 0 1-1.5 1.5H15M5.5 9h8A1.5 1.5 0 0 1 15 10.5v8a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 18.5v-8A1.5 1.5 0 0 1 5.5 9Z"/></svg>
+  </button>
+</figure>
