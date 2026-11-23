@@ -1,6 +1,7 @@
 packages:
   - 'packages/*'
   - 'drupal/web/themes/custom/ueberbit/*'
+  - 'drupal/web/themes/custom/uebertool_docs'
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
@@ -8,3 +9,5 @@ overrides:
   typescript: ^5.9.3
 catalog:
   defu: ^6.1.7
+shamefullyHoist: true
+engineStrict: true
