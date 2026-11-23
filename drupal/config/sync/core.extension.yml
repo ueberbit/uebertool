@@ -8,10 +8,10 @@ module:
   block: 0
   block_content: 0
   breakpoint: 0
-  ckeditor: 0
-  coffee: 0
+  ckeditor5: 0
   comment: 0
   config: 0
+  config_translation: 0
   contact: 0
   contextual: 0
   datetime: 0
@@ -27,7 +27,9 @@ module:
   help: 0
   history: 0
   image: 0
+  language: 0
   link: 0
+  locale: 0
   menu_link_content: 0
   menu_ui: 0
   mysql: 0
@@ -36,26 +38,38 @@ module:
   page_cache: 0
   path: 0
   path_alias: 0
-  rdf: 0
+  phpass: 0
+  responsive_image: 0
+  sdc_details: 0
   search: 0
+  search_help: 0
+  search_node: 0
+  serialization: 0
   shortcut: 0
+  styleguide: 0
   system: 0
   taxonomy: 0
   text: 0
   toolbar: 0
   tour: 0
-  twig_field_value: 0
   twig_tweak: 0
-  ueberbit_default_content: 0
+  uebertool_asset_renderer: 0
+  uebertool_cascade_layer: 0
+  uebertool_companion: 0
+  uebertool_docs_pages: 0
+  uebertool_twig: 0
+  uebertool_twig_loader: 0
   update: 0
   user: 0
   views_ui: 0
+  content_translation: 10
   views: 10
-  minimal: 1000
+  standard: 1000
 theme:
   olivero: 0
   claro: 0
   gin: 0
-  ueberbit: 0
-  ueberbit_dist: 0
-profile: minimal
+  stable9: 0
+  uebertool_docs_dist: 0
+  uebertool_docs: 0
+profile: standard
