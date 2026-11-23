@@ -1,5 +1,10 @@
 {
   "name": "@ueberbit/tailwind",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ueberbit/uebertool.git",
+    "directory": "packages/tailwind"
+  },
   "version": "0.8.2",
   "exports": {
     ".": {

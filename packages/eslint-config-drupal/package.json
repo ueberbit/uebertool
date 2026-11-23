@@ -1,5 +1,10 @@
 {
   "name": "@ueberbit/eslint-config-drupal",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ueberbit/uebertool.git",
+    "directory": "packages/eslint-config-drupal"
+  },
   "type": "module",
   "version": "0.8.2",
   "description": "UEBERBIT ESLint config for Drupal",

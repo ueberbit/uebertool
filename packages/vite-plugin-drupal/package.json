@@ -1,5 +1,10 @@
 {
   "name": "@ueberbit/vite-plugin-drupal",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ueberbit/uebertool.git",
+    "directory": "packages/vite-plugin-drupal"
+  },
   "version": "0.8.2",
   "exports": {
     ".": {
