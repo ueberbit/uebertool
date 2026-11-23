@@ -75,8 +75,10 @@ export default (ctx: Context): Plugin => {
                 if (assetMap.has(base))
                   return assetMap.get(base)
 
-                const fullPath = input.find(file => file.endsWith(base))
-                  || input.find(file => file.endsWith(base.replace(CSS_REGEX, '.scss')))
+                // Match whole file names only, e.g. "slider.css" must not match "aoa-slider.css".
+                const isFile = (file: string, name: string) => file === name || file.endsWith(`/${name}`)
+                const fullPath = input.find(file => isFile(file, base))
+                  || input.find(file => isFile(file, base.replace(CSS_REGEX, '.scss')))
 
                 if (fullPath)
                   dir = dirname(fullPath)
