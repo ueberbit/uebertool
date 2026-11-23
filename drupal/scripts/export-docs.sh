@@ -13,7 +13,7 @@ uri="${1:-http://localhost}"
 base=/uebertool
 out="html${base}"
 theme_dist=web/themes/custom/uebertool_docs/dist
-navigation=web/modules/custom/uebertool_docs_pages/uebertool_docs_pages.navigation.yml
+docs=web/themes/custom/uebertool_docs/docs
 
 # Tome skips paths it has cached as exported, even if the files are gone, and
 # Drupal may still know the library hashes of an older theme build.
@@ -41,7 +41,7 @@ touch "${out}/.nojekyll"
 
 # Tome reports success even if pages failed to render. Fail instead.
 errors=0
-for slug in $(grep -oE '^    [a-z0-9-]+:$' "${navigation}" | tr -d ' :'); do
+for slug in $(find "${docs}" -mindepth 2 -name '[0-9]*-*.md' -printf '%f\n' | sed -E 's/^[0-9]+-//; s/\.md$//'); do
   [ -f "${out}/${slug}/index.html" ] || { echo "Missing page: ${base}/${slug}"; errors=1; }
 done
 for url in $(grep -rhoE "(href|src)=\"/[^/\"#?][^\"#?]*" html --include='*.html' | sed -E 's#^(href|src)="##' | sort -u); do

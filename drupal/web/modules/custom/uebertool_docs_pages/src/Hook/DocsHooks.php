@@ -15,7 +15,7 @@ final class DocsHooks {
   public function theme(): array {
     return [
       'uebertool_docs_page' => [
-        'variables' => ['slug' => NULL, 'description' => ''],
+        'variables' => ['slug' => NULL, 'description' => '', 'content' => []],
       ],
       'uebertool_docs_preview' => [
         'variables' => ['demo' => NULL],

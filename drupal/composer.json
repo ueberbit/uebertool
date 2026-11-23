@@ -29,7 +29,8 @@
         "drupal/tour": "^3.0",
         "drupal/twig_field_value": "^3.0",
         "drupal/twig_tweak": "^3.1",
-        "drush/drush": "^13"
+        "drush/drush": "^13",
+        "league/commonmark": "^2.7"
     },
     "require-dev": {
         "cweagans/composer-patches": "^2.0"

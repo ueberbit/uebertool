@@ -6,6 +6,10 @@ services:
     class: Drupal\uebertool_docs_pages\DocsNavigation
   Drupal\uebertool_docs_pages\DocsNavigation: '@uebertool_docs_pages.navigation'
 
+  uebertool_docs_pages.markdown:
+    class: Drupal\uebertool_docs_pages\Markdown\DocsMarkdown
+  Drupal\uebertool_docs_pages\Markdown\DocsMarkdown: '@uebertool_docs_pages.markdown'
+
   uebertool_docs_pages.theme_negotiator:
     class: Drupal\uebertool_docs_pages\Theme\DocsThemeNegotiator
     tags:

@@ -1,11 +1,11 @@
 {#
 /**
  * @file
- * A docs page: title, lead and the content from templates/docs/{slug}.html.twig.
+ * A docs page: title, lead and the content rendered from its Markdown file.
  *
  * Variables:
  * - slug, page_title, description, prev, next
- * - generated: files the plugin generated for this theme, keyed by name.
+ * - content: The rendered Markdown.
  */
 #}
 <div class="sl-content-panel">
@@ -17,11 +17,7 @@
 
 <div class="sl-content-panel">
   <div class="sl-markdown">
-    {# Shortcuts for the content templates. #}
-    {% set code_block = '@uebertool_docs/components/code-block/code-block.html.twig' %}
-    {% set aside = '@uebertool_docs/components/aside/aside.html.twig' %}
-    {% set preview = '@uebertool_docs/components/preview/preview.html.twig' %}
-    {% include '@uebertool_docs/docs/' ~ slug ~ '.html.twig' %}
+    {{ content }}
   </div>
 
   <footer class="sl-pagination">

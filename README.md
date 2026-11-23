@@ -23,7 +23,8 @@ It currently consists of:
 
 ## Docs
 
-The docs are a Drupal site in `drupal/` (module `uebertool_docs_pages`, theme
+The docs are Markdown files in `drupal/web/themes/custom/uebertool_docs/docs/`,
+rendered by a Drupal site in `drupal/` (module `uebertool_docs_pages`, theme
 `uebertool_docs`), exported to static HTML with [Tome](https://www.drupal.org/project/tome)
 and deployed to GitHub Pages by `.github/workflows/docs.yml` on every push to `main`.
 

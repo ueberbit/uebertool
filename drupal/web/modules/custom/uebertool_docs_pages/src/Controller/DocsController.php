@@ -7,6 +7,7 @@ namespace Drupal\uebertool_docs_pages\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Drupal\uebertool_docs_pages\DocsNavigation;
+use Drupal\uebertool_docs_pages\Markdown\DocsMarkdown;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -17,6 +18,7 @@ final class DocsController extends ControllerBase {
 
   public function __construct(
     private readonly DocsNavigation $navigation,
+    private readonly DocsMarkdown $markdown,
   ) {}
 
   /**
@@ -37,6 +39,7 @@ final class DocsController extends ControllerBase {
       '#theme' => 'uebertool_docs_page',
       '#slug' => $slug,
       '#description' => $page['description'] ?? '',
+      '#content' => $this->markdown->build($page['file']),
     ];
   }
 

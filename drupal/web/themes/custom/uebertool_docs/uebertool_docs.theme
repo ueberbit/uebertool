@@ -65,27 +65,6 @@ function uebertool_docs_preprocess_uebertool_docs_page(array &$variables): void 
   ] : NULL;
   $variables['prev'] = $link($slugs[$index - 1] ?? NULL);
   $variables['next'] = $link($slugs[$index + 1] ?? NULL);
-
-  // Files the plugin generated for this very theme. Shown in the docs as
-  // real-world examples of the build output.
-  $theme_path = \Drupal::service('extension.list.theme')->getPath('uebertool_docs');
-  $files = [
-    'libraries' => 'dist/uebertool_docs_dist.libraries.yml',
-    'breakpoints' => 'dist/uebertool_docs_dist.breakpoints.yml',
-    'info' => 'dist/uebertool_docs_dist.info.yml',
-    'vscode' => '.uebertool/vscode.html-custom-data.json',
-    'custom_elements' => '.uebertool/custom-elements.d.ts',
-    'tsconfig' => '.uebertool/tsconfig.json',
-    'vite_env' => '.uebertool/vite-env.d.ts',
-  ];
-  $variables['generated'] = [];
-  foreach ($files as $key => $file) {
-    $path = "$theme_path/$file";
-    $variables['generated'][$key] = [
-      'path' => $file,
-      'code' => is_file($path) ? trim((string) file_get_contents($path)) : "# $file has not been generated yet. Run `pnpm build`.",
-    ];
-  }
 }
 
 /**
