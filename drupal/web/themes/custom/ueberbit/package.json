@@ -9,8 +9,6 @@
   "scripts": {
     "dev": "uebertool && vite",
     "build": "uebertool && vite build",
-    "dev:storybook": "start-storybook -p 5174 --config-dir .storybook --ci",
-    "build:storybook": "node ./.storybook/build.mjs",
     "build:wca:vscode": "wca \"./templates/**/*.ce.{ts,tsx,vue}\" --outFiles .uebertool/vscode.html-custom-data.json --format vscode",
     "build:wca:ce": "wca \"./templates/**/*.ce.{ts,tsx,vue}\" --outFiles .uebertool/custom-elements.json"
   },
