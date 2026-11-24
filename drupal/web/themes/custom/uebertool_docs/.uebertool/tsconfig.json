@@ -8,7 +8,7 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "strict": true,
     "sourceMap": true,
     "resolveJsonModule": true,
@@ -21,43 +21,42 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "experimentalDecorators": true,
-    "baseUrl": "..",
     "paths": {
       "~": [
-        "."
+        ".."
       ],
       "~/*": [
-        "./*"
+        "../*"
       ],
       "@": [
-        "."
+        ".."
       ],
       "@/*": [
-        "./*"
+        "../*"
       ],
       "~~": [
-        "."
+        ".."
       ],
       "~~/*": [
-        "./*"
+        "../*"
       ],
       "@@": [
-        "."
+        ".."
       ],
       "@@/*": [
-        "./*"
+        "../*"
       ],
       "assets": [
-        "assets"
+        "../assets"
       ],
       "assets/*": [
-        "assets/*"
+        "../assets/*"
       ],
       "public": [
-        "public"
+        "../public"
       ],
       "public/*": [
-        "public/*"
+        "../public/*"
       ]
     }
   },
@@ -65,6 +64,8 @@
     "../components/**/*",
     "../js/**/*",
     "../templates/**/*",
+    "./components.d.ts",
+    "./custom-elements.d.ts",
     "./unimport.d.ts",
     "./vite-env.d.ts"
   ],

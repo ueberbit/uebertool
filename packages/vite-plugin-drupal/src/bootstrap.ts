@@ -22,7 +22,9 @@ export function generateTsConfig() {
       useDefineForClassFields: false,
       module: 'ESNext',
       lib: ['ESNext', 'DOM', 'DOM.Iterable'],
-      moduleResolution: 'Node',
+      // Vite resolves imports like a bundler. `node` (node10) is deprecated
+      // since TypeScript 6.
+      moduleResolution: 'Bundler',
       strict: true,
       sourceMap: true,
       resolveJsonModule: true,
@@ -35,43 +37,44 @@ export function generateTsConfig() {
       noImplicitReturns: true,
       skipLibCheck: true,
       experimentalDecorators: true,
-      baseUrl: '..',
+      // No baseUrl (deprecated since TypeScript 6): paths are relative to this
+      // file, which lives in .uebertool/.
       paths: {
         '~': [
-          '.',
+          '..',
         ],
         '~/*': [
-          './*',
+          '../*',
         ],
         '@': [
-          '.',
+          '..',
         ],
         '@/*': [
-          './*',
+          '../*',
         ],
         '~~': [
-          '.',
+          '..',
         ],
         '~~/*': [
-          './*',
+          '../*',
         ],
         '@@': [
-          '.',
+          '..',
         ],
         '@@/*': [
-          './*',
+          '../*',
         ],
         'assets': [
-          'assets',
+          '../assets',
         ],
         'assets/*': [
-          'assets/*',
+          '../assets/*',
         ],
         'public': [
-          'public',
+          '../public',
         ],
         'public/*': [
-          'public/*',
+          '../public/*',
         ],
       },
     },
@@ -79,6 +82,8 @@ export function generateTsConfig() {
       '../components/**/*',
       '../js/**/*',
       '../templates/**/*',
+      './components.d.ts',
+      './custom-elements.d.ts',
       './unimport.d.ts',
       './vite-env.d.ts',
     ],
@@ -98,10 +103,10 @@ export function generateTsConfig() {
     compilerOptions: {
       composite: true,
       module: 'ESNext',
-      moduleResolution: 'Node',
+      moduleResolution: 'Bundler',
       allowSyntheticDefaultImports: true,
     },
-    include: ['vite.config.ts'],
+    include: ['../vite.config.ts'],
   }, {
     spaces: 2,
   })
