@@ -13,8 +13,8 @@
     "build:storybook": "node ./.storybook/build.mjs"
   },
   "dependencies": {
-    "container-query-polyfill": "^0.2.4",
-    "css-has-pseudo": "^4.0.2"
+    "container-query-polyfill": "^1.0.2",
+    "css-has-pseudo": "^8.0.2"
   },
   "devDependencies": {
     "@ueberbit/drupal-storybook": "workspace:*",

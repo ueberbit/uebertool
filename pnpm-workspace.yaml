@@ -1,13 +1,57 @@
+minimumReleaseAgeExcludePrune: true
+trustPolicy: no-downgrade
+
+peerDependencyRules:
+  allowedVersions:
+    # unbuild 3.6.1 (latest) declares typescript ^5.9 but builds fine with 6.
+    unbuild>typescript: ^6.0.0
+
+shamefullyHoist: true
+shellEmulator: true
+engineStrict: true
+
 packages:
   - 'packages/*'
   - 'drupal/web/themes/custom/ueberbit/*'
-  - 'drupal/web/themes/custom/uebertool_docs'
+  - drupal/web/themes/custom/uebertool_docs
+
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
-overrides:
-  typescript: ^5.9.3
+
 catalog:
+  '@antfu/eslint-config': ^10.0.0
+  '@shikijs/langs': ^4.6.0
+  '@shikijs/themes': ^4.6.0
+  '@tailwindcss/vite': ^4.3.5
+  '@types/fs-extra': ^11.0.4
+  '@types/node': ^26.6.6
+  '@vitejs/plugin-vue': ^6.0.11
+  '@vue/runtime-core': ^3.5.46
+  '@vue/shared': ^3.5.46
+  '@vueuse/core': ^15.0.0
+  alpinejs: ^3.17.5
+  bumpp: ^12.3.0
   defu: ^6.1.7
-shamefullyHoist: true
-engineStrict: true
+  eslint: ^10.15.0
+  fs-extra: ^11.4.1
+  lit: ^3.3.3
+  magic-string: ^1.4.5
+  morphdom: ^2.7.8
+  rollup: ^4.68.8
+  shiki: ^4.6.0
+  stylelint: 18.1.0
+  stylelint-config-recess-order: ^7.10.1
+  stylelint-config-standard: 41.1.0
+  stylelint-order: ^8.1.3
+  tailwindcss: ^4.3.5
+  tinyglobby: ^0.2.17
+  typescript: ^6.0.3
+  unbuild: ^3.6.1
+  unimport: ^7.0.3
+  unplugin-vue-components: ^32.1.0
+  vite: ^8.3.8
+  vue: ^3.5.46
+  vue-tsc: ^3.3.14
+  web-component-analyzer: ^2.0.0
+  yaml: ^2.9.1

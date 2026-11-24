@@ -1,11 +1,11 @@
 {
   "name": "@ueberbit/postcss",
+  "version": "0.8.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ueberbit/uebertool.git",
     "directory": "packages/postcss"
   },
-  "version": "0.8.3",
   "exports": {
     "./stripcolor": {
       "types": "./dist/plugins/stripcolor.d.ts",

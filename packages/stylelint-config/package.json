@@ -1,14 +1,6 @@
 {
   "name": "@ueberbit/stylelint-config",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ueberbit/uebertool.git",
-    "directory": "packages/stylelint-config"
-  },
   "version": "0.8.3",
-  "bugs": {
-    "url": "https://github.com/ueberbit/uebertool/issues"
-  },
   "description": "UEBERBIT StyleLint config",
   "author": {
     "name": "UEBERBIT GmbH",
@@ -22,6 +14,14 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/ueberbit/uebertool/tree/main/packages/stylelint-config",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ueberbit/uebertool.git",
+    "directory": "packages/stylelint-config"
+  },
+  "bugs": {
+    "url": "https://github.com/ueberbit/uebertool/issues"
+  },
   "keywords": [
     "stylelint-config"
   ],
@@ -30,9 +30,9 @@
     "index.js"
   ],
   "dependencies": {
-    "stylelint": "16.6.1",
-    "stylelint-config-recess-order": "^5.1.1",
-    "stylelint-config-standard": "36.0.1",
-    "stylelint-order": "^6.0.4"
+    "stylelint": "catalog:",
+    "stylelint-config-recess-order": "catalog:",
+    "stylelint-config-standard": "catalog:",
+    "stylelint-order": "catalog:"
   }
 }

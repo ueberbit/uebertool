@@ -1,11 +1,11 @@
 {
   "name": "@ueberbit/vite-plugin-drupal",
+  "version": "0.8.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ueberbit/uebertool.git",
     "directory": "packages/vite-plugin-drupal"
   },
-  "version": "0.8.3",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -18,6 +18,9 @@
     "./ApiCustomElements": {
       "types": "./dist/ce/ApiCustomElements.d.ts",
       "import": "./dist/ce/ApiCustomElements.mjs"
+    },
+    "./types/*": {
+      "types": "./types/*.d.ts"
     }
   },
   "main": "dist/index.mjs",
@@ -51,28 +54,28 @@
     "tailwindcss": "^4.1.8"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.2.2",
+    "@tailwindcss/vite": "catalog:",
     "@ueberbit/tailwind": "workspace:*",
-    "@vitejs/plugin-vue": "^6.0.5",
-    "@vue/runtime-core": "^3.5.32",
-    "@vue/shared": "^3.5.32",
-    "@vueuse/core": "^14.2.1",
-    "typescript": "^6.0.2",
-    "unimport": "^6.0.2",
-    "unplugin-vue-components": "^32.0.0",
-    "vite": "^8.0.7",
-    "vue": "^3.5.32",
-    "vue-tsc": "^3.2.6"
+    "@vitejs/plugin-vue": "catalog:",
+    "@vue/runtime-core": "catalog:",
+    "@vue/shared": "catalog:",
+    "@vueuse/core": "catalog:",
+    "typescript": "catalog:",
+    "unimport": "catalog:",
+    "unplugin-vue-components": "catalog:",
+    "vite": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
-    "@types/node": "^24.12.2",
+    "@types/fs-extra": "catalog:",
+    "@types/node": "catalog:",
     "defu": "catalog:",
-    "fs-extra": "^11.3.4",
-    "magic-string": "^0.30.21",
-    "rollup": "^4.60.1",
-    "tinyglobby": "^0.2.16",
-    "web-component-analyzer": "^2.0.0",
-    "yaml": "^2.8.3"
+    "fs-extra": "catalog:",
+    "magic-string": "catalog:",
+    "rollup": "catalog:",
+    "tinyglobby": "catalog:",
+    "web-component-analyzer": "catalog:",
+    "yaml": "catalog:"
   }
 }

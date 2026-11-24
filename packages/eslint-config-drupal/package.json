@@ -1,10 +1,5 @@
 {
   "name": "@ueberbit/eslint-config-drupal",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ueberbit/uebertool.git",
-    "directory": "packages/eslint-config-drupal"
-  },
   "type": "module",
   "version": "0.8.3",
   "description": "UEBERBIT ESLint config for Drupal",
@@ -20,6 +15,11 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/ueberbit/uebertool/tree/main/packages/eslint-config-drupal",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ueberbit/uebertool.git",
+    "directory": "packages/eslint-config-drupal"
+  },
   "keywords": [
     "eslint-config",
     "drupal"

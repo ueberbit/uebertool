@@ -1,10 +1,5 @@
 {
   "name": "@ueberbit/eslint-config",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ueberbit/uebertool.git",
-    "directory": "packages/eslint-config"
-  },
   "type": "module",
   "version": "0.8.3",
   "description": "UEBERBIT ESLint config",
@@ -20,6 +15,11 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/ueberbit/uebertool/tree/main/packages/eslint-config",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ueberbit/uebertool.git",
+    "directory": "packages/eslint-config"
+  },
   "keywords": [
     "eslint-config"
   ],
@@ -28,9 +28,9 @@
     "index.js"
   ],
   "dependencies": {
-    "@antfu/eslint-config": "^8.1.0",
+    "@antfu/eslint-config": "catalog:",
     "@ueberbit/eslint-config-drupal": "workspace:*",
     "defu": "catalog:",
-    "eslint": "^10.2.0"
+    "eslint": "catalog:"
   }
 }

@@ -12,18 +12,18 @@
     "build": "uebertool && vite build"
   },
   "dependencies": {
-    "@shikijs/langs": "^4.6.0",
-    "@shikijs/themes": "^4.6.0",
-    "@vueuse/core": "^14.2.1",
-    "alpinejs": "^3.15.11",
-    "lit": "^3.3.2",
-    "morphdom": "^2.7.8",
-    "shiki": "^4.6.0",
-    "tailwindcss": "^4.2.2",
-    "vue": "^3.5.32"
+    "@shikijs/langs": "catalog:",
+    "@shikijs/themes": "catalog:",
+    "@vueuse/core": "catalog:",
+    "alpinejs": "catalog:",
+    "lit": "catalog:",
+    "morphdom": "catalog:",
+    "shiki": "catalog:",
+    "tailwindcss": "catalog:",
+    "vue": "catalog:"
   },
   "devDependencies": {
     "@ueberbit/vite-plugin-drupal": "workspace:*",
-    "vite": "^8.0.7"
+    "vite": "catalog:"
   }
 }
