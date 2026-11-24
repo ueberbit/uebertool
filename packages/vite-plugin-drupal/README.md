@@ -199,7 +199,9 @@ import type { DrupalLibrary, UserOptions } from '@ueberbit/vite-plugin-drupal'
 
 ### Agent skills
 The package ships skills for coding agents in `skills/`, e.g.
-`uebertool-custom-elements` for writing custom elements. Install them into
+`uebertool-custom-elements` for writing custom elements and
+`uebertool-drupal-libraries` for using Drupal core JS libraries instead of npm
+packages. Install them into
 your project's agent directories from `node_modules`:
 ```sh
 npx skills experimental_sync
