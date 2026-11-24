@@ -38,6 +38,7 @@ catalog:
   magic-string: ^1.4.5
   morphdom: ^2.7.8
   obuild: ^0.4.45
+  preact: ^11.2.0
   rollup: ^4.68.8
   shiki: ^4.6.0
   stylelint: 18.1.0

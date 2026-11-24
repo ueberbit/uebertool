@@ -30,8 +30,14 @@ Lit is a peer dependency. Install it in your theme to use it.
 
 ## TSX
 
+JSX in `.ce.tsx` files renders with Preact. The plugin sets the JSX import source for the build and in the generated `.uebertool/tsconfig.json`.
+
 ```tsx file=templates/demos/types/hello-tsx.idle.ce.tsx title="hello-tsx.idle.ce.tsx"
 ```
+
+:::note
+Preact is a peer dependency. Install it in your theme to use JSX.
+:::
 
 ## Use in Twig
 

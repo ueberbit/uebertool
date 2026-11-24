@@ -28,7 +28,7 @@
     },
     {
       "name": "demo-hello-tsx",
-      "description": "Custom elements can be written in .tsx as well.\n\nAttributes:\n\n  * `name` {string} - Who to greet.",
+      "description": "A custom element that renders JSX with Preact.\n\nAttributes:\n\n  * `name` {string} - Who to greet.",
       "attributes": [
         {
           "name": "name",

@@ -125,6 +125,22 @@ export class Greeting extends HTMLElement {
 }
 ```
 
+JSX in `*.ce.tsx` / `*.ce.jsx` renders with Preact (a peer dependency, install it in the theme). The plugin sets the JSX import source, don't configure it again:
+
+```tsx
+import { render } from 'preact'
+
+export class Greeting extends HTMLElement {
+  connectedCallback() {
+    render(<p>Hello, {this.getAttribute('name') ?? 'somebody'}!</p>, this)
+  }
+
+  disconnectedCallback() {
+    render(null, this)
+  }
+}
+```
+
 - **Exports:** export the class, and make it the first export (or the default export for `eager`).
 - **Put text into the DOM with `textContent`.** Attribute values come from content editors, so don't use `innerHTML` with them.
 - **`@element` is required** in the JSDoc of TS/JS elements, or they are missing from the editor data.

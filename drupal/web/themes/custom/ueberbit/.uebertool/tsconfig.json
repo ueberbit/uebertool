@@ -22,6 +22,8 @@
     "skipLibCheck": true,
     "allowUmdGlobalAccess": true,
     "experimentalDecorators": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "paths": {
       "~": [
         ".."

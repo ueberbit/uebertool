@@ -1,5 +1,7 @@
+import { render } from 'preact'
+
 /**
- * Custom elements can be written in .tsx as well.
+ * A custom element that renders JSX with Preact.
  *
  * @element demo-hello-tsx
  *
@@ -7,6 +9,21 @@
  */
 export class HelloTsx extends HTMLElement {
   connectedCallback() {
-    this.innerHTML = `<p>Hello, <strong>${this.getAttribute('name') ?? 'Somebody'}</strong>! (tsx)</p>`
+    const name = this.getAttribute('name') ?? 'Somebody'
+
+    render(
+      <p>
+        Hello,
+        {' '}
+        <strong>{name}</strong>
+        ! (tsx)
+      </p>,
+      this,
+    )
+  }
+
+  disconnectedCallback() {
+    // import { render } from 'preact'
+    render(null, this)
   }
 }

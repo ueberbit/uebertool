@@ -40,6 +40,9 @@ export function generateTsConfig() {
       // Drupal core libraries such as js-cookie are UMD globals (`Cookies`).
       allowUmdGlobalAccess: true,
       experimentalDecorators: true,
+      // JSX in .ce.tsx files renders with Preact (see plugins/config.ts).
+      jsx: 'react-jsx',
+      jsxImportSource: 'preact',
       // No baseUrl (deprecated since TypeScript 6): paths are relative to this
       // file, which lives in .uebertool/.
       paths: {

@@ -54,6 +54,10 @@ export default (ctx: Context): Plugin => {
             '@public/': `${resolve(ctx.root, 'public')}/`,
           },
         },
+        // JSX in .ce.tsx/.ce.jsx files renders with Preact.
+        oxc: {
+          jsx: { importSource: 'preact' },
+        },
         define: {
           __DEV__: ctx.dev ? 'true' : 'false',
           __VUE_OPTIONS_API__: false,

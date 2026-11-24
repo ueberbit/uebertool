@@ -18,6 +18,7 @@
     "alpinejs": "catalog:",
     "lit": "catalog:",
     "morphdom": "catalog:",
+    "preact": "catalog:",
     "shiki": "catalog:",
     "tailwindcss": "catalog:",
     "vue": "catalog:"
