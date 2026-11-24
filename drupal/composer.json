@@ -33,7 +33,8 @@
         "league/commonmark": "^2.7"
     },
     "require-dev": {
-        "cweagans/composer-patches": "^2.0"
+        "cweagans/composer-patches": "^2.0",
+        "drupal/core-dev": "~11.4.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -47,7 +48,8 @@
             "drupal/core-project-message": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "cweagans/composer-patches": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "phpstan/extension-installer": true
         },
         "sort-packages": true
     },
