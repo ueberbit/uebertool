@@ -34,8 +34,12 @@ export default (ctx: Context): Plugin => {
       })
 
       return mergeConfig(config, {
-        base: ctx.dev ? './' : ctx.themeBasePath + (config.build?.outDir || '/dist'),
-        publicDir: ctx.dev ? '/public' : `${ctx.themeBasePath}/public`,
+        base: ctx.dev
+          ? './'
+          : ctx.themeBasePath + (config.build?.outDir || '/dist'),
+        publicDir: ctx.dev
+          ? '/public'
+          : `${ctx.themeBasePath}/public`,
         resolve: {
           alias: {
             '~/': `${resolve(ctx.root)}/`,
@@ -83,7 +87,9 @@ export default (ctx: Context): Plugin => {
                 if (fullPath)
                   dir = dirname(fullPath)
 
-                dir = dir.startsWith('.') ? '' : `${dir}/`
+                dir = dir.startsWith('.')
+                  ? ''
+                  : `${dir}/`
 
                 assetMap.set(base, `${dir}[name].[hash].[ext]`)
                 return '[name].[hash].[ext]'
@@ -105,7 +111,7 @@ export default (ctx: Context): Plugin => {
           host: true,
           strictPort: true,
           ...(process.env.DDEV_PRIMARY_URL?.startsWith('https://') && {
-            hmr: {
+            ws: {
               protocol: 'wss',
             },
           }),
