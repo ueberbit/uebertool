@@ -21,6 +21,7 @@
   },
   "scripts": {
     "lint": "eslint . --cache",
+    "test:companion": "sh packages/uebertool-companion/tests/run-tests.sh",
     "release": "bumpp package.json packages/*/package.json packages/*/composer.json --commit --push --tag",
     "taze": "pnpm dlx taze -r",
     "taze-write": "pnpm dlx taze -r -w",

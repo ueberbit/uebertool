@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\uebertool_asset_renderer\Asset;
 
 use Drupal\Core\Asset\AssetCollectionRendererInterface;
 
 /**
- * Optimizes a CSS asset.
+ * Renders CSS assets without the cache busting query string if asked to.
+ *
+ * Libraries opt in with "noquery: true" on an asset, e.g. for files whose
+ * names already contain a content hash.
  */
 class CssCollectionRendererDecorator implements AssetCollectionRendererInterface {
 
@@ -14,17 +19,15 @@ class CssCollectionRendererDecorator implements AssetCollectionRendererInterface
   /**
    * {@inheritdoc}
    */
-  public function render(array $css_assets) {
+  public function render(array $css_assets): array {
     foreach ($css_assets as &$css_asset) {
-      if (isset($css_asset['noquery'])) {
-        // Setting preprocessed to TRUE will prevent Drupal from prepending the querystring.
+      if (!empty($css_asset['noquery'])) {
+        // Drupal doesn't append the query string to preprocessed assets.
         $css_asset['preprocessed'] = TRUE;
       }
     }
 
-    $elements = $this->prototype->render($css_assets);
-
-    return $elements;
+    return $this->prototype->render($css_assets);
   }
 
 }

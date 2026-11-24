@@ -1,0 +1,6 @@
+card:
+  dependencies:
+    - core/drupal
+sdc--card:
+  dependencies:
+    - core/drupal

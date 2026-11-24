@@ -1,0 +1,6 @@
+# Deprecations from core and its dependencies that the companion tests can't
+# fix. tests/run-tests.sh adds them to core's .deprecation-ignore.txt.
+# Remove a line once core has fixed it.
+
+# Twig 3.2x: core's FilesystemLoader::addPath() lacks the new $check argument.
+%The "Drupal\\Core\\Template\\Loader\\FilesystemLoader::addPath\(\)" method will require a new "bool \$check" argument in the next major version of its parent class "Twig\\Loader\\FilesystemLoader", not defining it is deprecated\.%

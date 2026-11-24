@@ -1,6 +1,6 @@
 services:
   uebertool_twig.twig.extension:
     class: Drupal\uebertool_twig\Twig\Extension\TwigExtrasExtension
-    arguments: ['@renderer', '@uuid', '@theme.manager']
+    arguments: ['@renderer', '@uuid', '@language_manager']
     tags:
       - { name: twig.extension }

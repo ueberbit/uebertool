@@ -3,3 +3,5 @@ type: module
 description: Add Photoswipe as 3rd Party Settings to image formatters
 package: UEbertool
 core_version_requirement: ^11
+dependencies:
+  - drupal:image

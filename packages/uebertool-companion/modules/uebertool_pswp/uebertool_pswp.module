@@ -7,6 +7,7 @@
 
 use Drupal\Core\Field\FormatterInterface;
 use Drupal\Core\Template\Attribute;
+use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
 
 /**
@@ -55,67 +56,78 @@ function uebertool_pswp_field_formatter_third_party_settings_form(FormatterInter
 
 /**
  * Implements hook_preprocess_field().
+ *
+ * Adds the link target and the dimensions Photoswipe needs to every item.
+ * The Photoswipe library itself has to be attached by the theme.
  */
 function uebertool_pswp_preprocess_field(array &$vars): void {
   $config = $vars['element']['#third_party_settings']['uebertool_pswp'] ?? [];
 
-  if (!$config || !$config['pswp']) {
+  if (empty($config['pswp'])) {
     return;
   }
 
-  /** @var \Drupal\image\Entity\ImageStyle $imageStyle */
-  $imageStyle = ImageStyle::load($config['pswp_style']);
+  $imageStyle = empty($config['pswp_style']) ? NULL : ImageStyle::load($config['pswp_style']);
 
   foreach ($vars['items'] as &$item) {
-    /** @var \Drupal\file\Entity\File $file */
-    $file = $item['content']['#item']->entity ?? $item['content']['#entity'] ?? NULL;
+    $imageItem = $item['content']['#item'] ?? NULL;
+    $file = $imageItem?->entity ?? $item['content']['#entity'] ?? NULL;
 
-    if (!$file) {
+    if (!$file instanceof FileInterface) {
       continue;
     }
 
     $uri = $file->getFileUri();
 
-    // If there is an imagestyle get image dimensions from it.
+    // Image fields store the dimensions of the original image. Only read the
+    // file when they are missing.
+    $dimensions = [
+      'width' => $imageItem?->width ?? NULL,
+      'height' => $imageItem?->height ?? NULL,
+    ];
+    if (!$dimensions['width'] || !$dimensions['height']) {
+      $image = \Drupal::service('image.factory')->get($uri);
+      $dimensions = [
+        'width' => $image->getWidth(),
+        'height' => $image->getHeight(),
+      ];
+    }
+
+    $url = NULL;
     if ($imageStyle) {
-      $url = $imageStyle->buildUrl($uri);
-      foreach ($imageStyle->getEffects()->getInstanceIds() as $effect_id) {
-        $configuration = $imageStyle->getEffect($effect_id)->getConfiguration();
-        $width ??= $configuration['data']['width'];
-        $height ??= $configuration['data']['height'];
-        if ($width && $height) {
-          break;
-        }
+      $styled = $dimensions;
+      $imageStyle->transformDimensions($styled, $uri);
+      // Fall back to the original image if the style's output size is
+      // unknown, because Photoswipe needs the dimensions.
+      if (!empty($styled['width']) && !empty($styled['height'])) {
+        $url = $imageStyle->buildUrl($uri);
+        $dimensions = $styled;
       }
     }
-
-    /* If there is no imagestyle or imagestyle didn't have dimensions get image
-     * dimensions from original image. */
-    if (!$imageStyle || !$width || !$height) {
-      $url = \Drupal::service('file_url_generator')->generateAbsoluteString($uri);
-      $image = \Drupal::service('image.factory')->get($uri);
-      $width ??= $image->getWidth();
-      $height ??= $image->getHeight();
-    }
+    $url ??= \Drupal::service('file_url_generator')->generateAbsoluteString($uri);
 
     $item['attributes'] = new Attribute([
-      'data-pswp-width' => $width,
-      'data-pswp-height' => $height,
+      'data-pswp-width' => $dimensions['width'],
+      'data-pswp-height' => $dimensions['height'],
       'href' => $url,
       'target' => '_blank',
     ]);
   }
-
-  $vars['#attached']['library'] = [
-    'baag_dist/js/photoswipe',
-    'baag_dist/css/photoswipe',
-  ];
 }
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * Adds the Photoswipe suggestions on top of the existing ones, so themes can
+ * still override them per field (field--pswp--FIELD-NAME.html.twig).
  */
 function uebertool_pswp_theme_suggestions_field_alter(array &$suggestions, array $variables): void {
-  $enabled = $variables['element']['#third_party_settings']['uebertool_pswp']['pswp'] ?? FALSE;
-  $enabled && $suggestions = ['field__pswp'];
+  if (empty($variables['element']['#third_party_settings']['uebertool_pswp']['pswp'])) {
+    return;
+  }
+
+  $suggestions[] = 'field__pswp';
+  if (isset($variables['element']['#field_name'])) {
+    $suggestions[] = 'field__pswp__' . $variables['element']['#field_name'];
+  }
 }

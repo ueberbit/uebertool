@@ -1,57 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\uebertool_twig_loader\Template\Loader;
 
-use Twig\Source;
+use Drupal\Core\Asset\LibraryDiscoveryInterface;
+use Drupal\Core\Routing\AdminContext;
+use Drupal\Core\Theme\ThemeManagerInterface;
 use Twig\Error\LoaderError;
 use Twig\Loader\FilesystemLoader;
-use Drupal\Core\Theme\ThemeManagerInterface;
-use Drupal\Core\Asset\LibraryDiscoveryInterface;
+use Twig\Source;
 
 /**
- * Filesystem loader that will automagically attach libraries
+ * Filesystem loader that automatically attaches a template's library.
+ *
+ * A template "foo.html.twig" of the active theme gets the library "foo" of
+ * the theme's "<theme>_dist" base theme (or of another base theme) attached.
  */
 class UEberToolFilesystemLoader extends FilesystemLoader {
 
   /**
-   * Provides a high level access to the active theme and methods to use it.
-   *
-   * @var \Drupal\Core\Theme\ThemeManagerInterface
-   */
-  protected $themeManager;
-
-  /**
-   * The library discovery service.
-   *
-   * @var \Drupal\Core\Asset\LibraryDiscoveryInterface
-   */
-  protected $libraryDiscovery;
-
-  /**
    * The name of the theme whose template paths are currently registered.
-   *
-   * @var string|null
    */
-  protected $registeredThemeName = NULL;
+  protected ?string $registeredThemeName = NULL;
 
-  /**
-   * Constructs a new ComponentsLoader object.
-   */
   public function __construct(
-    ThemeManagerInterface $themeManager,
-    LibraryDiscoveryInterface $library_discovery,
+    protected ThemeManagerInterface $themeManager,
+    protected LibraryDiscoveryInterface $libraryDiscovery,
+    protected AdminContext $adminContext,
+    protected string $root,
   ) {
-    parent::__construct([], null);
-    $this->themeManager = $themeManager;
-    $this->libraryDiscovery = $library_discovery;
-    $this->addPath('.', '__main__');
+    parent::__construct([], $root);
+    $this->addPath('.', self::MAIN_NAMESPACE);
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function findTemplate(string $name, bool $throw = TRUE) {
-    if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+  protected function findTemplate(string $name, bool $throw = TRUE): ?string {
+    if ($this->adminContext->isAdminRoute()) {
       if (!$throw) {
         return NULL;
       }
@@ -82,49 +69,62 @@ class UEberToolFilesystemLoader extends FilesystemLoader {
       $themes[$baseTheme->getName()] = $baseTheme->getPath();
     }
     foreach ($themes as $themeName => $themePath) {
-      file_exists($themePath . '/templates') && $this->addPath($themePath . '/templates', $themeName);
+      if (is_dir($this->root . '/' . $themePath . '/templates')) {
+        $this->addPath($themePath . '/templates', $themeName);
+      }
     }
 
     $this->registeredThemeName = $activeTheme->getName();
   }
 
+  /**
+   * {@inheritdoc}
+   *
+   * The source depends on the active theme (it decides which library is
+   * attached), and core's filesystem loader returns the same key for the
+   * same file. Without a key of our own, both loaders and all themes would
+   * share one compiled template.
+   */
+  public function getCacheKey(string $name): string {
+    return 'uebertool:' . $this->themeManager->getActiveTheme()->getName() . ':' . parent::getCacheKey($name);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getSourceContext(string $name): Source {
-    if (null === ($path = $this->findTemplate($name)) || false === $path) {
+    $path = $this->findTemplate($name);
+    if ($path === NULL) {
       return new Source('', $name, '');
     }
 
+    return new Source($this->libraryPrefix($name) . file_get_contents($path), $name, $path);
+  }
+
+  /**
+   * Builds the attach_library() call for a template, if it has a library.
+   */
+  protected function libraryPrefix(string $name): string {
     $activeTheme = $this->themeManager->getActiveTheme();
+    $baseThemes = $activeTheme->getBaseThemeExtensions();
     $distThemeName = "{$activeTheme->getName()}_dist";
 
-    $prefix = '';
-
-    if (array_key_exists($distThemeName, $activeTheme->getBaseThemeExtensions())) {
-      if (str_starts_with($name, '@')) {
-        $libraryName = preg_replace('/@((\w|-)+\/)+|((\.html)?\.twig)/', '', $name);
-      }
-      else {
-        $libraryName = preg_replace('/((\w|-)+\/)|((\.html)?\.twig)$/', '', $name);
-      }
-
-      $extension = FALSE;
-      $libraryExists = $this->libraryDiscovery->getLibraryByName($distThemeName, $libraryName);
-      if ($libraryExists) {
-        $extension = $distThemeName;
-      }
-      else {
-        foreach ($activeTheme->getBaseThemeExtensions() as $baseTheme) {
-          if ($this->libraryDiscovery->getLibraryByName($baseTheme->getName(), $libraryName)) {
-            $extension = $baseTheme->getName();
-            break;
-          }
-        }
-      }
-
-      $prefix = $extension
-        ? "{{ attach_library('{$extension}/{$libraryName}') }}"
-        : '';
+    if (!array_key_exists($distThemeName, $baseThemes)) {
+      return '';
     }
 
-    return new Source($prefix . file_get_contents($path), $name, $path);
+    $libraryName = str_starts_with($name, '@')
+      ? preg_replace('/@((\w|-)+\/)+|((\.html)?\.twig)/', '', $name)
+      : preg_replace('/((\w|-)+\/)|((\.html)?\.twig)$/', '', $name);
+
+    $extensions = [$distThemeName, ...array_keys($baseThemes)];
+    foreach (array_unique($extensions) as $extension) {
+      if ($this->libraryDiscovery->getLibraryByName($extension, $libraryName)) {
+        return "{{ attach_library('{$extension}/{$libraryName}') }}";
+      }
+    }
+
+    return '';
   }
+
 }

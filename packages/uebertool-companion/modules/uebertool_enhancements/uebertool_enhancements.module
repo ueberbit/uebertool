@@ -5,6 +5,8 @@
  * Provides Enhancements welcomed in every Project.
  */
 
+use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Template\Attribute;
 
 /**
@@ -25,44 +27,63 @@ function uebertool_enhancements_theme(): array {
  */
 function uebertool_enhancements_preprocess_field__svg_image_field(array &$vars): void {
   foreach ($vars['items'] as &$item) {
-    if (isset($item['#inline'])) {
-      return;
+    if (!empty($item['#inline']) || !empty($item['content']['#inline']) || empty($item['content']['#uri'])) {
+      continue;
     }
 
-    $uri = $item['content']['#uri'];
-    $file_system = \Drupal::service('file_system');
-    $file_path = $file_system->realpath($uri);
-
-    $xml = new \DOMDocument();
-    if (@$xml->load($file_path) === FALSE || $xml->getElementsByTagName('svg')->length === 0) {
-      return;
-    }
-
-    $svg = $xml->getElementsByTagName('svg') ? $xml->getElementsByTagName('svg')[0] : NULL;
-
-    if (isset($svg)) {
-      $viewBox = explode(' ', $svg->getAttribute('viewBox'));
-      $width = $svg->getAttribute('width') ?: $viewBox[2];
-      $height = $svg->getAttribute('height') ?: $viewBox[3];
-
-      $item['content']['#attributes'] += [
-        'width' => $width,
-        'height' => $height,
-      ];
+    $dimensions = _uebertool_enhancements_svg_dimensions($item['content']['#uri']);
+    if ($dimensions) {
+      $item['content']['#attributes'] = ($item['content']['#attributes'] ?? []) + $dimensions;
     }
   }
 }
 
 /**
+ * Reads the dimensions of an SVG file.
+ *
+ * @param string $uri
+ *   The file URI or path.
+ *
+ * @return array{width: string, height: string}|null
+ *   The width and height, or NULL if they can't be determined.
+ */
+function _uebertool_enhancements_svg_dimensions(string $uri): ?array {
+  // Remote stream wrappers (e.g. S3) have no local path.
+  $path = \Drupal::service('file_system')->realpath($uri);
+  if (!$path || !is_file($path)) {
+    return NULL;
+  }
+
+  $xml = new \DOMDocument();
+  if (@$xml->load($path, LIBXML_NONET) === FALSE) {
+    return NULL;
+  }
+
+  $svg = $xml->getElementsByTagName('svg')->item(0);
+  if (!$svg) {
+    return NULL;
+  }
+
+  $viewBox = preg_split('/[\s,]+/', trim($svg->getAttribute('viewBox')), -1, PREG_SPLIT_NO_EMPTY);
+  $width = $svg->getAttribute('width') ?: ($viewBox[2] ?? '');
+  $height = $svg->getAttribute('height') ?: ($viewBox[3] ?? '');
+
+  if ($width === '' || $height === '') {
+    return NULL;
+  }
+
+  return ['width' => $width, 'height' => $height];
+}
+
+/**
  * Implements hook_preprocess_HOOK() for oembed media field.
- * 
+ *
  * Set 16/9 Aspect for remote Videos.
  */
 function uebertool_enhancements_preprocess_field__media__field_media_oembed_video__remote_video(array &$variables): void {
   foreach ($variables['items'] as &$item) {
-    $attr = $item['content']['#attributes'];
-    $width = $attr['width'];
-    $height = $attr['height'];
+    $width = $item['content']['#attributes']['width'] ?? NULL;
+    $height = $item['content']['#attributes']['height'] ?? NULL;
 
     if ($width && $height) {
       $item['content']['#attributes']['style'] = [
@@ -74,38 +95,47 @@ function uebertool_enhancements_preprocess_field__media__field_media_oembed_vide
 
 /**
  * Implements hook_preprocess_HOOK() for oembed.
- * 
+ *
  * Lazy load YouTube videos.
  */
 function uebertool_enhancements_preprocess_media_oembed_iframe(array &$variables): void {
-  $resource = $variables['resource'];
+  $resource = $variables['resource'] ?? NULL;
 
-  if ($resource->getProvider()->getName() === 'YouTube') {
+  if ($resource?->getProvider()?->getName() === 'YouTube') {
     $variables['media'] = str_replace('<iframe', '<iframe loading="lazy" ', (string) $variables['media']);
   }
 }
 
 /**
  * Implements hook_preprocess_HOOK() for block.html.twig.
- * 
- * Add menu attributes to menu blocks. This exposes the menu name, language and last changed time
- * as attributes. This is useful for decoupled menus.
+ *
+ * Add menu attributes to menu blocks. This exposes the menu name, language and
+ * the time the block's render cache entry was built ("cache-tag") as
+ * attributes. This is useful for decoupled menus. "cache-tag" changes when the
+ * menu changes, but also on every other rebuild (cache clear, another active
+ * trail), so treat it as a cache buster, not as the menu's change date.
+ *
+ * Inlines a local SVG logo in the branding block.
  */
 function uebertool_enhancements_preprocess_block(array &$variables): void {
+  if (($variables['plugin_id'] ?? NULL) === 'system_branding_block' && !empty($variables['site_logo'])) {
+    $variables['site_logo_svg'] = _uebertool_enhancements_inline_svg((string) $variables['site_logo']);
+  }
+
   if (isset($variables['content']) && isset($variables['content']['#theme']) && $variables['content']['#theme'] === 'menu') {
     $menuAttributes = new Attribute([
       'menu' => $variables['content']['#menu_name'],
       'lang' => \Drupal::languageManager()->getCurrentLanguage()->getId(),
       'cache-tag' => time(),
     ]);
-  
+
     $variables['menu_attributes'] = $menuAttributes;
   }
 }
 
 /**
  * Implements hook_preprocess_HOOK() for views.
- * 
+ *
  * Expose view mode of children to parent view.
  */
 function uebertool_enhancements_preprocess_views_view(array &$variables): void {
@@ -120,9 +150,79 @@ function uebertool_enhancements_preprocess_views_view(array &$variables): void {
 
 /**
  * Implements hook_preprocess_HOOK() for node.
- * 
+ *
  * Expose bundle label to node template. The label is often used on Teasers.
  */
 function uebertool_enhancements_preprocess_node(array &$variables): void {
   $variables['bundle_label'] = $variables['node']->type->entity->label();
+}
+
+/**
+ * Loads a local SVG by its URL and strips scripts and event handlers.
+ *
+ * The SVG is output as markup, so it must never be compiled as a Twig
+ * template.
+ *
+ * @param string $url
+ *   A root-relative URL of a file below the Drupal root, e.g. the site logo.
+ *
+ * @return \Drupal\Component\Render\MarkupInterface|null
+ *   The SVG markup, or NULL if the URL is not a readable local SVG.
+ */
+function _uebertool_enhancements_inline_svg(string $url): ?MarkupInterface {
+  // Remote logos (with a host) would otherwise resolve to a local file.
+  if (parse_url($url, PHP_URL_HOST) !== NULL) {
+    return NULL;
+  }
+
+  $path = (string) parse_url($url, PHP_URL_PATH);
+  if (!str_ends_with(strtolower($path), '.svg')) {
+    return NULL;
+  }
+
+  $basePath = base_path();
+  if (str_starts_with($path, $basePath)) {
+    $path = substr($path, strlen($basePath));
+  }
+
+  // Themes may be symlinked, so check for traversal instead of comparing the
+  // real path with the Drupal root.
+  $path = rawurldecode(ltrim($path, '/'));
+  if (str_contains('/' . $path . '/', '/../') || str_contains($path, "\0")) {
+    return NULL;
+  }
+
+  $file = \Drupal::root() . '/' . $path;
+  if (!is_file($file)) {
+    return NULL;
+  }
+
+  $dom = new \DOMDocument();
+  if (@$dom->load($file, LIBXML_NONET) === FALSE) {
+    return NULL;
+  }
+
+  $svg = $dom->documentElement;
+  if (!$svg || $svg->localName !== 'svg') {
+    return NULL;
+  }
+
+  $xpath = new \DOMXPath($dom);
+  // Animations can set attributes, e.g. an event handler or a href.
+  $unsafe = '//*[local-name()="script" or local-name()="foreignObject"]'
+    . ' | //*[@attributeName[starts-with(translate(., "ON", "on"), "on") or contains(., "href")]]';
+  foreach (iterator_to_array($xpath->query($unsafe)) as $node) {
+    $node->parentNode->removeChild($node);
+  }
+  foreach (iterator_to_array($xpath->query('//@*')) as $attribute) {
+    $name = strtolower($attribute->nodeName);
+    $value = strtolower(preg_replace('/\s+/', '', $attribute->nodeValue));
+    // Also covers <animate>/<set> values that would turn into a javascript:
+    // href.
+    if (str_starts_with($name, 'on') || str_contains($value, 'javascript:')) {
+      $attribute->ownerElement->removeAttributeNode($attribute);
+    }
+  }
+
+  return Markup::create($dom->saveXML($svg));
 }

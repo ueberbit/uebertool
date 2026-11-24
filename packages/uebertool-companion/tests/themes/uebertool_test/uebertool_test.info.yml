@@ -1,0 +1,7 @@
+name: UEbertool test
+type: theme
+description: Theme fixture for UEbertool companion tests.
+package: Testing
+base theme: uebertool_test_dist
+core_version_requirement: '*'
+hidden: true

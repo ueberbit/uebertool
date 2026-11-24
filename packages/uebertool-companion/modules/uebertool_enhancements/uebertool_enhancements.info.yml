@@ -1,5 +1,5 @@
 name: UEbertool Enhancements
 type: module
-description: Add Photoswipe as 3rd Party Settings to image formatters
+description: Small enhancements for common theming problems (inline SVG logo, SVG dimensions, oEmbed aspect ratio, menu and view attributes).
 package: UEbertool
 core_version_requirement: ^11

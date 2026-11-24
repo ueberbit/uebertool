@@ -4,6 +4,8 @@ services:
     arguments:
       - '@theme.manager'
       - '@library.discovery'
+      - '@router.admin_context'
+      - '%app.root%'
     tags:
       - { name: twig.loader, priority: 300 }
 

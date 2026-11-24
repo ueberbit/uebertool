@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\uebertool_twig_loader\Template\Loader;
 
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\Theme\ComponentPluginManager;
-use Drupal\Core\Render\Component\Exception\ComponentNotFoundException;
-use Drupal\Core\Template\Loader\ComponentLoader;
 use Drupal\Core\Theme\ExtensionType;
 use Twig\Source;
 use Twig\Loader\LoaderInterface;
@@ -17,7 +17,7 @@ use Twig\Loader\LoaderInterface;
 class UEberToolComponentLoader implements LoaderInterface {
 
   public function __construct(
-    protected ComponentLoader $prototype,
+    protected LoaderInterface $prototype,
     protected ComponentPluginManager $pluginManager,
     protected LibraryDiscoveryInterface $libraryDiscovery,
     protected ThemeHandlerInterface $themeHandler,
@@ -72,4 +72,5 @@ class UEberToolComponentLoader implements LoaderInterface {
   public function exists($name): bool {
     return $this->prototype->exists($name);
   }
+
 }
