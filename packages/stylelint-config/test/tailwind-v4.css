@@ -1,0 +1,98 @@
+@import "tailwindcss" source("../src");
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(tw);
+@reference "../app.css";
+@config "./tailwind.config.js";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography" {
+  className: prose;
+}
+
+@source "../node_modules/@my-company/ui-lib";
+@source not "../legacy";
+@source inline("underline");
+@custom-variant theme-midnight (&:where([data-theme="midnight"] *));
+
+@custom-variant any-hover {
+  @media (any-hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
+@theme {
+  --*: initial;
+  --color-*: initial;
+  --font-display: "Satoshi", sans-serif;
+  --breakpoint-3xl: 120rem;
+  --color-brand-500: oklch(84% 0.18 117.33deg);
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
+
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+
+    50% {
+      transform: rotate(3deg);
+    }
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+}
+
+@utility content-auto {
+  content-visibility: auto;
+}
+
+@utility tab-* {
+  tab-size: --value(--tab-size-*, integer, [integer]);
+  opacity: --modifier(integer);
+}
+
+@utility scrollbar-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  h1 {
+    font-size: var(--text-2xl);
+  }
+}
+
+@utility card {
+  padding: --spacing(4);
+  color: --alpha(var(--color-lime-300) / 50%);
+  background: --theme(--color-red-500 / 50%);
+  border-color: theme(--color-blue-500);
+
+  @apply rounded-lg bg-white p-4 hover:bg-red-500/50 md:flex [&>svg]:size-4;
+
+  @variant dark {
+    background: black;
+  }
+
+  @variant hover {
+    &:focus {
+      color: red;
+    }
+  }
+
+  @media (width >= theme(--breakpoint-md)) {
+    display: grid;
+  }
+
+  @media (width >= --theme(--breakpoint-lg)) {
+    display: flex;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}

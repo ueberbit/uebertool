@@ -6,7 +6,10 @@ module.exports = {
     'stylelint-config-standard',
     'stylelint-config-recess-order',
   ],
-  plugins: ['stylelint-order'],
+  plugins: [
+    'stylelint-order',
+    join(__dirname, 'plugins/tailwind.mjs'),
+  ],
   // Stylelint resolves relative ignoreFiles globs against the directory of the
   // config that declares them, i.e. node_modules/@ueberbit/stylelint-config.
   // Anchor them at the project (cwd) instead, so they match project files.
@@ -59,7 +62,55 @@ module.exports = {
           'reference',
           'plugin',
           'config',
+          'slot',
         ],
+      },
+    ],
+    // Tailwind v4 entry files stack these at the top without blank lines.
+    'at-rule-empty-line-before': [
+      'always',
+      {
+        except: ['blockless-after-same-name-blockless', 'first-nested'],
+        ignore: ['after-comment'],
+        ignoreAtRules: [
+          'import',
+          'reference',
+          'config',
+          'plugin',
+          'source',
+          'custom-variant',
+        ],
+      },
+    ],
+    // Allow Tailwind v4 theme namespace resets: `--*: initial`, `--color-*: initial`.
+    'custom-property-pattern': '^(\\*|([a-z][a-z0-9]*)(-[a-z0-9]+)*(-\\*)?)$',
+    // Tailwind's build-time functions are not CSS the validator knows about.
+    'declaration-property-value-no-unknown': [
+      true,
+      {
+        ignoreProperties: {
+          '/.*/': [/(?:^|[^\w-])(?:--)?(?:theme|spacing|alpha)\(/],
+        },
+      },
+    ],
+    'media-query-no-invalid': [
+      true,
+      {
+        ignoreFunctions: ['theme', '--theme'],
+      },
+    ],
+    // `&` inside these is scoped by Tailwind when the at-rule is expanded.
+    'nesting-selector-no-missing-scoping-root': [
+      true,
+      {
+        ignoreAtRules: ['custom-variant', 'utility', 'variant'],
+      },
+    ],
+    // `@utility` bodies may nest `@media` with bare declarations.
+    'no-invalid-position-declaration': [
+      true,
+      {
+        ignoreAtRules: ['utility'],
       },
     ],
     // Tailwind's @apply takes utility classes, not the CSS prelude it validates.
@@ -76,6 +127,16 @@ module.exports = {
       },
     ],
     'no-descending-specificity': null,
+    // Only applied to Tailwind files (`@import "tailwindcss"` or `@reference`).
+    'ueberbit/tailwind-no-raw-breakpoint': true,
+    'ueberbit/tailwind-no-v3-at-rule': true,
+    'ueberbit/tailwind-no-v3-theme-path': true,
+    'ueberbit/tailwind-no-layer-utility': true,
+    'ueberbit/tailwind-no-important': [
+      true,
+      { severity: 'warning' },
+    ],
+    'ueberbit/tailwind-apply-order': true,
     'selector-class-pattern': '^([a-z][a-z0-9]*)(-[a-z0-9]+)*((__([a-z][a-z0-9]*)(-[a-z0-9]+)*)?(--([a-z][a-z0-9]*)(-[a-z0-9]+)*)?)$',
   },
 }

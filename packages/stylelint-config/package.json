@@ -27,12 +27,20 @@
   ],
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "plugins"
   ],
+  "scripts": {
+    "test": "node --test"
+  },
   "dependencies": {
+    "@tailwindcss/node": "catalog:",
     "stylelint": "catalog:",
     "stylelint-config-recess-order": "catalog:",
     "stylelint-config-standard": "catalog:",
     "stylelint-order": "catalog:"
+  },
+  "devDependencies": {
+    "tailwindcss": "catalog:"
   }
 }

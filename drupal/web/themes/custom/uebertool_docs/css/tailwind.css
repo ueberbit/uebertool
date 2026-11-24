@@ -2,6 +2,12 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+/* Starlight's layout breakpoints: sidebar visible, table of contents visible. */
+@theme {
+  --breakpoint-sidebar: 50rem;
+  --breakpoint-toc: 72rem;
+}
+
 /*
  * Design tokens modelled after Starlight's defaults.
  */
@@ -122,7 +128,7 @@
     background: var(--sl-color-bg-nav);
     border-bottom: 1px solid var(--sl-color-hairline-shade);
 
-    @media (width >= 50rem) {
+    @variant sidebar {
       padding-inline: 1.5rem;
     }
   }
@@ -182,7 +188,7 @@
     border-radius: 9999px;
     box-shadow: 0 1px 2px rgb(0 0 0 / 25%);
 
-    @media (width >= 50rem) {
+    @variant sidebar {
       display: none;
     }
   }
@@ -251,7 +257,7 @@
       }
     }
 
-    @media (width >= 50rem) {
+    @variant sidebar {
       inset-inline-end: auto;
       display: block;
       width: var(--sl-sidebar-width);
@@ -274,13 +280,13 @@
   .sl-main-frame {
     padding-top: var(--sl-nav-height);
 
-    @media (width >= 50rem) {
+    @variant sidebar {
       padding-inline-start: var(--sl-sidebar-width);
     }
   }
 
   .sl-main-wrapper {
-    @media (width >= 72rem) {
+    @variant toc {
       display: grid;
       grid-template-columns: minmax(0, 1fr) var(--sl-toc-width);
     }
@@ -300,7 +306,7 @@
       border-top: 1px solid var(--sl-color-hairline);
     }
 
-    @media (width >= 50rem) {
+    @variant sidebar {
       padding-inline: 1.5rem;
     }
   }
@@ -356,7 +362,7 @@
       }
     }
 
-    @media (width >= 72rem) {
+    @variant toc {
       position: sticky;
       top: var(--sl-nav-height);
       display: block;
