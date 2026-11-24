@@ -8,7 +8,9 @@ type colorModel = 'rgb' | 'hsl'
  */
 export function color(value: string, model: colorModel) {
   return ({ opacityValue }: { opacityValue: any }) => {
-    return opacityValue !== undefined ? `${model}(var(${value}) / ${opacityValue})` : `${model}(var(${value}))`
+    return opacityValue !== undefined
+      ? `${model}(var(${value}) / ${opacityValue})`
+      : `${model}(var(${value}))`
   }
 }
 
@@ -23,9 +25,12 @@ export function semanticColors(names: string[], steps: string[], model: colorMod
     return {
       ...a,
       [c]: steps.reduce((aa, cc) => {
+        const suffix = cc === 'DEFAULT'
+          ? ''
+          : `-${cc}`
         return {
           ...aa,
-          [cc]: color(`--c-${c}${cc === 'DEFAULT' ? '' : `-${cc}`}`, model),
+          [cc]: color(`--c-${c}${suffix}`, model),
         }
       }, {}),
     }

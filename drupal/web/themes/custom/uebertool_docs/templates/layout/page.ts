@@ -25,10 +25,22 @@ function buildToc(toc: HTMLElement) {
     .filter(heading => !heading.closest('.not-prose'))
   const links = new Map<Element, HTMLAnchorElement>()
 
-  const entries: [HTMLElement, string, number][] = [[document.getElementById('_top')!, 'Overview', 2]]
+  const entries: [HTMLElement, string, number][] = [
+    [
+      document.getElementById('_top')!,
+      'Overview',
+      2,
+    ],
+  ]
   headings.forEach((heading) => {
     heading.id ||= slugify(heading.textContent ?? '')
-    entries.push([heading, heading.textContent ?? '', heading.tagName === 'H2' ? 2 : 3])
+    entries.push([
+      heading,
+      heading.textContent ?? '',
+      heading.tagName === 'H2'
+        ? 2
+        : 3,
+    ])
   })
 
   entries.forEach(([heading, text, level]) => {

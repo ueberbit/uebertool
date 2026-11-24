@@ -1,5 +1,5 @@
 uebertool_docs_pages.index:
-  path: '/uebertool'
+  path: /uebertool
   defaults:
     _controller: '\Drupal\uebertool_docs_pages\Controller\DocsController::index'
   requirements:
@@ -18,7 +18,7 @@ uebertool_docs_pages.preview:
   path: '/uebertool/preview/{demo}'
   defaults:
     _controller: '\Drupal\uebertool_docs_pages\Controller\DocsController::preview'
-    _title: 'Preview'
+    _title: Preview
   requirements:
     _access: 'TRUE'
     demo: '[a-z0-9-]+'

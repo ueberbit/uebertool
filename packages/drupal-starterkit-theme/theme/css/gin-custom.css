@@ -1,3 +1,4 @@
+/* stylelint-disable custom-property-pattern -- Gin's own variables are camelCase. */
 @layer drupal {
   :root {
     --gin-icon-view: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E %3Cpath d='M3.667 23h16.666C21.444 23 22 22.436 22 21.308V2.692C22 1.758 21.254 1 20.333 1H3.667C2.747 1 2 1.758 2 2.692v18.616C2 22.242 2.746 23 3.667 23ZM7 17h5m-5-5h10M7 7h10' fill='none' stroke='currentColor' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' /%3E %3C/svg%3E");
@@ -19,31 +20,31 @@
     top: var(--ginToolbarSecondaryHeight);
     z-index: 500;
     display: flex;
-    transform: scale(-1,1);
     background: var(--colorGinLayerBackground);
+    transform: scale(-1,1);
   }
 
   :where(.local-tasks > ul) {
     display: flex;
+    gap: 0.25rem;
+    align-items: center;
     height: 3rem;
     margin: 0 calc(min(5vw, 48px) - 1rem);
-    transform: scale(-1,1);
     overflow: auto hidden;
-    align-items: center;
-    gap: 0.25rem;
     font-family: var(--ginFont);
     list-style: none;
-    box-shadow: -1px 0px 0px var(--colorGinLayerBackground);
+    box-shadow: -1px 0 0 var(--colorGinLayerBackground);
+    transform: scale(-1,1);
   }
 
   :where(.local-tasks > ul a) {
     display: flex;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    border-radius: var(--ginBorderDefault);
-    color: var(--colorGinTextLight);
     font-size: var(--ginFontSizeSmall);
+    color: var(--colorGinTextLight);
     text-decoration: none;
+    border-radius: var(--ginBorderDefault);
   }
 
   :where(.local-tasks > ul a)::before {
@@ -52,8 +53,8 @@
     height: 20px;
     background: var(--colorGinIcons);
     mask-repeat: no-repeat;
-    mask-size: var(--iconGinSecondaryToolbar) var(--iconGinSecondaryToolbar);
     mask-position: center center;
+    mask-size: var(--iconGinSecondaryToolbar) var(--iconGinSecondaryToolbar);
   }
 
   :where(.local-tasks > ul > li:first-child a)::before {
@@ -86,15 +87,15 @@
   }
 
   :where(.local-tasks > ul a.is-active) {
-    background: var(--colorGinPrimaryLight);
     color: var(--colorGinPrimary);
+    background: var(--colorGinPrimaryLight);
   }
 
   :where(.gin-secondary-toolbar--frontend) {
-    box-shadow: -1px -1px 0px var(--colorGinLayerBackground);
-    backdrop-filter: unset !important;
-    opacity: 1 !important;
     background: var(--colorGinLayerBackground) !important;
+    box-shadow: -1px -1px 0 var(--colorGinLayerBackground);
+    opacity: 1 !important;
+    backdrop-filter: unset !important;
   }
 
   :where(.dark) {

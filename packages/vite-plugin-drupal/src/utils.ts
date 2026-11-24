@@ -25,6 +25,8 @@ export function getDistThemeName(): string {
 
 export function getNameSpace(name: string) {
   return {
-    ...(name && { [name]: path.resolve(process.cwd(), 'templates') }),
+    ...(name && {
+      [name]: path.resolve(process.cwd(), 'templates'),
+    }),
   }
 }

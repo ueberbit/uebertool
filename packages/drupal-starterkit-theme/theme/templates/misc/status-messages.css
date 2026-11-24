@@ -1,64 +1,4 @@
 @layer drupal {
-  @keyframes status-messages-progreess {
-    0% {
-      transform: scaleX(1);
-    }
-
-    100% {
-      transform: scaleX(0);
-    }
-  }
-
-  @keyframes status-messages {
-    0% {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    25% {
-      opacity: 0;
-      transform: scale(0.85);
-    }
-
-    100% {
-      position: absolute;
-      pointer-events: none;
-      opacity: 0;
-    }
-  }
-
-  @keyframes headshake {
-    0% {
-      transform: translateX(0);
-    }
-
-    6.5% {
-      transform: translateX(-6px) rotateY(-9deg);
-    }
-
-    18.5% {
-      transform: translateX(5px) rotateY(7deg);
-    }
-
-    31.5% {
-      transform: translateX(-3px) rotateY(-5deg);
-    }
-
-    43.5% {
-      transform: translateX(2px) rotateY(3deg);
-    }
-
-    50% {
-      transform: translateX(0);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    :where([data-drupal-messages] > div) {
-      animation: none;
-    }
-  }
-
   :where(:root) {
     --i-feather-info: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgcm9sZT0iaW1nIiBjbGFzcz0iaWNvbmlmeSBpY29uaWZ5LS1mZWF0aGVyIiB3aWR0aD0iMWVtIiBoZWlnaHQ9IjFlbSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDI0IDI0Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIj48L2NpcmNsZT48cGF0aCBkPSJNMTIgMTZ2LTRtMC00aC4wMSI+PC9wYXRoPjwvZz48L3N2Zz4=");
     --i-feather-alert-triangle: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgcm9sZT0iaW1nIiBjbGFzcz0iaWNvbmlmeSBpY29uaWZ5LS1mZWF0aGVyIiB3aWR0aD0iMWVtIiBoZWlnaHQ9IjFlbSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDI0IDI0Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xMC4yOSAzLjg2TDEuODIgMThhMiAyIDAgMCAwIDEuNzEgM2gxNi45NGEyIDIgMCAwIDAgMS43MS0zTDEzLjcxIDMuODZhMiAyIDAgMCAwLTMuNDIgMHoiPjwvcGF0aD48cGF0aCBkPSJNMTIgOXY0Ij48L3BhdGg+PHBhdGggZD0iTTEyIDE3aC4wMSI+PC9wYXRoPjwvZz48L3N2Zz4=");
@@ -146,8 +86,8 @@
         content: "";
         background-color: var(--color);
         mask: var(--icon) no-repeat left center / contain;
-        transform: translateY(-50%);
         mask-size: 100% 100%;
+        transform: translateY(-50%);
       }
 
       &::after {
@@ -165,6 +105,66 @@
     & :where(a) {
       font-weight: bold;
       color: var(--color);
+    }
+  }
+
+  @keyframes status-messages-progreess {
+    0% {
+      transform: scaleX(1);
+    }
+
+    100% {
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes status-messages {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    25% {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+
+    100% {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+    }
+  }
+
+  @keyframes headshake {
+    0% {
+      transform: translateX(0);
+    }
+
+    6.5% {
+      transform: translateX(-6px) rotateY(-9deg);
+    }
+
+    18.5% {
+      transform: translateX(5px) rotateY(7deg);
+    }
+
+    31.5% {
+      transform: translateX(-3px) rotateY(-5deg);
+    }
+
+    43.5% {
+      transform: translateX(2px) rotateY(3deg);
+    }
+
+    50% {
+      transform: translateX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where([data-drupal-messages] > div) {
+      animation: none;
     }
   }
 }

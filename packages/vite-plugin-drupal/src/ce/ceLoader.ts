@@ -145,7 +145,7 @@ export function eagerLoader(imports: string, modules: string, hasVue: boolean) {
   return `
 ${imports}
 ${modules.length > 2
-? `
+  ? `
 ${hasVue && 'import { defineCustomElement } from \'@ueberbit/vite-plugin-drupal/ApiCustomElements\''}
 
 const eagerCE = ${modules}
@@ -163,7 +163,7 @@ Object.keys(eagerCE).forEach(ce => {
       : 'customElements.define(ce, eagerCE[ce].name)'}
   } catch(e) { console.log(e) }
 })`
-: ''}
+  : ''}
 `
 }
 

@@ -17,7 +17,9 @@ function getScreen(theme: string, group: string, name: string, multipliers: stri
   return {
     [[theme, group, name].join('.')]: {
       label: name,
-      mediaQuery: size ? `all and (min-width: ${size})` : '',
+      mediaQuery: size
+        ? `all and (min-width: ${size})`
+        : '',
       weight: 0,
       multipliers: [
         ...multipliers,

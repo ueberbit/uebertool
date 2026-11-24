@@ -9,5 +9,5 @@ dependencies:
 default_content:
   node:
     # Basic Page
-    ## Typography
+    # # Typography
     - bd0e428f-99c5-4f41-9384-df2c9dc534b8

@@ -1,6 +1,6 @@
-name: 'sdc_details'
+name: sdc_details
 type: module
-description: 'ui components'
+description: ui components
 package: woldtwerk
 core_version_requirement: ^10 || ^11
 dependencies:

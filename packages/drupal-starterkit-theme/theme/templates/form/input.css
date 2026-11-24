@@ -9,12 +9,12 @@
   --chkbw: calc(var(--chkbs) * 2);
   --chkbh: var(--chkbs);
 
-  appearance: none;
   width: var(--chkbw);
   height: var(--chkbh);
+  appearance: none;
   cursor: pointer;
-  background: hsla(var(--chkc) / var(--o-bg, 0.2));
-  border: 1px solid hsla(var(--chkc) / var(--o-b, 0.2));
+  background: hsl(var(--chkc) / var(--o-bg, 0.2));
+  border: 1px solid hsl(var(--chkc) / var(--o-b, 0.2));
   border-radius: 1.5rem;
   box-shadow:
     calc(var(--chkbs) * -1) 0 0 2px hsl(var(--chkbg)) inset,
@@ -38,7 +38,7 @@
   }
 
   &:where(:disabled) {
-    background-color: hsla(var(--chkc) / 20%);
+    background-color: hsl(var(--chkc) / 20%);
     border-color: transparent;
   }
 

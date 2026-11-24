@@ -13,9 +13,9 @@ services:
   uebertool_docs_pages.theme_negotiator:
     class: Drupal\uebertool_docs_pages\Theme\DocsThemeNegotiator
     tags:
-      - { name: theme_negotiator, priority: 1000 }
+      - {name: theme_negotiator, priority: 1000}
 
   uebertool_docs_pages.static_export_paths_subscriber:
     class: Drupal\uebertool_docs_pages\EventSubscriber\StaticExportPathsSubscriber
     tags:
-      - { name: event_subscriber }
+      - {name: event_subscriber}

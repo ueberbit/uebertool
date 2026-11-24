@@ -1,4 +1,4 @@
-name: 'UEBERTOOL Docs pages'
+name: UEBERTOOL Docs pages
 type: module
 description: 'Routes for the @ueberbit/vite-plugin-drupal documentation, rendered by the uebertool_docs theme.'
 package: UEBERTOOL

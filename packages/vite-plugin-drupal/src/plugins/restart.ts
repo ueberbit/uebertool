@@ -42,7 +42,7 @@ export default (ctx: Context): Plugin => {
         const filename = path.basename(file)
         if (filename.startsWith('_'))
           return false
-        if (filename.match(/\.(css|js|ts|twig)$/))
+        if (/\.(?:css|js|ts|twig)$/.test(filename))
           return true
         return false
       }

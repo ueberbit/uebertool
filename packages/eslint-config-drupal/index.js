@@ -16,7 +16,7 @@ function isDrupal() {
   // Drupal Theme or Module.
   else {
     const files = fs.readdirSync('./')
-    drupal = !!files.filter(file => file.endsWith('.info.yml')).length
+    drupal = files.some(file => file.endsWith('.info.yml'))
   }
 
   return drupal

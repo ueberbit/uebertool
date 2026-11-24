@@ -1,10 +1,10 @@
-name: 'UEBERTOOL Docs'
+name: UEBERTOOL Docs
 type: theme
 base theme: uebertool_docs_dist
-description: 'Documentation theme for @ueberbit/vite-plugin-drupal. Built with the plugin itself.'
+description: Documentation theme for @ueberbit/vite-plugin-drupal. Built with the plugin itself.
 package: UEBERTOOL
 core_version_requirement: ^11
 dependencies:
   - uebertool_docs_pages:uebertool_docs_pages
 regions:
-  content: 'Content'
+  content: Content

@@ -30,7 +30,13 @@ const languages: Record<string, () => Promise<any>> = {
   'shellscript': () => import('@shikijs/langs/shellscript'),
 }
 
-const aliases: Record<string, string> = { ts: 'typescript', sh: 'shellscript', bash: 'shellscript', yml: 'yaml', twig: 'jinja-html' }
+const aliases: Record<string, string> = {
+  ts: 'typescript',
+  sh: 'shellscript',
+  bash: 'shellscript',
+  yml: 'yaml',
+  twig: 'jinja-html',
+}
 
 async function highlight(pre: HTMLPreElement) {
   const lang = aliases[pre.dataset.language ?? ''] ?? pre.dataset.language ?? 'txt'
