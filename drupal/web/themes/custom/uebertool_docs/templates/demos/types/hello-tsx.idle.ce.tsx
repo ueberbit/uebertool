@@ -23,7 +23,6 @@ export class HelloTsx extends HTMLElement {
   }
 
   disconnectedCallback() {
-    // import { render } from 'preact'
     render(null, this)
   }
 }
