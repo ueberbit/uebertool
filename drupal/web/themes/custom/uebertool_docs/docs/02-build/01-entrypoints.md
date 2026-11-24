@@ -53,6 +53,8 @@ These aliases resolve to your theme root and work in JS and CSS:
 | `assets/`, `@assets/` | `./assets` |
 | `public/`, `@public/` | `./public` |
 
+Vite does not serve the `public` folder in dev and does not copy it to `dist`. Drupal serves it from the theme folder. Imports and `url()` references through the aliases are bundled and hashed. Other references in CSS are rewritten to the theme's `public` path (see [Public assets](05-css.md#public-assets)).
+
 ## Output
 
 Production files keep their source directory and get a content hash, e.g. `templates/layout/page.wWm7aee3.js`. The Vue and Alpine runtimes end up in shared chunks (`vue.runtime.esm-browser.prod`, `alpine.runtime`). Font files keep their original name. A Vite manifest is written to `dist/.vite/manifest.json`.
