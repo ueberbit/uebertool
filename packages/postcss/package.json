@@ -1,5 +1,6 @@
 {
   "name": "@ueberbit/postcss",
+  "type": "module",
   "version": "0.8.3",
   "repository": {
     "type": "git",
@@ -8,7 +9,7 @@
   },
   "exports": {
     "./stripcolor": {
-      "types": "./dist/plugins/stripcolor.d.ts",
+      "types": "./dist/plugins/stripcolor.d.mts",
       "import": "./dist/plugins/stripcolor.mjs"
     }
   },
@@ -20,7 +21,7 @@
     "pnpm": "^12.0.0"
   },
   "scripts": {
-    "build": "unbuild",
+    "build": "obuild",
     "prepack": "pnpm run build"
   }
 }

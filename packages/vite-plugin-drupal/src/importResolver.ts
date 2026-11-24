@@ -3,12 +3,14 @@ import { parse } from 'node:path'
 import { globSync } from 'tinyglobby'
 
 export default (): ComponentResolver => {
-  const components = new Map()
+  const components = new Map<string, string>()
   globSync([
-    '(js|templates)/**/*.ce.vue',
+    '{js,templates,components}/**/*.ce.vue',
   ], {
     onlyFiles: true,
     ignore: [
+      '**/node_modules/**',
+      '**/dist/**',
       '**/*.eager.ce.vue',
       '**/*.visible.ce.vue',
       '**/*.idle.ce.vue',
@@ -17,6 +19,9 @@ export default (): ComponentResolver => {
   }).forEach((component) => {
     const { name } = parse(component)
     const baseName = name.replace(/\.ce$/, '')
+    const existing = components.get(baseName)
+    if (existing)
+      console.warn(`[uebertool] Duplicate component name "${baseName}": ~/${component} overrides ${existing}.`)
     components.set(baseName, `~/${component}`)
   })
 
@@ -28,7 +33,7 @@ export default (): ComponentResolver => {
           type: 'component',
           name: 'default',
           as: componentName,
-          from: components.get(componentName),
+          from: components.get(componentName)!,
         }
       }
     },

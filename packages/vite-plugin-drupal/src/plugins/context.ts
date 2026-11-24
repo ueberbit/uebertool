@@ -1,10 +1,10 @@
 import type { Options as VueOptions } from '@vitejs/plugin-vue'
 import type { InlinePreset } from 'unimport'
-import type Unimport from 'unimport/unplugin'
+import type { UnimportPluginOptions } from 'unimport/unplugin'
 import type { Options as ComponentOptions } from 'unplugin-vue-components'
 import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
 import process from 'node:process'
-import { defu } from 'defu'
+import { createDefu } from 'defu'
 import { builtinPresets } from 'unimport'
 import {
   HeadlessUiResolver,
@@ -14,10 +14,22 @@ import {
 import LocalComponentResolver from '../importResolver'
 import { getDistThemeName, getThemeBasePath, getThemeName } from '../utils'
 
+/**
+ * Plugin options.
+ *
+ * User options are deep-merged into the defaults. Arrays are not merged:
+ * a user array replaces the default array (e.g. `breakpoints.multipliers`,
+ * `unimport.presets`, `unimport.dirs`, `unimport.imports`,
+ * `components.resolvers`). Spread the defaults yourself if you want to extend.
+ */
 export interface Options {
-  url: string
+  /**
+   * Origin of the Drupal site. Defaults to `UEBERTOOL_URL`, `DDEV_PRIMARY_URL`
+   * or `http://localhost`.
+   */
+  url?: string
   vue: VueOptions
-  unimport: Partial<Parameters<typeof Unimport.vite>>[0]
+  unimport: Partial<UnimportPluginOptions>
   components: ComponentOptions
   themePackage?: string
   ce: {
@@ -27,15 +39,25 @@ export interface Options {
     multipliers: string[]
   }
   features: {
+    /**
+     * @deprecated Unused, the copy-static plugin is disabled.
+     */
     resetTheme: boolean
     twighmr: boolean
     clearCache: boolean | string
   }
-  experimental: object
   baseTheme: string | false
 }
 
-export type UserOptions = Partial<Options>
+type DeepPartial<T> = T extends (...args: any[]) => any
+  ? T
+  : T extends readonly unknown[]
+    ? T
+    : T extends object
+      ? { [K in keyof T]?: DeepPartial<T[K]> }
+      : T
+
+export type UserOptions = DeepPartial<Options>
 
 export interface Context {
   dev: boolean
@@ -45,80 +67,91 @@ export interface Context {
   root: string
   options: Options
   config: UserConfig
-  resoledConfig: ResolvedConfig
+  resolvedConfig: ResolvedConfig
   themeName: string
   distThemeName: string
   themeBasePath: string
 }
 
-const vueUsePreset = builtinPresets['@vueuse/core']() as InlinePreset
-vueUsePreset.imports = vueUsePreset.imports.filter(i => typeof i !== 'string' || !['toRef', 'toValue'].includes(i))
+/**
+ * Like defu, but arrays from the user options replace the default arrays.
+ */
+const merge = createDefu((obj, key, value) => {
+  if (Array.isArray(value)) {
+    obj[key] = value
+    return true
+  }
+})
 
-const defaults: Options = {
-  url: 'http://localhost',
-  vue: {
-    template: {
-      compilerOptions: {
-        isCustomElement: tag => tag.includes('-'),
+function getDefaults(themeName: string): Options {
+  const vueUsePreset = builtinPresets['@vueuse/core']() as InlinePreset
+  vueUsePreset.imports = vueUsePreset.imports.filter(i => typeof i !== 'string' || !['toRef', 'toValue'].includes(i))
+
+  return {
+    vue: {
+      template: {
+        compilerOptions: {
+          isCustomElement: tag => tag.includes('-'),
+        },
       },
     },
-  },
-  unimport: {
-    dts: './.uebertool/unimport.d.ts',
-    dirs: [
-      './js/**/*',
-      './templates/**/*.{js|ts}',
-    ],
-    dirsScanOptions: {
-      fileFilter(file) {
-        return !file.includes('.stories.')
+    unimport: {
+      dts: './.uebertool/unimport.d.ts',
+      dirs: [
+        './js/**/*',
+        './templates/**/*.{js|ts}',
+      ],
+      dirsScanOptions: {
+        fileFilter(file) {
+          return !file.includes('.stories.')
+        },
       },
+      presets: [
+        'pinia',
+        'vue',
+        vueUsePreset,
+      ],
+      addons: {
+        vueTemplate: true,
+      },
+      imports: [
+        { name: 'default', as: 'Alpine', from: 'alpinejs' },
+      ],
     },
-    presets: [
-      'pinia',
-      'vue',
-      vueUsePreset,
-    ],
-    addons: {
-      vueTemplate: true,
+    components: {
+      dts: './.uebertool/components.d.ts',
+      resolvers: [
+        HeadlessUiResolver(),
+        VueUseComponentsResolver(),
+        VueUseDirectiveResolver(),
+        LocalComponentResolver(),
+      ],
     },
-    imports: [
-      { name: 'default', as: 'Alpine', from: 'alpinejs' },
-    ],
-  },
-  components: {
-    dts: './.uebertool/components.d.ts',
-    resolvers: [
-      HeadlessUiResolver(),
-      VueUseComponentsResolver(),
-      VueUseDirectiveResolver(),
-      LocalComponentResolver(),
-    ],
-  },
-  ce: {
-    prefix: getThemeName() || 'ce',
-  },
-  breakpoints: {
-    multipliers: [
-      '1x',
-      '2x',
-    ],
-  },
-  features: {
-    resetTheme: true,
-    twighmr: true,
-    clearCache: 'drush cr',
-  },
-  experimental: {},
-  baseTheme: false,
+    ce: {
+      prefix: themeName || 'ce',
+    },
+    breakpoints: {
+      multipliers: [
+        '1x',
+        '2x',
+      ],
+    },
+    features: {
+      resetTheme: true,
+      twighmr: true,
+      clearCache: 'drush cr',
+    },
+    baseTheme: false,
+  }
 }
 
 export default (ctx: Context, options: UserOptions): Plugin => {
-  ctx.options = defu<Options, [Options]>(options, defaults)
+  const themeName = getThemeName()
+  ctx.options = merge(options, getDefaults(themeName)) as Options
   ctx.root = process.cwd()
-  ctx.themeName = getThemeName()
-  ctx.distThemeName = getDistThemeName()
-  ctx.themeBasePath = getThemeBasePath()
+  ctx.themeName = themeName
+  ctx.distThemeName = getDistThemeName(themeName)
+  ctx.themeBasePath = getThemeBasePath(themeName)
 
   return {
     name: 'vite-plugin-uebertool-context',
@@ -130,10 +163,10 @@ export default (ctx: Context, options: UserOptions): Plugin => {
       ctx.port = config.server?.port || 5173
       ctx.url = !options.url && (process.env.UEBERTOOL_URL || process.env.DDEV_PRIMARY_URL)
         ? `${process.env.UEBERTOOL_URL || process.env.DDEV_PRIMARY_URL}:${ctx.port}`
-        : `${ctx.options.url}:${ctx.port}`
+        : `${ctx.options.url || 'http://localhost'}:${ctx.port}`
     },
     configResolved(config) {
-      ctx.resoledConfig = config
+      ctx.resolvedConfig = config
     },
   }
 }

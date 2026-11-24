@@ -1,20 +1,16 @@
-declare global {
-  const __DEV__: boolean
-  interface CSSStyleSheet {
-    __hmrId: string
-  }
-  interface RenderRoot {
-    adoptedStyleSheets: Array<CSSStyleSheet>
-  }
+declare const __DEV__: boolean | undefined
 
-  interface ShadowRoot extends RenderRoot {}
-  interface Document extends RenderRoot {}
-}
+const isDev = typeof __DEV__ !== 'undefined' && __DEV__
 
 /**
  * Whether the current browser supports `adoptedStyleSheets`.
  */
-export const supportsAdoptingStyleSheets = window.ShadowRoot && 'adoptedStyleSheets' in Document.prototype && 'replaceSync' in CSSStyleSheet.prototype
+export const supportsAdoptingStyleSheets = typeof window !== 'undefined' && !!window.ShadowRoot && 'adoptedStyleSheets' in Document.prototype && 'replaceSync' in CSSStyleSheet.prototype
+
+/**
+ * Vite hmr ids of the constructed sheets, used to replace a sheet on update.
+ */
+const hmrIds = new WeakMap<CSSStyleSheet, string>()
 
 /**
  * Add constructed Stylesheet or style tag to Shadowroot of VueCE.
@@ -30,12 +26,12 @@ export function adoptStyles(renderRoot: ShadowRoot | Document, styles: string[] 
     return
   }
 
-  const css = styles.join('').replace(/\\\\/g, '\\')
+  const css = styles.join('')
 
   if (supportsAdoptingStyleSheets) {
     const sheets = renderRoot.adoptedStyleSheets || []
-    const oldSheet = __DEV__ && (__hmrId
-      ? sheets.find(sheet => sheet.__hmrId === __hmrId)
+    const oldSheet = isDev && (__hmrId
+      ? sheets.find(sheet => hmrIds.get(sheet) === __hmrId)
       : false)
 
     // Check if this StyleSheet exists already. Replace content if it does. Otherwise construct a new CSSStyleSheet.
@@ -44,8 +40,8 @@ export function adoptStyles(renderRoot: ShadowRoot | Document, styles: string[] 
     }
     else {
       const styleSheet: CSSStyleSheet = new CSSStyleSheet()
-      if (__DEV__ && __hmrId)
-        styleSheet.__hmrId = __hmrId
+      if (isDev && __hmrId)
+        hmrIds.set(styleSheet, __hmrId)
 
       styleSheet.replaceSync(css)
       renderRoot.adoptedStyleSheets = [
@@ -57,7 +53,7 @@ export function adoptStyles(renderRoot: ShadowRoot | Document, styles: string[] 
   else {
     const existingStyleElements = renderRoot.querySelectorAll('style')
     const oldStyleElement
-      = __DEV__ && (__hmrId
+      = isDev && (__hmrId
         ? Array.from(existingStyleElements).find(sheet => sheet.title === __hmrId)
         : false)
 
@@ -67,7 +63,7 @@ export function adoptStyles(renderRoot: ShadowRoot | Document, styles: string[] 
     }
     else {
       const styleElement = document.createElement('style')
-      if (__DEV__ && __hmrId)
+      if (isDev && __hmrId)
         styleElement.title = __hmrId
 
       styleElement.textContent = css
@@ -96,10 +92,10 @@ export const baseStyles = `
   }
 `
 
-const isDev = typeof __DEV__ !== 'undefined' && __DEV__
-
 let baseSheet: CSSStyleSheet | undefined
 let tailwindSheet: CSSStyleSheet | undefined
+let tailwindCss = ''
+let refreshScheduled = false
 
 /**
  * Read the rules of the page's Tailwind stylesheet.
@@ -128,12 +124,25 @@ function findTailwindLink() {
 /**
  * Re-read the page's Tailwind stylesheet into the shared constructed sheet.
  * All custom elements adopt the same sheet object, so they all update.
+ * Runs at most once per animation frame and skips unchanged css.
  */
 export function refreshTailwindSheet() {
-  const css = readTailwindCss(findTailwindLink())
-  if (css && tailwindSheet)
+  if (refreshScheduled)
+    return
+  refreshScheduled = true
+  requestAnimationFrame(() => {
+    refreshScheduled = false
+    const css = readTailwindCss(findTailwindLink())
+    if (!css || !tailwindSheet || (css.length === tailwindCss.length && css === tailwindCss))
+      return
+    tailwindCss = css
     tailwindSheet.replaceSync(css)
+  })
 }
+
+// Dispatched by the Twig HMR client after the Tailwind `<link>` reloaded.
+if (typeof document !== 'undefined')
+  document.addEventListener('uebertool:tailwind-updated', refreshTailwindSheet)
 
 function getTailwindSheet() {
   if (tailwindSheet)
@@ -144,6 +153,7 @@ function getTailwindSheet() {
   const css = readTailwindCss(link)
 
   if (css) {
+    tailwindCss = css
     tailwindSheet.replaceSync(css)
   }
   else if (link) {

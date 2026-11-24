@@ -1,17 +1,17 @@
-import { defineBuildConfig } from 'unbuild'
+import { defineBuildConfig } from 'obuild/config'
 
+// `dependencies` and `peerDependencies` stay external, everything else
+// (devDependencies like web-component-analyzer) is bundled.
 export default defineBuildConfig({
   entries: [
-    'src/index',
-    'src/composables',
-    'src/ce/ApiCustomElements',
-    'src/bootstrap',
+    {
+      type: 'bundle',
+      input: [
+        './src/index.ts',
+        './src/composables.ts',
+        './src/ce/ApiCustomElements.ts',
+        './src/bootstrap.ts',
+      ],
+    },
   ],
-  externals: ['vite', 'typescript'],
-  clean: true,
-  declaration: true,
-  rollup: {
-    emitCJS: false,
-    inlineDependencies: true,
-  },
 })

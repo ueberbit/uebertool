@@ -18,6 +18,9 @@ import virtual from './plugins/virtual'
 import vueCustomElement from './plugins/vue-custom-element'
 // import copyStatic from './plugins/copy-static'
 
+export type { Context, Options, UserOptions } from './plugins/context'
+export type { CSSGroup, CSSPart, DrupalLibrary, JSPart } from './plugins/libraries'
+
 export default (options: UserOptions = {}): Plugin[] => {
   const ctx = <Context>{}
 

@@ -1,26 +1,75 @@
-/// <reference types="@types/js-cookie" />
+/// <reference types="js-cookie" />
 
 declare const Drupal: Drupal
 declare const drupalSettings: Drupal.DrupalSettings
 
-declare const Cookies: Cookies.CookiesStatic & {
-  noConflict?(): Cookies.CookiesStatic;
-}
-
 interface Drupal {
   [key: string]: any;
-  Ajax: new (
-    base: string,
-    element: HTMLElement,
-    elementSettings: Drupal.Ajax.ElementSettings
-  ) => Drupal.Ajax
-  AjaxCommands: new () => Drupal.AjaxCommands
-  AjaxError: (
-    xmlhttp: XMLHttpRequest,
-    uri: string,
-    customMessage: string
-  ) => void
-  ajax: (settings: { base: string; element: HTMLElement }) => Drupal.Ajax
+  /**
+   * Ajax constructor. Prefer {@link Drupal.ajax}, which also registers the
+   * instance in `Drupal.ajax.instances`.
+   *
+   * @param base
+   *   ID of the element, used as the default `selector` (`#base`).
+   * @param element
+   *   Element on which event listeners will be bound.
+   * @param elementSettings
+   *   Settings for this Ajax object.
+   */
+  Ajax: {
+    new (
+      base: string | false,
+      element: HTMLElement | false,
+      elementSettings: Drupal.Ajax.ElementSettings
+    ): Drupal.Ajax
+    prototype: Drupal.Ajax
+  }
+  /**
+   * The Ajax commands. Add a method to `Drupal.AjaxCommands.prototype` to
+   * register a custom command for all Ajax objects.
+   */
+  AjaxCommands: {
+    new (): Drupal.AjaxCommands
+    prototype: Drupal.AjaxCommands
+  }
+  /**
+   * Builds an error from a failed Ajax request.
+   */
+  AjaxError: {
+    new (
+      xmlhttp: XMLHttpRequest,
+      uri: string,
+      customMessage?: string
+    ): Drupal.AjaxError
+    /**
+     * Message area used to display Ajax errors.
+     */
+    messages?: Drupal.Message.Message
+  }
+  /**
+   * Provides Ajax page updating via jQuery $.ajax.
+   *
+   * @example
+   * const ajax = Drupal.ajax({ url: '/my/path', progress: { type: 'fullscreen' } })
+   * ajax.commands.myCommand = (ajax, response) => {}
+   * ajax.execute()
+   */
+  ajax: {
+    (settings: Drupal.Ajax.Settings): Drupal.Ajax
+    /**
+     * All Ajax objects created with {@link Drupal.ajax}. Entries may be set to
+     * `null` to remove an instance.
+     */
+    instances: Array<Drupal.Ajax | null>
+    /**
+     * Ajax objects whose element is no longer in the DOM.
+     */
+    expired: () => Drupal.Ajax[]
+    /**
+     * Binds Ajax to all `.use-ajax` links inside the element.
+     */
+    bindAjaxLinks: (element: Document | Element) => void
+  }
   /**
    * Defines a behavior to be run during attach and detach phases.
    *
@@ -65,8 +114,8 @@ interface Drupal {
    * @throws {Drupal~DrupalBehaviorError}
    */
   attachBehaviors: (
-    context: Document | HTMLElement | Element,
-    settings: Drupal.DrupalSettings
+    context?: Document | Element,
+    settings?: Drupal.DrupalSettings
   ) => void
   behaviors: Record<string, Drupal.Behavior>
 
@@ -82,7 +131,7 @@ interface Drupal {
    * @ingroup sanitization
    */
   checkPlain: (str: string) => string
-  debounce: (func: Function, wait: number, immediate: boolean) => Function
+  debounce: (func: Function, wait: number, immediate?: boolean) => Function
   /**
    * Detaches registered behaviors from a page element.
    *
@@ -125,9 +174,9 @@ interface Drupal {
    * @see Drupal.attachBehaviors
    */
   detachBehaviors: (
-    context?: Document | HTMLElement | Element,
-    settings?: object,
-    trigger?: string
+    context?: Document | Element,
+    settings?: Drupal.DrupalSettings,
+    trigger?: 'unload' | 'move' | 'serialize'
   ) => void
 
   /**
@@ -205,7 +254,7 @@ interface Drupal {
    * @see Drupal.t
    */
   formatString: (str: string, args: object) => string
-  Message: Drupal.Message.Message
+  Message: Drupal.Message.MessageConstructor
 
   /**
    * Replaces substring.
@@ -279,11 +328,197 @@ interface Drupal {
 
 
 declare namespace Drupal {
-  // Todo.
-  interface Ajax {}
-  // Todo.
-  interface AjaxCommands {}
-  
+  /**
+   * An Ajax object, created by {@link Drupal.ajax} or `new Drupal.Ajax()`.
+   *
+   * All element settings are copied onto the object, with the defaults
+   * applied.
+   */
+  interface Ajax extends Ajax.ElementSettings {
+    /**
+     * Processed Ajax URL (`/nojs` is replaced with `/ajax`).
+     */
+    url: string
+    selector: string | null
+    progress: false | Ajax.Progress
+    /**
+     * The commands this object executes. Add a property to handle a custom
+     * command for this object only.
+     */
+    commands: AjaxCommands
+    /**
+     * Index in `Drupal.ajax.instances`, or `false` if not created with
+     * {@link Drupal.ajax}.
+     */
+    instanceIndex: number | false
+    /**
+     * The element events are bound to, or `false` if there is none.
+     */
+    element: HTMLElement | false
+    /**
+     * The settings this object was created with.
+     */
+    elementSettings: Ajax.ElementSettings
+    /**
+     * Whether a request is in progress.
+     */
+    ajaxing: boolean
+    /**
+     * Selector of the element that had focus before the response commands ran.
+     */
+    preCommandsFocusedElementSelector: string | null
+    /**
+     * Settings passed to `Drupal.attachBehaviors()` after a response, if set.
+     */
+    settings?: DrupalSettings | null
+    /**
+     * jQuery wrapper of the element's form, if the element is in a form.
+     */
+    $form?: any
+    /**
+     * Options passed to `jQuery.ajax()`.
+     */
+    options: Ajax.Options
+
+    /**
+     * Triggers the Ajax request programmatically.
+     *
+     * @return
+     *   The jqXHR of the request, a rejected Deferred on error, or `undefined`
+     *   if a request is already in progress.
+     */
+    execute(): PromiseLike<unknown> | undefined
+    /**
+     * Handles a key press on the element: Enter or Space trigger the event.
+     */
+    keypressResponse(element: HTMLElement, event: KeyboardEvent): void
+    /**
+     * Handles the bound event and submits the request.
+     */
+    eventResponse(element: HTMLElement, event: Event): void
+    /**
+     * Prepares the form values before they are serialized.
+     */
+    beforeSerialize(element: HTMLElement | false, options: Ajax.Options): void
+    /**
+     * Modifies the form values before they are submitted.
+     */
+    beforeSubmit(formValues: Array<{ name: string, value: unknown }>, element: unknown, options: Ajax.Options): void
+    /**
+     * Prepares the request: disables the element and shows the progress
+     * indicator.
+     */
+    beforeSend(xmlhttprequest: XMLHttpRequest, options: Ajax.Options): void
+    setProgressIndicatorBar(): void
+    setProgressIndicatorThrobber(): void
+    setProgressIndicatorFullscreen(): void
+    /**
+     * Executes the response commands one after another.
+     *
+     * @return
+     *   Resolves once all commands have finished.
+     */
+    commandExecutionQueue(response: AjaxCommands.Response[], status?: number | string): Promise<void>
+    /**
+     * Handles a successful response and runs its commands.
+     */
+    success(response: AjaxCommands.Response[], status?: number | string): Promise<void>
+    /**
+     * Builds the jQuery effect used to show new content.
+     */
+    getEffect(response: { effect?: string, speed?: string | number }): Ajax.Effect
+    /**
+     * Handles a failed request.
+     */
+    error(xmlhttprequest: XMLHttpRequest, uri: string, customMessage?: string): void
+  }
+
+  /**
+   * An error from a failed Ajax request.
+   */
+  interface AjaxError extends Error {
+    name: 'AjaxError'
+  }
+
+  /**
+   * The available Ajax commands. Add a property to `Drupal.AjaxCommands.prototype`
+   * to register a custom command for all Ajax objects.
+   */
+  interface AjaxCommands {
+    [command: string]: AjaxCommands.Command
+    /**
+     * Inserts the response data into the DOM with `response.method`.
+     */
+    insert: AjaxCommands.Command
+    /**
+     * Removes the elements matching `response.selector`.
+     */
+    remove: AjaxCommands.Command
+    /**
+     * Marks the elements matching `response.selector` as changed.
+     */
+    changed: AjaxCommands.Command
+    /**
+     * Shows `response.text` in an alert.
+     */
+    alert: AjaxCommands.Command
+    /**
+     * Announces `response.text` to screen readers.
+     */
+    announce: AjaxCommands.Command
+    /**
+     * Redirects to `response.url`.
+     */
+    redirect: AjaxCommands.Command
+    /**
+     * Applies `response.argument` as CSS to the elements matching
+     * `response.selector`.
+     */
+    css: AjaxCommands.Command
+    /**
+     * Merges `response.settings` into `drupalSettings` or the object's
+     * settings.
+     */
+    settings: AjaxCommands.Command
+    /**
+     * Stores `response.value` as jQuery data under `response.name`.
+     */
+    data: AjaxCommands.Command
+    /**
+     * Focuses the first tabbable element inside `response.selector`.
+     */
+    focusFirst: AjaxCommands.Command
+    /**
+     * Calls the jQuery method `response.method` with `response.args`.
+     */
+    invoke: AjaxCommands.Command
+    /**
+     * Restripes the table matching `response.selector`.
+     */
+    restripe: AjaxCommands.Command
+    /**
+     * Replaces the form build ID `response.old` with `response.new`.
+     */
+    update_build_id: AjaxCommands.Command
+    /**
+     * Adds the stylesheets in `response.data`.
+     */
+    add_css: AjaxCommands.Command
+    /**
+     * Adds `response.message` to the message area.
+     */
+    message: AjaxCommands.Command
+    /**
+     * Adds the scripts in `response.data`.
+     */
+    add_js: AjaxCommands.Command
+    /**
+     * Scrolls to the element matching `response.selector`.
+     */
+    scrollTop: AjaxCommands.Command
+  }
+
+
   type DrupalSettings = {
     path?: {
       baseUrl: string
@@ -327,12 +562,12 @@ declare namespace Drupal {
   } & Record<string, any>
   type BehaviorAttach = (
     context: Document | HTMLElement,
-    settings: object | null
+    settings: DrupalSettings
   ) => void
   type BehaviorDetach = (
     context: Document | HTMLElement,
-    settings: object,
-    trigger: string
+    settings: DrupalSettings,
+    trigger: 'unload' | 'move' | 'serialize'
   ) => void
   interface Behavior {
     [key: string]: any;
@@ -343,6 +578,7 @@ declare namespace Drupal {
   export {
     Ajax,
     AjaxCommands,
+    AjaxError,
     Behavior,
     BehaviorAttach,
     BehaviorDetach,
@@ -356,12 +592,11 @@ declare namespace Drupal.Message {
   type MessageOptions = {
     type?: MessageType
     id?: string
-    priority?: 'assertive'
-    announce?: string 
+    priority?: 'polite' | 'assertive'
+    announce?: string
   }
-  interface Message {
-
-  /**
+  interface MessageConstructor {
+    /**
    * Constructs a new instance of the Drupal.Message class.
    *
    * This provides a uniform interface for adding and removing messages to a
@@ -371,9 +606,9 @@ declare namespace Drupal.Message {
    *   The zone where to add messages. If no element is provided an attempt is
    *   made to determine a default location.
    *
-   * @return {Drupal.Message~messageDefinition}
-   *   Class to add and remove messages.
-   */
+     * @return {Drupal.Message~messageDefinition}
+     *   Class to add and remove messages.
+     */
     new(messageWrapper?: HTMLElement): Message
 
     /**
@@ -383,7 +618,7 @@ declare namespace Drupal.Message {
      * @return {HTMLElement}
      *   The default destination for JavaScript messages.
      */
-    static defaultWrapper(): HTMLElement
+    defaultWrapper(): HTMLElement
 
     /**
      * Provide an object containing the available message types.
@@ -391,8 +626,39 @@ declare namespace Drupal.Message {
      * @return {Object}
      *   An object containing message type strings.
      */
-    static getMessageTypeLabels(): Record<MessageType, string>
+    getMessageTypeLabels(): Record<MessageType, string>
 
+
+    /**
+     * Helper to call Drupal.announce() with the right parameters.
+     *
+     * @param {string} message
+     *   Displayed message.
+     * @param {object} options
+     *   Additional data.
+     * @param {string} [options.announce]
+     *   Screen-reader version of the message if necessary. To prevent a message
+     *   being sent to Drupal.announce() this should be `''`.
+     * @param {string} [options.priority]
+     *   Priority of the message for Drupal.announce().
+     * @param {string} [options.type]
+     *   Message type, can be either 'status', 'error' or 'warning'.
+     */
+    announce(message: string, options: MessageOptions): void
+    
+    /**
+     * Function for creating the internal message wrapper element.
+     *
+     * @param {HTMLElement} messageWrapper
+     *   The message wrapper.
+     *
+     * @return {HTMLElement}
+     *   The internal wrapper DOM element.
+     */
+    messageInternalWrapper(messageWrapper: HTMLElement): HTMLElement
+  }
+
+  interface Message {
     /**
      * Sequentially adds a message to the message area.
      *
@@ -417,8 +683,8 @@ declare namespace Drupal.Message {
      * @return {string}
      *   ID of message.
      */
-    add(message: string, options?: MessageOptions): MessageOptions.id
-    
+    add(message: string, options?: MessageOptions): string
+
     /**
      * Select a message based on id.
      *
@@ -427,10 +693,10 @@ declare namespace Drupal.Message {
      * @param {string} id
      *   The message id to delete from the area.
      *
-     * @return {Element}
+     * @return {Element|null}
      *   Element found.
      */
-    select(id: string): Element
+    select(id: string): Element | null
 
     /**
      * Removes messages from the message area.
@@ -452,40 +718,13 @@ declare namespace Drupal.Message {
      * @name Drupal.Message~messageDefinition.clear
      */
     clear(): void
-
-    /**
-     * Helper to call Drupal.announce() with the right parameters.
-     *
-     * @param {string} message
-     *   Displayed message.
-     * @param {object} options
-     *   Additional data.
-     * @param {string} [options.announce]
-     *   Screen-reader version of the message if necessary. To prevent a message
-     *   being sent to Drupal.announce() this should be `''`.
-     * @param {string} [options.priority]
-     *   Priority of the message for Drupal.announce().
-     * @param {string} [options.type]
-     *   Message type, can be either 'status', 'error' or 'warning'.
-     */
-    static announce(message: string, type: MessageType): void
-    
-    /**
-     * Function for creating the internal message wrapper element.
-     *
-     * @param {HTMLElement} messageWrapper
-     *   The message wrapper.
-     *
-     * @return {HTMLElement}
-     *   The internal wrapper DOM element.
-     */
-    static messageInternalWrapper(messageWrapper: HTMLElement): HTMLElement
   }
 
   export {
     MessageType,
     MessageOptions,
-    Message
+    Message,
+    MessageConstructor,
   }
 }
 
@@ -494,25 +733,186 @@ declare namespace Drupal.theme {
 }
 
 declare namespace Drupal.Ajax {
-  interface ElementSettings {
-    url: string
-    event?: string | null
-    keypress?: boolean
-    selector: string | null
-    effect?: string
-    speed?: string | number
+  /**
+   * Settings for the progress indicator.
+   */
+  interface Progress {
+    /**
+     * Core provides `'bar'`, `'throbber'` and `'fullscreen'`.
+     *
+     * @default 'throbber'
+     */
+    type?: 'bar' | 'throbber' | 'fullscreen' | (string & {})
+    /**
+     * @default Drupal.t('Processing...')
+     */
+    message?: string
+    /**
+     * URL polled for progress updates (bar only).
+     */
+    url?: string
+    /**
+     * Polling interval in milliseconds (bar only).
+     *
+     * @default 1500
+     */
+    interval?: number
+    /**
+     * HTTP method of the progress requests (bar only).
+     */
     method?: string
-    progress?: {
-      type?: string
-      message?: string
-    }
-    submit?: {
-      js?: boolean
-    }
-    dialog?: object
-    dialogType?: string
-    prevent?: string
+    /**
+     * The progress element, set while a request is running (jQuery).
+     */
+    element?: any
+    /**
+     * The progress bar object, set while a request is running (bar only).
+     */
+    object?: any
   }
 
-  export { ElementSettings }
+  /**
+   * Settings for an Ajax object.
+   */
+  interface ElementSettings {
+    /**
+     * Target of the request. Defaults to the link's `href` or the form's
+     * `action`.
+     */
+    url?: string
+    /**
+     * Event bound to the element that triggers the request.
+     *
+     * @default 'mousedown' with an element, else null
+     */
+    event?: string | null
+    /**
+     * Triggers a request on Enter and Space key presses.
+     *
+     * @default true
+     */
+    keypress?: boolean
+    /**
+     * Selector of the element to bind events to, also used by the commands.
+     *
+     * @default '#base'
+     */
+    selector?: string | null
+    /**
+     * jQuery effect used to show new content.
+     *
+     * @default 'none'
+     */
+    effect?: string
+    /**
+     * Speed of the effect.
+     *
+     * @default 'none'
+     */
+    speed?: string | number
+    /**
+     * jQuery method used to insert new content.
+     *
+     * @default 'replaceWith'
+     */
+    method?: string
+    /**
+     * HTTP method of the request.
+     *
+     * @default 'POST'
+     */
+    httpMethod?: string
+    /**
+     * Progress indicator, or `false` for none.
+     */
+    progress?: false | Progress
+    /**
+     * Extra data sent with the request.
+     */
+    submit?: {
+      js?: boolean
+      [key: string]: any
+    }
+    /**
+     * Options for `Drupal.dialog`.
+     */
+    dialog?: object
+    /**
+     * One of `'modal'` or `'dialog'`.
+     */
+    dialogType?: string
+    dialogRenderer?: string
+    /**
+     * Element ID to replace (`#ajax['wrapper']`).
+     */
+    wrapper?: string
+    /**
+     * Events on which to prevent the default action and stop propagation.
+     */
+    prevent?: string
+    /**
+     * Whether the clicked button is sent with the form values.
+     */
+    setClick?: boolean
+    [key: string]: any
+  }
+
+  /**
+   * Settings for {@link Drupal.ajax}.
+   */
+  interface Settings extends ElementSettings {
+    /**
+     * Passed as `base` to the {@link Drupal.Ajax} constructor.
+     */
+    base?: string
+    /**
+     * Passed as `element` to the {@link Drupal.Ajax} constructor.
+     */
+    element?: HTMLElement
+  }
+
+  /**
+   * Options passed to `jQuery.ajax()`.
+   */
+  interface Options {
+    url: string
+    data: Record<string, any>
+    dataType: string
+    jsonp: boolean
+    method: string
+    [key: string]: any
+  }
+
+  /**
+   * Effect returned by `Drupal.Ajax#getEffect()`.
+   */
+  interface Effect {
+    showEffect: string
+    hideEffect: string
+    showSpeed: string | number
+  }
+
+  export { Effect, ElementSettings, Options, Progress, Settings }
+}
+
+declare namespace Drupal.AjaxCommands {
+  /**
+   * A command of an Ajax response.
+   */
+  interface Response {
+    command: string
+    [key: string]: any
+  }
+
+  /**
+   * An Ajax command. Core commands return nothing, `add_css` and `add_js`
+   * return a promise that resolves once the assets are loaded.
+   */
+  type Command = (
+    ajax: Drupal.Ajax | undefined,
+    response: Response,
+    status?: number | string
+  ) => void | Promise<void>
+
+  export { Command, Response }
 }

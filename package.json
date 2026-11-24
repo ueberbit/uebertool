@@ -30,7 +30,7 @@
     "@ueberbit/eslint-config": "workspace:*",
     "@ueberbit/stylelint-config": "workspace:*",
     "bumpp": "catalog:",
-    "typescript": "catalog:",
-    "unbuild": "catalog:"
+    "obuild": "catalog:",
+    "typescript": "catalog:"
   }
 }

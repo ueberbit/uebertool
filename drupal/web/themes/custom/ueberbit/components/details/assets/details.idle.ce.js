@@ -64,7 +64,7 @@ export default class Details extends HTMLElement {
     this.open = true
     this.#header?.setAttribute('aria-expanded', 'true')
     this.dispatchEvent(new CustomEvent('ww-show'))
-    this.hasAttribute('name') && Array.from(this.siblings).forEach(sibling => {
+    this.hasAttribute('name') && Array.from(this.siblings).forEach((sibling) => {
       sibling !== this && sibling.hide()
     })
   }
@@ -72,13 +72,17 @@ export default class Details extends HTMLElement {
   handleClick() {
     if (this.disabled)
       return
-    this.open ? this.hide() : this.show()
+    this.open
+      ? this.hide()
+      : this.show()
   }
 
   handleKeyUp(e) {
     if (!this.disabled && ['Space', 'Enter'].includes(e.code)) {
       e.preventDefault()
-      this.open ? this.hide() : this.show()
+      this.open
+        ? this.hide()
+        : this.show()
     }
   }
 

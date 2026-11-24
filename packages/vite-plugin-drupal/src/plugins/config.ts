@@ -1,19 +1,15 @@
-import type { Plugin } from 'vite'
+import type { Plugin, UserConfig } from 'vite'
 import type { Context } from './context'
-import { basename, dirname, relative, resolve } from 'node:path'
+import { relative, resolve } from 'node:path'
 import process from 'node:process'
 import { glob } from 'tinyglobby'
-import { mergeConfig } from 'vite'
 
 const VUE_RUNTIME_REGEX = /@vue\+runtime/
 const ALPINEJS_REGEX = /alpinejs@/
-const FONT_REGEX = /.woff2?$/
-const CSS_REGEX = /\.css$/
-const JS_REGEX = /.(ts|js|tsx|jsx|vue)$/
+
+const stripExt = (file: string) => file.replace(/\.[^./]+$/, '')
 
 export default (ctx: Context): Plugin => {
-  const assetMap = new Map<string, string>()
-
   return {
     name: 'vite-plugin-uebertool-config',
     async config(config) {
@@ -33,13 +29,19 @@ export default (ctx: Context): Plugin => {
         ],
       })
 
-      return mergeConfig(config, {
+      const corsOrigins = Array.from(new Set(
+        [process.env.UEBERTOOL_URL, process.env.DDEV_PRIMARY_URL, ctx.options.url]
+          .filter((url): url is string => !!url)
+          .map(url => url.replace(/\/+$/, '')),
+      ))
+
+      // Vite merges the returned partial config into the user config itself.
+      return {
         base: ctx.dev
           ? './'
-          : ctx.themeBasePath + (config.build?.outDir || '/dist'),
-        publicDir: ctx.dev
-          ? '/public'
-          : `${ctx.themeBasePath}/public`,
+          : `${ctx.themeBasePath}/${(config.build?.outDir || 'dist').replace(/^(?:\.?\/)+/, '')}`,
+        // Public files are served by Drupal, css.ts rewrites `~/public` to the theme URL.
+        publicDir: false,
         resolve: {
           alias: {
             '~/': `${resolve(ctx.root)}/`,
@@ -59,55 +61,38 @@ export default (ctx: Context): Plugin => {
         build: {
           target: 'esnext',
           manifest: true,
-          rollupOptions: {
+          rolldownOptions: {
             input,
             output: {
-              manualChunks: (id: string) => {
-                if (VUE_RUNTIME_REGEX.test(id))
-                  return 'vue.runtime.esm-browser.prod'
-
-                if (ALPINEJS_REGEX.test(id))
-                  return 'alpine.runtime'
+              codeSplitting: {
+                groups: [
+                  { name: 'vue.runtime.esm-browser.prod', test: VUE_RUNTIME_REGEX },
+                  { name: 'alpine.runtime', test: ALPINEJS_REGEX },
+                ],
               },
-              assetFileNames: (assetInfo: any) => {
-                const base = basename(assetInfo.name || assetInfo.names[0])
-                let dir = dirname(assetInfo.name || assetInfo.names[0])
-
-                if (FONT_REGEX.test(base))
-                  return '[name].[ext]'
-
-                if (assetMap.has(base))
-                  return assetMap.get(base)
-
-                // Match whole file names only, e.g. "slider.css" must not match "aoa-slider.css".
-                const isFile = (file: string, name: string) => file === name || file.endsWith(`/${name}`)
-                const fullPath = input.find(file => isFile(file, base))
-                  || input.find(file => isFile(file, base.replace(CSS_REGEX, '.scss')))
-
-                if (fullPath)
-                  dir = dirname(fullPath)
-
-                dir = dir.startsWith('.')
-                  ? ''
-                  : `${dir}/`
-
-                assetMap.set(base, `${dir}[name].[hash].[ext]`)
-                return '[name].[hash].[ext]'
+              assetFileNames: (asset) => {
+                const src = asset.originalFileNames[0]
+                return src && !src.startsWith('..')
+                  ? `${stripExt(src)}.[hash][extname]`
+                  : 'assets/[name].[hash][extname]'
               },
-              entryFileNames: (assetInfo: any) => {
-                if (assetInfo.facadeModuleId?.match(JS_REGEX)) {
-                  const base = dirname(relative('./', assetInfo.facadeModuleId))
-                  return `${base}/[name].[hash].js`
-                }
-                return '[name].[hash].js'
+              entryFileNames: (chunk) => {
+                const src = chunk.facadeModuleId && !chunk.facadeModuleId.includes('\0')
+                  ? relative(ctx.root, chunk.facadeModuleId)
+                  : ''
+                return src && !src.startsWith('..')
+                  ? `${stripExt(src)}.[hash].js`
+                  : '[name].[hash].js'
               },
             },
           },
         },
         server: {
-          cors: {
-            origin: '*',
-          },
+          ...(corsOrigins.length > 0 && {
+            cors: {
+              origin: corsOrigins,
+            },
+          }),
           host: true,
           strictPort: true,
           ...(process.env.DDEV_PRIMARY_URL?.startsWith('https://') && {
@@ -123,7 +108,7 @@ export default (ctx: Context): Plugin => {
             ],
           },
         },
-      })
+      } satisfies UserConfig
     },
   }
 }

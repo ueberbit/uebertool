@@ -4,6 +4,14 @@ import { spawn } from 'node:child_process'
 import path from 'node:path'
 import { createLogger } from 'vite'
 
+/**
+ * Files that change the rollup input set (see config.ts) or the Drupal theme
+ * registry. Custom elements are handled by the custom elements plugin.
+ */
+const INPUT_REGEX = /^(?:(?:js|css|templates)\/.*\.(?:js|jsx|css|scss|ts|tsx)|components\/(?:.*\/)?(?:assets|src|js|css)\/[^/]+\.(?:js|jsx|css|scss|ts|tsx))$/
+const TWIG_REGEX = /\.twig$/
+const EXCLUDE_REGEX = /\.ce\.|\.stories\.|\.d\.ts$/
+
 export default (ctx: Context): Plugin => {
   let timer: ReturnType<typeof setTimeout> | undefined
   const delay = 500
@@ -32,19 +40,23 @@ export default (ctx: Context): Plugin => {
             if (typeof ctx.options.features.clearCache === 'string') {
               const [command, ...args] = ctx.options.features.clearCache.split(' ')
               logger.info(`Running: ${command} ${args.join(' ')}`, { timestamp: true })
-              spawn(command, args, { stdio: 'inherit' })
+              spawn(command, args, { stdio: 'inherit', cwd: ctx.root })
+                .on('error', e => logger.warn(`[uebertool] Failed to run ${command}: ${e.message}`, { timestamp: true }))
             }
           })
         }
       }
 
       function qualifiedPath(file: string) {
+        const relativePath = path.relative(ctx.root, file).split(path.sep).join('/')
         const filename = path.basename(file)
-        if (filename.startsWith('_'))
+        if (relativePath.startsWith('..') || filename.startsWith('_'))
           return false
-        if (/\.(?:css|js|ts|twig)$/.test(filename))
+        if (TWIG_REGEX.test(filename))
           return true
-        return false
+        if (EXCLUDE_REGEX.test(filename))
+          return false
+        return INPUT_REGEX.test(relativePath)
       }
     },
   }

@@ -6,6 +6,7 @@ export function generateViteEnv() {
 /// <reference types="@ueberbit/vite-plugin-drupal/types/dom" />
 /// <reference types="@ueberbit/vite-plugin-drupal/types/drupal" />
 /// <reference types="@ueberbit/vite-plugin-drupal/types/once" />
+/// <reference types="@ueberbit/vite-plugin-drupal/types/virtual" />
 
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
@@ -16,7 +17,7 @@ declare module '*.vue' {
 }
 
 export function generateTsConfig() {
-  fse.outputJSON('./.uebertool/tsconfig.json', {
+  fse.outputJsonSync('./.uebertool/tsconfig.json', {
     compilerOptions: {
       target: 'ESNext',
       useDefineForClassFields: false,
@@ -36,6 +37,8 @@ export function generateTsConfig() {
       noUnusedParameters: true,
       noImplicitReturns: true,
       skipLibCheck: true,
+      // Drupal core libraries such as js-cookie are UMD globals (`Cookies`).
+      allowUmdGlobalAccess: true,
       experimentalDecorators: true,
       // No baseUrl (deprecated since TypeScript 6): paths are relative to this
       // file, which lives in .uebertool/.
@@ -94,12 +97,11 @@ export function generateTsConfig() {
       '**/.storybook/**/*',
       '**/*.js',
       '**/*.mdx',
-      '**/*.tsx',
     ],
   }, {
     spaces: 2,
   })
-  fse.outputJSON('./.uebertool/tsconfig.node.json', {
+  fse.outputJsonSync('./.uebertool/tsconfig.node.json', {
     compilerOptions: {
       composite: true,
       module: 'ESNext',

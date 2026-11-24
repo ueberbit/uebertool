@@ -39,6 +39,36 @@ export default defineConfig({
 
 add js/main.ts and css/tailwind.css to your theme and you are good to go.
 
+### Options
+
+All options are optional:
+
+```ts
+import type { UserOptions } from '@ueberbit/vite-plugin-drupal'
+
+uebertool({
+  breakpoints: { multipliers: ['1x', '2x', '3x'] },
+  features: { twighmr: false },
+} satisfies UserOptions)
+```
+
+| option                   | default                                                 | description                                                     |
+|--------------------------|---------------------------------------------------------|-----------------------------------------------------------------|
+| `url`                    | `UEBERTOOL_URL`, `DDEV_PRIMARY_URL`, `http://localhost` | origin of the Drupal site, used for dev asset URLs and CORS     |
+| `ce.prefix`              | theme name, `ce` without `.info.yml`                    | prefix of custom element tag names                              |
+| `breakpoints.multipliers`| `['1x', '2x']`                                          | multipliers of every breakpoint                                 |
+| `features.twighmr`       | `true`                                                  | reload the page content on twig changes                         |
+| `features.clearCache`    | `'drush cr'`                                            | command run when entrypoints or templates are added or removed  |
+| `baseTheme`              | `false`                                                 | `base theme` of the generated dist theme                        |
+| `themePackage`           | theme name                                              | `package` of the generated dist theme                           |
+| `vue`                    |                                                         | options for `@vitejs/plugin-vue`                                |
+| `unimport`               |                                                         | options for `unimport`                                          |
+| `components`             |                                                         | options for `unplugin-vue-components`                           |
+
+Options are deep merged with the defaults, but arrays replace the default
+array instead of being appended. `multipliers: ['3x']` results in `3x` only.
+To extend a default, repeat it: `multipliers: ['1x', '2x', '3x']`.
+
 ### Entrypoints
 Every js/ts and css file inside:
 ```sh
@@ -53,6 +83,12 @@ is an entrypoint and also a drupal library. An exception to this are files insid
 ./js/utils
 ```
 , files starting with an _underscore and file ending with `*.ce.*`.
+
+The build output mirrors the source paths: `css/foo.layout.css` becomes
+`dist/css/foo.layout.[hash].css`, `js/a/index.ts` becomes
+`dist/js/a/index.[hash].js`. Assets referenced from CSS, like images and fonts,
+are hashed and placed next to their source as well. Assets from outside the
+theme (e.g. `node_modules`) end up in `dist/assets/`.
 
 #### SDC
 Drupal automatically attaches the css and js file with the same name as the sdc. Thus you can add the files you want to be transpiled to the assets, src, js or css folder.
@@ -70,9 +106,15 @@ Any of these files is auto imported and registered as `<themename>-filename`.
 | lazy    | dynamic import                                            |
 | visible | dynamic import when element is close to the viewport      |
 
+Elements are loaded in parallel. An element that fails to load is logged and
+does not stop the others. A tag that is already defined is skipped. Adding or
+removing an element file during development reloads the page, no restart
+needed.
+
 ### Custom Element Data
 
-Custom Element Data is exported into .uebertool
+While the dev server runs, Custom Element Data is exported into .uebertool
+(`vite build` only updates `custom-elements.d.ts`).
 You can add it to vscode with:
 
 ```json
@@ -91,13 +133,45 @@ Tailwind Layers are wrapped in cascade layers by dafault. Drupal styles should b
 (uebertool_cascade_layer does this for you)
 
 #### Drupal Layers
-When a css file include `{base|layout|component|state|theme}` in the name.
+A css file named `*.{base|layout|component|state|theme}.css` is added to that
+Drupal CSS group, e.g. `css/foo.layout.css` is in group `layout`. Without
+suffix the group is `base`.
 
 ### Breakpoints
-The breakpoint.yml uses the breakpoints from your tailwind config file. Per Default it offers 1x and 2x multiplier.
+The breakpoints.yml uses the Tailwind default breakpoints (`sm` to `2xl`, plus
+`xs` without media query). Breakpoints defined in `css/tailwind.css` are
+applied on top:
+
+```css
+@theme {
+  --breakpoint-3xl: 120rem; /* add or override */
+  --breakpoint-2xl: initial; /* remove one */
+  /* --breakpoint-*: initial; removes all defaults */
+}
+```
+
+`@import`ed files are not read. Per default every breakpoint offers the 1x and
+2x multiplier.
 
 ### Libraries
-A libraries.yml is automagically generated. Used Drupal dependencies are added for ease of use.
+A libraries.yml is automagically generated. Used Drupal dependencies
+(`core/drupal`, `core/once`, `core/drupalSettings`, ...) are detected in the
+code of the entrypoint and of every chunk it imports, including custom elements.
+
+The library name is derived from the source path:
+
+| source                                    | library                                  |
+|-------------------------------------------|------------------------------------------|
+| `css/tailwind.css`                        | `css__tailwind`                          |
+| `css/foo.layout.css`                      | `css__foo` (group `layout`)              |
+| `js/main.ts`                              | `js__main`                               |
+| `js/a/index.ts`                           | `js__a__index`                           |
+| `templates/components/button/button.ts`   | `button`                                 |
+| `components/card/css/card.theme.css`      | `sdc--card` (group `theme`)              |
+
+Files with the same path but a different extension, e.g. `button.ts` and
+`button.css`, share one library. Different sources that end up with the same
+library name are reported as a warning.
 
 The libraries of:
 ```sh
@@ -105,10 +179,23 @@ The libraries of:
 ./css/tailwind.css
 ./css/gin-custom.css
 ```
-Are global by default.
+are global by default, if the file exists.
+
+### Dev server
+- Adding or removing an entrypoint or a twig template restarts the dev server
+  and runs `features.clearCache` (`drush cr`). If the command fails, a warning
+  is logged.
+- CORS only allows the Drupal site (`url`, `UEBERTOOL_URL`,
+  `DDEV_PRIMARY_URL`). Without any of them, Vite's default applies.
 
 ### Types
 Drupal types are available. Including types for some internals like drupal/once.
+The `virtual:*` modules are typed via `types/virtual`. The option types are
+exported:
+
+```ts
+import type { DrupalLibrary, UserOptions } from '@ueberbit/vite-plugin-drupal'
+```
 
 ### Agent skills
 The package ships skills for coding agents in `skills/`, e.g.

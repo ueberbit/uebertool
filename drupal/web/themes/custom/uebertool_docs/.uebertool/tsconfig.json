@@ -20,6 +20,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "skipLibCheck": true,
+    "allowUmdGlobalAccess": true,
     "experimentalDecorators": true,
     "paths": {
       "~": [
@@ -75,7 +76,6 @@
     "**/*.stories.jsx",
     "**/.storybook/**/*",
     "**/*.js",
-    "**/*.mdx",
-    "**/*.tsx"
+    "**/*.mdx"
   ]
 }

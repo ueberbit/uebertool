@@ -1,27 +1,45 @@
 /**
- * Common functionality for all loaders.
+ * A registered custom element: tag name (computed at build time), module
+ * path and whether it is a Vue SFC.
  */
-export function common(config: Record<string, any>) {
+export interface CeEntry {
+  tag: string
+  path: string
+  vue: boolean
+}
+
+/**
+ * Generates `{ 'prefix-foo': { vue: true, load: () => import('/path') } }`.
+ */
+function toModuleMap(entries: CeEntry[]) {
+  return `{\n${entries.map(({ tag, path, vue }) =>
+    `  ${JSON.stringify(tag)}: { vue: ${vue}, load: () => import(${JSON.stringify(`/${path}`)}) },\n`,
+  ).join('')}}`
+}
+
+/**
+ * Common functionality for the idle, lazy and visible loaders.
+ */
+export function common() {
   return `
+let __ceApi
 
-const cacheStringFunction = (fn) => {
-  const cache = Object.create(null)
-  return (str => {
-    const hit = cache[str]
-    return hit || (cache[str] = fn(str))
-  })
+const __ceDefine = async (tag, { load, vue }) => {
+  if (customElements.get(tag)) return
+  const mod = await load()
+  const ctor = vue
+    ? (await (__ceApi ??= import('@ueberbit/vite-plugin-drupal/ApiCustomElements'))).defineCustomElement(mod.default)
+    : mod[Object.keys(mod)[0]]
+  if (!customElements.get(tag)) customElements.define(tag, ctor)
 }
 
-const hyphenateRE = /\B([A-Z])/g
+const __ceDefineSafe = (tag, ce) => __ceDefine(tag, ce).catch((e) => {
+  console.error(\`[uebertool] Failed to define <\${tag}>\`, e)
+})
 
-const hyphenate = cacheStringFunction(str =>
-  str.replace(hyphenateRE, '-$1').toLowerCase()
+const __ceDefineAll = ces => Promise.allSettled(
+  Object.entries(ces).map(([tag, ce]) => __ceDefineSafe(tag, ce)),
 )
-
-const getTagName = (path) => {
-  const filename = path.split('/').at(-1)
-  return filename ? \`${config.prefix}-\${hyphenate(filename.replace(/\.(idle|visible|eager|lazy)\.ce\.(vue|tsx|jsx|ts|js)$/, ''))}\` : ''
-}
 `
 }
 
@@ -29,75 +47,58 @@ const getTagName = (path) => {
  * Intersection Observer based loader for loading components when entering
  * the viewport.
  */
-export function visibleLoader(modules: Record<string, any>) {
+export function visibleLoader(entries: CeEntry[]) {
   return `
 class CustomElementLoader {
-  #options
-  #modules
+  #pending
+  #observed = new WeakSet()
+  #io
 
-  constructor(modules) {
-    this.#options = {
+  constructor(ces) {
+    this.#pending = new Map(Object.entries(ces))
+    this.#io = new IntersectionObserver(entries => this.#onIntersect(entries), {
       root: null,
       rootMargin: '50%',
-      threshold: [...new Array(10).fill(0).map((_, idx) => idx / 10), 1],
-    }
-
-    this.#modules = {}
-
-    for (const path in modules) {
-      const tagname = getTagName(path)
-      if (!tagname) continue
-
-      this.#modules[tagname] = {
-        mod: modules[path],
-        tagname,
-        path,
-        loaded: false
-      }
-    }
+      threshold: 0,
+    })
   }
 
   load(ctx) {
-    for (const [key, value] of Object.entries(this.#modules)) {
-      this.#modules[key].io = new IntersectionObserver((entries, observer) => this.ioCallback(entries, observer, key), this.#options)
-      const items = ctx.querySelectorAll(key)
-      ctx.querySelectorAll(key).forEach(ce => this.#modules[key].io.observe(ce))
+    for (const tag of this.#pending.keys()) {
+      ctx.querySelectorAll(tag).forEach((el) => {
+        if (this.#observed.has(el)) return
+        this.#observed.add(el)
+        this.#io.observe(el)
+      })
     }
     return this
   }
 
-  ioCallback(entries, observer, tagname) {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && tagname in this.#modules) {
-        if (this.#modules[tagname].path.match(/vue$/)) {
-          this.#modules[tagname].mod().then(async(mod) => {
-            try {
-              const { defineCustomElement } = await import('@ueberbit/vite-plugin-drupal/ApiCustomElements')
-              customElements.define(tagname, defineCustomElement(mod.default))
-            } catch(e) { console.log(e) }
-          })
-        } else {
-          this.#modules[tagname].mod().then(async(mod) => {
-            try {
-              customElements.define(tagname, mod[Object.keys(mod)[0]])
-            } catch(e) { console.log(e) }
-          })
-        }
-        observer.disconnect()
-        delete this.#modules[tagname]
+  #onIntersect(entries) {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue
+      const tag = entry.target.localName
+      const ce = this.#pending.get(tag)
+      if (!ce) {
+        this.#io.unobserve(entry.target)
+        continue
       }
-    })
+      this.#pending.delete(tag)
+      document.querySelectorAll(tag).forEach(el => this.#io.unobserve(el))
+      this.#io.unobserve(entry.target)
+      __ceDefineSafe(tag, ce)
+    }
   }
 }
 
-const visibleCe = ${modules}
+window.customElementLoader = new CustomElementLoader(${toModuleMap(entries)}).load(document)
 
-window.customElementLoader = new CustomElementLoader(visibleCe).load(document)
-
-Drupal.behaviors.customElementLoader = {
-  attach(context) {
-    context !== document && window.customElementLoader.load(context)
-  },
+if (typeof Drupal !== 'undefined') {
+  Drupal.behaviors.customElementLoader = {
+    attach(context) {
+      context !== document && window.customElementLoader.load(context)
+    },
+  }
 }
 `
 }
@@ -106,34 +107,17 @@ Drupal.behaviors.customElementLoader = {
  * Lazy load components when the browser is idle.
  * Requires polyfill for Safari.
  */
-export function idleLoader(modules: Record<string, any>) {
+export function idleLoader(entries: CeEntry[]) {
   return `
-const idleLoader = async () => {
-  const idleCE = ${modules}
-
-  for (const path in idleCE) {
-    const tagname = getTagName(path)
-    if (!tagname) continue
-    if (path.match(/vue$/)) {
-      const { defineCustomElement } = await import('@ueberbit/vite-plugin-drupal/ApiCustomElements')
-      customElements.define(tagname, defineCustomElement((await idleCE[path]()).default))
-    } else {
-      const ce = await idleCE[path]()
-      try {
-        customElements.define(tagname, ce[Object.keys(ce)[0]])
-      } catch(e) { console.log(e) }
-    }
-  }
-}
+const __ceIdle = ${toModuleMap(entries)}
+const __ceIdleLoad = () => __ceDefineAll(__ceIdle)
 
 if ('requestIdleCallback' in window) {
-  requestIdleCallback(() => {
-    idleLoader()
-  }, {
-    timeout: 1000
+  requestIdleCallback(__ceIdleLoad, {
+    timeout: 1000,
   })
 } else {
-  idleLoader()
+  __ceIdleLoad()
 }
 `
 }
@@ -141,54 +125,34 @@ if ('requestIdleCallback' in window) {
 /**
  * Eagerly loads components.
  */
-export function eagerLoader(imports: string, modules: string, hasVue: boolean) {
+export function eagerLoader(entries: CeEntry[]) {
+  if (!entries.length)
+    return ''
+
+  const hasVue = entries.some(entry => entry.vue)
+  const imports = entries.map(({ path }, i) => `import __ce${i} from ${JSON.stringify(`~/${path}`)}\n`).join('')
+  const modules = `{\n${entries.map(({ tag, vue }, i) => `  ${JSON.stringify(tag)}: [__ce${i}, ${vue}],\n`).join('')}}`
+
   return `
-${imports}
-${modules.length > 2
-  ? `
-${hasVue && 'import { defineCustomElement } from \'@ueberbit/vite-plugin-drupal/ApiCustomElements\''}
+${imports}${hasVue ? 'import { defineCustomElement as __ceDefineVue } from \'@ueberbit/vite-plugin-drupal/ApiCustomElements\'\n' : ''}
+const __ceEager = ${modules}
 
-const eagerCE = ${modules}
-
-Object.keys(eagerCE).forEach(ce => {
+for (const [tag, [ce, vue]] of Object.entries(__ceEager)) {
+  if (customElements.get(tag)) continue
   try {
-    ${hasVue
-      ? `
-      if(eagerCE[ce].type === 'vue') {
-        customElements.define(ce, defineCustomElement(eagerCE[ce].name))
-      } else {
-        customElements.define(ce, eagerCE[ce].name)
-      }
-      `
-      : 'customElements.define(ce, eagerCE[ce].name)'}
-  } catch(e) { console.log(e) }
-})`
-  : ''}
+    customElements.define(tag, ${hasVue ? 'vue ? __ceDefineVue(ce) : ce' : 'ce'})
+  } catch (e) {
+    console.error(\`[uebertool] Failed to define <\${tag}>\`, e)
+  }
+}
 `
 }
 
 /**
  * Lazy loads components.
  */
-export function lazyLoader(modules: Record<string, any>) {
+export function lazyLoader(entries: CeEntry[]) {
   return `
-;(async () => {
-  const lazyCe = ${modules}
-
-  for (const path in lazyCe) {
-    const tagname = getTagName(path)
-    if (!tagname) continue
-
-    if (path.match(/vue$/)) {
-      const { defineCustomElement } = await import('@ueberbit/vite-plugin-drupal/ApiCustomElements')
-      customElements.define(tagname, defineCustomElement((await lazyCe[path]()).default))
-    } else {
-      const ce = await lazyCe[path]()
-      try {
-        customElements.define(tagname, ce[Object.keys(ce)[0]])
-      } catch(e) { console.log(e) }
-    }
-  }
-})()
+__ceDefineAll(${toModuleMap(entries)})
 `
 }

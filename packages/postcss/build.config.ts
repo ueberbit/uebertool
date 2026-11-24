@@ -1,16 +1,10 @@
-import { defineBuildConfig } from 'unbuild'
+import { defineBuildConfig } from 'obuild/config'
 
 export default defineBuildConfig({
   entries: [
-    'src/plugins/stripcolor',
+    {
+      type: 'bundle',
+      input: ['./src/plugins/stripcolor.ts'],
+    },
   ],
-  clean: true,
-  declaration: true,
-  externals: [
-    'unconfig',
-  ],
-  rollup: {
-    emitCJS: false,
-    inlineDependencies: true,
-  },
 })

@@ -22,16 +22,15 @@ export function useStyles() {
     if (!renderRoot)
       return
 
-    // @ts-expect-error custom api
-    if (!instance.type.styles)
+    // `styles` and `__hmrId` are set on the component by @vitejs/plugin-vue.
+    const type = instance.type as { styles?: string[], __hmrId?: string }
+    if (!type.styles)
       return
 
-    // @ts-expect-error custom api
-    const styles = instance.type.styles.join('')
+    const styles = type.styles.join('')
 
     // Use __hmrId as UUID for replacing styles, instead of adding new ones every time.
-    // @ts-expect-error custom api
-    const __hmrId = instance.type.__hmrId
+    const __hmrId = type.__hmrId
 
     /**
      * If the rootNode of the element is a shadowRoot, attach the styles.

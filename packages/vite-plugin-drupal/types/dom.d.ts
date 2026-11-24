@@ -1,20 +1,7 @@
 declare global {
-  interface ShadowRoot {
-    adoptedStyleSheets: Array<CSSStyleSheet>
-  }
-
-  interface CSSStyleSheet {
-    __hmrId: string
-  }
-  interface RenderRoot {
-    adoptedStyleSheets: Array<CSSStyleSheet>
-  }
-
-  interface ShadowRoot extends RenderRoot {}
-  interface Document extends RenderRoot {}
-
   interface Window {
     Drupal: Drupal
+    customElementLoader?: { load: (context: Document | Element) => unknown }
   }
 }
 

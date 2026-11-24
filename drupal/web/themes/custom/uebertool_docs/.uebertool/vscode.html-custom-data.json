@@ -2,6 +2,21 @@
   "version": 1,
   "tags": [
     {
+      "name": "demo-mouse-tracker",
+      "description": "Uses auto-imported APIs only: `ref`/`computed` (vue preset),\n`useMouse` (@vueuse/core preset) and `formatMs` (./js/utils).\n\n",
+      "attributes": []
+    },
+    {
+      "name": "demo-tailwind-card",
+      "description": "Tailwind utilities inside the shadow DOM of a Vue custom element.\n\nSlots:\n\n  * ` ` {} - Card body.\n\nAttributes:\n\n  * `heading` {string} - Card heading.",
+      "attributes": [
+        {
+          "name": "heading",
+          "description": "`heading` {string} - Card heading.\n\n"
+        }
+      ]
+    },
+    {
       "name": "demo-hello-lit",
       "description": "A Lit element.\n\nSlots:\n\n  * ` ` {} - Appended after the greeting.\n\nAttributes:\n\n  * `name` {string} - Who to greet.\n\nProperties:\n\n  * `properties` {`{ name: { type: any; }; }`} - \n\n  * `styles` - \n\n  * `name` {string} - Who to greet.",
       "attributes": [
@@ -38,21 +53,6 @@
         {
           "name": "name",
           "description": "`name` {string} - Who to greet.\n\n"
-        }
-      ]
-    },
-    {
-      "name": "demo-mouse-tracker",
-      "description": "Uses auto-imported APIs only: `ref`/`computed` (vue preset),\n`useMouse` (@vueuse/core preset) and `formatMs` (./js/utils).\n\n",
-      "attributes": []
-    },
-    {
-      "name": "demo-tailwind-card",
-      "description": "Tailwind utilities inside the shadow DOM of a Vue custom element.\n\nSlots:\n\n  * ` ` {} - Card body.\n\nAttributes:\n\n  * `heading` {string} - Card heading.",
-      "attributes": [
-        {
-          "name": "heading",
-          "description": "`heading` {string} - Card heading.\n\n"
         }
       ]
     }

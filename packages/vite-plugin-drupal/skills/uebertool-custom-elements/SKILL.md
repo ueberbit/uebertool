@@ -165,14 +165,14 @@ dev-server restart to be resolved.
 
 ## 6. Document it (editor support)
 
-- On build start and on every change to a `*.ce.*` file, the plugin runs web-component-analyzer over `js/`, `templates/` and `components/`.
-- It writes `.uebertool/vscode.html-custom-data.json`, which gives tag and attribute completion in Twig and HTML, and `.uebertool/custom-elements.d.ts`, which types `document.querySelector('<tag>')` for Vue elements.
+- While the dev server runs, the plugin runs web-component-analyzer over `js/`, `templates/` and `components/` on start and after every change to a `*.ce.*` file.
+- It writes `.uebertool/vscode.html-custom-data.json`, which gives tag and attribute completion in Twig and HTML. `.uebertool/custom-elements.d.ts`, which types `document.querySelector('<tag>')` for Vue elements, is also written on `vite build`.
 - For Vue, the JSDoc goes into a `<docs lang="ts">` block, which is removed from the bundle. Supported tags include `@element`, `@attr`, `@prop`, `@fires`, `@slot`, `@csspart` and `@cssprop`.
 - The theme's `tsconfig.json` should extend `./.uebertool/tsconfig.json`.
 
 ## 7. Check your work
 
-1. Run `ddev exec pnpm run build` in the theme, or keep `ddev exec pnpm run dev` running.
+1. Keep `ddev exec pnpm run dev` running in the theme (`pnpm run build` does not update the editor data).
 2. Check `.uebertool/vscode.html-custom-data.json` (the tag and attributes are listed) and `.uebertool/custom-elements.d.ts` (Vue elements only).
 3. In the browser:
    - `customElements.get('mytheme-x')` is defined once the strategy has loaded it. For `visible`, scroll it into view.

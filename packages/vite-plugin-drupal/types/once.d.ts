@@ -41,7 +41,7 @@
  *   An array of elements that have not yet been processed by a once call
  *   with a given id.
  */
-declare function once<T extends HTMLElement>(id: string, selector: NodeList | Array<HTMLElement> | HTMLElement | string, context?: Document | HTMLElement): T[]
+declare function once<T extends Element = HTMLElement>(id: string, selector: string | Element | NodeList | ArrayLike<Element>, context?: Document | Element): T[]
 declare namespace once {
   /**
    * Removes a once id from an element's data-drupal-once attribute value.
@@ -77,7 +77,7 @@ declare namespace once {
    *   A filtered array of elements that had been processed by the provided id,
    *   and are now able to be processed again.
    */
-  function remove(id: string, selector: string | Element | NodeList | Element[], context?: Element | Document): Element[]
+  function remove<T extends Element = HTMLElement>(id: string, selector: string | Element | NodeList | ArrayLike<Element>, context?: Document | Element): T[]
   /**
    * Finds elements that have been processed by a given once id.
    *
@@ -111,7 +111,7 @@ declare namespace once {
    *   A filtered array of elements that have already been processed by the
    *   provided once id.
    */
-  function filter(id: string, selector: string | Element | NodeList | Element[], context?: Element | Document): Element[]
+  function filter<T extends Element = HTMLElement>(id: string, selector: string | Element | NodeList | ArrayLike<Element>, context?: Document | Element): T[]
   /**
    * Finds elements that have been processed by a given once id.
    *
@@ -139,5 +139,5 @@ declare namespace once {
    *   A filtered array of elements that have already been processed by the
    *   provided once id.
    */
-  function find(id?: string, context?: Element | Document): Element[]
+  function find<T extends Element = HTMLElement>(id?: string, context?: Document | Element): T[]
 }

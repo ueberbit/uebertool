@@ -17,7 +17,6 @@ export type { VueElementConstructor }
  * the styles of nested `*.ce.vue` components) is handled by Vue itself.
  */
 function withSharedStyles(Base: VueElementConstructor): VueElementConstructor {
-  // @ts-expect-error VueElementConstructor is a constructor type, not a class.
   return class extends Base {
     constructor(initialProps?: Record<string, any>) {
       super(initialProps)
