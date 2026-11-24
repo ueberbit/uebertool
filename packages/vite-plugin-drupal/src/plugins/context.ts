@@ -32,7 +32,7 @@ export interface Options {
     clearCache: boolean | string
   }
   experimental: object
-  baseTheme: string
+  baseTheme: string | false
 }
 
 export type UserOptions = Partial<Options>
@@ -110,7 +110,7 @@ const defaults: Options = {
     clearCache: 'drush cr',
   },
   experimental: {},
-  baseTheme: 'stable9',
+  baseTheme: false,
 }
 
 export default (ctx: Context, options: UserOptions): Plugin => {

@@ -22,7 +22,7 @@ core_version_requirement: ^11
 ## What it contains
 
 - **Global libraries:** `css__tailwind`, `js__main` and `css__gin-custom` are attached on every page.
-- **Base theme:** the dist theme itself extends `stable9`. Change it with the `baseTheme` option.
+- **Base theme:** none (`base theme: false`), so Drupal uses the module templates for everything your theme does not override. Set one with the `baseTheme` option.
 - **Package:** the theme name, or the `themePackage` option.
 - **Hidden:** it never shows up in the Appearance UI.
 

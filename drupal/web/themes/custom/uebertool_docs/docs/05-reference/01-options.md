@@ -14,7 +14,7 @@ uebertool({
     twighmr: true,
     clearCache: 'drush cr',
   },
-  baseTheme: 'stable9',
+  baseTheme: false,
   themePackage: 'mytheme',
   vue: {},
   unimport: {},
@@ -29,7 +29,7 @@ uebertool({
 | `breakpoints.multipliers` | `['1x', '2x']` | Multipliers of every generated [breakpoint](../02-build/03-breakpoints.md). |
 | `features.twighmr` | `true` | Enables [Twig HMR](../04-developer-experience/03-twig-hmr.md). |
 | `features.clearCache` | `'drush cr'` | Command run after [files were added or removed](../04-developer-experience/04-restart.md). `false` disables it. |
-| `baseTheme` | `'stable9'` | Base theme of the generated [dist theme](../02-build/04-theme-info.md). |
+| `baseTheme` | `false` | Base theme of the generated [dist theme](../02-build/04-theme-info.md). `false` means no base theme. Set e.g. `'stable9'` to keep the old markup. |
 | `themePackage` | theme name | `package` of the dist theme. |
 | `vue` | custom elements = tags with a dash | Options for `@vitejs/plugin-vue`. |
 | `unimport` | see [Auto-imports](../04-developer-experience/01-auto-imports.md) | Options for `unimport`. |
