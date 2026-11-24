@@ -110,6 +110,14 @@ Are global by default.
 ### Types
 Drupal types are available. Including types for some internals like drupal/once.
 
+### Agent skills
+The package ships skills for coding agents in `skills/`, e.g.
+`uebertool-custom-elements` for writing custom elements. Install them into
+your project's agent directories from `node_modules`:
+```sh
+npx skills experimental_sync
+```
+
 ### Konami
 Do fun stuff with konami code:
 ```ts

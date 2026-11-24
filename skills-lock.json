@@ -23,6 +23,11 @@
       "sourceType": "github",
       "skillPath": ".claude/skills/drupal-security/SKILL.md",
       "computedHash": "463f31c58f5d24d7cf81306b8b5b28e47b2c21be4867cdf6e7c5af115566b158"
+    },
+    "uebertool-custom-elements": {
+      "source": "./packages/vite-plugin-drupal/skills/uebertool-custom-elements",
+      "sourceType": "local",
+      "computedHash": "ddf78fedca908c717fc0be6815e40f1aa05fab78e5b734fcca8a56d3a324cb2a"
     }
   }
 }
