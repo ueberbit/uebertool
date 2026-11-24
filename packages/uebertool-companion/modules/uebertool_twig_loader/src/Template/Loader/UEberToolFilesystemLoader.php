@@ -28,6 +28,13 @@ class UEberToolFilesystemLoader extends FilesystemLoader {
   protected $libraryDiscovery;
 
   /**
+   * The name of the theme whose template paths are currently registered.
+   *
+   * @var string|null
+   */
+  protected $registeredThemeName = NULL;
+
+  /**
    * Constructs a new ComponentsLoader object.
    */
   public function __construct(
@@ -40,19 +47,54 @@ class UEberToolFilesystemLoader extends FilesystemLoader {
     $this->addPath('.', '__main__');
   }
 
-  public function getSourceContext(string $name): Source {
+  /**
+   * {@inheritdoc}
+   */
+  protected function findTemplate(string $name, bool $throw = TRUE) {
     if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+      if (!$throw) {
+        return NULL;
+      }
       throw new LoaderError('Skipping admin route');
     }
-    $activeTheme = $this->themeManager->getActiveTheme();
-    $activeThemeName = $activeTheme->getName();
-    $distThemeName = "{$activeThemeName}_dist";
+    $this->ensurePaths();
+    return parent::findTemplate($name, $throw);
+  }
 
-    file_exists($activeTheme->getPath() . '/templates') && $this->addPath($activeTheme->getPath() . '/templates', $activeThemeName);
-    foreach ($activeTheme->getBaseThemeExtensions() as $baseTheme) {
-      $path = $baseTheme->getPath() . '/templates';
-      file_exists($path) && $this->addPath($path, $baseTheme->getName());
+  /**
+   * Registers the template paths of the active theme and its base themes.
+   *
+   * Runs lazily, because the active theme is not negotiated yet when the
+   * loader is constructed, and re-registers when the active theme changes
+   * within a request (e.g. search_api's ThemeSwitcher).
+   */
+  protected function ensurePaths(): void {
+    $activeTheme = $this->themeManager->getActiveTheme();
+    if ($activeTheme->getName() === $this->registeredThemeName) {
+      return;
     }
+
+    $this->paths = array_intersect_key($this->paths, [self::MAIN_NAMESPACE => TRUE]);
+    $this->cache = $this->errorCache = [];
+
+    $themes = [$activeTheme->getName() => $activeTheme->getPath()];
+    foreach ($activeTheme->getBaseThemeExtensions() as $baseTheme) {
+      $themes[$baseTheme->getName()] = $baseTheme->getPath();
+    }
+    foreach ($themes as $themeName => $themePath) {
+      file_exists($themePath . '/templates') && $this->addPath($themePath . '/templates', $themeName);
+    }
+
+    $this->registeredThemeName = $activeTheme->getName();
+  }
+
+  public function getSourceContext(string $name): Source {
+    if (null === ($path = $this->findTemplate($name)) || false === $path) {
+      return new Source('', $name, '');
+    }
+
+    $activeTheme = $this->themeManager->getActiveTheme();
+    $distThemeName = "{$activeTheme->getName()}_dist";
 
     $prefix = '';
 
@@ -81,10 +123,6 @@ class UEberToolFilesystemLoader extends FilesystemLoader {
       $prefix = $extension
         ? "{{ attach_library('{$extension}/{$libraryName}') }}"
         : '';
-    }
-
-    if (null === ($path = $this->findTemplate($name)) || false === $path) {
-      return new Source('', $name, '');
     }
 
     return new Source($prefix . file_get_contents($path), $name, $path);
