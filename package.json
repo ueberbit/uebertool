@@ -20,7 +20,7 @@
     "pnpm": "^12.0.0"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . --cache",
     "release": "bumpp package.json packages/*/package.json packages/*/composer.json --commit --push --tag",
     "taze": "pnpm dlx taze -r",
     "taze-write": "pnpm dlx taze -r -w",

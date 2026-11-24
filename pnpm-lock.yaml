@@ -177,9 +177,6 @@ importers:
       '@ueberbit/eslint-config-drupal':
         specifier: workspace:*
         version: link:../eslint-config-drupal
-      defu:
-        specifier: 'catalog:'
-        version: 6.1.7
       eslint:
         specifier: 'catalog:'
         version: 10.15.0(jiti@2.7.0)

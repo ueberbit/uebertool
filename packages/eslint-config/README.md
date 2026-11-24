@@ -26,3 +26,28 @@ import config from '@ueberbit/eslint-config'
 
 export default config()
 ```
+
+### Script `package.json`
+
+```json
+{
+  "scripts": {
+    "lint": "eslint . --cache"
+  }
+}
+```
+
+`--cache` only re-lints changed files. Add `.eslintcache` to your `.gitignore`.
+
+### Ignores
+
+Besides the gitignored files, `tsconfig.json`, `composer.json`, `composer.lock`,
+`.storybook`, `*.stories.jsx`, `_deprecated` and `.uebertool` are ignored. Pass
+`ignores` to extend the list, un-ignore with a `!pattern` or replace it with a
+function:
+
+```js
+export default config({
+  ignores: ['legacy/**', '!**/composer.json'],
+})
+```

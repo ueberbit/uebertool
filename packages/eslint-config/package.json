@@ -30,7 +30,6 @@
   "dependencies": {
     "@antfu/eslint-config": "catalog:",
     "@ueberbit/eslint-config-drupal": "workspace:*",
-    "defu": "catalog:",
     "eslint": "catalog:"
   }
 }

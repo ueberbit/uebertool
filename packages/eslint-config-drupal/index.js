@@ -6,25 +6,27 @@ import fs from 'node:fs'
  * @returns {boolean} true if project is Drupal.
  */
 function isDrupal() {
-  let drupal = false
-
   // Drupal Root.
   if (fs.existsSync('composer.json')) {
-    const composer = fs.readFileSync('composer.json', 'utf8')
-    drupal = !!composer.match(/drupal\//)
-  }
-  // Drupal Theme or Module.
-  else {
-    const files = fs.readdirSync('./')
-    drupal = files.some(file => file.endsWith('.info.yml'))
+    try {
+      const { require = {}, 'require-dev': requireDev = {} } = JSON.parse(fs.readFileSync('composer.json', 'utf8'))
+      return Object.keys({
+        ...require,
+        ...requireDev,
+      }).some(name => name.startsWith('drupal/'))
+    }
+    catch {
+      return false
+    }
   }
 
-  return drupal
+  // Drupal Theme or Module.
+  return fs.readdirSync('./').some(file => file.endsWith('.info.yml'))
 }
 
 /**
  * Drupal specific ESLint rules.
- * @typedef {import('eslint').Linter.FlatConfig} FlatConfigItem
+ * @typedef {import('eslint').Linter.Config} FlatConfigItem
  * @returns {FlatConfigItem[]} ESLint configuration.
  */
 function config() {
@@ -32,24 +34,25 @@ function config() {
     ? [
         {
           name: 'ueberbit/drupal',
+          files: ['**/*.{js,mjs,cjs,ts,mts,cts,vue}'],
           languageOptions: {
             globals: {
-              Drupal: true,
-              drupalSettings: true,
-              drupalTranslations: true,
-              jQuery: true,
-              _: true,
-              Cookies: true,
-              Backbone: true,
-              Modernizr: true,
-              loadjs: true,
-              Popper: true,
-              Shepherd: true,
-              Sortable: true,
-              once: true,
-              CKEDITOR: true,
-              CKEditor5: true,
-              tabbable: true,
+              Drupal: 'readonly',
+              drupalSettings: 'readonly',
+              drupalTranslations: 'readonly',
+              jQuery: 'readonly',
+              _: 'readonly',
+              Cookies: 'readonly',
+              Backbone: 'readonly',
+              Modernizr: 'readonly',
+              loadjs: 'readonly',
+              Popper: 'readonly',
+              Shepherd: 'readonly',
+              Sortable: 'readonly',
+              once: 'readonly',
+              CKEDITOR: 'readonly',
+              CKEditor5: 'readonly',
+              tabbable: 'readonly',
             },
           },
         },
