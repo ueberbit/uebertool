@@ -19,7 +19,7 @@ jobs:
     name: Sync commits
     if: github.repository == 'ueberbit/uebertool' # Execute this workflow job only on the main repository.
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
           fetch-depth: 0
