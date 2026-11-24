@@ -53,6 +53,7 @@
   "volar.completion.preferredTagNameCase": "pascal", // PascalCase so you don't confuse vue with custom elements.
 
   "html.customData": [
-    "drupal/web/themes/custom/ueberbit/.uebertool/vscode.html-custom-data.json"
+    "drupal/web/themes/custom/ueberbit/.uebertool/vscode.html-custom-data.json",
+    "drupal/web/themes/custom/uebertool_docs/.uebertool/vscode.html-custom-data.json"
   ]
 }

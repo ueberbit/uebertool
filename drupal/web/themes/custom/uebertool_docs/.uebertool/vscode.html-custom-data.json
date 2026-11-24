@@ -48,11 +48,11 @@
     },
     {
       "name": "demo-tailwind-card",
-      "description": "Tailwind utilities inside the shadow DOM of a Vue custom element.\n\nSlots:\n\n  * ` ` {} - Card body.\n\nAttributes:\n\n  * `title` {string} - Card title.",
+      "description": "Tailwind utilities inside the shadow DOM of a Vue custom element.\n\nSlots:\n\n  * ` ` {} - Card body.\n\nAttributes:\n\n  * `heading` {string} - Card heading.",
       "attributes": [
         {
-          "name": "title",
-          "description": "`title` {string} - Card title.\n\n"
+          "name": "heading",
+          "description": "`heading` {string} - Card heading.\n\n"
         }
       ]
     }

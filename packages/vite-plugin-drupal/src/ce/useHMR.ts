@@ -1,17 +1,10 @@
-import { getCurrentInstance, onUpdated } from 'vue'
-import { adoptStyles } from './styles'
+import { onUpdated } from 'vue'
+import { refreshTailwindSheet } from './styles'
 
+/**
+ * Re-read the Tailwind stylesheet when the component updates, so new utility
+ * classes show up inside the shadow DOM during development.
+ */
 export function useHMR() {
-  onUpdated(() => {
-    const shadowRoot = getCurrentInstance()?.vnode?.el?.getRootNode()
-    const styles = Array.from((document.querySelectorAll('link[href*="tailwind"]')[0] as HTMLStyleElement).sheet?.cssRules || []).reduce((acc, curr: any) => acc + curr.cssText, '')
-
-    styles && adoptStyles(shadowRoot, [styles], 'tailwind')
-  })
+  onUpdated(refreshTailwindSheet)
 }
-
-// without setup:
-// updated() {
-//   const styles = Array.from(document.querySelectorAll('style')).find(el => el.innerHTML.includes('tailwind'))?.textContent
-//       styles && adoptStyles(this.$.shadowRoot, [styles], 'tailwind')
-// }

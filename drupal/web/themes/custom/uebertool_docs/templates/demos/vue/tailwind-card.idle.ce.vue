@@ -4,14 +4,14 @@
  *
  * @element demo-tailwind-card
  *
- * @attr {string} title - Card title.
+ * @attr {string} heading - Card heading.
  * @slot - Card body.
  */
 </docs>
 
 <script setup lang="ts">
 defineProps<{
-  title?: string
+  heading?: string
 }>()
 
 const count = ref(0)
@@ -21,7 +21,7 @@ const count = ref(0)
   <div class="rounded-xl bg-indigo-600 p-6 text-white shadow-lg">
     <div class="flex items-center justify-between gap-4">
       <h2 class="m-0 text-xl font-bold">
-        {{ title ?? 'Tailwind in shadow DOM' }}
+        {{ heading ?? 'Tailwind in shadow DOM' }}
       </h2>
       <!-- Local "*.ce.vue" components are auto-imported, no import statement. -->
       <DemoBadge label="nested component" />

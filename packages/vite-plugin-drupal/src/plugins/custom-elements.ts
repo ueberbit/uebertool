@@ -10,8 +10,6 @@ const virtualModuleId = 'virtual:vue-ce-loader'
 const resolvedVirtualModuleId = `\0${virtualModuleId}`
 
 export default (ctx: Context): Plugin => {
-  const tagNameMap = new Set<string>()
-
   const loaders: Record<string, any> = {
     visible: visibleLoader,
     idle: idleLoader,
@@ -33,7 +31,9 @@ export default (ctx: Context): Plugin => {
 
   const getTagName = (path: string): string => {
     const filename = path.split('/').at(-1)
-    return filename ? `${ctx.options.ce.prefix}-${hyphenate(filename.replace(/\.?(idle|visible|eager|lazy)?\.ce\.(vue|tsx|jsx|ts|js)$/, ''))}` : ''
+    return filename
+      ? `${ctx.options.ce.prefix}-${hyphenate(filename.replace(/\.?(idle|visible|eager|lazy)?\.ce\.(vue|tsx|jsx|ts|js)$/, ''))}`
+      : ''
   }
 
   const glob2eager = (glob: string[]) => {
@@ -44,7 +44,9 @@ export default (ctx: Context): Plugin => {
       const tagname = getTagName(filename)
       ce[tagname] = {
         name,
-        type: filename.match(/\.vue$/) ? 'vue' : 'ce',
+        type: /\.vue$/.test(filename)
+          ? 'vue'
+          : 'ce',
       }
       return `${a}import ${name} from '~/${c}'\n`
     }, '')
@@ -70,14 +72,23 @@ export default (ctx: Context): Plugin => {
       return loaders.eager(imports, modules, hasVue)
     }
 
-    return files.length ? loaders[type](glob2modules(files)) : ''
+    return files.length
+      ? loaders[type](glob2modules(files))
+      : ''
   })
 
+  /**
+   * Only `*.{strategy}.ce.*` files are registered as elements by the loaders.
+   * Other `*.ce.vue` files are nested components.
+   */
+  const isRegistered = (fileName: string) => /\.(?:idle|visible|eager|lazy)\.ce\.[a-z]+$/.test(fileName)
+
   function extractVueDocs(fileName: string, fileContent: string) {
+    if (!isRegistered(fileName))
+      return ''
+
     const docsBlock = fileContent.match(/<docs[^>]*>([\s\S]*?)<\/docs>/g)
     const tagName = getTagName(fileName)
-
-    tagNameMap.add(tagName)
 
     if (docsBlock?.length) {
       const code = docsBlock[0].split('\n')
@@ -119,7 +130,14 @@ export default (ctx: Context): Plugin => {
 
     await fse.writeFile('./.uebertool/vscode.html-custom-data.json', vscode)
 
-    const tagNames = `${Array.from(tagNameMap).reduce((a, c) => `${a}
+    // Derived from the current files on every run, so renamed or deleted
+    // elements disappear, and sorted, so the output is stable between builds.
+    const vueTagNames = files
+      .filter(fileName => fileName.endsWith('.vue') && isRegistered(fileName))
+      .map(getTagName)
+      .sort()
+
+    const tagNames = `${vueTagNames.reduce((a, c) => `${a}
   "${c}": HTMLElement`, `export {}
 
 declare global {
@@ -144,15 +162,21 @@ interface HTMLElementTagNameMap {`)}\n  }\n}`
           await addLoader('*/**/*.visible.ce.(vue|tsx|ts|js|jsx)'),
         ].join('')
 
-        return code = code ? common(ctx.options.ce) + code : code
+        return code = code
+          ? common(ctx.options.ce) + code
+          : code
       }
     },
     async buildStart() {
       generateVSCodeCustomHTMLData()
     },
-    async handleHotUpdate({ file }) {
-      if (file.match(/\.ce\./))
-        generateVSCodeCustomHTMLData()
+    configureServer(server) {
+      // Watch the files directly: handleHotUpdate is not called when a file
+      // is deleted, which left removed elements in the generated data.
+      server.watcher.on('all', (event, file) => {
+        if (['add', 'change', 'unlink'].includes(event) && /\.ce\./.test(file))
+          generateVSCodeCustomHTMLData()
+      })
     },
   }
 }

@@ -12,8 +12,10 @@ export function useStyles() {
     if (!instance)
       return
 
-    // @ts-expect-error custom api
-    if (instance.host)
+    // Inside a Vue custom element Vue injects the styles of the element and
+    // of nested *.ce.vue components itself (`ce` is internal, hence the cast).
+    const ce = (i: typeof instance | null) => (i as { ce?: unknown } | null)?.ce
+    if (ce(instance) || ce(instance.root))
       return
 
     const renderRoot = instance.vnode?.el?.getRootNode()

@@ -45,7 +45,13 @@ export interface CSSPart {
   }
 }
 
-export const cssGroups = ['base', 'layout', 'component', 'state', 'theme'] as const
+export const cssGroups = [
+  'base',
+  'layout',
+  'component',
+  'state',
+  'theme',
+] as const
 export type CSSGroup = typeof cssGroups[number]
 
 const deps = [
@@ -82,7 +88,9 @@ export default (ctx: Context): Plugin => {
         .map(assetOrChunk => assetOrChunk.fileName)
 
       files.forEach((file) => {
-        const code = 'code' in bundle[file] ? (bundle[file] as any).code : ''
+        const code = 'code' in bundle[file]
+          ? (bundle[file] as any).code
+          : ''
         setDeps(file, code, depMap)
       })
 
@@ -128,13 +136,13 @@ export default (ctx: Context): Plugin => {
  * @returns css group
  */
 function getCssGroup(filename: string): CSSGroup {
-  if (filename.match(/\.layout\.css$/))
+  if (/\.layout\.css$/.test(filename))
     return 'layout'
-  if (filename.match(/\.component\.css$/))
+  if (/\.component\.css$/.test(filename))
     return 'component'
-  if (filename.match(/\.theme\.css$/))
+  if (/\.theme\.css$/.test(filename))
     return 'theme'
-  if (filename.match(/\.state\.css$/))
+  if (/\.state\.css$/.test(filename))
     return 'state'
   return 'base'
 }
@@ -160,9 +168,12 @@ function getCssPart(file: string, ctx: Context): DrupalLibrary {
           preprocess: false,
           noquery: true,
           attributes: {
-            ...(file.match(/tailwind/)
+            ...(/tailwind/.test(file)
               ? {
-                  crossorigin: 'anonymous',
+                  // Read by Vue custom elements to adopt Tailwind into their
+                  // shadow root (see ce/styles.ts).
+                  'crossorigin': 'anonymous',
+                  'data-uebertool-tailwind': true,
                 }
               : {}),
           },
@@ -288,8 +299,11 @@ function setDeps(file: string, code: string, depMap: Map<string, Set<string>>) {
   deps.forEach(([regex, ...libraries]) => {
     if (code.match(regex)) {
       const dep = depMap.get(file)
-      for (const library of libraries)
-        depMap.set(file, dep ? dep.add(library) : new Set([library]))
+      for (const library of libraries) {
+        depMap.set(file, dep
+          ? dep.add(library)
+          : new Set([library]))
+      }
     }
   })
 }
