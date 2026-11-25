@@ -188,6 +188,40 @@ are global by default, if the file exists.
 - CORS only allows the Drupal site (`url`, `UEBERTOOL_URL`,
   `DDEV_PRIMARY_URL`). Without any of them, Vite's default applies.
 
+### Vite DevTools
+`@ueberbit/vite-plugin-drupal/devtools` re-exports `DevTools` from
+`@vitejs/devtools` and adds two dock entries:
+
+- **Run A11y Check** (`A11yCheckerPlugin`) runs axe-core on the page, lists the
+  violations in the messages panel and outlines the offending elements.
+- **Drupal Picker** (`DrupalPickerPlugin`) highlights the SDC components and
+  Twig templates under the cursor and opens the picked one in the editor. It
+  reads the theme debug comments, so it needs
+  `parameters.twig.config.debug: true` in `services.yml`. Inside the ddev
+  container the browser opens `editorUrl` (default `vscode://file{path}:1`,
+  `{path}` is the host path) instead of `$EDITOR`. Set `hostRoot` if the
+  project's host path is guessed wrong.
+
+```ts
+import uebertool from '@ueberbit/vite-plugin-drupal'
+import { A11yCheckerPlugin, DevTools, DrupalPickerPlugin } from '@ueberbit/vite-plugin-drupal/devtools'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  build: {
+    rolldownOptions: {
+      devtools: {},
+    },
+  },
+  plugins: [
+    A11yCheckerPlugin(),
+    DevTools(),
+    DrupalPickerPlugin(),
+    uebertool(),
+  ],
+})
+```
+
 ### Types
 Drupal types are available. Including types for some internals like drupal/once.
 The `virtual:*` modules are typed via `types/virtual`. The option types are

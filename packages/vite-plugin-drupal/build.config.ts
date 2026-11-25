@@ -11,6 +11,10 @@ export default defineBuildConfig({
         './src/composables.ts',
         './src/ce/ApiCustomElements.ts',
         './src/bootstrap.ts',
+        './src/devtools/index.ts',
+        // Served to the browser by the DevTools docks via `/@fs/`.
+        './src/devtools/axe/client/run-axe.ts',
+        './src/devtools/drupal-picker/client/pick.ts',
       ],
     },
   ],

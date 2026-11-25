@@ -20,6 +20,10 @@
       "types": "./dist/ce/ApiCustomElements.d.mts",
       "import": "./dist/ce/ApiCustomElements.mjs"
     },
+    "./devtools": {
+      "types": "./dist/devtools/index.d.mts",
+      "import": "./dist/devtools/index.mjs"
+    },
     "./types/*": {
       "types": "./types/*.d.ts"
     },
@@ -71,9 +75,13 @@
   "dependencies": {
     "@tailwindcss/vite": "catalog:",
     "@ueberbit/tailwind": "workspace:*",
+    "@vitejs/devtools": "catalog:",
+    "@vitejs/devtools-kit": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/shared": "catalog:",
     "@vueuse/core": "catalog:",
+    "axe-core": "catalog:",
+    "pathe": "catalog:",
     "typescript": "catalog:",
     "unimport": "catalog:",
     "unplugin-vue-components": "catalog:",
