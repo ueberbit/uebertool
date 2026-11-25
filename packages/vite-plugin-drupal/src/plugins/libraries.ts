@@ -5,6 +5,7 @@ import path, { relative, resolve } from 'node:path'
 import { defu } from 'defu'
 import fse from 'fs-extra'
 import YAML from 'yaml'
+import { clearCache } from './clear-cache'
 import { DEVTOOLS_LOADER_PATH } from './devtools'
 
 export interface DrupalLibrary {
@@ -213,6 +214,12 @@ export default (ctx: Context): Plugin => {
         },
       } satisfies Record<string, DrupalLibrary>)
       emitLib(libraries, ctx)
+      // Don't block the dev server start.
+      void clearCache(ctx)
+    },
+    async closeBundle() {
+      if (ctx.prod)
+        await clearCache(ctx)
     },
   }
 }

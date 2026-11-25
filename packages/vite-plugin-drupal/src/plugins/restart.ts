@@ -1,8 +1,6 @@
 import type { Plugin } from 'vite'
 import type { Context } from './context'
-import { spawn } from 'node:child_process'
 import path from 'node:path'
-import { createLogger } from 'vite'
 
 /**
  * Files that change the rollup input set (see config.ts) or the Drupal theme
@@ -24,8 +22,6 @@ export default (ctx: Context): Plugin => {
     timer = setTimeout(fn, delay)
   }
 
-  const logger = createLogger()
-
   return {
     name: 'vite-plugin-uebertool-restart',
     configureServer(server) {
@@ -34,16 +30,9 @@ export default (ctx: Context): Plugin => {
 
       function handleFileChange(file: string) {
         if (qualifiedPath(file)) {
-          schedule(() => {
-            server.restart()
-
-            if (typeof ctx.options.features.clearCache === 'string') {
-              const [command, ...args] = ctx.options.features.clearCache.split(' ')
-              logger.info(`Running: ${command} ${args.join(' ')}`, { timestamp: true })
-              spawn(command, args, { stdio: 'inherit', cwd: ctx.root })
-                .on('error', e => logger.warn(`[uebertool] Failed to run ${command}: ${e.message}`, { timestamp: true }))
-            }
-          })
+          // The restarted server rewrites libraries.yml and clears the cache
+          // (see the libraries plugin).
+          schedule(() => server.restart())
         }
       }
 

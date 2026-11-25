@@ -58,7 +58,7 @@ uebertool({
 | `ce.prefix`              | theme name, `ce` without `.info.yml`                    | prefix of custom element tag names                              |
 | `breakpoints.multipliers`| `['1x', '2x']`                                          | multipliers of every breakpoint                                 |
 | `features.twighmr`       | `true`                                                  | reload the page content on twig changes                         |
-| `features.clearCache`    | `'drush cr'`                                            | command run when entrypoints or templates are added or removed  |
+| `features.clearCache`    | `'drush cr'`                                            | command run after libraries.yml is written (dev start, build)   |
 | `baseTheme`              | `false`                                                 | `base theme` of the generated dist theme                        |
 | `proxy`                  | DDEV web server, else `url`                             | Drupal site the dev server passes requests to, `false` turns it off |
 | `configSync`             | `config/sync` next to the docroot                       | config sync directory, relative to the theme (see Dev server)   |
@@ -191,9 +191,10 @@ build. `uebertool_companion` passes them to locale, so strings in custom
 elements and in dev are translatable too (after `drush cr`).
 
 ### Dev server
-- Adding or removing an entrypoint or a twig template restarts the dev server
-  and runs `features.clearCache` (`drush cr`). If the command fails, a warning
-  is logged.
+- The dev server runs `features.clearCache` (`drush cr`) after it writes
+  libraries.yml, on start and on restart. Adding or removing an entrypoint or a
+  twig template restarts it. `vite build` runs the command when it finishes. If
+  the command can't be started or fails, a warning is logged.
 - Theme files are served at their docroot path, like Drupal serves them, e.g.
   `https://site:5173/themes/custom/my_theme/js/main.ts`.
 - You can browse the site through the dev server, e.g. `https://site:5173/`.
