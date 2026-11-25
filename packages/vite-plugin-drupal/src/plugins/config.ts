@@ -111,6 +111,16 @@ export default (ctx: Context): Plugin => {
         },
       } satisfies UserConfig
     },
+    configureServer(server) {
+      // The dev base is the theme path. Vite's own URLs requested without it,
+      // e.g. `/@fs/…` by Vite DevTools, are served below base as well.
+      const base = server.config.base
+      server.middlewares.use((req, _res, next) => {
+        if (req.url?.startsWith('/@') && !req.url.startsWith(base))
+          req.url = `${base}${req.url.slice(1)}`
+        next()
+      })
+    },
   }
 }
 
