@@ -181,6 +181,13 @@ The libraries of:
 ```
 are global by default, if the file exists.
 
+### Translations
+Drupal's locale module only finds `Drupal.t()` and `Drupal.formatPlural()` in
+the built entries. Theme sources under `js/`, `templates/` and `components/`
+that contain such calls are listed in `dist/translations.json`, in dev and
+build. `uebertool_companion` passes them to locale, so strings in custom
+elements and in dev are translatable too (after `drush cr`).
+
 ### Dev server
 - Adding or removing an entrypoint or a twig template restarts the dev server
   and runs `features.clearCache` (`drush cr`). If the command fails, a warning

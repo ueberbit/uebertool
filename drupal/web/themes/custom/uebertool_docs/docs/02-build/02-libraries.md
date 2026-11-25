@@ -56,3 +56,7 @@ With Vite 8, a production build of `css/demo.component.css` produced `demo.[hash
 
 - **Dev:** all assets are external URLs pointing to the Vite dev server, plus a `vite` library that loads `/@vite/client` for HMR.
 - **Build:** hashed files in `dist/`, scripts as `type: module`, never preprocessed or aggregated by Drupal.
+
+## Translations
+
+`Drupal.t()` and `Drupal.formatPlural()` work in every theme source, custom elements included. See [Translations](06-translations.md).

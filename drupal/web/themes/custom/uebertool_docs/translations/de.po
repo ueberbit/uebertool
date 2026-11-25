@@ -1,0 +1,21 @@
+# German strings of the translations demo, imported with
+#   drush locale:import de themes/custom/uebertool_docs/translations/de.po
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Your cart"
+msgstr "Dein Warenkorb"
+
+msgid "Welcome back, @name!"
+msgstr "Willkommen zurück, @name!"
+
+msgctxt "Sort"
+msgid "Order"
+msgstr "Reihenfolge"
+
+msgid "1 item"
+msgid_plural "@count items"
+msgstr[0] "1 Artikel"
+msgstr[1] "@count Artikel"

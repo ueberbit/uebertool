@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\uebertool_docs_pages\Markdown;
 
 use Drupal\Core\Extension\ThemeExtensionList;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
 use League\CommonMark\Environment\Environment;
@@ -39,6 +40,7 @@ final class DocsMarkdown {
 
   public function __construct(
     private readonly ThemeExtensionList $themes,
+    private readonly LanguageManagerInterface $languageManager,
   ) {}
 
   /**
@@ -93,8 +95,14 @@ final class DocsMarkdown {
       return NULL;
     }
     if ($node->name === 'preview' && !$node->container) {
+      $demo = $node->attributes['demo'] ?? throw new \InvalidArgumentException('::preview needs a demo attribute.');
+      // lang renders the preview in another interface language.
+      $options = isset($node->attributes['lang'])
+        ? ['language' => $this->languageManager->getLanguage($node->attributes['lang']) ?? throw new \InvalidArgumentException(sprintf('::preview: unknown language %s.', $node->attributes['lang']))]
+        : [];
       return $this->component('preview/preview.html.twig', [
-        'demo' => $node->attributes['demo'] ?? throw new \InvalidArgumentException('::preview needs a demo attribute.'),
+        'demo' => $demo,
+        'src' => Url::fromRoute('uebertool_docs_pages.preview', ['demo' => $demo], $options)->toString(),
         'title' => $node->attributes['title'] ?? '',
         'iframe' => (bool) ($node->attributes['iframe'] ?? FALSE),
         'height' => $node->attributes['height'] ?? NULL,

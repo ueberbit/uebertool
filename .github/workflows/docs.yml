@@ -56,6 +56,10 @@ jobs:
           vendor/bin/drush theme:install -y uebertool_docs
           vendor/bin/drush cset -y system.theme default uebertool_docs
           vendor/bin/drush cset -y system.site page.front /uebertool
+          # German for the translations demo, only with the docs theme's strings.
+          vendor/bin/drush en -y language locale
+          vendor/bin/drush language:add de --skip-translations
+          vendor/bin/drush locale:import de themes/custom/uebertool_docs/translations/de.po
 
       - name: Export static site
         working-directory: drupal

@@ -4,7 +4,18 @@ Drupal modules that go with the UEbertool theme tooling. The base module adds
 the cascade layer order (`@layer properties, theme, base, drupal, components,
 components-custom, utilities;`) to every page; the submodules are opt-in.
 
-Requires Drupal 11.1 or later (the base module uses OOP hooks).
+Requires Drupal 11.2 or later (the base module uses ordered OOP hooks).
+
+## JS translations
+
+Locale only scans the built JS entries for `Drupal.t()` and
+`Drupal.formatPlural()`, so it misses chunks loaded with `import()` (e.g.
+custom elements) and everything in dev, where Vite serves the JS.
+vite-plugin-drupal lists the theme's source files with such calls in
+`translations.json` of the dist theme. If locale is enabled, the base module
+hands them to locale, with a content hash so a changed file is parsed again.
+New strings show up after `drush cr`. The source files have to be deployed
+along with `dist/`.
 
 ## Modules
 

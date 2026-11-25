@@ -30,6 +30,18 @@ for dir in core sites themes; do
     rm -rf "html/${dir}"
   fi
 done
+# Pages of other languages (e.g. /de/uebertool/preview/translations) are
+# exported at the root too. Move them below the base path as well.
+for dir in html/*/; do
+  lang="$(basename "${dir}")"
+  if [ -d "html/${lang}${base}" ]; then
+    mkdir -p "${out}/${lang}"
+    mv "html/${lang}${base}" "${out}/${lang}/"
+    rmdir "html/${lang}" 2>/dev/null || true
+    find "html" -type f -name '*.html' -print0 \
+      | xargs -0 sed -i -E "s#([\"'])/${lang}${base}/#\1${base}/${lang}${base}/#g"
+  fi
+done
 mkdir -p "${out}/${theme_dist#web/}"
 cp -r "${theme_dist}/." "${out}/${theme_dist#web/}/"
 

@@ -14,6 +14,7 @@ import restart from './plugins/restart'
 import tailwindHMR from './plugins/tailwind-hmr'
 import takeover from './plugins/takeover'
 import themeInfo from './plugins/theme'
+import translations from './plugins/translations'
 import twig from './plugins/twig'
 import virtual from './plugins/virtual'
 import vueCustomElement from './plugins/vue-custom-element'
@@ -36,6 +37,7 @@ export default (options: UserOptions = {}): Plugin[] => {
     css(ctx),
     libraries(ctx),
     themeInfo(ctx),
+    translations(ctx),
     tailwindHMR(),
     vueCustomElement(),
     breakpoints(ctx),

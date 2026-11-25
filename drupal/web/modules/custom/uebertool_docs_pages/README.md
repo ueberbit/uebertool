@@ -43,6 +43,7 @@ GitHub-flavoured Markdown plus:
 | ` ```ts title="vite.config.ts" ` | Code block of the theme's `code-block` component. |
 | ` ```ts file=templates/demos/x.ts ` (empty body) | Code block with the content of a file of the theme, the path is the default title. A missing file shows a hint to run `pnpm build`. |
 | `::preview{demo=alpine title="Alpine store" iframe height=300}` | Live preview of `templates/demos/{demo}.html.twig`, inline or in an iframe. |
+| `::preview{demo=translations iframe lang=de}` | The preview in another interface language, e.g. `/de/uebertool/preview/translations`. Needs an iframe. |
 | `:::caution[Title]` … `:::` | Aside of type `note`, `tip`, `caution` or `danger`. The title is optional. |
 
 - Code blocks and directives become render elements that include the theme's

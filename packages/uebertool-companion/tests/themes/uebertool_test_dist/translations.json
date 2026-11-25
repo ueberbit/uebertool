@@ -1,0 +1,7 @@
+{
+  "root": "../uebertool_test",
+  "files": [
+    "js/main.js",
+    "js/missing.js"
+  ]
+}

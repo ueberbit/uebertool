@@ -5,12 +5,13 @@
  *
  * Variables:
  * - demo: Name of the demo template (without .html.twig).
+ * - src: URL of the preview route, e.g. with a language prefix.
  * - title: Caption.
  * - iframe: Render the demo isolated in an iframe (route /uebertool/preview/{demo}).
  * - height: Height of the iframe in px.
  */
 #}
-{% set src = path('uebertool_docs_pages.preview', { demo: demo }) %}
+{% set src = src|default(path('uebertool_docs_pages.preview', { demo: demo })) %}
 <figure class="sl-preview not-prose">
   {% if iframe %}
     <iframe src="{{ src }}" title="{{ title }}" loading="lazy" style="height: {{ height|default(260) }}px"></iframe>

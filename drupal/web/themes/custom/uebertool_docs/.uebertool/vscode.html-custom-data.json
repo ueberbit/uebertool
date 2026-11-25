@@ -2,17 +2,12 @@
   "version": 1,
   "tags": [
     {
-      "name": "demo-mouse-tracker",
-      "description": "Uses auto-imported APIs only: `ref`/`computed` (vue preset),\n`useMouse` (@vueuse/core preset) and `formatMs` (./js/utils).\n\n",
-      "attributes": []
-    },
-    {
-      "name": "demo-tailwind-card",
-      "description": "Tailwind utilities inside the shadow DOM of a Vue custom element.\n\nSlots:\n\n  * ` ` {} - Card body.\n\nAttributes:\n\n  * `heading` {string} - Card heading.",
+      "name": "demo-translated-cart",
+      "description": "Translatable strings in a lazily loaded custom element.\n\nAttributes:\n\n  * `count` {number} - Number of items in the cart.",
       "attributes": [
         {
-          "name": "heading",
-          "description": "`heading` {string} - Card heading.\n\n"
+          "name": "count",
+          "description": "`count` {number} - Number of items in the cart.\n\n"
         }
       ]
     },
@@ -53,6 +48,21 @@
         {
           "name": "name",
           "description": "`name` {string} - Who to greet.\n\n"
+        }
+      ]
+    },
+    {
+      "name": "demo-mouse-tracker",
+      "description": "Uses auto-imported APIs only: `ref`/`computed` (vue preset),\n`useMouse` (@vueuse/core preset) and `formatMs` (./js/utils).\n\n",
+      "attributes": []
+    },
+    {
+      "name": "demo-tailwind-card",
+      "description": "Tailwind utilities inside the shadow DOM of a Vue custom element.\n\nSlots:\n\n  * ` ` {} - Card body.\n\nAttributes:\n\n  * `heading` {string} - Card heading.",
+      "attributes": [
+        {
+          "name": "heading",
+          "description": "`heading` {string} - Card heading.\n\n"
         }
       ]
     }
