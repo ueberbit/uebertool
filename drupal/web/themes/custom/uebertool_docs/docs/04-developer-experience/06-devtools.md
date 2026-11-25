@@ -1,6 +1,6 @@
 ---
 title: 'Vite DevTools'
-description: 'An accessibility audit and a Drupal template picker in Vite DevTools.'
+description: 'An accessibility audit and a Drupal template picker in Vite DevTools, and port takeover for the dev server.'
 ---
 
 `@ueberbit/vite-plugin-drupal/devtools` re-exports `DevTools` from `@vitejs/devtools` and adds two entries to its dock.
@@ -53,3 +53,11 @@ DrupalPickerPlugin({
   hostRoot: '/home/me/Sites/project',
 })
 ```
+
+## Port Takeover
+
+Part of `uebertool()` itself, no setup needed. If a dev server for the same theme is still running, for example in a forgotten terminal, a new `vite` stops it and takes over its port. Without this, `strictPort` would just fail.
+
+Each dev server records its PID in `node_modules/.cache/uebertool/vite-<port>.lock`. On start, Vite checks the lock for the port it is about to use and sends the server recorded there `SIGTERM`. Servers of the same theme on different ports leave each other alone. If that server has not exited and freed the port after 10 seconds, it gets `SIGKILL`.
+
+Only a server recorded in that lock is ever stopped. Anything else on the port, including a dev server started before this feature existed, is left alone, and Vite fails with `Port … is already in use`. A lock written inside the DDEV container is ignored on the host, and the other way round, because process IDs differ between the two.

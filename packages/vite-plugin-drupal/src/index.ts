@@ -12,6 +12,7 @@ import vuePlugin from './plugins/custom-elements'
 import libraries from './plugins/libraries'
 import restart from './plugins/restart'
 import tailwindHMR from './plugins/tailwind-hmr'
+import takeover from './plugins/takeover'
 import themeInfo from './plugins/theme'
 import twig from './plugins/twig'
 import virtual from './plugins/virtual'
@@ -44,6 +45,7 @@ export default (options: UserOptions = {}): Plugin[] => {
     vue(ctx.options.vue),
     vuePlugin(ctx),
     restart(ctx),
+    takeover(ctx),
     UnimportPlugin.vite(ctx.options.unimport || {}),
     Components(ctx.options.components),
   ].flat()
