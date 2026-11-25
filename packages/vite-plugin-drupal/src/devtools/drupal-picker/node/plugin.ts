@@ -66,6 +66,11 @@ export function DrupalPickerPlugin(options: DrupalPickerOptions = {}): PluginWit
             // rather than through a package export.
             importFrom: `/@fs/${normalize(clientScript)}`,
           },
+          // An on/off tool: the script runs once and is driven by
+          // `entry:activated`/`entry:deactivated`. A one-shot action re-runs
+          // `setup()` on every click (stacking listeners) and becomes the
+          // persisted selected dock, so it showed as active after a reload.
+          toggle: true,
         })
       },
     },
