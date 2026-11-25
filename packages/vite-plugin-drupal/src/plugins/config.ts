@@ -33,8 +33,9 @@ export default (ctx: Context): Plugin => {
 
       // Vite merges the returned partial config into the user config itself.
       return {
+        // In dev Vite serves the theme at its docroot path, like Drupal does.
         base: ctx.dev
-          ? './'
+          ? `${ctx.themeBasePath}/`
           : `${ctx.themeBasePath}/${(config.build?.outDir || 'dist').replace(/^(?:\.?\/)+/, '')}`,
         // Public files are served by Drupal, css.ts rewrites `~/public` to the theme URL.
         publicDir: false,

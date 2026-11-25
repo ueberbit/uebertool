@@ -197,7 +197,7 @@ export default (ctx: Context): Plugin => {
         vite: {
           header: true,
           js: {
-            [`${ctx.url}/@vite/client`]: {
+            [`${ctx.url}${ctx.themeBasePath}/@vite/client`]: {
               type: 'external',
               attributes: { type: 'module' },
             },
@@ -225,7 +225,7 @@ export default (ctx: Context): Plugin => {
  */
 function getAssetPath(file: string, ctx: Context) {
   return ctx.dev
-    ? `${ctx.url}/${file}`
+    ? `${ctx.url}${ctx.themeBasePath}/${file}`
     : `${ctx.themeBasePath}/${ctx.resolvedConfig.build.outDir}/${file}`
 }
 

@@ -60,6 +60,8 @@ uebertool({
 | `features.twighmr`       | `true`                                                  | reload the page content on twig changes                         |
 | `features.clearCache`    | `'drush cr'`                                            | command run when entrypoints or templates are added or removed  |
 | `baseTheme`              | `false`                                                 | `base theme` of the generated dist theme                        |
+| `proxy`                  | DDEV web server, else `url`                             | Drupal site the dev server passes requests to, `false` turns it off |
+| `configSync`             | `config/sync` next to the docroot                       | config sync directory, relative to the theme (see Dev server)   |
 | `themePackage`           | theme name                                              | `package` of the generated dist theme                           |
 | `vue`                    |                                                         | options for `@vitejs/plugin-vue`                                |
 | `unimport`               |                                                         | options for `unimport`                                          |
@@ -192,6 +194,22 @@ elements and in dev are translatable too (after `drush cr`).
 - Adding or removing an entrypoint or a twig template restarts the dev server
   and runs `features.clearCache` (`drush cr`). If the command fails, a warning
   is logged.
+- Theme files are served at their docroot path, like Drupal serves them, e.g.
+  `https://site:5173/themes/custom/my_theme/js/main.ts`.
+- You can browse the site through the dev server, e.g. `https://site:5173/`.
+  Vite answers its own URLs and passes everything else to Drupal (`proxy`).
+  In DDEV it goes to the web server in the container and Drupal builds its
+  URLs for the dev server. Elsewhere it goes to the site URL with the site's
+  Host header; redirects are rewritten to the dev server, other absolute URLs
+  only if Drupal trusts `X-Forwarded-Host` (`reverse_proxy` in
+  `settings.php`).
+- Browsing that way with CSS aggregation off (`drush theme:dev on`), Vite
+  serves the CSS files of Drupal core, modules and other themes, with HMR. If
+  `uebertool_cascade_layer` is enabled, they are wrapped in `@layer drupal`.
+  Vite asks Drupal with `drush` on page loads (at most every 5 seconds) and
+  warns if aggregation is on. Without `drush` it reads the module list from
+  `core.extension.yml` in `configSync`. `sites/` is never served. Needs the
+  theme inside a `web/` or `docroot/` folder.
 - CORS only allows the Drupal site (`url`, `UEBERTOOL_URL`,
   `DDEV_PRIMARY_URL`). Without any of them, Vite's default applies.
 

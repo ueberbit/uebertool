@@ -23,6 +23,8 @@ Tailwind v4 puts its styles into the layers `theme`, `base`, `components` and `u
 
 `uebertool_cascade_layer` wraps the CSS of Drupal core and modules in `@layer drupal`. As a result, Tailwind utilities always win over Drupal's styles, without `!important`. Vue custom elements declare `properties, theme, base, drupal, components, utilities` in their shadow root.
 
+Drupal only wraps aggregated CSS. In dev, browse the site through Vite instead, e.g. `https://uebertool.localhost:5174/uebertool/`, with aggregation off (`drush theme:dev on`). Vite then serves Drupal's CSS files and wraps them in the same layer if `uebertool_cascade_layer` is enabled. The cascade is the same as in production, and editing a module's CSS updates the page without a reload.
+
 ::preview{demo=cascade-layers title="Cascade layers" iframe height=230}
 
 :::caution

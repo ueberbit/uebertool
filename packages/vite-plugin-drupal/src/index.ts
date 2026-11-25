@@ -10,7 +10,9 @@ import context from './plugins/context'
 import css from './plugins/css'
 import vuePlugin from './plugins/custom-elements'
 import devtools from './plugins/devtools'
+import drupalCss from './plugins/drupal-css'
 import libraries from './plugins/libraries'
+import proxy from './plugins/proxy'
 import restart from './plugins/restart'
 import tailwindHMR from './plugins/tailwind-hmr'
 import takeover from './plugins/takeover'
@@ -36,6 +38,8 @@ export default (options: UserOptions = {}): PluginOption[] => {
     config(ctx),
     // copyStatic(ctx),
     css(ctx),
+    drupalCss(ctx),
+    proxy(ctx),
     libraries(ctx),
     themeInfo(ctx),
     translations(ctx),

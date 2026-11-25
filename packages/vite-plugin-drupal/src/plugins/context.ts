@@ -49,6 +49,18 @@ export interface Options {
   }
   baseTheme: string | false
   /**
+   * Config sync directory, relative to the theme. Without drush, dev reads
+   * whether uebertool_cascade_layer is enabled from its core.extension.yml.
+   * Defaults to `config/sync` next to the docroot.
+   */
+  configSync?: string
+  /**
+   * URL of the Drupal site the dev server passes requests to, so the site can
+   * be browsed through it. Defaults to the web server in the DDEV container,
+   * else to the site URL (`url`). `false` turns it off.
+   */
+  proxy?: string | false
+  /**
    * Vite DevTools with the A11y check and the Drupal picker, on in dev.
    * `false` turns them off.
    */
