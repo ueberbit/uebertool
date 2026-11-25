@@ -196,38 +196,23 @@ elements and in dev are translatable too (after `drush cr`).
   `DDEV_PRIMARY_URL`). Without any of them, Vite's default applies.
 
 ### Vite DevTools
-`@ueberbit/vite-plugin-drupal/devtools` re-exports `DevTools` from
-`@vitejs/devtools` and adds two dock entries:
+In dev, `uebertool()` turns on Vite DevTools and adds two dock entries. Drupal
+pages load the dock through the `vite` library. Turn it off with
+`devtools: false`. The DevTools one-time-code login is off, instead only the
+Drupal site, the Vite URL and `localhost` may connect. Scripts on those
+origins can open a terminal in the container.
 
-- **Run A11y Check** (`A11yCheckerPlugin`) runs axe-core on the page, lists the
-  violations in the messages panel and outlines the offending elements.
-- **Drupal Picker** (`DrupalPickerPlugin`) highlights the SDC components and
-  Twig templates under the cursor and opens the picked one in the editor. It
-  reads the theme debug comments, so it needs
-  `parameters.twig.config.debug: true` in `services.yml`. Inside the ddev
-  container the browser opens `editorUrl` (default `vscode://file{path}:1`,
-  `{path}` is the host path) instead of `$EDITOR`. Set `hostRoot` if the
-  project's host path is guessed wrong.
+- **Run A11y Check** runs axe-core on the page, lists the violations in the
+  messages panel and outlines the offending elements.
+- **Drupal Picker** highlights the SDC components and Twig templates under the
+  cursor and opens the picked one in the editor. It reads the theme debug
+  comments, so it needs `parameters.twig.config.debug: true` in `services.yml`.
+  Inside the ddev container the browser opens `devtools.picker.editorUrl`
+  (default `vscode://file{path}:1`, `{path}` is the host path) instead of
+  `$EDITOR`. Set `devtools.picker.hostRoot` if the project's host path is
+  guessed wrong.
 
-```ts
-import uebertool from '@ueberbit/vite-plugin-drupal'
-import { A11yCheckerPlugin, DevTools, DrupalPickerPlugin } from '@ueberbit/vite-plugin-drupal/devtools'
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  build: {
-    rolldownOptions: {
-      devtools: {},
-    },
-  },
-  plugins: [
-    A11yCheckerPlugin(),
-    DevTools(),
-    DrupalPickerPlugin(),
-    uebertool(),
-  ],
-})
-```
+The plugins are also exported from `@ueberbit/vite-plugin-drupal/devtools`.
 
 ### Types
 Drupal types are available. Including types for some internals like drupal/once.

@@ -3,6 +3,7 @@ import type { InlinePreset } from 'unimport'
 import type { UnimportPluginOptions } from 'unimport/unplugin'
 import type { Options as ComponentOptions } from 'unplugin-vue-components'
 import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
+import type { DrupalPickerOptions } from '../devtools/drupal-picker/node/types'
 import process from 'node:process'
 import { createDefu } from 'defu'
 import { builtinPresets } from 'unimport'
@@ -47,6 +48,13 @@ export interface Options {
     clearCache: boolean | string
   }
   baseTheme: string | false
+  /**
+   * Vite DevTools with the A11y check and the Drupal picker, on in dev.
+   * `false` turns them off.
+   */
+  devtools: false | {
+    picker: DrupalPickerOptions
+  }
 }
 
 type DeepPartial<T> = T extends (...args: any[]) => any
@@ -142,6 +150,9 @@ function getDefaults(themeName: string): Options {
       clearCache: 'drush cr',
     },
     baseTheme: false,
+    devtools: {
+      picker: {},
+    },
   }
 }
 

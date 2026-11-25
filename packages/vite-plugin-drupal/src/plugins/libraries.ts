@@ -5,6 +5,7 @@ import path, { relative, resolve } from 'node:path'
 import { defu } from 'defu'
 import fse from 'fs-extra'
 import YAML from 'yaml'
+import { DEVTOOLS_LOADER_PATH } from './devtools'
 
 export interface DrupalLibrary {
   version?: string
@@ -200,6 +201,14 @@ export default (ctx: Context): Plugin => {
               type: 'external',
               attributes: { type: 'module' },
             },
+            // Vite DevTools injects its dock via transformIndexHtml, which
+            // Drupal pages never go through. The loader loads it instead.
+            ...(ctx.options.devtools && {
+              [`${ctx.url}${DEVTOOLS_LOADER_PATH}`]: {
+                type: 'external',
+                attributes: { type: 'module' },
+              },
+            }),
           },
         },
       } satisfies Record<string, DrupalLibrary>)

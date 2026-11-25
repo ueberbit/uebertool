@@ -1,4 +1,4 @@
-import type { Plugin } from 'vite'
+import type { PluginOption } from 'vite'
 import type { Context, UserOptions } from './plugins/context'
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
@@ -9,6 +9,7 @@ import config from './plugins/config'
 import context from './plugins/context'
 import css from './plugins/css'
 import vuePlugin from './plugins/custom-elements'
+import devtools from './plugins/devtools'
 import libraries from './plugins/libraries'
 import restart from './plugins/restart'
 import tailwindHMR from './plugins/tailwind-hmr'
@@ -23,7 +24,7 @@ import vueCustomElement from './plugins/vue-custom-element'
 export type { Context, Options, UserOptions } from './plugins/context'
 export type { CSSGroup, CSSPart, DrupalLibrary, JSPart } from './plugins/libraries'
 
-export default (options: UserOptions = {}): Plugin[] => {
+export default (options: UserOptions = {}): PluginOption[] => {
   const ctx = <Context>{}
 
   const UnimportPlugin = 'default' in Unimport
@@ -50,5 +51,6 @@ export default (options: UserOptions = {}): Plugin[] => {
     takeover(ctx),
     UnimportPlugin.vite(ctx.options.unimport || {}),
     Components(ctx.options.components),
+    devtools(ctx),
   ].flat()
 }

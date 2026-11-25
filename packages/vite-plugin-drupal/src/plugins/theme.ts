@@ -37,7 +37,13 @@ export default (ctx: Context): Plugin => {
         'package': `${ctx.options.themePackage || ctx.themeName}`,
         'core_version_requirement': '^10.3 || ^11',
         'hidden': true,
-        'libraries': libraries.filter(Boolean),
+        'libraries': [
+          ...libraries.filter(Boolean),
+          // Vite client and the DevTools dock, see libraries.ts.
+          ...(ctx.dev
+            ? [`${ctx.distThemeName}/vite`]
+            : []),
+        ],
       }
 
       if (ctx.dev) {

@@ -3,29 +3,23 @@ title: 'Vite DevTools'
 description: 'An accessibility audit and a Drupal template picker in Vite DevTools, and port takeover for the dev server.'
 ---
 
-`@ueberbit/vite-plugin-drupal/devtools` re-exports `DevTools` from `@vitejs/devtools` and adds two entries to its dock.
+`uebertool()` turns on [Vite DevTools](https://github.com/vitejs/devtools) in dev and adds two entries to its dock. Drupal pages load the dock through the theme's `vite` library, next to `@vite/client`.
 
-## Setup
+To turn it off:
 
 ```ts title="vite.config.ts"
-import uebertool from '@ueberbit/vite-plugin-drupal'
-import { A11yCheckerPlugin, DevTools, DrupalPickerPlugin } from '@ueberbit/vite-plugin-drupal/devtools'
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  build: {
-    rolldownOptions: {
-      devtools: {},
-    },
-  },
-  plugins: [
-    A11yCheckerPlugin(),
-    DevTools(),
-    DrupalPickerPlugin(),
-    uebertool(),
-  ],
+uebertool({
+  devtools: false,
 })
 ```
+
+The **Framework** category (Vite+ with Vite, Rolldown, Vitest and Oxc) is hidden by default. Switch it back on in the dock's settings; that choice is kept.
+
+The Rolldown build data in DevTools is only recorded if you set `build.rolldownOptions.devtools: {}` yourself.
+
+:::caution
+Vite DevTools normally asks for a one-time code before Terminal or Messages work. On a Drupal page those panels run in iframes on the Vite URL, which the code entered on the Drupal page doesn't reach. So `uebertool()` turns the code off and only lets the Drupal site (`UEBERTOOL_URL`, `DDEV_PRIMARY_URL`, `url`), the Vite URL and `localhost` connect. Any script on those origins can open a terminal in the container, so set `devtools: false` if that's not acceptable.
+:::
 
 ## Run A11y Check
 
@@ -57,18 +51,22 @@ Drupal only prints those comments for templates rendered for a theme hook. To al
 Outside a container, the file opens in `$EDITOR`. Inside the DDEV web container, Vite cannot reach your editor, so the browser opens an editor URL instead:
 
 ```ts title="vite.config.ts"
-DrupalPickerPlugin({
-  // `{path}` becomes the file's absolute path on the host.
-  editorUrl: 'vscode://file{path}:1',
-  // Host path of the project. Read from DDEV by default.
-  hostRoot: '/home/me/Sites/project',
+uebertool({
+  devtools: {
+    picker: {
+      // `{path}` becomes the file's absolute path on the host.
+      editorUrl: 'vscode://file{path}:1',
+      // Host path of the project. Read from DDEV by default.
+      hostRoot: '/home/me/Sites/project',
+    },
+  },
 })
 ```
 
 ## Port Takeover
 
-Part of `uebertool()` itself, no setup needed. If a dev server for the same theme is still running, for example in a forgotten terminal, a new `vite` stops it and takes over its port. Without this, `strictPort` would just fail.
+Always on, unlike the dock it is not part of DevTools. If a dev server for the same theme is still running, for example in a forgotten terminal, a new `vite` stops it and takes over its port. Without this, `strictPort` would just fail.
 
-Each dev server records its PID in `node_modules/.cache/uebertool/vite-<port>.lock`. On start, Vite checks the lock for the port it is about to use and sends the server recorded there `SIGTERM`. Servers of the same theme on different ports leave each other alone. If that server has not exited and freed the port after 10 seconds, it gets `SIGKILL`.
+Each dev server records its PID in `node_modules/.cache/uebertool/vite-<port>.lock`. On start, Vite checks the lock for the port it is about to use and sends the server recorded there `SIGTERM`. If that server has not exited and freed the port after 10 seconds, it gets `SIGKILL`. Servers of the same theme on different ports leave each other alone.
 
 Only a server recorded in that lock is ever stopped. Anything else on the port, including a dev server started before this feature existed, is left alone, and Vite fails with `Port … is already in use`. A lock written inside the DDEV container is ignored on the host, and the other way round, because process IDs differ between the two.

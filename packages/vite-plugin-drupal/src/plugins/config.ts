@@ -29,11 +29,7 @@ export default (ctx: Context): Plugin => {
         ],
       })
 
-      const corsOrigins = Array.from(new Set(
-        [process.env.UEBERTOOL_URL, process.env.DDEV_PRIMARY_URL, ctx.options.url]
-          .filter((url): url is string => !!url)
-          .map(url => url.replace(/\/+$/, '')),
-      ))
+      const corsOrigins = getSiteOrigins(ctx)
 
       // Vite merges the returned partial config into the user config itself.
       return {
@@ -115,4 +111,15 @@ export default (ctx: Context): Plugin => {
       } satisfies UserConfig
     },
   }
+}
+
+/**
+ * Origins of the Drupal site (`UEBERTOOL_URL`, `DDEV_PRIMARY_URL`, `url`).
+ */
+export function getSiteOrigins(ctx: Context): string[] {
+  return Array.from(new Set(
+    [process.env.UEBERTOOL_URL, process.env.DDEV_PRIMARY_URL, ctx.options.url]
+      .filter((url): url is string => !!url)
+      .map(url => url.replace(/\/+$/, '')),
+  ))
 }

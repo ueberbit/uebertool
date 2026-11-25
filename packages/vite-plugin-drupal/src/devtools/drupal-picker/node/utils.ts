@@ -20,7 +20,9 @@ export async function exists(path: string) {
 
 export function resolveClientScript(): string | undefined {
   const paths = [
-    // Built: this module is bundled into `dist/devtools/index.mjs`.
+    // Built: this module is bundled into the chunk `dist/_chunks/devtools.mjs`
+    // it shares with `dist/index.mjs`, or into `dist/devtools/index.mjs`.
+    fileURLToPath(new URL('../devtools/drupal-picker/client/pick.mjs', import.meta.url)),
     fileURLToPath(new URL('./drupal-picker/client/pick.mjs', import.meta.url)),
     // Source.
     fileURLToPath(new URL('../client/pick.ts', import.meta.url)),
