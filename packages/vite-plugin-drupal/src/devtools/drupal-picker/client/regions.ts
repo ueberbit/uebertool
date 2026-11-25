@@ -113,9 +113,12 @@ export function scan(): Map<Element, Region> {
         id: templateStart[3],
         key: `template:${templateStart[3]}`,
         badge: templateStart[1] || (templateStart[2] ? '💡' : '📄'),
+        // uebertool_twig marks `{% include %}` and `{% embed %}` with 📎.
         hint: hook
           ? `theme hook: ${hook}`
-          : 'Twig template',
+          : templateStart[1] === '📎'
+            ? 'included template'
+            : 'Twig template',
       })
       hook = ''
       continue

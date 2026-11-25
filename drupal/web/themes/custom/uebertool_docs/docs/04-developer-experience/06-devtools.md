@@ -33,7 +33,16 @@ Runs [axe-core](https://github.com/dequelabs/axe-core) on the current page and l
 
 ## Drupal Picker
 
-Highlights the SDC component or Twig template under the cursor. <kbd>↑</kbd> and <kbd>↓</kbd> move to the surrounding or inner template. Click or press <kbd>Enter</kbd> to open the file in your editor; <kbd>Esc</kbd> leaves the picker. A component whose Twig only extends the `sdc-custom-element` bridge opens its script instead.
+Highlights the SDC component or Twig template under the cursor. <kbd>↑</kbd> and <kbd>↓</kbd> move to the surrounding or inner template, and <kbd>Enter</kbd> opens the file in your editor. A component whose Twig only extends the `sdc-custom-element` bridge opens its script instead.
+
+Click to select a template. The selection stays put and a panel shows:
+
+- the template's path,
+- the tags from the template's markup down to the clicked element, e.g. `div > p`,
+- **Parent** to select the surrounding template, and **Open** to open the file,
+- **Info** with the theme hook and the whole chain of templates around the selection. Click an entry to select it.
+
+The selection stays on the picked element until you close the panel. Clicking outside the panel leaves the picker. <kbd>Esc</kbd> or the panel's close button clears the selection so you can pick again, and a second <kbd>Esc</kbd> leaves the picker. The file opens at its first line: Drupal's debug output names the template, not the line that printed an element.
 
 The picker reads Drupal's theme debug comments, so Twig debug has to be on:
 
@@ -42,6 +51,8 @@ parameters:
   twig.config:
     debug: true
 ```
+
+Drupal only prints those comments for templates rendered for a theme hook. To also pick templates pulled in with `{% include %}` or `{% embed %}`, enable `uebertool_twig` from the [companion module](https://github.com/ueberbit/uebertool/tree/main/packages/uebertool-companion). In debug mode it adds the same comments around them, with a 📎 badge, and the picker labels them "included template". SDC components are left out because core already marks them, and so are missing `ignore missing` targets and non-Twig files such as SVGs. Production output does not change.
 
 Outside a container, the file opens in `$EDITOR`. Inside the DDEV web container, Vite cannot reach your editor, so the browser opens an editor URL instead:
 

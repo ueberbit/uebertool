@@ -4,3 +4,8 @@ services:
     arguments: ['@renderer', '@uuid', '@language_manager']
     tags:
       - { name: twig.extension }
+  uebertool_twig.twig.template_debug:
+    class: Drupal\uebertool_twig\Twig\Extension\TemplateDebugExtension
+    arguments: ['%app.root%']
+    tags:
+      - { name: twig.extension }

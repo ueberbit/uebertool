@@ -10,6 +10,16 @@ Twig filters and functions for UEbertool themes. Use the snippet file
   `buttons()`.
 - Misc: `languages()`, `URL()`, `HTML()` (demo only), `class()`, `uuid()`.
 
+## Template debug comments
+
+With Twig debug on, `{% include %}` and `{% embed %}` get the same
+`BEGIN OUTPUT` / `END OUTPUT` comments Drupal prints for theme hook templates,
+marked with 📎, so the Drupal picker of the Vite devtools can select them. SDC
+components (core marks those), missing `ignore missing` targets and non-Twig
+files are skipped. Paths are app root relative, or absolute for a symlinked
+extension, because Twig resolves symlinks. Without debug the compiled
+templates are unchanged.
+
 ## Buttons
 
 `button(link_or_field, variant)` returns a single link with the classes
