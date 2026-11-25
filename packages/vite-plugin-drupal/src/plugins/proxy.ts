@@ -71,5 +71,19 @@ export default (ctx: Context): Plugin => {
         },
       }
     },
+    configureServer(server) {
+      if (ctx.options.proxy === false)
+        return
+
+      // Print the site URL instead of the container's hosts and the theme base.
+      const printUrls = server.printUrls
+      server.printUrls = () => {
+        server.resolvedUrls = {
+          local: [`${ctx.url}/`],
+          network: [],
+        }
+        printUrls()
+      }
+    },
   }
 }
