@@ -1,7 +1,7 @@
 {
   "name": "@ueberbit/postcss",
   "type": "module",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ueberbit/uebertool.git",
